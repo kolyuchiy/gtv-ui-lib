@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<!--
+  Copyright 2010 Google Inc. All rights reserved.
+-->
+<html>
+
+<head>
+  <title>tv.ui</title>
+  <script type="text/javascript" src="../testbase.js"></script>
+  <script type="text/javascript">
+    goog.require('tv.ui');
+  </script>
+</head>
+
+<body>
+
+<div id="decorationRoot">
+  <div class="tv-container">
+    <span class="nice-text">Some text here</span>
+    <div class="tv-inner-container">
+      <div class="tv-button"></div>
+    </div>
+    <div>
+      <div>
+        <div class="tv-checkbox"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+
+function setUp() {
+  tv.ui.decoratorRegistry_ = {};
+}
+
+function testSingleClassRegistration() {
+  var decorator = function(){};
+  tv.ui.registerDecorator(decorator, 'tv-some-component');
+
+  assertEquals(decorator, tv.ui.findDecorator(['tv-some-component']));
+}
+
+function testMultipleClassesRegistration() {
+  var decorator = function(){};
+  tv.ui.registerDecorator(
+      decorator, ['tv-some-component', 'tv-some-component-option']);
+
+  assertEquals(decorator, tv.ui.findDecorator(['tv-some-component']));
+  assertEquals(decorator, tv.ui.findDecorator(['tv-some-component-option']));
+}
+
+function testMultipleClassesSearch_noMatch() {
+  assertNull(tv.ui.findDecorator([]));
+  assertNull(tv.ui.findDecorator(['tv-some-component']));
+  assertNull(tv.ui.findDecorator(['random-class', 'tv-some-component']));
+}
+
+function testMultipleClassesSearch_match() {
+  var decorator = function(){};
+  tv.ui.registerDecorator(decorator, 'tv-some-component');
+
+  assertEquals(
+      decorator, tv.ui.findDecorator(['random-class', 'tv-some-component']));
+}
+
+function testDecoration() {
+  var decorator = function(){};
+  decorator.prototype.decorate = function(element) {
+    this.element_ = element;
+  };
+  decorator.prototype.addChild = function(childComponent) {
+    (this.children_ || (this.children_ = [])).push(childComponent);
+  };
+
+  tv.ui.registerDecorator(
+      decorator,
+      ['tv-container', 'tv-inner-container', 'tv-button', 'tv-checkbox']);
+
+  var components = [];
+  tv.ui.decorate(goog.dom.getElement('decorationRoot'), function(component) {
+    components.push(component);
+  });
+
+  assertEquals(4, components.length);
+  var button = components[0];
+  var innerContainer = components[1];
+  var checkbox = components[2];
+  var container = components[3];
+
+  assertEquals('tv-container', container.element_.className);
+  assertEquals('tv-inner-container', innerContainer.element_.className);
+  assertEquals('tv-button', button.element_.className);
+  assertEquals('tv-checkbox', checkbox.element_.className);
+
+  assertEquals(2, container.children_.length);
+  assertEquals(innerContainer, container.children_[0]);
+  assertEquals(checkbox, container.children_[1]);
+
+  assertEquals(1, innerContainer.children_.length);
+  assertEquals(button, innerContainer.children_[0]);
+}
+
+</script>
+</body>
+
+</html>

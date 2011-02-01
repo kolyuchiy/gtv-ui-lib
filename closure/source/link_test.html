@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<!--
+  Copyright 2010 Google Inc. All rights reserved.
+-->
+<html><head>
+<title>tv.ui.Link</title>
+<script type="text/javascript" src="../testbase.js"></script>
+<script type="text/javascript">
+  goog.require('goog.dom');
+  goog.require('goog.testing.FunctionMock');
+  goog.require('goog.testing.events');
+  goog.require('tv.ui.Document');
+  goog.require('tv.ui.Link');
+</script>
+</head>
+<body>
+
+<a id="linkElem" href="http://google.com">Link</a>
+
+<script type="text/javascript">
+
+  var link;
+  var linkElem;
+
+  function setUp() {
+    linkElem = goog.dom.getElement('linkElem');
+    link = new tv.ui.Link();
+  }
+
+  function testActionEventDispatching() {
+    link.decorate(linkElem);
+    tv.ui.Document.getInstance().setFocusedComponent(link);
+
+    var mock = goog.testing.createFunctionMock();
+    mock('http://google.com').$times(1);
+    link.navigate = mock;
+    mock.$replay();
+
+    goog.testing.events.fireKeySequence(document, goog.events.KeyCodes.ENTER);
+
+    mock.$verify();
+  }
+
+</script>
+</body></html>

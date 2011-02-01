@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<!--
+  Copyright 2010 Google Inc. All rights reserved.
+-->
+<html><head>
+<title>tv.ui.Button</title>
+<script type="text/javascript" src="../testbase.js"></script>
+<script type="text/javascript">
+  goog.require('goog.dom');
+  goog.require('goog.testing.FunctionMock');
+  goog.require('goog.testing.events');
+  goog.require('goog.testing.events.EventMatcher');
+  goog.require('tv.ui.Button');
+</script>
+</head>
+<body>
+
+<div id="button"></div>
+
+<script type="text/javascript">
+
+  var button;
+  var buttonElem;
+  var mockListener;
+
+  function setUp() {
+    buttonElem = goog.dom.getElement('button');
+    button = new tv.ui.Button();
+    mockListener = goog.testing.createFunctionMock();
+  }
+
+  function testActionEventDispatching() {
+    button.decorate(buttonElem);
+    goog.events.listen(button, tv.ui.Button.EventType.ACTION, mockListener);
+    mockListener(
+        new goog.testing.events.EventMatcher(tv.ui.Button.EventType.ACTION))
+            .$times(2);
+
+    mockListener.$replay();
+
+    // Mouse click.
+    goog.testing.events.fireClickSequence(buttonElem);
+    // ENTER key.
+    goog.testing.events.fireKeySequence(document, goog.events.KeyCodes.ENTER);
+
+    mockListener.$verify();
+  }
+
+</script>
+</body></html>

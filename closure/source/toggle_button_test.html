@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<!--
+  Copyright 2010 Google Inc. All rights reserved.
+-->
+<html><head>
+<title>tv.ui.Link</title>
+<script type="text/javascript" src="../testbase.js"></script>
+<script type="text/javascript">
+  goog.require('goog.dom');
+  goog.require('goog.testing.events');
+  goog.require('tv.ui.Document');
+  goog.require('tv.ui.ToggleButton');
+</script>
+</head>
+<body>
+
+<a id="toggleElem">Toggle</a>
+
+<script type="text/javascript">
+
+  var toggle;
+  var toggleElem;
+
+  function setUp() {
+    toggleElem = goog.dom.getElement('toggleElem');
+    toggle = new tv.ui.ToggleButton();
+  }
+
+  function testSwitching() {
+    toggle.decorate(toggleElem);
+    tv.ui.Document.getInstance().setFocusedComponent(toggle);
+
+    assertFalse(toggle.isOn());
+    goog.testing.events.fireKeySequence(document, goog.events.KeyCodes.ENTER);
+    assertTrue(toggle.isOn());
+    goog.testing.events.fireKeySequence(document, goog.events.KeyCodes.ENTER);
+    assertFalse(toggle.isOn());
+  }
+
+</script>
+</body></html>

@@ -1,0 +1,13 @@
+/*
+ * tv.ui.Container required styles.
+ */
+
+.tv-container-start-scroll,
+.tv-container-middle-scroll {
+  position: relative;
+}
+
+.tv-container-mock-scroll {
+  position: absolute;
+  visibility: hidden;
+}

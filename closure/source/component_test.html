@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<!--
+  Copyright 2010 Google Inc. All rights reserved.
+-->
+<html><head>
+<title>tv.ui.Component</title>
+<script type="text/javascript" src="../testbase.js"></script>
+<script type="text/javascript">
+  goog.require('goog.dom');
+  goog.require('goog.functions');
+  goog.require('goog.testing.StrictMock');
+  goog.require('tv.ui.Component');
+  goog.require('tv.ui.Document');
+</script>
+</head>
+<body>
+
+<div id="decorateme"></div>
+
+<script type="text/javascript">
+
+  var component;
+  var elem;
+  var mockTvDocument;
+  var mockMouseEvent;
+
+  function setUp() {
+    component = new tv.ui.Component();
+    elem = goog.dom.getElement('decorateme');
+    mockTvDocument = new goog.testing.StrictMock(tv.ui.Document);
+    mockMouseEvent  = new goog.testing.StrictMock(goog.events.Event);
+    document.tvUiDocument_ = mockTvDocument;
+  }
+
+  // Tests if second attempt to decorate() is successful.
+  function testDoubleDecorate() {
+    component.decorate(elem);
+    try {
+      component.decorate(elem);
+      fail('Exception should be thrown.');
+    } catch (e) {
+      // Expected.
+    }
+  }
+
+  // Checks if tv.ui.Document is being called when component is being clicked. 
+  function testFocusing() {
+    mockTvDocument.setFocusedComponent(component);
+    mockMouseEvent.stopPropagation();
+    mockTvDocument.$replay();
+    mockMouseEvent.$replay();
+
+    component.decorate(elem);
+    component.onMouseDown(mockMouseEvent);
+
+    mockTvDocument.$verify();
+    mockMouseEvent.$verify();
+  }
+
+  // Case when component is not focusable.
+  function testFocusing_componentIsNotFocusable() {
+    mockTvDocument.$replay();
+    mockMouseEvent.$replay();
+
+    component.isFocusable = goog.functions.FALSE;
+    component.onMouseDown(mockMouseEvent);
+
+    mockTvDocument.$verify();
+    mockMouseEvent.$verify();
+  }
+
+</script>
+</body></html>

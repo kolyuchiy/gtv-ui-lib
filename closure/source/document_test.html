@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<!--
+  Copyright 2010 Google Inc. All rights reserved.
+-->
+<html><head>
+<title>tv.ui.Document</title>
+<script type="text/javascript" src="../testbase.js"></script>
+<script type="text/javascript">
+  goog.require('goog.dom');
+  goog.require('goog.testing.StrictMock');
+  goog.require('tv.ui.Component');
+  goog.require('tv.ui.Document');
+</script>
+</head>
+<body>
+
+<div id="decorateme"></div>
+
+<script type="text/javascript">
+
+  // Tests if second attempt to decorate() is successful.
+  function testGetInstance() {
+    assertEquals("getInstance() should return the same instace on each call",
+        tv.ui.Document.getInstance(),
+        tv.ui.Document.getInstance());
+  }
+
+  // Testing calling focus() and blur() on component.
+  function testBlurFocusKeyEvents() {
+    var event = new goog.events.KeyEvent(goog.events.KeyCodes.DOWN, 0, false, null);
+    var mock = new goog.testing.StrictMock(tv.ui.Component);
+    mock.dispatchFocus_();
+    mock.dispatchKey_(event);
+    mock.dispatchBlur_();
+    mock.$replay();
+
+    tv.ui.Document.getInstance().onKey(event);
+    tv.ui.Document.getInstance().setFocusedComponent(mock);
+    tv.ui.Document.getInstance().onKey(event);
+    tv.ui.Document.getInstance().setFocusedComponent(null);
+
+    mock.$verify();
+  }
+
+</script>
+</body></html>
