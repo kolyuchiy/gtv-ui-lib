@@ -1,0 +1,94 @@
+body {
+  background-color: #000;
+  background-image: url(/static/gradient.png);
+  background-repeat: no-repeat;
+  color: #FCFCFC;
+  font-family: "Droid Sans TV", "Driod Sans", Verdana, sans-serif;
+  font-size: 18px;
+  margin: 0;
+  overflow: hidden;
+  padding: 0;
+  text-shadow: rgba(0, 0, 0, 0.75) 0 -1px 1px;
+}
+
+/* Main navigaation. */
+
+.demo-selector-nav, .demo-selector-content {
+  position: absolute;
+}
+
+.demo-selector-nav {
+  left: 0;
+  top: 0;
+  width: 220px;
+}
+
+.demo-selector-content {
+  left: 220px;
+  top: 0;
+  width: 800px;
+}
+
+.logo {
+  padding: 20px 0;
+  text-align: center;
+}
+
+.demo-selector-nav .tv-component {
+  border-top: 1px solid rgba(0, 0, 0, 0.2);
+  color: #A6B0BF;
+  cursor: pointer;
+  font-size: 20px;
+  font-weight: bold;
+  height: 49px;
+  line-height: 49px;
+  padding: 0 10px;
+  position: relative;
+  text-transform: capitalize;
+  vertical-align: middle;
+  width: 200px;
+}
+
+.demo-selector-nav .tv-component .background {
+  display: none;
+  position: absolute;
+  left: 0; right: 0; top: 0; bottom: 0;
+  background-color: rgba(255, 255, 255, 0.2);
+  z-index: -1;
+  -webkit-mask-image: -webkit-gradient(linear, 0% 0%, 100% 0%, from(#000100), to(transparent));
+}
+
+.demo-selector-nav.tv-container-selected-child .tv-component .background {
+  background-color: rgba(255, 255, 255, 0.7);
+}
+
+.demo-selector-nav .tv-component.tv-container-selected-child .background {
+  display: block;
+}
+
+.demo-selector-nav .tv-component.tv-container-selected-child {
+  color: #FFF;
+}
+
+.demo-selector-content .nav-content {
+  position: absolute;
+  left: 0;
+  top: 0;
+  visibility: hidden;
+}
+
+.demo-selector-content .nav-content.tv-container-selected-child {
+  visibility: visible;
+}
+
+/* Common demos styles */
+
+.demo {
+  padding: 20px;
+}
+
+.demo-header {
+  font-family: 'Droid Sans', Verdana, sans-serif;
+  font-size: 36px;
+  padding-bottom: 20px;
+}

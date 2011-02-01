@@ -1,0 +1,101 @@
+{% extends "single_demo.html" %}
+
+{% block demo-header %}tv.ui.Lightbox{% endblock %}
+
+{% block demo-content %}
+<style type="text/css">
+.tv-lightbox-background {
+  opacity: 0.9;
+}
+
+.tv-lightbox .tv-container-start-scroll,
+.tv-lightbox .tv-component img {
+  -webkit-transition: all 1s ease;
+}
+
+.tv-lightbox .tv-component.tv-container-selected-child img {
+  -webkit-transform: scale(1);
+}
+
+.start-lightbox {
+  border: 1px solid white;
+  padding: 1px;
+  margin: 3px;
+}
+
+.start-lightbox div {
+  color: white;
+  padding: 2px 6px;
+  text-decoration: none;
+}
+
+.start-lightbox:hover,
+.start-lightbox.tv-component-focused {
+  outline: none;
+  -webkit-box-shadow: 0 0 30px #6391de, 0 0 15px #f2f2f2, 0 0 5px #FFF;
+}
+
+.start-lightbox, .start-lightbox div {
+  border-radius: 5px;
+  cursor: pointer;
+  display: inline-block;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+}
+</style>
+<script type="text/javascript">
+var photos = [
+  'http://www.gstatic.com/tv/thumb/movies/74686/74686_bp.jpg',
+  'http://www.gstatic.com/tv/thumb/movies/74686/74686_bj.jpg',
+  'http://www.gstatic.com/tv/thumb/movies/74686/74686_bc.jpg',
+  'http://www.gstatic.com/tv/thumb/movies/74686/74686_bh.jpg',
+  'http://www.gstatic.com/tv/thumb/movies/74686/74686_bm.jpg',
+  'http://www.gstatic.com/tv/thumb/movies/74686/74686_bl.jpg',
+  'http://www.gstatic.com/tv/thumb/movies/74686/74686_bo.jpg',
+  'http://www.gstatic.com/tv/thumb/movies/74686/74686_bq.jpg',
+  'http://www.gstatic.com/tv/thumb/movies/74686/74686_be.jpg',
+  'http://www.gstatic.com/tv/thumb/movies/74686/74686_bf.jpg',
+  'http://www.gstatic.com/tv/thumb/movies/74686/74686_bk.jpg',
+  'http://www.gstatic.com/tv/thumb/movies/74686/74686_bn.jpg',
+  'http://www.gstatic.com/tv/thumb/movies/74686/74686_bs.jpg',
+  'http://www.gstatic.com/tv/thumb/movies/74686/74686_ba.jpg',
+  'http://www.gstatic.com/tv/thumb/movies/74686/74686_bd.jpg',
+  'http://www.gstatic.com/tv/thumb/movies/74686/74686_bt.jpg',
+  'http://www.gstatic.com/tv/thumb/movies/74686/74686_bg.jpg',
+  'http://www.gstatic.com/tv/thumb/movies/74686/74686_br.jpg',
+  'http://www.gstatic.com/tv/thumb/movies/74686/74686_bu.jpg',
+  'http://www.gstatic.com/tv/thumb/movies/74686/74686_bi.jpg',
+  'http://www.gstatic.com/tv/thumb/movies/74686/74686_bb.jpg'
+];
+
+var lightbox;
+
+decorateHandler.addClassHandler('start-lightbox', function(button) {
+  goog.events.listen(button, tv.ui.Button.EventType.ACTION, function() {
+    var previousFocus = tv.ui.Document.getInstance().getFocusedComponent();
+    lightbox = tv.ui.Lightbox.show(photos, 0 /* start index*/);
+    tv.ui.Document.getInstance().setFocusedComponent(lightbox);
+    historyManager.setToken('lightbox');
+    goog.events.listen(lightbox, tv.ui.Lightbox.EventType.CLOSE, function() {
+      tv.ui.Document.getInstance().setFocusedComponent(previousFocus);
+    });
+  });
+});
+
+historyHandlers.push(function(event) {
+  if (event.isNavigation && event.token == '' && lightbox) {
+    lightbox.dispose();
+  }
+});
+</script>
+
+<p>Lightbox is a simple full screen photo viewer.</p>
+<p>Just invoke from JavaScript <code>tv.ui.Lightbox.show(listOfPhotos, startIndex);</code></p>
+
+<div class="tv-button start-lightbox">
+  <div>
+    Fire up lightbox with demo photos
+  </div>
+</div>
+
+{% endblock %}

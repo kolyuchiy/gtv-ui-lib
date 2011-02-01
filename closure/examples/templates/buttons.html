@@ -1,0 +1,166 @@
+{% extends "single_demo.html" %}
+
+{% block demo-header %}tv.ui.Button & tv.ui.ToggleButton{% endblock %}
+
+{% block demo-content %}
+
+<style>
+.button-demos {
+  margin: 20px auto;
+  width: 430px;
+}
+
+.button-demo {
+  border: 1px solid white;
+  display: inline-block;
+  padding: 1px;
+  margin: 3px;
+}
+
+.button-demo-inner {
+  color: white;
+  padding: 2px 6px;
+  text-decoration: none;
+}
+
+.button-demo:hover,
+.button-demo.tv-component-focused {
+  outline: none;
+  -webkit-box-shadow: 0 0 30px #6391de, 0 0 15px #f2f2f2, 0 0 5px #FFF;
+}
+
+.button-demo, .button-demo-inner {
+  border-radius: 5px;
+  cursor: pointer;
+  display: inline-block;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+}
+
+#button-action-output {
+  color: transparent;
+  font-weight: bold;
+  margin: 10px auto;
+  padding: 20px;
+  text-align: center;
+  text-shadow: none;
+  width: 400px;
+  -webkit-border-radius: 5px;
+}
+
+#button-action-output.animation {
+  -webkit-transition: all 2s ease;
+}
+
+#button-action-output.highlight {
+  background-color: #fff3c3;
+  color: black;
+}
+
+.tv-toggle-button {
+  cursor: pointer;
+  margin-top: 20px;
+}
+
+.tv-toggle-button .checkbox-icon {
+  background-image: url("http://www.gstatic.com/tv/ch/icon/unchecked_normal.png");
+  display: inline-block;
+  height: 47px;
+  vertical-align: middle;
+  width: 47px;
+}
+
+.tv-toggle-button:hover .checkbox-icon,
+.tv-toggle-button.tv-component-focused .checkbox-icon {
+  background-image: url("http://www.gstatic.com/tv/ch/icon/unchecked_focused.png");
+}
+
+.tv-toggle-button:active .checkbox-icon {
+  background-image: url("http://www.gstatic.com/tv/ch/icon/unchecked_pressed.png");
+}
+
+.tv-toggle-button-on .checkbox-icon {
+  background-image: url("http://www.gstatic.com/tv/ch/icon/checked_normal.png");
+}
+
+.tv-toggle-button-on:hover .checkbox-icon,
+.tv-toggle-button-on.tv-component-focused .checkbox-icon {
+  background-image: url("http://www.gstatic.com/tv/ch/icon/checked_focused.png");
+}
+
+.tv-toggle-button-on:active .checkbox-icon {
+  background-image: url("http://www.gstatic.com/tv/ch/icon/checked_pressed.png");
+}
+
+.tv-toggle-button .checkbox-text {
+  color: #70767C;
+  line-height: 47px;
+  vertical-align: middle;
+}
+
+.tv-toggle-button:hover .checkbox-text,
+.tv-toggle-button.tv-component-focused .checkbox-text {
+  color: #CCC;
+}
+</style>
+<script type="text/javascript">
+
+function prettyLog(text) {
+  var actionOutputEl = goog.dom.getElement('button-action-output');
+  actionOutputEl.innerHTML = text;
+  goog.dom.classes.addRemove(actionOutputEl, 'animation', 'highlight');
+  setTimeout(function() {
+    goog.dom.classes.addRemove(actionOutputEl, 'highlight', 'animation');
+  }, 0)
+};
+
+decorateHandler.addClassHandler('button-demo', function(button) {
+  goog.events.listen(button, tv.ui.Button.EventType.ACTION, function(e) {
+    prettyLog(e.target.getElement().innerText);
+  });
+});
+
+decorateHandler.addClassHandler('tv-toggle-button', function(button) {
+  goog.events.listen(button, tv.ui.Button.EventType.ACTION, function(e) {
+    var button = e.target;
+    prettyLog('Button state: ' + (button.isOn() ? 'ON' : 'OFF'));
+  });
+});
+
+</script>
+
+<strong>Button</strong> is a component that can fire action event. Try clicking on the button or press
+<code>space</code> or <code>enter</code> on focused component.<br/>
+
+<p>CSS class used for decoration: <code>tv-button</code></p>
+
+<div class="tv-container-horizontal button-demos">
+  <div class="tv-button button-demo">
+    <div class="button-demo-inner">
+      Click me
+    </div>
+  </div>
+  <div class="tv-button button-demo">
+    <div class="button-demo-inner">
+      Press enter on me
+    </div>
+  </div>
+  <div class="tv-button button-demo">
+     <div class="button-demo-inner">
+      Press space on me
+    </div>
+  </div>
+</div>
+
+<strong>Toggle Button</strong> is a button with on/off state.
+
+<p>CSS class used for decoration: <code>tv-toggle-button</code></p>
+
+<div class="tv-toggle-button">
+  <div class="checkbox-icon"></div>
+  <span class="checkbox-text">Click on me to change state.</span>
+</div>
+
+<div id="button-action-output"></div>
+
+{% endblock %}

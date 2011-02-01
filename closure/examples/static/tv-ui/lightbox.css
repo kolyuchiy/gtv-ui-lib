@@ -1,0 +1,33 @@
+.tv-lightbox-background {
+  background-color: #000;
+}
+
+.tv-lightbox-background, .tv-lightbox {
+  bottom: 0;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: 666;
+}
+
+.tv-lightbox.tv-container {
+  position: absolute;
+  white-space: nowrap;
+}
+
+.tv-lightbox .tv-component {
+  display: inline-block;
+  vertical-align: middle;
+  text-align: center;
+
+}
+
+.tv-lightbox .tv-component img {
+  opacity: 0.2;
+  -webkit-transform: scale(0.5);
+}
+
+.tv-lightbox .tv-component.tv-container-selected-child img {
+  opacity: 1;
+}
