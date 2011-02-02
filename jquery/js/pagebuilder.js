@@ -26,97 +26,119 @@
  */
 
 var gtv = gtv || {
-  jq : {}
+  jq: {}
 };
 
 
 /**
- * BuildData class holds parameters used to create the page.
+ * BuildParams class holds parameters used to create the page.
  * @constructor
  */
-gtv.jq.BuildData = function() {
+gtv.jq.BuildParams = function() {
 };
 
 /**
- * Array or comma-separated list of names, in hierarchical order, used to
+ * The key controller the page should use.
+ * @type gtv.jq.KeyController
+ */
+gtv.jq.BuildParams.prototype.keyController = null;
+
+/**
+ * Array of layer names the page should exist on. If not supplied, uses
+ * the default layer.
+ * @type Array.<string>
+ */
+gtv.jq.BuildParams.prototype.layerNames = null;
+
+/**
+ * Array of names, in hierarchical order, used to
  * locate the array of entries in the feed.
- * @type {string}
+ * @type Array.<string>
  */
-gtv.jq.BuildData.feedItemsSeeker = null;
+gtv.jq.BuildParams.prototype.feedItemsSeeker = null;
 
 /**
- * Array or comma-separated list of names, in hierarchical order starting
+ * Array of names, in hierarchical order starting
  * from the entry, used to locate thumbnail URL.
- * @type {string}
+ * @type Array.<string>
  */
-gtv.jq.BuildData.feedThumbSeeker = null;
+gtv.jq.BuildParams.prototype.feedThumbSeeker = null;
 
 /**
- * Array or comma-separated list of names, in hierarchical order starting
+ * Array of names, in hierarchical order starting
  * from the entry, used to locate the photo URL.
- * @type {string}
+ * @type Array.<string>
  */
-gtv.jq.BuildData.feedContentSeeker = null;
+gtv.jq.BuildParams.prototype.feedContentSeeker = null;
 
 /**
- * Width of the player in pixels. Defaults to 1024.
- * @type {number}
+ * Size of the player in pixels. Width defaults to 1024. If not supplied,
+ * height it calculated from the player width assuming a 16:10 ratio.
+ * @type gtv.jq.Size
  */
-gtv.jq.BuildData.playerWidth = null;
-
-/**
- * Height of the player in pixels. If not supplied, calculated from the
- * player width assuming a 16:10 ratio.
- * @type {number}
- */
-gtv.jq.BuildData.playerHeight = null;
+gtv.jq.BuildParams.prototype.size = null;
 
 /**
  * Height in pixels of the thumbnails.
- * @type {number}
+ * @type number
  */
-gtv.jq.BuildData.thumbnailSize = null;
+gtv.jq.BuildParams.prototype.thumbnailHeight = null;
 
 /**
  * The type of SideNav to use, one of 'popUp' or 'fade'.
- * @type {string}
+ * @type string
  */
-gtv.jq.BuildData.navbarType = null;
+gtv.jq.BuildParams.prototype.navbarType = null;
 
 /**
  * Delay, in seconds, between photos. Defaults to 4.
- * @type {number}
+ * @type number
  */
-gtv.jq.BuildData.slideshowSpeed = null;
+gtv.jq.BuildParams.prototype.slideshowSpeed = null;
 
 
 /**
- * BuilderPhotoPage class
+ * BuilderPhotoPage class. This creates a complete page for viewing a slideshow
+ * of photos. Provided with an RSS feed in JSONP format and references to
+ * the thumbnails and full-size images in that feed, this will build a
+ * photo control to display a full-size image, a row of thumbnails to display
+ * all the images in the feed, and the key zones to handle movement between
+ * them.
+ * @param {gtv.jq.BuildParams} buildParams Initialization values for the photo
+ * page.
  * @constructor
  */
-gtv.jq.BuilderPhotoPage = function() {
+gtv.jq.BuilderPhotoPage = function(buildParams) {
+  this.params_ = buildParams;
 };
 
 /**
  * Holds the instance of the RowControl used for the thumbnail row display.
- * @type {gtv.jq.RowControl}
+ * @type gtv.jq.RowControl
  * @private
  */
-gtv.jq.BuilderPhotoPage.thumbControl_ = null;
+gtv.jq.BuilderPhotoPage.prototype.thumbControl_ = null;
+
+/**
+ * Data used to build the page and its controls.
+ * @type gtv.jq.BuildParams
+ * @private
+ */
+gtv.jq.BuilderPhotoPage.prototype.params_ = null;
 
 /**
  * Holds the instance of the SideNavControl that holds the thumbnail row.
- * @type {gtv.jq.SideNavControl}
+ * @type gtv.jq.SideNavControl
  * @private
  */
-gtv.jq.BuilderPhotoPage.scrollnavControl_ = null;
+gtv.jq.BuilderPhotoPage.prototype.scrollnavControl_ = null;
 
 /**
  * Holds the instance of the PhotoControl that displays the selected photo.
- * @type {gtv.jq.PhotoControl}
+ * @type gtv.jq.PhotoControl
  * @private
  */
-gtv.jq.BuilderPhotoPage.photoControl_ = null;
+gtv.jq.BuilderPhotoPage.prototype.photoControl_ = null;
 
 /**
  * Removes the page's controls from the window.
@@ -140,45 +162,27 @@ gtv.jq.BuilderPhotoPage.prototype.deletePage = function() {
 /**
  * Creates a photo playback page.
  * @param {jQuery.Element} topParent The parent element for the page.
- * @param {BuildData} buildData Collection of build parameters for the page.
- * @param {KeyController} keyController Key controller for the page to use.
- * @param {?Array.<string>} layerNames Names of key control layer the control
- *     should use. If not supplied, uses the key controller default.
  */
-gtv.jq.BuilderPhotoPage.prototype.makePage = function(topParent,
-                                                      buildData,
-                                                      keyController,
-                                                      layerNames) {
+gtv.jq.BuilderPhotoPage.prototype.makePage = function(topParent) {
   var builderPhotoPage = this;
   builderPhotoPage.topParent = topParent;
 
-  builderPhotoPage.keyController_ = keyController;
+  builderPhotoPage.params_.size.width =
+      builderPhotoPage.params_.size.width || 1024;
 
-  builderPhotoPage.layerNames_ = layerNames;
+  // If not supplied, height is calculated as a 10:16 ratio of the width.
+  builderPhotoPage.params_.size.height =
+      builderPhotoPage.params_.size.height ||
+          (builderPhotoPage.params_.size.width * 10 / 16);
 
-  if (!buildData.feedItemsSeeker instanceof Array) {
-    buildData.feedItemsSeeker = buildData.feedItemsSeeker.split(',');
-  }
+  builderPhotoPage.params_.thumbnailHeight =
+      builderPhotoPage.params_.thumbnailHeight || 100;
 
-  if (!buildData.feedThumbSeeker instanceof Array) {
-    buildData.feedThumbSeeker = buildData.feedThumbSeeker.split(',');
-  }
+  builderPhotoPage.params_.navbarType =
+      builderPhotoPage.params_.navbarType || 'popUp';
 
-  if (!buildData.feedContentSeeker instanceof Array) {
-    buildData.feedContentSeeker = buildData.feedContentSeeker.split(',');
-  }
-
-  buildData.playerWidth = buildData.playerWidth || 1024;
-  buildData.playerHeight = buildData.playerHeight ||
-      (buildData.playerWidth * 10 / 16);
-
-  buildData.thumbnailSize = buildData.thumbnailSize || 100;
-
-  buildData.navbarType = buildData.navbarType || 'popUp';
-
-  buildData.slideshowSpeed = buildData.slideshowSpeed || 4;
-
-  builderPhotoPage.buildData = buildData;
+  builderPhotoPage.params_.slideshowSpeed =
+      builderPhotoPage.params_.slideshowSpeed || 4;
 
   /**
    * Called from processJsonpFeed to create an element for the page to
@@ -191,16 +195,16 @@ gtv.jq.BuilderPhotoPage.prototype.makePage = function(topParent,
     var thumbs;
 
     thumbs = entry;
-    for (var i = 0; i < buildData.feedThumbSeeker.length; i++) {
-      thumbs = thumbs[buildData.feedThumbSeeker[i]];
+    for (var i = 0; i < builderPhotoPage.params_.feedThumbSeeker.length; i++) {
+      thumbs = thumbs[builderPhotoPage.params_.feedThumbSeeker[i]];
       if (!thumbs) {
         return null;
       }
     }
 
     content = entry;
-    for (i = 0; i < buildData.feedContentSeeker.length; i++) {
-      content = content[buildData.feedContentSeeker[i]];
+    for (i = 0; i < builderPhotoPage.params_.feedContentSeeker.length; i++) {
+      content = content[builderPhotoPage.params_.feedContentSeeker[i]];
       if (!content) {
         return null;
       }
@@ -212,7 +216,7 @@ gtv.jq.BuilderPhotoPage.prototype.makePage = function(topParent,
 
     var item = $('<img></img>')
       .css({
-         height: builderPhotoPage.buildData.thumbnailSize + 'px',
+         height: builderPhotoPage.params_.thumbnailHeight + 'px',
          display: 'block'
        });
     item.addClass('loadable');
@@ -237,10 +241,10 @@ gtv.jq.BuilderPhotoPage.prototype.makePage = function(topParent,
     builderPhotoPage.showPhoto_(0);
   }
 
-  gtv.jq.GtvCore.processJsonpFeed(buildData.feed,
+  gtv.jq.GtvCore.processJsonpFeed(builderPhotoPage.params_.feed,
                                   makeItem,
                                   makeRow,
-                                  buildData.feedItemsSeeker);
+                                  builderPhotoPage.params_.feedItemsSeeker);
 };
 
 /**
@@ -286,19 +290,22 @@ gtv.jq.BuilderPhotoPage.prototype.makeScrollNav_ = function(items) {
         var createParams = {
           containerId: 'row-container',
           styles: styles,
-          keyController: builderPhotoPage.keyController_,
+          keyController: builderPhotoPage.params_.keyController,
           choiceCallback: enterCallback,
-          layerNames: builderPhotoPage.layerNames_
+          layerNames: builderPhotoPage.params_.layerNames
         };
         builderPhotoPage.thumbControl_ = new gtv.jq.RowControl(createParams);
 
         var showParams = {
           topParent: scrollRowContainer,
-          items: items
+          contents: {
+            items: items
+          }
         };
-        var scrollRow = builderPhotoPage.thumbControl_.showControl(showParams);
+        builderPhotoPage.thumbControl_.showControl(showParams);
         builderPhotoPage.thumbControl_.enableNavigation();
 
+        var scrollRow = scrollRowContainer.children('#row-container');
         scrollRowContainer.height(scrollRow.height());
 
         return true;
@@ -315,12 +322,12 @@ gtv.jq.BuilderPhotoPage.prototype.makeScrollNav_ = function(items) {
   };
 
   var behaviors;
-  if (builderPhotoPage.buildData.navbarType == 'popUp') {
+  if (builderPhotoPage.params_.navbarType == 'popUp') {
     behaviors = {
       popOut: 'bottom',
       orientation: 'horizontal'
     };
-  } else if (builderPhotoPage.buildData.navbarType == 'fade') {
+  } else if (builderPhotoPage.params_.navbarType == 'fade') {
     behaviors = {
       fade: true,
       orientation: 'horizontal'
@@ -331,8 +338,8 @@ gtv.jq.BuilderPhotoPage.prototype.makeScrollNav_ = function(items) {
     createParams: {
       containerId: 'scrollnav',
       styles: styles,
-      keyController: builderPhotoPage.keyController_,
-      layerNames: builderPhotoPage.layerNames_
+      keyController: builderPhotoPage.params_.keyController,
+      layerNames: builderPhotoPage.params_.layerNames
     },
     behaviors: behaviors
   };
@@ -341,11 +348,13 @@ gtv.jq.BuilderPhotoPage.prototype.makeScrollNav_ = function(items) {
 
   var showParams = {
     topParent: scrollnavHolder,
-    itemsGenerator: navItemsGenerator
+    contents: {
+      itemsGenerator: navItemsGenerator
+    }
   };
   builderPhotoPage.scrollnavControl_.showControl(showParams);
 
-  if (builderPhotoPage.buildData.navbarType == 'fade') {
+  if (builderPhotoPage.params_.navbarType == 'fade') {
     var windowHeight = $(window).height();
     scrollnavHolder.css('top', ((windowHeight * 3) / 4) + 'px');
   }
@@ -424,15 +433,14 @@ gtv.jq.BuilderPhotoPage.prototype.showPhoto_ = function(index) {
       createParams: {
         containerId: 'photo-container',
         styles: styles,
-        keyController: builderPhotoPage.keyController_,
-        layerNames: builderPhotoPage.layerNames_
+        keyController: builderPhotoPage.params_.keyController,
+        layerNames: builderPhotoPage.params_.layerNames
       },
-      width: builderPhotoPage.buildData.playerWidth,
-      height: builderPhotoPage.buildData.playerHeight,
+      size: builderPhotoPage.params_.size,
       callbacks: callbacks,
       photoUrl: builderPhotoPage.items[index].data('url'),
       buttons: buttons,
-      slideshowSpeed: builderPhotoPage.buildData.slideshowSpeed
+      slideshowSpeed: builderPhotoPage.params_.slideshowSpeed
     };
     builderPhotoPage.photoControl_ = new gtv.jq.PhotoControl(photoParams);
 
@@ -449,32 +457,45 @@ gtv.jq.BuilderPhotoPage.prototype.showPhoto_ = function(index) {
 
 
 /**
- * BuilderVideoPage class.
+ * BuilderVideoPage class. This creates a complete page for viewing a slideshow
+ * of videos. Provided with an RSS feed in JSONP format and references to
+ * the thumbnails and YouTube videos in that feed, this will build a
+ * video control to play the video, a row of thumbnails to display the video
+ * thumbnails in the feed, and the key zones to handle movement between them.
+ * @param {gtv.jq.BuildParams} buildParams
  * @constructor
  */
-gtv.jq.BuilderVideoPage = function() {
+gtv.jq.BuilderVideoPage = function(buildParams) {
+  this.params_ = buildParams;
 };
 
 /**
  * Holds the instance of the RowControl used for the thumbnail row display.
- * @type {gtv.jq.RowControl}
+ * @type gtv.jq.RowControl
  * @private
  */
 gtv.jq.BuilderVideoPage.thumbControl_ = null;
 
 /**
  * Holds the instance of the SideNavControl that holds the thumbnail row.
- * @type {gtv.jq.SideNavControl}
+ * @type gtv.jq.SideNavControl
  * @private
  */
 gtv.jq.BuilderVideoPage.scrollnavControl_ = null;
 
 /**
  * Holds the instance of the PhotoControl that displays the selected photo.
- * @type {gtv.jq.PhotoControl}
+ * @type gtv.jq.PhotoControl
  * @private
  */
 gtv.jq.BuilderVideoPage.photoControl_ = null;
+
+/**
+ * Data used to build the page and its controls.
+ * @type gtv.jq.BuildParams
+ * @private
+ */
+gtv.jq.BuilderVideoPage.prototype.params_ = null;
 
 /**
  * Removes the page's controls from the window.
@@ -498,46 +519,24 @@ gtv.jq.BuilderVideoPage.prototype.deletePage = function() {
 /**
  * Creates a photo playback page.
  * @param {jQuery.Element} topParent The parent element for the page.
- * @param {BuildData} buildData Collection of build parameters for the page.
- * @param {KeyController} keyController Key controller for the page to use.
- * @param {?Array.<string>} layerNames Name of key control layer the control
- *     should use. If not supplied, uses the key controller default.
  */
-gtv.jq.BuilderVideoPage.prototype.makePage = function(topParent,
-                                                      buildData,
-                                                      keyController,
-                                                      layerNames) {
+gtv.jq.BuilderVideoPage.prototype.makePage = function(topParent) {
   var builderVideoPage = this;
   builderVideoPage.topParent = topParent;
 
-  builderVideoPage.keyController_ = keyController;
+  builderVideoPage.params_.size.width =
+      builderVideoPage.params_.size.width || 1024;
 
-  builderVideoPage.layerNames_ = layerNames;
+  // If not supplied, height is calculated as a 10:16 ratio of the width.
+  builderVideoPage.params_.size.height =
+      builderVideoPage.params_.size.height ||
+          (builderVideoPage.params_.size.width * 10 / 16);
 
-  if (buildData.feedItemsSeeker instanceof String ||
-      typeof buildData.feedItemsSeeker == 'string') {
-    buildData.feedItemsSeeker = buildData.feedItemsSeeker.split(',');
-  }
+  builderVideoPage.params_.thumbnailHeight =
+      builderVideoPage.params_.thumbnailHeight || 100;
 
-  if (buildData.feedThumbSeeker instanceof String ||
-      typeof buildData.feedThumbSeeker == 'string') {
-    buildData.feedThumbSeeker = buildData.feedThumbSeeker.split(',');
-  }
-
-  if (buildData.feedContentSeeker instanceof String ||
-      typeof buildData.feedContentSeeker == 'string') {
-    buildData.feedContentSeeker = buildData.feedContentSeeker.split(',');
-  }
-
-  buildData.playerWidth = buildData.playerWidth || 1024;
-  buildData.playerHeight = buildData.playerHeight ||
-      (buildData.playerWidth * 10 / 16);
-
-  buildData.thumbnailSize = buildData.thumbnailSize || 100;
-
-  buildData.navbarType = buildData.navbarType || 'popUp';
-
-  builderVideoPage.buildData = buildData;
+  builderVideoPage.params_.navbarType =
+      builderVideoPage.params_.navbarType || 'popUp';
 
   /**
    * Called back from processJsonpFeed to create an element for the page to
@@ -551,16 +550,16 @@ gtv.jq.BuilderVideoPage.prototype.makePage = function(topParent,
     var thumbs;
 
     thumbs = entry;
-    for (var i = 0; i < buildData.feedThumbSeeker.length; i++) {
-      thumbs = thumbs[buildData.feedThumbSeeker[i]];
+    for (var i = 0; i < builderVideoPage.params_.feedThumbSeeker.length; i++) {
+      thumbs = thumbs[builderVideoPage.params_.feedThumbSeeker[i]];
       if (!thumbs) {
         return null;
       }
     }
 
     content = entry;
-    for (i = 0; i < buildData.feedContentSeeker.length; i++) {
-      content = content[buildData.feedContentSeeker[i]];
+    for (i = 0; i < builderVideoPage.params_.feedContentSeeker.length; i++) {
+      content = content[builderVideoPage.params_.feedContentSeeker[i]];
       if (!content) {
         return null;
       }
@@ -574,7 +573,7 @@ gtv.jq.BuilderVideoPage.prototype.makePage = function(topParent,
 
     var item = $('<img></img>')
       .css({
-         height: builderVideoPage.buildData.thumbnailSize + 'px',
+         height: builderVideoPage.params_.thumbnailHeight + 'px',
          display: 'block'
        });
     item.attr('src', thumbs);
@@ -599,10 +598,10 @@ gtv.jq.BuilderVideoPage.prototype.makePage = function(topParent,
     builderVideoPage.showVideo_(items[0].data('url'), items[0].data('id'));
   }
 
-  gtv.jq.GtvCore.processJsonpFeed(buildData.feed,
+  gtv.jq.GtvCore.processJsonpFeed(builderVideoPage.params_.feed,
                                   makeItem,
                                   makeRow,
-                                  buildData.feedItemsSeeker);
+                                  builderVideoPage.params_.feedItemsSeeker);
 
 };
 
@@ -651,20 +650,22 @@ gtv.jq.BuilderVideoPage.prototype.makeScrollNav_ = function(items) {
         var createParams = {
           containerId: 'row-container',
           styles: styles,
-          keyController: builderVideoPage.keyController_,
+          keyController: builderVideoPage.params_.keyController,
           choiceCallback: enterCallback,
-          laterNames: builderVideoPage.layerNames_
+          laterNames: builderVideoPage.params_.layerNames
         };
         builderVideoPage.thumbControl_ = new gtv.jq.RowControl(createParams);
 
         var showParams = {
           topParent: scrollRowContainer,
-          items: items
+          contents: {
+            items: items
+          }
         };
-        var scrollRow =
-            builderVideoPage.thumbControl_.showControl(showParams);
+        builderVideoPage.thumbControl_.showControl(showParams);
         builderVideoPage.thumbControl_.enableNavigation();
 
+        var scrollRow = scrollRowContainer.children('#row-container');
         scrollRowContainer.height(scrollRow.height());
 
         return true;
@@ -681,12 +682,12 @@ gtv.jq.BuilderVideoPage.prototype.makeScrollNav_ = function(items) {
   };
 
   var behaviors;
-  if (builderVideoPage.buildData.navbarType == 'popUp') {
+  if (builderVideoPage.params_.navbarType == 'popUp') {
     behaviors = {
       popOut: 'bottom',
       orientation: 'horizontal'
     };
-  } else if (builderVideoPage.buildData.navbarType == 'fade') {
+  } else if (builderVideoPage.params_.navbarType == 'fade') {
     behaviors = {
       fade: true,
       orientation: 'horizontal'
@@ -697,8 +698,8 @@ gtv.jq.BuilderVideoPage.prototype.makeScrollNav_ = function(items) {
     createParams: {
       containerId: 'scrollnav',
       styles: styles,
-      keyController: builderVideoPage.keyController_,
-      layerNames: builderVideoPage.layerName_
+      keyController: builderVideoPage.params_.keyController,
+      layerNames: builderVideoPage.params_.layerName
     },
     behaviors: behaviors
   };
@@ -706,11 +707,13 @@ gtv.jq.BuilderVideoPage.prototype.makeScrollNav_ = function(items) {
 
   var showParams = {
     topParent: scrollnavHolder,
-    itemsGenerator: navItemsGenerator
+    contents: {
+      itemsGenerator: navItemsGenerator
+    }
   };
   builderVideoPage.scrollnavControl_.showControl(showParams);
 
-  if (builderVideoPage.buildData.navbarType == 'fade') {
+  if (builderVideoPage.params_.navbarType == 'fade') {
     var windowHeight = $(window).height();
     scrollnavHolder.css('top', ((windowHeight * 3) / 4) + 'px');
   }
@@ -786,11 +789,10 @@ gtv.jq.BuilderVideoPage.prototype.showVideo_ = function(url, id) {
       createParams: {
         containerId: 'video-container',
         styles: styles,
-        keyController: builderVideoPage.keyController_,
-        layerNames: builderVideoPage.layerNames_
+        keyController: builderVideoPage.params_.keyController,
+        layerNames: builderVideoPage.params_.layerNames
       },
-      width: builderVideoPage.buildData.playerWidth,
-      height: builderVideoPage.buildData.playerHeight,
+      size: builderVideoPage.params_.size,
       callbacks: callbacks,
       playerId: 'ytplayer',
       videoId: id,

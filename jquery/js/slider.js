@@ -18,17 +18,18 @@
  */
 
 var gtv = gtv || {
-  jq : {}
+  jq: {}
 };
 
 /**
  * SlidingControl class. Creates a series of sliding "pages", left-right,
  * that hold thumbnails/content in a rectangular arrangement.
- * @param {CreateParams} createParams Values to create the control with.
+ * @param {gtv.jq.CreationParams} createParams Initial values for creation of
+ *     the control.
  * @constructor
  */
 gtv.jq.SlidingControl = function(createParams) {
-  this.params_ = createParams;
+  this.params_ = new gtv.jq.CreationParams(createParams);
 };
 
 /**
@@ -40,10 +41,17 @@ gtv.jq.SlidingControl.prototype.container_ = null;
 
 /**
  * Holds the params the control was created with.
- * @type {ControlParams}
+ * @type {gtv.jq.CreationParams}
  * @private
  */
 gtv.jq.SlidingControl.prototype.params_ = null;
+
+/**
+ * Holds the params for showing the control.
+ * @type {gtv.jq.ShowParams}
+ * @private
+ */
+gtv.jq.SlidingControl.prototype.showParams_ = null;
 
 /**
  * The behavior zone that this control inhabits in the key controller.
@@ -67,31 +75,31 @@ gtv.jq.SlidingControl.prototype.deleteControl = function() {
 /**
  * Creates a new SideNavControl with the specified items and adds it to a
  * container on the page.
- * @param {gtv.jq.ControlParams} controlParams Params for creating the control.
+ * @param {gtv.jq.ShowParams} controlParams Params for creating the control.
+ *     ControlContents.captionItems must be passed to this control.
  */
-gtv.jq.SlidingControl.prototype.showControl = function(controlParams) {
+gtv.jq.SlidingControl.prototype.showControl = function(showParams) {
   var slidingControl = this;
 
-  slidingControl.params_ =
-      jQuery.extend(slidingControl.params_, controlParams);
-
-  if (!gtv.jq.CreateParams.validateParams(slidingControl.params_))
-    return false;
+  slidingControl.showParams_ = new gtv.jq.ShowParams(showParams);
+  if (!slidingControl.showParams_.contents.captionItems) {
+    throw new Error('SlidingControl requires captionItems');
+  }
 
   var container = $('<div></div>')
     .attr('id', slidingControl.params_.containerId)
     .addClass('sliding-control');
 
-  slidingControl.params_.topParent.append(container);
+  slidingControl.showParams_.topParent.append(container);
 
   slidingControl.container_ = container;
 
   var windowWidth = container.width();
   var containerOffset = container.offset();
-  var parentOffset = controlParams.topParent.position();
+  var parentOffset = slidingControl.showParams_.topParent.position();
   var windowHeight = $(window).height() - containerOffset.top;
 
-  var itemCount = controlParams.items.length;
+  var itemCount = slidingControl.showParams_.contents.captionItems.length;
   var rowCount = 0;
   var itemRow;
   var itemsPerRow = 1;  // start at 1, will be calculated after first item
@@ -101,6 +109,18 @@ gtv.jq.SlidingControl.prototype.showControl = function(controlParams) {
   var page;
   var pageCount = 0;
 
+  /**
+   * This function adds a new CaptionItem to a page. This control adds each
+   * caption item to a row until the row is full, then to a new rows until
+   * the page is full. The first item sets the size for the rest of the items
+   * in the control (i.e., they are assumed to be of somewhat uniform size)
+   * Each item in the row is a compound set of elements that allow the item
+   * to have its selection highlight be visually separate from the caption
+   * displayed below it. The caption container is styled so that it will be
+   * clipped to the horizontal size of the item.
+   * @param {number} i The ordinal number of the CaptionItem to add.
+   * @return The row to which the item was added.
+   */
   function addItem(i) {
     if (i % itemsPerRow == 0) {
       if (rowCount % rowsPerPage == 0) {
@@ -129,29 +149,29 @@ gtv.jq.SlidingControl.prototype.showControl = function(controlParams) {
 
       rowCount++;
     }
-    var content = controlParams.items[i].content;
-    var description = controlParams.items[i].description;
-    var navData = controlParams.items[i].data;
+    var item = slidingControl.showParams_.contents.captionItems[i].item;
+    var caption = slidingControl.showParams_.contents.captionItems[i].caption;
+    var navData = slidingControl.showParams_.contents.captionItems[i].data;
 
     var itemTextHolder = $('<div></div>')
       .addClass('slider-item-text-holder');
 
-    if (description) {
-      itemTextHolder.append(description);
+    if (caption) {
+      itemTextHolder.append(caption);
     }
 
-    var item = $('<div></div>')
+    var itemHolder = $('<div></div>')
       .addClass('slider-item ' + slidingControl.params_.styles.item)
       .data("index", i % itemsPerRow)
-      .append(content);
+      .append(item);
 
     if (navData) {
-      item.data("nav-data", navData);
+      itemHolder.data("nav-data", navData);
     }
 
     var itemDiv = $('<div></div>')
       .addClass('slider-item-div ' + slidingControl.params_.styles.itemDiv)
-      .append(item)
+      .append(itemHolder)
       .append(itemTextHolder);
 
     itemRow.append(itemDiv);
@@ -159,6 +179,10 @@ gtv.jq.SlidingControl.prototype.showControl = function(controlParams) {
     return itemRow;
   }
 
+  // This loops through each item to be added to the slider and calls the
+  // addItem() function above. The size of the first item added on the page
+  // is used to compute the number of items and rows that can fit on a page,
+  // and thus also the number of pages.
   for (var index = 0; index < itemCount; index++) {
     var newItemRow = addItem(index);
 
@@ -174,15 +198,22 @@ gtv.jq.SlidingControl.prototype.showControl = function(controlParams) {
   }
 
   var keyMapping = {
-    13: function(selectedItem, newItem) {  // enter
+    // ENTER key. Call the choiceCallback if supplied.
+    13: function(selectedItem, newItem) {
       if (slidingControl.params_.choiceCallback) {
         slidingControl.params_.choiceCallback(selectedItem);
       }
       return { status: 'none' };
     },
+    // Left arrow. Check to see if we are at the left edge of a page and
+    // if so, check to see if there is a page to the left, and if so, set the
+    // selected item to an item on it.
     37: function(selectedItem, newItem) {  // left arrow
       return slidingControl.leftArrowAction_(selectedItem, newItem);
     },
+    // Right arrow. Check to see if we are at the right edge of a page and
+    // if so, check to see if there is a page to the right, and if so, set
+    // the selected item to an item on it.
     39: function(selectedItem, newItem) {  // right arrow
       return slidingControl.rightArrowAction_(selectedItem, newItem);
     }
@@ -197,14 +228,18 @@ gtv.jq.SlidingControl.prototype.showControl = function(controlParams) {
 
   var selectionClasses = {
     basic: slidingControl.params_.styles.selected,
-    hasData: 'item-hover-active'
+    hasData: slidingControl.params_.styles.hasData
   };
 
   var lastSelected;
+  // Configure gtv.jq.KeyActions object.
   var actions = {
+    // Callback from KeyController. Move the selectedItem into view.
     scrollIntoView: function(selectedItem, newItem, getFinishCallback) {
       slidingControl.showPage_(selectedItem, newItem, getFinishCallback);
     },
+    // Call the choiceCallback, if supplied, when the item receives a
+    // mouse click.
     click: function(selectedItem, newItem) {
       if (slidingControl.params_.choiceCallback) {
         slidingControl.params_.choiceCallback(selectedItem);
@@ -213,19 +248,19 @@ gtv.jq.SlidingControl.prototype.showControl = function(controlParams) {
   };
 
   slidingControl.behaviorZone_ =
-    new gtv.jq.KeyBehaviorZone('#' + slidingControl.params_.containerId,
-                               keyMapping,
-                               actions,
-                               navSelectors,
-                               selectionClasses,
-                               'nav-data');
+    new gtv.jq.KeyBehaviorZone({
+      containerSelector: '#' + slidingControl.params_.containerId,
+      keyMapping: keyMapping,
+      actions: actions,
+      navSelectors: navSelectors,
+      selectionClasses: selectionClasses,
+      navigableData: 'nav-data'
+    });
 
   slidingControl.params_.keyController.addBehaviorZone(
       slidingControl.behaviorZone_,
       true,
       slidingControl.params_.layerNames);
-
-  return true;
 };
 
 /**
@@ -253,8 +288,9 @@ gtv.jq.SlidingControl.prototype.showPage_ = function(selectedItem,
   }
 
   var selectedPage = selectedItem.parents('.slider-item-page');
-  if (selectedPage.length == 0)
+  if (selectedPage.length == 0) {
     return;
+  }
 
   var newPage = newItem.parents('.slider-item-page');
   if (newPage.length == 0) {

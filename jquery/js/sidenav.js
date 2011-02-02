@@ -18,55 +18,74 @@
  */
 
 var gtv = gtv || {
-  jq : {}
+  jq: {}
 };
 
 /**
  * SideNavParams class holds configuration values specific to SideNav.
+ * @param {gtv.jq.SideNavParams} opt_params Optional initialization values.
  * @constructor
  */
-gtv.jq.SideNavParams = function() {
+gtv.jq.SideNavParams = function(opt_params) {
+  var params = opt_params || {};
+
+  this.behaviors = new gtv.jq.SideNavBehaviors(params.behaviors);
+  this.createParams = new gtv.jq.CreationParams(params.createParams);
 };
 
 /**
- * CreateParams for the SideNav control.
- * @type {CreateParams}
+ * CreationParams for the SideNav control.
+ * @type CreationParams
  */
 gtv.jq.SideNavParams.prototype.createParams = null;
 
 /**
  * Behaviors for the SideNav control.
- * @type {SideNavBehaviors}
+ * @type SideNavBehaviors
  */
 gtv.jq.SideNavParams.prototype.behaviors = null;
 
 
 /**
  * SideNavBehaviors configures the behaviors for a SideNav control.
+ * @param {gtv.jq.SideNavBehaviors} opt_behaviors Optional initial values.
  * @constructor
  */
-gtv.jq.SideNavBehaviors = function() {
+gtv.jq.SideNavBehaviors = function(opt_behaviors) {
+  var behaviors = opt_behaviors || {};
+
+  this.orientation = behaviors.orientation || 'vertical';
+  this.popOut = behaviors.popOut || '';
+  this.fade = behaviors.fade || '';
+  this.selectOnInit = behaviors.selectOnInit || false;
 };
+
+/**
+ * Tells the SideNav control how to orient itself: 'vertical' (default) or
+ * 'horizontal'
+ * @type string
+ */
+gtv.jq.SideNavBehaviors.prototype.orientation;
 
 /**
  * Tells the SideNav control to pop out from a side. One of: 'left', 'right',
  * 'top', 'bottom'.
- * @type {string}
+ * @type string
  */
-gtv.jq.SideNavBehaviors.prototype.popOut = null;
+gtv.jq.SideNavBehaviors.prototype.popOut;
 
 /**
  * If true, tells the SideNav control to fade in/out when selection moves to it.
- * @type {boolean}
+ * @type boolean
  */
-gtv.jq.SideNavBehaviors.prototype.fade = null;
+gtv.jq.SideNavBehaviors.prototype.fade;
 
 /**
  * If true, the first item in the SideNav menu will be 'chosen' when the
  * control is shown.
- * @type {boolean}
+ * @type boolean
  */
-gtv.jq.SideNavBehaviors.prototype.selectOnInit = null;
+gtv.jq.SideNavBehaviors.prototype.selectOnInit;
 
 
 /**
@@ -76,33 +95,40 @@ gtv.jq.SideNavBehaviors.prototype.selectOnInit = null;
  * @constructor
  */
 gtv.jq.SideNavControl = function(sidenavParams) {
-  this.params_ = jQuery.extend(sidenavParams.createParams, sidenavParams);
+  this.params_ = new gtv.jq.SideNavParams(sidenavParams);
 };
 
 /**
  * Parent element containing the control elements.
- * @type {jQuery.Element}
+ * @type jQuery.Element
  * @private
  */
 gtv.jq.SideNavControl.prototype.container_ = null;
 
 /**
  * Collection of menu-item rows in the sidenav control.
- * @type {Array.<jQuery.Element>}
+ * @type Array.<jQuery.Element>
  * @private
  */
 gtv.jq.SideNavControl.prototype.rows_ = null;
 
 /**
  * Holds the params the control was created with.
- * @type {ControlParams}
+ * @type CreationParams
  * @private
  */
 gtv.jq.SideNavControl.prototype.params_ = null;
 
 /**
+ * Holds the params for showing the control.
+ * @type ShowParams
+ * @private
+ */
+gtv.jq.SideNavControl.prototype.showParams_ = null;
+
+/**
  * Key controller behavior zone for this control.
- * @type {KeyBehaviorZone}
+ * @type KeyBehaviorZone
  * @private
  */
 gtv.jq.SideNavControl.prototype.behaviorZone_ = null;
@@ -113,7 +139,9 @@ gtv.jq.SideNavControl.prototype.behaviorZone_ = null;
 gtv.jq.SideNavControl.prototype.selectControl = function() {
   var sideNavControl = this;
 
-  sideNavControl.params_.keyController.setZone(sideNavControl.behaviorZone_);
+  sideNavControl.params_.createParams.keyController.setZone(
+      sideNavControl.behaviorZone_,
+      true);
 };
 
 /**
@@ -122,7 +150,7 @@ gtv.jq.SideNavControl.prototype.selectControl = function() {
 gtv.jq.SideNavControl.prototype.deleteControl = function() {
   var sideNavControl = this;
 
-  sideNavControl.params_.keyController.removeBehaviorZone(
+  sideNavControl.params_.createParams.keyController.removeBehaviorZone(
     sideNavControl.behaviorZone_);
   sideNavControl.container_.remove();
 };
@@ -130,52 +158,51 @@ gtv.jq.SideNavControl.prototype.deleteControl = function() {
 /**
  * Creates a new SideNavControl with the specified items and adds it to a
  * container_ on the page.
- * @param {gtv.jq.ShowParams} controlParams Params for creating the control.
- * @return {boolean} true on success
+ * @param {gtv.jq.ShowParams} showParams Params for creating the control.
  */
-gtv.jq.SideNavControl.prototype.showControl = function(controlParams) {
+gtv.jq.SideNavControl.prototype.showControl = function(showParams) {
   var sideNavControl = this;
 
-  sideNavControl.params_ =
-      jQuery.extend(sideNavControl.params_, controlParams);
-
-  if (!gtv.jq.CreateParams.validateParams(sideNavControl.params_))
-    return false;
-
-  sideNavControl.params_.behaviors = sideNavControl.params_.behaviors || {};
+  sideNavControl.showParams_ = new gtv.jq.ShowParams(showParams);
 
   sideNavControl.container_ = $('<div></div>');
   sideNavControl.container_.addClass('sidenav-container')
-    .attr('id', sideNavControl.params_.containerId);
-  sideNavControl.params_.topParent.append(sideNavControl.container_);
+    .attr('id', sideNavControl.params_.createParams.containerId);
+  sideNavControl.showParams_.topParent.append(sideNavControl.container_);
 
   sideNavControl.rows_ = $('<div></div>').addClass('sidenav-rows');
   sideNavControl.container_.append(sideNavControl.rows_);
 
-  var addNextItem = gtv.jq.GtvCore.makeAddNextItemParams(controlParams);
+  var addNextItem =
+    gtv.jq.GtvCore.makeAddNextItemParams(sideNavControl.showParams_.contents);
+  if (!addNextItem) {
+    throw new Error('SideNavControl requires either items or itemsGenerator');
+  }
 
   var firstItem;
   var j = 0;
+  // This loop adds items to the sidenav menu. It continues to add until the
+  // addNextItem() function (generated above) returns false, signalling that
+  // no new items are available to add.
   while (true) {
     var itemRow;
     if (!itemRow ||
-        (!sideNavControl.params_.behaviors.orientation ||
-          sideNavControl.params_.behaviors.orientation == 'vertical')) {
+        sideNavControl.params_.behaviors.orientation == 'vertical') {
       itemRow = $('<div></div>').addClass('sidenav-item-row ' +
-          sideNavControl.params_.styles.row);
+          sideNavControl.params_.createParams.styles.row);
       sideNavControl.rows_.append(itemRow);
     }
 
     var itemDiv = $('<div></div>').addClass('sidenav-item-div ' +
-        sideNavControl.params_.styles.itemDiv);
-    if (sideNavControl.params_.behaviors.orientation &&
-        sideNavControl.params_.behaviors.orientation == 'horizontal')
+        sideNavControl.params_.createParams.styles.itemDiv);
+    if (sideNavControl.params_.behaviors.orientation == 'horizontal')
       itemDiv.css('float', 'left');
     itemRow.append(itemDiv);
 
     var item = $('<div></div>')
-      .addClass('sidenav-item ' + sideNavControl.params_.styles.normal
-          + ' ' + sideNavControl.params_.styles.item)
+      .addClass('sidenav-item ' +
+                sideNavControl.params_.createParams.styles.normal
+                + ' ' + sideNavControl.params_.createParams.styles.item)
       .data('index', j);
     itemDiv.append(item);
 
@@ -184,8 +211,7 @@ gtv.jq.SideNavControl.prototype.showControl = function(controlParams) {
 
     if (!addNextItem(item)) {
       itemDiv.remove();
-      if (!sideNavControl.params_.behaviors.orientation ||
-          sideNavControl.params_.behaviors.orientation == 'vertical')
+      if (sideNavControl.params_.behaviors.orientation == 'vertical')
         itemRow.remove();
       break;
     }
@@ -208,7 +234,7 @@ gtv.jq.SideNavControl.prototype.showControl = function(controlParams) {
     itemRow: '.sidenav-item-row'
   };
   var selectionClasses = {
-    basic: sideNavControl.params_.styles.selected
+    basic: sideNavControl.params_.createParams.styles.selected
   };
   var actions = {
     // click calls the chosenAction callback provided by the control client.
@@ -218,98 +244,125 @@ gtv.jq.SideNavControl.prototype.showControl = function(controlParams) {
     // When entering the zone for this control, animate the nav bar into view
     // as appropriate (scroll in from sides, or fade in)
     enterZone: function() {
-      if (sideNavControl.params_.behaviors.popOut) {
-        sideNavControl.container_.css({
-          '-webkit-transition': 'all 1s ease-in-out'
-        });
-        if (sideNavControl.params_.behaviors.popOut == 'left') {
-          sideNavControl.container_.css({
-            left: '0px'
-          });
-        } else if (sideNavControl.params_.behaviors.popOut == 'right') {
-          var windowWidth = $(window).width();
-          var width = sideNavControl.container_.outerWidth(true);
-          sideNavControl.container_.css({
-            left: (windowWidth - width) + 'px'
-          });
-        } else if (sideNavControl.params_.behaviors.popOut == 'top') {
-          sideNavControl.container_.css({
-            top: '0px'
-          });
-        } else if (sideNavControl.params_.behaviors.popOut == 'bottom') {
-          var windowHeight = $(window).height();
-          var height = sideNavControl.container_.outerHeight(true);
-          sideNavControl.container_.css({
-            top: (windowHeight - height) + 'px'
-          });
-        }
-      }
-      else if (sideNavControl.params_.behaviors.fade) {
-        sideNavControl.container_.css({
-          '-webkit-transition': 'all 1s ease-in-out'
-        });
-
-        sideNavControl.container_.css({
-          opacity: '1.0'
-        });
-      }
-      return sideNavControl.chosenItem;
+      return sideNavControl.handleEnterZone_();
     },
     // When leaving the zone for this control, animate the nav bar out of view
     // as appropriate (scroll out to sides, or fade out)
     leaveZone: function() {
-      if (sideNavControl.params_.behaviors.popOut) {
-        sideNavControl.container_.css({
-          '-webkit-transition': 'all 1s ease-in-out'
-        });
-        if (sideNavControl.params_.behaviors.popOut == 'left') {
-          var width = sideNavControl.container_.outerWidth(true);
-          sideNavControl.container_.css({
-            left: (-width) + 'px'
-          });
-        } else if (sideNavControl.params_.behaviors.popOut == 'right') {
-          var windowWidth = $(window).width();
-          sideNavControl.container_.css({
-            left: (windowWidth) + 'px'
-          });
-        } else if (sideNavControl.params_.behaviors.popOut == 'top') {
-          var height = sideNavControl.container_.outerHeight(true);
-          sideNavControl.container_.css({
-            top: (-height) + 'px'
-          });
-        } else if (sideNavControl.params_.behaviors.popOut == 'bottom') {
-          var windowHeight = $(window).height();
-          sideNavControl.container_.css({
-            top: (windowHeight) + 'px'
-          });
-        }
-      } else if (sideNavControl.params_.behaviors.fade) {
-        sideNavControl.container_.css({
-          '-webkit-transition': 'all 1s ease-in-out'
-        });
-        sideNavControl.container_.css({
-          opacity: '0'
-        });
-      }
+      sideNavControl.handleLeaveZone_();
     }
   };
 
   sideNavControl.behaviorZone_ =
-      new gtv.jq.KeyBehaviorZone('#' + sideNavControl.params_.containerId,
-                                 keyMapping,
-                                 actions,
-                                 navSelectors,
-                                 selectionClasses);
+      new gtv.jq.KeyBehaviorZone({
+        containerSelector: '#' +
+            sideNavControl.params_.createParams.containerId,
+        keyMapping: keyMapping,
+        actions: actions,
+        navSelectors: navSelectors,
+        selectionClasses: selectionClasses
+      });
 
-  sideNavControl.params_.keyController.addBehaviorZone(
-    sideNavControl.behaviorZone_, true, sideNavControl.params_.layerNames);
+  sideNavControl.params_.createParams.keyController.addBehaviorZone(
+    sideNavControl.behaviorZone_,
+    true,
+    sideNavControl.params_.createParams.layerNames);
 
   if (sideNavControl.params_.behaviors.selectOnInit) {
     sideNavControl.handleChosenAction_(firstItem);
   }
-
-  return true;
 };
+
+/**
+ * Shows the control, if approprate, when the zone for this control is
+ * entered.
+ * @return {jQuery.Element} The item in the zone that should be selected
+ *     upon entry. In this case, we start with the chosen nav item.
+ * @private
+ */
+gtv.jq.SideNavControl.prototype.handleEnterZone_ = function() {
+  var sideNavControl = this;
+
+  if (sideNavControl.params_.behaviors.popOut) {
+    sideNavControl.container_.css({
+        '-webkit-transition': 'all 1s ease-in-out'
+      });
+    if (sideNavControl.params_.behaviors.popOut == 'left') {
+      sideNavControl.container_.css({
+        left: '0px'
+      });
+    } else if (sideNavControl.params_.behaviors.popOut == 'right') {
+      var windowWidth = $(window).width();
+      var width = sideNavControl.container_.outerWidth(true);
+      sideNavControl.container_.css({
+            left: (windowWidth - width) + 'px'
+          });
+    } else if (sideNavControl.params_.behaviors.popOut == 'top') {
+      sideNavControl.container_.css({
+          top: '0px'
+        });
+    } else if (sideNavControl.params_.behaviors.popOut == 'bottom') {
+      var windowHeight = $(window).height();
+      var height = sideNavControl.container_.outerHeight(true);
+      sideNavControl.container_.css({
+          top: (windowHeight - height) + 'px'
+        });
+    }
+  } else if (sideNavControl.params_.behaviors.fade) {
+    sideNavControl.container_.css({
+        '-webkit-transition': 'all 1s ease-in-out'
+      });
+
+    sideNavControl.container_.css({
+        opacity: '1.0'
+      });
+  }
+  return sideNavControl.chosenItem;
+};
+
+/**
+ * Hides the control, if approprate, when the zone for this control is
+ * exited.
+ * @private
+ */
+gtv.jq.SideNavControl.prototype.handleLeaveZone_ = function() {
+  var sideNavControl = this;
+
+  if (sideNavControl.params_.behaviors.popOut) {
+    sideNavControl.container_.css({
+        '-webkit-transition': 'all 1s ease-in-out'
+      });
+    if (sideNavControl.params_.behaviors.popOut == 'left') {
+      var width = sideNavControl.container_.outerWidth(true);
+      sideNavControl.container_.css({
+          left: (-width) + 'px'
+        });
+    } else if (sideNavControl.params_.behaviors.popOut == 'right') {
+      var windowWidth = $(window).width();
+      sideNavControl.container_.css({
+          left: (windowWidth) + 'px'
+        });
+    } else if (sideNavControl.params_.behaviors.popOut == 'top') {
+      var height = sideNavControl.container_.outerHeight(true);
+      sideNavControl.container_.css({
+          top: (-height) + 'px'
+        });
+    } else if (sideNavControl.params_.behaviors.popOut == 'bottom') {
+      var windowHeight = $(window).height();
+      sideNavControl.container_.css({
+          top: (windowHeight) + 'px'
+        });
+    }
+  } else if (sideNavControl.params_.behaviors.fade) {
+    sideNavControl.container_.css({
+        '-webkit-transition': 'all 1s ease-in-out'
+      });
+    sideNavControl.container_.css({
+        opacity: '0'
+      });
+  }
+};
+
 
 /**
  * Applies a new set of behaviors to the control.
@@ -391,20 +444,21 @@ gtv.jq.SideNavControl.prototype.setBehaviors = function(behaviors, force) {
 gtv.jq.SideNavControl.prototype.handleChosenAction_ = function(selectedItem) {
   var sideNavControl = this;
 
-  if (sideNavControl.params_.styles.chosen) {
+  if (sideNavControl.params_.createParams.styles.chosen) {
     if (sideNavControl.chosenItem) {
       sideNavControl.chosenItem.removeClass(
-        sideNavControl.params_.styles.chosen);
-      sideNavControl.chosenItem.addClass(sideNavControl.params_.styles.normal);
+          sideNavControl.params_.createParams.styles.chosen);
+      sideNavControl.chosenItem.addClass(
+        sideNavControl.params_.createParams.styles.normal);
     }
-    selectedItem.removeClass(sideNavControl.params_.styles.normal);
-    selectedItem.addClass(sideNavControl.params_.styles.chosen);
+    selectedItem.removeClass(sideNavControl.params_.createParams.styles.normal);
+    selectedItem.addClass(sideNavControl.params_.createParams.styles.chosen);
   }
 
   sideNavControl.chosenItem = selectedItem;
 
-  if (sideNavControl.params_.choiceCallback) {
-    sideNavControl.params_.choiceCallback(selectedItem);
+  if (sideNavControl.params_.createParams.choiceCallback) {
+    sideNavControl.params_.createParams.choiceCallback(selectedItem);
   }
 };
 

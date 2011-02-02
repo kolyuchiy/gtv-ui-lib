@@ -21,13 +21,14 @@
  */
 
 var gtv = gtv || {
-  jq : {}
+  jq: {}
 };
 
 
 /**
  * Static class for utilities used by controls
  * @constructor
+ * @private
  */
 gtv.jq.GtvCore = function() {
 };
@@ -40,6 +41,7 @@ gtv.jq.GtvCore = function() {
  * @param {?Array.<jQuery.Element>} images Optional image elements.
  *     Supply this if container is to be triggered on images that aren't
  *     descendants of it.
+ * @private
  */
 gtv.jq.GtvCore.triggerOnLoad = function(container, images) {
   images = images || container.find('img');
@@ -67,64 +69,36 @@ gtv.jq.GtvCore.triggerOnLoad = function(container, images) {
   });
 };
 
-/**
- * Creates a function to retrieve the next item from an item parameter,
- * which may be a generator function or an array.
- * @param {Array.<jQuery.Element>|function(jQuery.Element} items Either an
- *     array of elements or a function that creates a new element and adds
- *     it to the passed-in container.
- * @return {function(jQuery.Element)} A function adds the next item in a
- *     collection to the supplied container.
- */
-gtv.jq.GtvCore.makeAddNextItem = function(items) {
-  var addNextItem;
-  if (items instanceof Function) {
-    addNextItem = function(parent) {
-      return items(parent);
-    };
-  } else if (items instanceof Array) {
-    var index = 0;
-    addNextItem = function(parent) {
-      if (index >= items.length) {
-        return false;
-      }
-
-      var item = items[index];
-      if (!item) {
-        return false;
-      }
-
-      index++;
-      parent.append(item);
-      return true;
-    };
-  }
-  return addNextItem;
-};
 
 /**
  * Creates a function to retrieve the next item from an item parameter,
  * which may be a generator function or an array.
- * @param {Array.<jQuery.Element>|function(jQuery.Element} items Either an
- *     array of elements or a function that creates a new element and adds
- *     it to the passed-in container.
+ * @param {ControlContents} controlContents A ControlContents object with either
+ *     an items attribute or an itemsGenerator attribute set.
  * @return {function(jQuery.Element)} A function adds the next item in a
  *     collection to the supplied container.
+ * @private
  */
-gtv.jq.GtvCore.makeAddNextItemParams = function(controlParams) {
+gtv.jq.GtvCore.makeAddNextItemParams = function(controlContents) {
   var addNextItem;
-  if (controlParams.itemsGenerator) {
+  if (controlContents.itemsGenerator) {
+    // If a generator is specified, the return function is a pass-through that
+    // calls the generator. (This generator creates an item, adds it to the
+    // parent and returns true; or returns false if it has no item to add.)
     addNextItem = function(parent) {
-      return controlParams.itemsGenerator(parent);
+      return controlContents.itemsGenerator(parent);
     };
-  } else if (controlParams.items) {
+  } else if (controlContents.items) {
+    // If an items array is specified, return a function that adds the next
+    // item in the array to the parent and returns true; or returns false if
+    // the end of the array has been reached.
     var index = 0;
     addNextItem = function(parent) {
-      if (index >= controlParams.items.length) {
+      if (index >= controlContents.items.length) {
         return false;
       }
 
-      var item = controlParams.items[index];
+      var item = controlContents.items[index];
       if (!item) {
         return false;
       }
@@ -145,6 +119,7 @@ gtv.jq.GtvCore.makeAddNextItemParams = function(controlParams) {
  *     an entry from the feed returns a constructed item from it.
  * @param {function(Array.<Object>)} doneCallback A callback that will be passed
  *     the array of all constructed items.
+ * @private
  */
 gtv.jq.GtvCore.processAtomFeed = function(feed, makeItem, doneCallback) {
   $.ajax({
@@ -174,6 +149,7 @@ gtv.jq.GtvCore.processAtomFeed = function(feed, makeItem, doneCallback) {
  *     the array of all constructed items.
  * @param {Array.<string>)} entryKey An array of strings that represent, in
  *     hierarchical order the path to the array of entries in the returned feed.
+ * @private
  */
 gtv.jq.GtvCore.processJsonpFeed = function(feed,
                                            makeItem,
@@ -212,6 +188,7 @@ gtv.jq.GtvCore.processJsonpFeed = function(feed,
  * @constructor
  * @param {function} callback The callback to make when all dependent requests
  *     are completed.
+ * @private
  */
 gtv.jq.SynchronizedCallback = function(callback) {
   this.expectedCallbacks = 1;
@@ -267,16 +244,43 @@ gtv.jq.SynchronizedCallback.prototype.done = function() {
 
 /**
  * Holds parameters used to create the library controls.
+ * @param {?gtv.jq.CreationParams} opt_params CreationParams to initialize
+ *     this new object with.
  * @constructor
  */
-gtv.jq.CreateParams = function() {
+gtv.jq.CreationParams = function(opt_params) {
+  var params = opt_params || {};
+
+  params.styles = params.styles || {};
+  this.styles = params.styles;
+  this.styles.page = params.styles.page || '';
+  this.styles.row = params.styles.row || '';
+  this.styles.itemDiv = params.styles.itemDiv || '';
+  this.styles.item = params.styles.item || '';
+  this.styles.selected = params.styles.selected || 'item-hover';
+  this.styles.hasData = params.styles.hasData || 'item-hover-active';
+  this.styles.normal = params.styles.normal || '';
+  this.styles.chosen = params.styles.chosen || '';
+
+  this.containerId = params.containerId;
+  if (!this.containerId) {
+    throw new Error('containerId must be provided');
+  }
+
+  this.choiceCallback = params.choiceCallback ||
+    function() {
+    };
+
+  this.layerNames = params.layerNames;
+
+  this.keyController = params.keyController;
 };
 
 /**
  * Instance of the key controller this control is using.
  * @type {KeyController}
  */
-gtv.jq.CreateParams.prototype.keyController = null;
+gtv.jq.CreationParams.prototype.keyController = null;
 
 /**
  * CSS classes used to style the row.
@@ -286,77 +290,194 @@ gtv.jq.CreateParams.prototype.keyController = null;
  *     itemDiv {string} CSS class to style the DIV holding a single item.
  *     item {string} CSS class to style the individual item.
  *     selected {string} CSS class to style the item that has the selection.
- * @type {Object}
+ *     hasData {string} CSS class to style the item that has the selection,
+ *         for controls that support different selection styles based on
+ *         associated data (see gtv.jq.CaptionItem).
+ *     normal {string} For controls that maintain a sticky item choice, such
+ *         as SideNav. CSS class to style an item that has been 'chosen', that
+ *         is, the ENTER key was pressed while it had selection, or it
+ *         received a mouse click.
+ *     chosen {string}  For controls that maintain a sticky item choice, such
+ *         as SideNav. CSS class to style an item that has been 'chosen', that
+ *         is, the ENTER key was pressed while it had selection, or it
+ *         received a mouse click.
+ * @type Object
  */
-gtv.jq.CreateParams.prototype.styles = null;
+gtv.jq.CreationParams.prototype.styles = null;
 
 /**
  * The ID of the control container (an element will be created with this ID).
- * @type {string}
+ * @type string
  */
-gtv.jq.CreateParams.prototype.containerId = null;
+gtv.jq.CreationParams.prototype.containerId = null;
 
 /**
  * Callback to make when the user chooses an item (if applicable to the control)
- * @type {Function(selectedItem)}
+ * @type Function(selectedItem)
  */
-gtv.jq.CreateParams.prototype.choiceCallback = null;
+gtv.jq.CreationParams.prototype.choiceCallback = null;
 
 /**
  * Array of Layer name to add the control to, or 'default' if not supplied.
- * @type {string}
+ * @type string
  */
-gtv.jq.CreateParams.prototype.layerNames = null;
+gtv.jq.CreationParams.prototype.layerNames = null;
+
 
 /**
- * Validates the params and sets intelligent defaults if possible.
- * @return {boolean} True if params validate, false otherwise.
+ * Describes an item that has a caption and a data item to go with it.
+ * Not all controls support CaptionItem (StackControl, SlidingControl).
+ * Use this instead of a simple items array when an item that needs
+ * selection (say, a thumbnail) also needs a caption (say, photo title)
+ * but the selection outline should only be drawn around the item.
+ * @constructor
  */
-gtv.jq.CreateParams.validateParams = function(params) {
-  if (!params.containerId ||
-      !params.topParent)
-    return false;
-
-  params.styles = params.styles || {};
-  params.styles.page = params.styles.page || '';
-  params.styles.row = params.styles.row || '';
-  params.styles.itemDiv = params.styles.itemDiv || '';
-  params.styles.item = params.styles.item || '';
-  params.styles.selected = params.styles.selected || 'item-hover';
-  params.styles.normal = params.styles.normal || '';
-  params.styles.chosen = params.styles.chosen || '';
-
-  return true;
+gtv.jq.CaptionItem = function() {
 };
 
+/**
+ * The item that will be outlined by selection. This will be the child of
+ * the element with the CSS class styles.item.
+ * @type jQuery.Element
+ */
+gtv.jq.CaptionItem.prototype.item = null;
+
+/**
+ * The caption for the item, to be displayed beneath it. The container of this
+ * caption will be styled so that it will be clipped at the width of the item.
+ * @type jQuery.Element
+ */
+gtv.jq.CaptionItem.prototype.caption = null;
+
+/**
+ * If supplied, this item will be given an active hover style by the key
+ * controller when selected. This allows items with data to be visually
+ * distinguished from those without. For example, an item that can be
+ * navigated to when chosen might have this value non-null; and item that
+ * cannot will have it null. The two different selection styles applied
+ * (styles.selected, styles.hasData) provide a visual clue to the user.
+ */
+gtv.jq.CaptionItem.prototype.data = null;
+
+
+/**
+ * Describes the contents to be added to a control. Passed with ShowParams
+ * object, used when calling showControl on a control object.
+ *
+ * items, itemsArray and itemsGenerator, indicate how new items will be
+ * added to the control being displayed. Only one of these should be supplied
+ * in an instance of the object.
+ * @param {gtv.jq.ControlContents} opt_params Optional initialization values.
+ * @constructor
+ */
+gtv.jq.ControlContents = function(opt_params) {
+  var params = opt_params || {};
+
+  this.items = params.items;
+  this.captionItems = params.captionItems;
+  this.contentsArray = params.contentsArray;
+  this.itemsGenerator = params.itemsGenerator;
+};
+
+/**
+ * Simple array of items to add to the control. These items will be added to
+ * the control in the order they appear in the array. Each item is added as
+ * a child of a separate Element to contain it. These container elements are
+ * created by the control and given the Styles.item CSS class.
+ * @type Array.<jQuery.Element>
+ */
+gtv.jq.ControlContents.prototype.items = null;
+
+/**
+ * Simple array of items to add to the control. These items will be added to
+ * the control in the order they appear in the array. Each item is added as
+ * a child of a separate Element to contain it. These container elements are
+ * created by the control and given the Styles.item CSS class.
+ * @type Array.<gtv.jq.CaptionItem>
+ */
+gtv.jq.ControlContents.prototype.captionItems = null;
+
+/**
+ * Array of ControlContents objects to add to a control. Some multi-row
+ * controls (such as the RollerControl) require this so that each row can be
+ * described explicitly. That is, each row has a very specific contents
+ * instead of being created as-needed and filled in.
+ *
+ * Since this is an array of ControlContents objects, each element is can
+ * in turn be a simple array of items or an itemsGenerator. (It could also
+ * take an itemsArray, but no existing controls take an array of arrays of
+ * arrays.)
+ * @type Array.<gtv.jq.ControlContents>
+ */
+gtv.jq.ControlContents.prototype.contentsArray = null;
+
+/**
+ * A function that generates items as-requested. Clients creating controls
+ * can use this to create one or more controls in a callback instead of having
+ * them pre-created an placed in an items array. Generally this callback
+ * maintains state in its closure and creates the each subsequent item in a
+ * collection when it is called. This function also must add its control to
+ * the parent element, which is passed in. The parent element is already in
+ * the page DOM when the callback is called, so controls added to the parent
+ * will be in the DOM immediately as well.
+ *
+ * This function should return boolean true if it added an element to the
+ * parent, and false if it did not (and has no further elements to add).
+ * @type Function(jQuery.Element)
+ */
+gtv.jq.ControlContents.itemsGenerator = null;
 
 /**
  * Holds parameters used to show the library controls.
+ * @param {?gtv.jq.ShowParams} opt_params Optional parameters to initialize the
+ *     new object with.
  * @constructor
  */
-gtv.jq.ShowParams = function() {
+gtv.jq.ShowParams = function(opt_params) {
+  var params = opt_params || {};
+
+  this.topParent = params.topParent;
+  if (!this.topParent) {
+    throw new Error("topParent must be supplied.");
+  }
+
+  this.contents = new gtv.jq.ControlContents(params.contents);
 };
 
 /**
  * Parent element on the page that holds the control.
- * @type {jQuery.Element}
+ * @type jQuery.Element
  */
 gtv.jq.ShowParams.prototype.topParent = null;
 
 /**
- * Array of items to add to the control
- * @type {Array.<jQuery.Element>}
+ * The contents the control should have. See gtv.jq.ControlContents for
+ * details.
+ * @type gtv.jq.ControlContents
  */
-gtv.jq.ShowParams.prototype.items = null;
+gtv.jq.ShowParams.prototype.contents = null;
+
 
 /**
- * Array of arrays of items to add to the control
- * @type {Array.<Array.<jQuery.Element>>}
+ * Size class holds a width/height dimension pair.
+ * @param {number} width
+ * @param {number} height
+ * @constructor
  */
-gtv.jq.ShowParams.prototype.itemsArray = null;
+gtv.jq.Size = function(width, height) {
+  this.width = width;
+  this.height = height;
+};
 
 /**
- * Generator function to create items and add them to the control.
- * @type {Function(<jQuery.Element>}
+ * Width dimension in pixels.
+ * @type number
  */
-gtv.jq.ShowParams.prototype.itemsGenerator = null;
+gtv.jq.Size.prototype.width;
+
+/**
+ * Height dimension in pixels.
+ * @type number
+ */
+gtv.jq.Size.prototype.height;
+

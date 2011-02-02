@@ -40,60 +40,243 @@
  */
 
 var gtv = gtv || {
-  jq : {}
+  jq: {}
+};
+
+
+/**
+ * KeyZoneCreationParams class. Holds params used to initialize a new
+ * KeyBehaviorZone.
+ * @constructor
+ */
+gtv.jq.KeyZoneCreationParams = function() {
 };
 
 /**
- * KeyBehaviorZone class. Defines a zone of key navigation rules.
- * @param {string} containerSelector jQuery selector that uniquely identifies
- *     the containing zone on the page.
- * @param {KeyMap} keyMapping Mapping of key code numbers to callback methods.
- * @param {Actions} actions Callbacks for supported Key Controller actions:
- *     enterZone: Called when the zone is entered.
- *     leaveZone: Called before the zone is exited.
- *     scrollIntoView: Called during selection movement, this method ensures
- *         that the selected item is moved into view.
- *     moveSelected: Called just before the selection is moved.
- *     click: Called when an item is clicked on with the mouse.
- * @param {Object} navSelectors A collection of jQuery selectors for
- *     non-geometry key navigation: item, itemParent, itemRow, itemPage.
- * @param {Object} selectionClasses: A collection of classes for highlighting
- *     selected items of various states: hasData, basic.
- * @param {?string} navigableData Optional string defining what data (reached
- *     using jQuery.data()) should distinguish an item highlighted with
- *     selectionClasses.hasData.
- * @param {?boolean} saveRowPosition If true, a multi-row zone will save the
- *     selected item for each row, and return selection to that item when
- *     selection returns to that row.
- * @param {?boolean} useGeometry If true, the key controller determines the next
- *     selected item by examining the page and finding the closest item in the
- *     direction the user has navigated.
- * @param {?boolean} selectHidden If true, the key controller will move the
- *     selection to a non-visible element on the page. (The zone would likely
- *     supply a scrollIntoView callback that made the item visible when
- *     selected.)
+ * jQuery selector that uniquely identifies the containing zone on the page.
+ * @type string
+ */
+gtv.jq.KeyZoneCreationParams.prototype.containerSelector = null;
+
+/**
+ * Mapping of key code numbers to callback methods.
+ * @type gtv.jq.KeyMapping
+ */
+gtv.jq.KeyZoneCreationParams.prototype.keyMapping = null;
+
+/**
+ * Callbacks for supported Key Controller actions.
+ * @type gtv.jq.KeyActions
+ */
+gtv.jq.KeyZoneCreationParams.prototype.actions = null;
+
+/**
+ * A collection of jQuery selectors for non-geometry key navigation.
+ * @type gtv.jq.KeyNavSelectors
+ */
+gtv.jq.KeyZoneCreationParams.prototype.navSelectors = null;
+
+/**
+ * CSS classes to determine how to highlight a particular selected item.
+ * @type gtv.jq.KeySelectionCssClasses
+ */
+gtv.jq.KeyZoneCreationParams.prototype.selectionClasses = null;
+
+/**
+ * Optional string that, if found in the element's jQuery.data(), will
+ * cause the item to be highlighted with the hasData selection class.
+ * @type string
+ */
+gtv.jq.KeyZoneCreationParams.prototype.navigableData = null;
+
+/**
+ * If true, a multi-row zone will save the selected item for each row,
+ * and return selection to that item when selection returns to that row.
+ * @type boolean
+ */
+gtv.jq.KeyZoneCreationParams.prototype.saveRowPosition = null;
+
+/**
+ *  If true, the key controller determines the next selected item by
+ *  examining the page and finding the closest item in the
+ *  direction the user has navigated.
+ * @type boolean
+ */
+gtv.jq.KeyZoneCreationParams.prototype.useGeometry = null;
+
+/**
+ * If true, the key controller will move the selection to a non-visible
+ * element on the page. (The zone would likely supply a scrollIntoView
+ * callback that made the item visible when selected.)
+ * @type boolean
+ */
+gtv.jq.KeyZoneCreationParams.prototype.selectHidden = null;
+
+
+/**
+ * KeyMapping class. Holds key mappings to be called by the key controller
+ * when a key event is received. Each entry should be numbered by the keycode
+ * (e.g., ENTER = 13) paired with a callback.
  * @constructor
  */
-gtv.jq.KeyBehaviorZone = function(containerSelector,
-                                  keyMapping,
-                                  actions,
-                                  navSelectors,
-                                  selectionClasses,
-                                  navigableData,
-                                  saveRowPosition,
-                                  useGeometry,
-                                  selectHidden) {
-  this.containerSelector = containerSelector;
-  this.container = $(containerSelector);
+gtv.jq.KeyMapping = function() {
+};
 
-  this.keyMapping = keyMapping || {};
-  this.actions = actions || {};
-  this.saveRowPosition = saveRowPosition;
-  this.navSelectors = navSelectors || {};
-  this.selectionClasses = selectionClasses || {};
-  this.navigableData = navigableData;
-  this.useGeometry = useGeometry;
-  this.selectHidden = selectHidden;
+/**
+ * Key mapping callbacks should be numbered by keycode, for example, passing:
+ *     var keyMapping = { 13: enterCallback };
+ * will cause the function 'enterCallback' to be called when the ENTER key
+ * is pressed.
+ * @param {jQuery.Element} selectedItem The currently selected item. May be
+ *     undefined/null if there is no currently selected item.
+ * @param {jQuery.Element} newSelected A candidate item to be the next
+ *     selected item. For movement keys (e.g., arrows) this will be set
+ *     unless the controller cannot find a candidate item in the direction
+ *     of the arrow movement. For other keys, it will be unset.
+ * @return {gtv.jq.Selection} A Selection object telling the key controller
+ *     what to do in response to the callback (may be to ignore the result,
+ *     skip further processing, or change the selected item; see
+ *     gtv.jq.Selection for details).
+ */
+gtv.jq.KeyMapping.prototype.keyCallback = null;
+
+
+/**
+ * KeyActions class. Provides the key controller zone with a set of callbacks
+ * to make when certain events happen in the key controller.
+ * @constructor
+ */
+gtv.jq.KeyActions = function() {
+};
+
+/**
+ * Called when a zone is entered. This is called in descending order from
+ * a parent to child zones. Optionally returns a the item to be selected
+ * after the zone is entered. This is only honored if the zone is at the
+ * end of the parent-child heirarchy.
+ * @type Function()
+ */
+gtv.jq.KeyActions.prototype.enterZone = null;
+
+/**
+ * Called when a zone is exited. This is called in ascending order from
+ * child to parent zones.
+ * @type Function(selectedItem)
+ *     @param {jQuery.Element} selectedItem The selected item in the zone.
+ */
+gtv.jq.KeyActions.prototype.leaveZone = null;
+
+/**
+ * Called every time an item in the zone receives the selection. This method
+ * must determine if the selected item is in view and, if it is, position it
+ * such that it is completely visible on the page. If the item is already
+ * visible, for performance reasons it is best to do nothing and return
+ * immediately.
+ * @type Function(newZone, newSelected, syncCallback)
+ *     @param {gtv.jq.KeyBehaviorZone} newZone The zone where the item resides.
+ *     @param {jQuery.Element} newSelected The item to be selected.
+ *     @param {Function} syncCallback Function to call when any movement
+ *         animation related to moving the item into view is completed. The
+ *         key controller will wait for these animations to complete before
+ *         processing further event input.
+ */
+gtv.jq.KeyActions.prototype.scrollIntoView = null;
+
+/**
+ * Called after the selection has moved to a new item in the zone.
+ * @type Function(selectedItem, newSelected)
+ *     @param {jQuery.Element} selectedItem The currently selected item (that
+ *         selection is moving away from).
+ *     @param {jQuery.Element} newSelected Item that selection is moving to.
+ */
+gtv.jq.KeyActions.prototype.moveSelected = null;
+
+/**
+ * Called when the user clicks the mouse button on an item.
+ * @type Function(item)
+ *     @param {jQuery.Element} item The item clicked on.
+ */
+gtv.jq.KeyActions.prototype.click = null;
+
+
+/**
+ * KeyNavSelectors class.
+ * @constructor
+ */
+gtv.jq.KeyNavSelectors = function() {
+};
+
+/**
+ * The jQuery selector to use to determine if an element is an item, that is,
+ * a navigable element on the page.
+ * @type string
+ */
+gtv.jq.KeyNavSelectors.prototype.item = null;
+
+/**
+ * The jQuery selector to use to determine if an element is the immediate
+ * container of an 'item'
+ * @type string
+ */
+gtv.jq.KeyNavSelectors.prototype.itemParent = null;
+
+/**
+ * The jQuery selector to use to determine if an element is the parent of
+ * an item parent. All itemParent children of a row are navigated horizontally,
+ * that is, with the left/right arrows. Rows themselves are navigated
+ * vertically (up/down arrows).
+ * @type string
+ */
+gtv.jq.KeyNavSelectors.prototype.itemRow = null;
+
+/**
+ * The jQuery selector to use to determine if an element represents a page of
+ * itemRows or itemParents. Used to segment items to support paging.
+ * @type string
+ */
+gtv.jq.KeyNavSelectors.prototype.itemPage = null;
+
+
+/**
+ * KeySelectionCssClasses class. A collection of CSS classes for highlighting
+ *     selected items of various states
+ * @constructor
+ */
+gtv.jq.KeySelectionCssClasses = function() {
+};
+
+/**
+ * Used to highlight items that do not meet the criteria for any other
+ * selection class. At present, this means that if an item does not have
+ * a jQuery.data() value for zone's navigableData string, this class will
+ * be used to highlight.
+ * @type string
+ */
+gtv.jq.KeySelectionCssClasses.prototype.basic = null;
+
+/**
+ * Used to highlight items that have a jQuery.data() value for the zone's
+ * navigableData string. That is, if navigableData is 'destUrl', then any
+ * element where element.data('destUrl') != undefined will be highlighted
+ * with this CSS class.
+ * @type string
+ */
+gtv.jq.KeySelectionCssClasses.prototype.hasData = null;
+
+
+/**
+ * KeyBehaviorZone class. Defines a zone of key navigation rules.
+ * @param {gtv.jq.KeyZoneCreationParams} createParams Initialization data for
+ *     the new zone.
+ * @constructor
+ */
+gtv.jq.KeyBehaviorZone = function(createParams) {
+  this.params = createParams;
+
+  this.params.keyMapping = this.params.keyMapping || {};
+  this.params.actions = this.params.actions || {};
+  this.params.navSelectors = this.params.navSelectors || {};
+  this.params.selectionClasses = this.params.selectionClasses || {};
 };
 
 
@@ -149,11 +332,11 @@ gtv.jq.KeyController.prototype.createLayer = function(layerName, priority) {
 
 /**
  * Deletes the named layer. If the layer is the currently active one, the
- * default layer is selected as a replacement and selection is mvoed to the
+ * default layer is selected as a replacement and selection is moved to the
  * first zone.
  * @param {string} layerName The name of the layer to delete.
- * @return {boolean} False if the layer doesn't exist or the caller is trying to
- *     delete the default layer. True otherwise.
+ * @return {boolean} False if the layer doesn't exist or the caller is trying
+ *     to delete the default layer. True otherwise.
  */
 gtv.jq.KeyController.prototype.deleteLayer = function(layerName) {
   var keyController = this;
@@ -172,7 +355,8 @@ gtv.jq.KeyController.prototype.deleteLayer = function(layerName) {
 
     keyController.activeLayer_ = 'default';
     keyController.setZone(
-        keyController.zoneLayers_['default'].behaviorZones[0]);
+        keyController.zoneLayers_['default'].behaviorZones[0],
+        true);
   }
 
   keyController.zoneLayers_[layerName] = null;
@@ -213,18 +397,18 @@ gtv.jq.KeyController.prototype.setSelected = function(newSelected,
 /**
  * Makes the specified layer the active one, and moves selection to the first
  * zone in that layer.
- * @param {?string} layerName The name of the layer to active. If not supplied,
- *     activates the default layer.
+ * @param {?string} opt_layerName The name of the layer to active. If not,
+ *     supplied activates the default layer.
  */
-gtv.jq.KeyController.prototype.setLayer = function(layerName) {
+gtv.jq.KeyController.prototype.setLayer = function(opt_layerName) {
   var keyController = this;
-  layerName = layerName || 'default';
+  var layerName = opt_layerName || 'default';
   var zoneLayer = keyController.zoneLayers_[layerName];
 
   if (keyController.activeLayer_ != layerName) {
-    keyController.setZone(zoneLayer.behaviorZones[0]);
+    keyController.activeLayer_ = layerName;
+    keyController.setZone(zoneLayer.behaviorZones[0], true);
   }
-  // keyController.activeLayer_ = .layer;
 };
 
 /**
@@ -239,13 +423,13 @@ gtv.jq.KeyController.prototype.setGlobalKeyMapping = function(keyMapping) {
 /**
  * Sets a key mapping for specified layer.
  * @param {KeyMap} keyMapping The key mapping to install in the layer.
- * @param {?string} layerName The name of the layer to install the mapping into.
+ * @param {?string} opt_layerName The name of the layer to install the mapping.
  *     If not supplied, the default layer is used.
  */
 gtv.jq.KeyController.prototype.setLayerKeyMapping = function(keyMapping,
-                                                             layerName) {
+                                                             opt_layerName) {
   var keyController = this;
-  layerName = layerName || 'default';
+  var layerName = opt_layerName || 'default';
   var zoneLayer = keyController.zoneLayers_[layerName];
 
   zoneLayer.setKeyMapping_(keyMapping);
@@ -254,30 +438,32 @@ gtv.jq.KeyController.prototype.setLayerKeyMapping = function(keyMapping,
 /**
  * Adds a new zone to a layer in the key controller.
  * @param {KeyBehaviorZone} zone The zone to add.
- * @param {?boolean} selectOnInit If true, the zone will receive the selection
- *     if no other zone in the controller has the selection.
- * @param {?Array.<string>} layerNames The names of the layers to add the zone
- *     to. If not supplied, the default layer is used.
+ * @param {?boolean} opt_selectOnInit If true, the zone will receive the
+ *     selection if no other zone in the controller has the selection.
+ * @param {?Array.<string>} opt_layerNames The names of the layers to add the
+ *     zone to. If not supplied, the default layer is used.
  */
 gtv.jq.KeyController.prototype.addBehaviorZone = function(zone,
-                                                          selectOnInit,
-                                                          layerNames) {
+                                                          opt_selectOnInit,
+                                                          opt_layerNames) {
   var keyController = this;
-  layerNames = layerNames || ['default'];
+  var layerNames = opt_layerNames || ['default'];
+  var selectOnInit = opt_selectOnInit;
 
   for (var layer = 0; layer < layerNames.length; layer++) {
     var zoneLayer = keyController.zoneLayers_[layerNames[layer]];
     if (!zoneLayer) {
       zoneLayer = keyController.createLayer(layerNames[layer]);
     }
+
+    zoneLayer.behaviorZones.push(zone);
   }
 
-  zone.layers = layerNames;
-  zoneLayer.behaviorZones.push(zone);
   keyController.attachZone_(zone, false);
+  zone.layers = layerNames;
 
   if (keyController.started_ && selectOnInit) {
-    keyController.setZoneIfNone(zone);
+    keyController.setZone(zone);
   }
 };
 
@@ -307,15 +493,16 @@ gtv.jq.KeyController.prototype.removeBehaviorZone = function(zone) {
 /**
  * Installs an array of zones into a layer. Replaces any existing zones.
  * @param {Array.<KeyBehaviorZone>} zones Array of zones to add.
- * @param {?boolean} selectOnInit If true, selects the first zone.
- * @param {?Array.<string>} layerNames The layer to install the zones into.
+ * @param {?boolean} opt_selectOnInit If true, selects the first zone.
+ * @param {?Array.<string>} opt_layerNames The layer to install the zones into.
  *     If not supplied, uses the default layer.
  */
 gtv.jq.KeyController.prototype.setZones = function(zones,
-                                                   selectOnInit,
-                                                   layerNames) {
+                                                   opt_selectOnInit,
+                                                   opt_layerNames) {
   var keyController = this;
-  layerNames = layerNames || ['default'];
+  var selectOnInit = opt_selectOnInit;
+  var layerNames = opt_layerNames || ['default'];
   var zoneLayer = keyController.zoneLayers_[layerName];
 
   zoneLayer.behaviorZones = zones;
@@ -325,20 +512,21 @@ gtv.jq.KeyController.prototype.setZones = function(zones,
   }
 
   if (selectOnInit && zones.length > 0) {
-    keyController.setZoneIfNone(zoneLayer.behaviorZones[0]);
+    keyController.setZone(zoneLayer.behaviorZones[0]);
   }
 };
 
 /**
  * Removes all zones from a layer and returns the zones. Selection is moved to
  * the next zone (thus activating a new layer), if available.
- * @param {?string} layerName The layer to remove the zones from. If not
+ * @param {?string} opt_layerName The layer to remove the zones from. If not
  * supplied, uses the default layer.
  * @return {Array.<KeyBehaviorZone>} Array of zones removed.
  */
-gtv.jq.KeyController.prototype.removeAllZones = function(layerName) {
+gtv.jq.KeyController.prototype.removeAllZones = function(opt_layerName) {
   var keyController = this;
-  var zoneLayer = keyController.zoneLayers_[layerName || 'default'];
+  var layerName = opt_layerName || 'default';
+  var zoneLayer = keyController.zoneLayers_[layerName];
 
   for (var i = 0; i < zoneLayer.behaviorZones.length; i++) {
     keyController.detachZone_(zoneLayer.behaviorZones[i]);
@@ -359,23 +547,25 @@ gtv.jq.KeyController.prototype.removeAllZones = function(layerName) {
  * and after it is started.
  * @param {?KeyBehaviorZone} initialZone Optional initial zone to select. If not
  *     supplied, the first zone is selected.
- * @param {?boolean} selectOnInit If supplied, initialZone will be selected.
- * @param {?string} layerName If supplied, the specified layer will be the
- *     active layer. If both an initialZone and layerName are supplied, the
+ * @param {?boolean} opt_selectOnInit If supplied, initialZone will be selected.
+ * @param {?string} opt_layerName If supplied, the specified layer will be the
+ *     active layer. If both an initialZone and opt_layerName are supplied, the
  *     layer of initialZone will be active layer, and this value will be
  *     ignored.
  * @return {boolean} True if the controller starts successfully.
  */
 gtv.jq.KeyController.prototype.start = function(initialZone,
-                                                selectOnInit,
-                                                layerName) {
+                                                opt_selectOnInit,
+                                                opt_layerName) {
   var keyController = this;
 
   if (keyController.started_)
     return true;
 
+  var layerName = opt_layerName || 'default';
+  var selectOnInit = opt_selectOnInit;
   if (!initialZone) {
-    keyController.activeLayer_ = layerName || 'default';
+    keyController.activeLayer_ = layerName;
 
     initialZone =
         keyController.zoneLayers_[keyController.activeLayer_].behaviorZones[0];
@@ -390,7 +580,8 @@ gtv.jq.KeyController.prototype.start = function(initialZone,
       });
 
   if (selectOnInit) {
-    var items = initialZone.container.find(initialZone.navSelectors.item);
+    var items = $(initialZone.params.containerSelector + ' ' +
+                  initialZone.params.navSelectors.item);
     items.first().mouseenter();
   }
 
@@ -416,112 +607,43 @@ gtv.jq.KeyController.prototype.stop = function() {
  * Moves the selection to the specified zone only if there is not already a
  * zone with selection.
  * @param {KeyBehaviorZone} newZone The zone to move selection to.
+ * @param {boolean} opt_force Set the zone even if there is already an active
+ *     zone.
  * @return {boolean} True if selection moved, false otherwise.
  */
-gtv.jq.KeyController.prototype.setZoneIfNone = function(newZone) {
+gtv.jq.KeyController.prototype.setZone = function(newZone, opt_force) {
   var keyController = this;
 
-  if (keyController.currentZone_) {
-    for (var layer = 0; layer < newZone.layers.length; layer++) {
-      if (keyController.activeLayer_ == newZone.layers[layer]) {
-        return false;
-      }
+  var zoneInLayer = false;
+  for (var layer = 0; layer < newZone.layers.length; layer++) {
+    if (keyController.activeLayer_ == newZone.layers[layer]) {
+      zoneInLayer = true;
+      break;
     }
   }
 
+  if (!opt_force && keyController.currentZone_ && zoneInLayer) {
+    // If there's already a currentZone, we're not forcing the new zone,
+    // and the currentZone is in the active layer, don't set the new zone
+    return false;
+  }
+
   var newSelected = keyController.shiftZone_(newZone);
   if (newSelected && newSelected.length > 0) {
+    if (!zoneInLayer) {
+      // Only change the active layer if the new zone does not exist
+      // in it.
+      keyController.activeLayer_ = newZone.layers[0];
+    }
     keyController.moveSelected_(newZone, newSelected);
   }
 
   return true;
 };
 
-/**
- * Moves the selection to the specified zone.
- * @param {KeyBehaviorZone} newZone The zone to move selection to.
- * @return {boolean} True since selection always moves.
- */
-gtv.jq.KeyController.prototype.setZone = function(newZone) {
-  var keyController = this;
-
-  var newSelected = keyController.shiftZone_(newZone);
-  if (newSelected && newSelected.length > 0) {
-    keyController.moveSelected_(newZone, newSelected);
-  }
-
-  return true;
-};
 
 /***************************************************************************/
 /*Private Properties and Methods********************************************/
-
-/**
- * Unique selector for the zone's container.
- * @type {string}
- * @protected
- */
-gtv.jq.KeyBehaviorZone.prototype.containerSelector = null;
-
-/**
- * Key mapping for the zone.
- * @type {KeyMap}
- * @protected
- */
-gtv.jq.KeyBehaviorZone.prototype.keyMapping = {};
-
-/**
- * Actions for the zone.
- * @type {Actions}
- * @protected
- */
-gtv.jq.KeyBehaviorZone.prototype.actions =  {};
-
-/**
- * Specifies if the row position should be saved.
- * @type {boolean}
- * @protected
- */
-gtv.jq.KeyBehaviorZone.prototype.saveRowPosition = false;
-
-/**
- * Selectors used by controller to comprehend page layout.
- * @type {Object}
- * @protected
- */
-gtv.jq.KeyBehaviorZone.prototype.navSelectors = {};
-
-/**
- * CSS classes used to style selected items.
- * @type {Object}
- * @protected
- */
-gtv.jq.KeyBehaviorZone.prototype.selectionClasses = {};
-
-/**
- * String identifying data item, if any, that indicates an item has
- * navigable data.
- * @type {string}
- * @protected
- */
-gtv.jq.KeyBehaviorZone.prototype.navigableData = null;
-
-/**
- * If true, indicates that they key controller should page geometry
- * instead of static layout to determine next item to navigate to.
- * @type {boolean}
- * @protected
- */
-gtv.jq.KeyBehaviorZone.prototype.useGeometry = false;
-
-/**
- * If true, indicates that the key controller will allow hidden items to
- * become the selected item.
- * @type {string}
- * @protected
- */
-gtv.jq.KeyBehaviorZone.prototype.selectHidden = false;
-
 
 /**
  * KeyZoneLayer_ class defines a distinct layer of zones in the key controller.
@@ -537,21 +659,21 @@ gtv.jq.KeyZoneLayer_ = function(priority) {
 
 /**
  * Priority of the zone, currently unused.
- * @type {number}
+ * @type number
  * @protected
  */
 gtv.jq.KeyZoneLayer_.prototype.priority = null;
 
 /**
  * Behavior zones that are members of this layer.
- * @type {number}
+ * @type number
  * @protected
  */
 gtv.jq.KeyZoneLayer_.prototype.behaviorZones = null;
 
 /**
  * Key mapping to use for all input in this layer.
- * @type {Object}
+ * @type Object
  * @protected
  */
 gtv.jq.KeyZoneLayer_.prototype.globalKeyMapping = null;
@@ -571,21 +693,21 @@ gtv.jq.KeyZoneLayer_.prototype.setKeyMapping_ = function(keyMapping) {
 
 /**
  * The item on the page that is currently selected, if any.
- * @type {jQuery.Element}
+ * @type jQuery.Element
  * @private
  */
 gtv.jq.KeyController.prototype.selectedItem_ = null;
 
 /**
  * The currently active zone. The selectedItem, if set, is always in this zone.
- * @type {gtv.jq.KeyBehaviorZone}
+ * @type gtv.jq.KeyBehaviorZone
  * @private
  */
 gtv.jq.KeyController.prototype.currentZone_ = null;
 
 /**
  * The current key mapping set for the global page.
- * @type {Object}
+ * @type Object
  * @private
  */
 gtv.jq.KeyController.prototype.globalKeyMapping_ = {};
@@ -593,7 +715,7 @@ gtv.jq.KeyController.prototype.globalKeyMapping_ = {};
 /**
  * Tracks animation in progress. While true, animations to scroll into view
  * are active, and input events are ignored.
- * @type {boolean}
+ * @type boolean
  * @private
  */
 gtv.jq.KeyController.prototype.moving_ = null;
@@ -601,7 +723,7 @@ gtv.jq.KeyController.prototype.moving_ = null;
 /**
  * The current state of the KeyController. True if is started and listening
  * for events.
- * @type {boolean}
+ * @type boolean
  * @private
  */
 gtv.jq.KeyController.prototype.started_ = null;
@@ -609,14 +731,14 @@ gtv.jq.KeyController.prototype.started_ = null;
 /**
  * The currently active layer. Defaults to 'default'. Only this layer will
  * process input events, get the selection, etc.
- * @type {gtv.jq.KeyZoneLayer_}
+ * @type gtv.jq.KeyZoneLayer_
  * @private
  */
 gtv.jq.KeyController.prototype.activeLayer_ = null;
 
 /**
  * The available layers in the controller. There is always the 'default' layer.
- * @type {Array.<gtv.jq.KeyZoneLayer_>}
+ * @type Array.<gtv.jq.KeyZoneLayer_>
  * @private
  */
 gtv.jq.KeyController.prototype.zoneLayers_ = null;
@@ -631,7 +753,8 @@ gtv.jq.KeyController.prototype.zoneLayers_ = null;
 gtv.jq.KeyController.prototype.attachZone_ = function(zone) {
   var keyController = this;
 
-  var items = zone.container.find(zone.navSelectors.item);
+  var items = $(zone.params.containerSelector + ' ' +
+                zone.params.navSelectors.item);
   items.bind('mouseenter.keycontroller',
              function(e) {
                if (!keyController.moving_) {
@@ -656,24 +779,26 @@ gtv.jq.KeyController.prototype.attachZone_ = function(zone) {
                e.stopPropagation();
              });
 
-  var pages = zone.container;
-  if (zone.navSelectors.itemPage) {
-    if (!zone.container.is(zone.navSelectors.itemPage)) {
-      pages = zone.container.find(zone.navSelectors.itemPage);
+  var pages = $(zone.params.containerSelector);
+  if (zone.params.navSelectors.itemPage) {
+    if (!$(zone.params.containerSelector).is(
+          zone.params.navSelectors.itemPage)) {
+      pages = $(zone.params.containerSelector + ' ' +
+                zone.params.navSelectors.itemPage);
     }
   }
   for (var i = 0; i < pages.length; i++) {
-    var pageRows = zone.container;
-    if (zone.navSelectors.itemRow) {
-      if (pages.eq(i).is(zone.navSelectors.itemRow)) {
+    var pageRows = $(zone.params.containerSelector);
+    if (zone.params.navSelectors.itemRow) {
+      if (pages.eq(i).is(zone.params.navSelectors.itemRow)) {
         pageRows = pages.eq(i);
       } else {
-        pageRows = pages.eq(i).find(zone.navSelectors.itemRow);
+        pageRows = pages.eq(i).find(zone.params.navSelectors.itemRow);
       }
     }
 
     for (var j = 0; j < pageRows.length; j++) {
-      var pageRowItems = pageRows.eq(j).find(zone.navSelectors.item);
+      var pageRowItems = pageRows.eq(j).find(zone.params.navSelectors.item);
 
       for (var k = 0; k < pageRowItems.length; k++) {
         if (pageRowItems.eq(k).data('index') == undefined) {
@@ -692,7 +817,8 @@ gtv.jq.KeyController.prototype.attachZone_ = function(zone) {
 gtv.jq.KeyController.prototype.detachZone_ = function(zone) {
   var keyController = this;
 
-  var items = zone.container.find(zone.navSelectors.item);
+  var items = $(zone.params.containerSelector + ' ' +
+                zone.params.navSelectors.item);
   items.unbind('.keycontroller');
 };
 
@@ -719,11 +845,11 @@ gtv.jq.KeyController.prototype.nextZone_ = function(zone) {
 
   var parentZones = [];
 
-  var item = zone.container;
+  var item = $(zone.params.containerSelector);
   while(item.length) {
     for (var j = 0; j < zoneLayer.behaviorZones.length; j++) {
       var parentContainer =
-        item.parent(zoneLayer.behaviorZones[j].containerSelector);
+        item.parent(zoneLayer.behaviorZones[j].params.containerSelector);
 
       if (parentContainer.length != 0) {
         parentZones.push(zoneLayer.behaviorZones[j]);
@@ -758,9 +884,9 @@ gtv.jq.KeyController.prototype.nextZone_ = function(zone) {
 };
 
 /**
- * Handles the keyDown event for the document where the Key Controller is started.
- * This handler will return immediately if there is no current zone or if there
- * is scrollIntoView animation in progress.
+ * Handles the keyDown event for the document where the Key Controller is
+ * started. This handler will return immediately if there is no current zone
+ * or if there is scrollIntoView animation in progress.
  * @param {Event} e The keydown event from the browser
  * @private
  */
@@ -785,18 +911,21 @@ gtv.jq.KeyController.prototype.keyDown_ = function(e) {
   var rowIndex = selectedIndex;
 
   var visibleSelector = ':visible';
-  if (keyController.currentZone_.selectHidden) {
+  if (keyController.currentZone_.params.selectHidden) {
     visibleSelector = '';
   }
   // We only want to allow navigation to items that are visible.
   var itemClass =
-      keyController.currentZone_.navSelectors.item + visibleSelector;
+      keyController.currentZone_.params.navSelectors.item + visibleSelector;
   var itemParentClass =
-      keyController.currentZone_.navSelectors.itemParent + visibleSelector;
+      keyController.currentZone_.params.navSelectors.itemParent +
+          visibleSelector;
   var itemParentRowClass =
-      keyController.currentZone_.navSelectors.itemRow + visibleSelector;
+      keyController.currentZone_.params.navSelectors.itemRow +
+          visibleSelector;
   var itemParentRowPageClass =
-      keyController.currentZone_.navSelectors.itemPage + visibleSelector;
+      keyController.currentZone_.params.navSelectors.itemPage +
+          visibleSelector;
 
   var newZone;
   var newSelected;
@@ -858,7 +987,7 @@ gtv.jq.KeyController.prototype.keyDown_ = function(e) {
         break;
       }
 
-      if (keyController.currentZone_.saveRowPosition) {
+      if (keyController.currentZone_.params.saveRowPosition) {
         keyController.selectedItem_
           .parents(itemParentRowClass)
           .data('index', selectedIndex);
@@ -867,7 +996,8 @@ gtv.jq.KeyController.prototype.keyDown_ = function(e) {
       var parentRow = keyController.selectedItem_.parents(itemParentRowClass);
       var newRow = parentRow.prevAll(itemParentRowClass).eq(0);
 
-      if (keyController.currentZone_.saveRowPosition && newRow.length) {
+      if (keyController.currentZone_.params.saveRowPosition &&
+          newRow.length) {
         rowIndex = newRow.data('index');
       }
 
@@ -905,7 +1035,7 @@ gtv.jq.KeyController.prototype.keyDown_ = function(e) {
         break;
       }
 
-      if (keyController.currentZone_.saveRowPosition) {
+      if (keyController.currentZone_.params.saveRowPosition) {
         keyController.selectedItem_
           .parents(itemParentRowClass)
           .data('index', selectedIndex);
@@ -914,7 +1044,8 @@ gtv.jq.KeyController.prototype.keyDown_ = function(e) {
       var parentRow = keyController.selectedItem_.parents(itemParentRowClass);
       var newRow = parentRow.nextAll(itemParentRowClass).eq(0);
 
-      if (keyController.currentZone_.saveRowPosition && newRow.length) {
+      if (keyController.currentZone_.params.saveRowPosition &&
+          newRow.length) {
         rowIndex = newRow.data('index');
       }
 
@@ -928,7 +1059,7 @@ gtv.jq.KeyController.prototype.keyDown_ = function(e) {
     }
   }
 
-  if (keyController.currentZone_.useGeometry &&
+  if (keyController.currentZone_.params.useGeometry &&
       e.keyCode >= 37 && e.keyCode <= 40) {
     newSelected = keyController.nearestElement_(keyController.currentZone_,
                                                 keyController.selectedItem_,
@@ -962,7 +1093,7 @@ gtv.jq.KeyController.prototype.keyDown_ = function(e) {
   }
 
   // If the zone has a mapped action for this key, call it.
-  keyAction = keyController.currentZone_.keyMapping[e.keyCode];
+  keyAction = keyController.currentZone_.params.keyMapping[e.keyCode];
   if (keyAction) {
     var result = keyAction(keyController.selectedItem_, newSelected);
     if (result.status == 'skip') {
@@ -1026,8 +1157,8 @@ gtv.jq.KeyController.prototype.processSelection_ = function(newZone,
  * @private
  */
 gtv.jq.KeyController.prototype.leaveZone_ = function(zone, selectedItem) {
-  if (zone.actions.leaveZone) {
-    zone.actions.leaveZone(selectedItem);
+  if (zone.params.actions.leaveZone) {
+    zone.params.actions.leaveZone(selectedItem);
   } else {
     zone.lastSelected = selectedItem;
   }
@@ -1049,7 +1180,7 @@ gtv.jq.KeyController.prototype.leaveZoneHeirarchy_ = function(selectedItem) {
   while(item.length) {
     for (var i = 0; i < zoneLayer.behaviorZones.length; i++) {
       var parentContainer =
-        item.parent(zoneLayer.behaviorZones[i].containerSelector);
+        item.parent(zoneLayer.behaviorZones[i].params.containerSelector);
 
       if (parentContainer.length != 0) {
         keyController.leaveZone_(zoneLayer.behaviorZones[i], selectedItem);
@@ -1068,8 +1199,8 @@ gtv.jq.KeyController.prototype.leaveZoneHeirarchy_ = function(selectedItem) {
  * @private
  */
 gtv.jq.KeyController.prototype.enterZone_ = function(zone) {
-  if (zone.actions.enterZone) {
-    return zone.actions.enterZone();
+  if (zone.params.actions.enterZone) {
+    return zone.params.actions.enterZone();
   }
 
   return null;
@@ -1089,7 +1220,7 @@ gtv.jq.KeyController.prototype.enterZoneHeirarchy_ = function(selectedItem) {
   while(item.length) {
     for (var i = 0; i < zoneLayer.behaviorZones.length; i++) {
       var parentContainer =
-        item.parent(zoneLayer.behaviorZones[i].containerSelector);
+        item.parent(zoneLayer.behaviorZones[i].params.containerSelector);
 
       if (parentContainer.length != 0) {
         keyController.enterZone_(zoneLayer.behaviorZones[i]);
@@ -1124,17 +1255,23 @@ gtv.jq.KeyController.prototype.leaveCurrentZone_ = function() {
 gtv.jq.KeyController.prototype.shiftZone_ = function(newZone, newSelected) {
   var keyController = this;
 
-  // If the new zone has an enterZoneAction, call it to enter the zone
-  if (newZone.actions.enterZone) {
-    newSelected = newZone.actions.enterZone();
-  } else {
+  if (newZone.params.actions.enterZone) {
+    // If the new zone has an enterZoneAction, call it to enter the zone
+    newSelected = newZone.params.actions.enterZone();
+  } else if (newZone.lastSelected &&
+             jQuery.contains($(newZone.params.containerSelector).get(0),
+                             newZone.lastSelected.get(0))) {
+    // If the new zone has lastSelected set and the lastSelected item is
+    // still in that zone's container, set it as selected.
     newSelected = newZone.lastSelected;
   }
 
   // If there was no zone enter action, or it didn't select a new item,
   // select one naively, on its behalf.
   if (!newSelected || newSelected.length == 0) {
-    newSelected = newZone.container.find(newZone.navSelectors.item).first();
+    newSelected =
+        $(newZone.params.containerSelector + ' ' +
+          newZone.params.navSelectors.item).first();
   }
 
   return newSelected;
@@ -1162,8 +1299,9 @@ gtv.jq.KeyController.prototype.getNewZone_ = function(fromItem, direction) {
       continue;
     }
 
+    var zoneContainer = $(zone.params.containerSelector);
     var zoneDistance =
-      keyController.calcElementDistance_(fromItem, zone.container, direction);
+      keyController.calcElementDistance_(fromItem, zoneContainer, direction);
 
     if (zoneDistance >= 0 &&
         (minZoneDistance == undefined || zoneDistance < minZoneDistance)) {
@@ -1193,10 +1331,11 @@ gtv.jq.KeyController.prototype.nearestElement_ = function(zone,
   var newCheckItem;
 
   var visibleSelector = ':visible';
-  if (zone.selectHidden) {
+  if (zone.params.selectHidden) {
     visibleSelector = '';
   }
-  var items = zone.container.find(zone.navSelectors.item + visibleSelector);
+  var items = $(zone.params.containerSelector + ' ' +
+                zone.params.navSelectors.item + visibleSelector);
 
   for (var i = 0; i < items.length; i++) {
     var checkItem = items.eq(i);
@@ -1276,8 +1415,7 @@ gtv.jq.KeyController.prototype.calcElementDistance_ = function(fromItem,
           distanceX = fromItemLeft - toItemRight;
         }
       }
-    }
-    else {
+    } else {
       if (fromItemRight <= toItemLeft) {
         distanceX = toItemLeft - fromItemRight;
       }
@@ -1323,8 +1461,7 @@ gtv.jq.KeyController.prototype.calcElementDistance_ = function(fromItem,
           distanceY = fromItemTop - toItemBottom;
         }
       }
-    }
-    else {
+    } else {
       if (fromItemBottom <= toItemTop) {
         distanceY = toItemTop - fromItemBottom;
       }
@@ -1391,14 +1528,14 @@ gtv.jq.KeyController.prototype.moveSelected_ = function(newZone,
 
   if (keyController.selectedItem_ &&
       keyController.selectedItem_ != newSelected) {
-    if (keyController.currentZone_.selectionClasses.basic) {
+    if (keyController.currentZone_.params.selectionClasses.basic) {
       keyController.selectedItem_.removeClass(
-        keyController.currentZone_.selectionClasses.basic);
+        keyController.currentZone_.params.selectionClasses.basic);
     }
 
-    if (keyController.currentZone_.selectionClasses.hasData) {
+    if (keyController.currentZone_.params.selectionClasses.hasData) {
       keyController.selectedItem_.removeClass(
-        keyController.currentZone_.selectionClasses.hasData);
+        keyController.currentZone_.params.selectionClasses.hasData);
     }
 
     if (keyController.selectedItem_.blur) {
@@ -1409,13 +1546,13 @@ gtv.jq.KeyController.prototype.moveSelected_ = function(newZone,
   if (newSelected) {
     var findContainer;
     if (newZone) {
-      findContainer = newSelected.parents(newZone.containerSelector);
+      findContainer = newSelected.parents(newZone.params.containerSelector);
     }
 
     if (!findContainer || findContainer.length == 0) {
       for (var i = 0; i < zoneLayer.behaviorZones.length; i++) {
-        findContainer =
-          newSelected.parents(zoneLayer.behaviorZones[i].containerSelector);
+        findContainer = newSelected.parents(
+            zoneLayer.behaviorZones[i].params.containerSelector);
 
         if (findContainer.length) {
           newZone = zoneLayer.behaviorZones[i];
@@ -1434,7 +1571,7 @@ gtv.jq.KeyController.prototype.moveSelected_ = function(newZone,
       var j;
       for (j = 0; j < zoneLayer.behaviorZones.length; j++) {
         var childContainer =
-          parent.children(zoneLayer.behaviorZones[j].containerSelector);
+          parent.children(zoneLayer.behaviorZones[j].params.containerSelector);
 
         if (childContainer.length > 0) {
           newZone = zoneLayer.behaviorZones[j];
@@ -1468,18 +1605,22 @@ gtv.jq.KeyController.prototype.moveSelected_ = function(newZone,
                                   newSelected,
                                   syncCallback);
 
-    if (newZone.navigableData && newZone.selectionClasses.hasData) {
-      newSelected.addClass(newZone.selectionClasses.hasData);
-    } else if (newZone.selectionClasses.basic) {
-      newSelected.addClass(newZone.selectionClasses.basic);
+    if (newZone.params.navigableData &&
+        newZone.params.selectionClasses.hasData &&
+        newSelected.data(newZone.params.navigableData)) {
+      newSelected.addClass(newZone.params.selectionClasses.hasData);
+    } else if (newZone.params.selectionClasses.basic) {
+      newSelected.addClass(newZone.params.selectionClasses.basic);
     }
   } else {
     // If no item is selected, we must be leaving the current zone
     keyController.leaveCurrentZone_();
   }
 
-  if (newZone && newZone.actions.moveSelected) {
-    newZone.actions.moveSelected(keyController.selectedItem_, newSelected);
+  if (newZone && newZone.params.actions.moveSelected) {
+    newZone.params.actions.moveSelected(
+        keyController.selectedItem_,
+        newSelected);
   }
 
   keyController.selectedItem_ = newSelected;
@@ -1487,7 +1628,7 @@ gtv.jq.KeyController.prototype.moveSelected_ = function(newZone,
   if (newZone) {
     // Look to see if this new zone has presence in the current layer.
     for (var layer = 0; layer < newZone.layers.length; layer++) {
-      if (newZone.layers[layer] == keyController.activeLayer) {
+      if (newZone.layers[layer] == keyController.activeLayer_) {
         break;
       }
     }
@@ -1515,12 +1656,12 @@ gtv.jq.KeyController.prototype.scrollIntoView_ = function(zone,
                                                          syncCallback) {
   var keyController = this;
 
-  var container = $(item).parents(zone.navSelectors.itemParent);
+  var container = $(item).parents(zone.params.navSelectors.itemParent);
 
-  if (zone.actions.scrollIntoView) {
-    zone.actions.scrollIntoView(keyController.selectedItem_,
-                                item,
-                                syncCallback.getCallback());
+  if (zone.params.actions.scrollIntoView) {
+    zone.params.actions.scrollIntoView(keyController.selectedItem_,
+                                       item,
+                                       syncCallback.getCallback());
   }
 };
 
@@ -1533,8 +1674,8 @@ gtv.jq.KeyController.prototype.click_ = function(item) {
   var keyController = this;
 
   if (keyController.currentZone_) {
-    if (keyController.currentZone_.actions.click) {
-      keyController.currentZone_.actions.click(item);
+    if (keyController.currentZone_.params.actions.click) {
+      keyController.currentZone_.params.actions.click(item);
     }
   }
 };

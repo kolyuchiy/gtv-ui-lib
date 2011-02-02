@@ -18,17 +18,17 @@
  */
 
 var gtv = gtv || {
-  jq : {}
+  jq: {}
 };
 
 /**
  * RotatorControl class. Rotator control displays a single item of a list at
  * a time, rotating new items into view when user presses up/down.
- * @param {gtv.jq.CreateParams} createParams
+ * @param {gtv.jq.CreationParams} createParams
  * @constructor
  */
 gtv.jq.RotatorControl = function(createParams) {
-  this.params_ = createParams;
+  this.params_ = new gtv.jq.CreationParams(createParams);
 };
 
 /**
@@ -40,10 +40,17 @@ gtv.jq.RotatorControl.prototype.container_ = null;
 
 /**
  * Holds the params the control was created with.
- * @type {ControlParams}
+ * @type {CreationParams}
  * @private
  */
 gtv.jq.RotatorControl.prototype.params_ = null;
+
+/**
+ * Holds the params for showing the control.
+ * @type {ShowParams}
+ * @private
+ */
+gtv.jq.RotatorControl.prototype.showParams_ = null;
 
 /**
  * Key controller behavior zone for this control.
@@ -55,8 +62,7 @@ gtv.jq.RotatorControl.prototype.behaviorZone_ = null;
 /**
  * Removes the control from its container and from the key controller.
  */
-gtv.jq.RotatorControl.prototype.deleteControl = function()
-{
+gtv.jq.RotatorControl.prototype.deleteControl = function() {
   var rotatorControl = this;
 
   rotatorControl.keyController.removeBehaviorZone(rotatorControl.behaviorZone_);
@@ -66,34 +72,34 @@ gtv.jq.RotatorControl.prototype.deleteControl = function()
 /**
  * Creates a new RotatorControl with the specified items and adds it to a
  * container on the page.
- * @param {gtv.jq.ShowParams} controlParams Params for creating the control.
+ * @param {gtv.jq.ShowParams} showParams Params for creating the control.
  * @return {boolean} true on success
  */
-gtv.jq.RotatorControl.prototype.showControl = function(controlParams) {
+gtv.jq.RotatorControl.prototype.showControl = function(showParams) {
   var rotatorControl = this;
 
-  rotatorControl.params_ =
-      jQuery.extend(rotatorControl.params_, controlParams);
+  rotatorControl.showParams_ = new gtv.jq.ShowParams(showParams);
 
-  if (!gtv.jq.CreateParams.validateParams(rotatorControl.params_))
-    return false;
+  if (!rotatorControl.showParams_.contents.items) {
+    throw new Error('RotatorControl requires items array');
+  }
 
   rotatorControl.container_ = $('<div></div>')
       .attr('id', rotatorControl.params_.containerId)
       .addClass('rotator-div');
 
-  rotatorControl.params_.topParent.append(rotatorControl.container_);
+  rotatorControl.showParams_.topParent.append(rotatorControl.container_);
 
-  for (var i = 0; i < rotatorControl.params_.items.length; i++) {
+  for (var i = 0; i < rotatorControl.showParams_.contents.items.length; i++) {
     var itemRow = $('<div></div>').addClass('rotator-row');
     rotatorControl.container_.append(itemRow);
 
     var itemDiv = $('<div></div>')
       .addClass('rotator-item-div')
-      .append(rotatorControl.params_.items[i]);
+      .append(rotatorControl.showParams_.contents.items[i]);
 
-    rotatorControl.params_.items[i].data('index', i);
-    rotatorControl.params_.items[i].addClass(
+    rotatorControl.showParams_.contents.items[i].data('index', i);
+    rotatorControl.showParams_.contents.items[i].addClass(
         'rotator-item ' + rotatorControl.params_.styles.item);
 
     itemRow.append(itemDiv);
@@ -105,6 +111,7 @@ gtv.jq.RotatorControl.prototype.showControl = function(controlParams) {
     itemRow: '.rotator-row'
   };
 
+  // Configure gtv.jq.KeyActions object.
   var actions = {
     scrollIntoView: function(selectedItem, newItem, getFinishCallback) {
       rotatorControl.showItem_(selectedItem, newItem, getFinishCallback);
@@ -112,20 +119,15 @@ gtv.jq.RotatorControl.prototype.showControl = function(controlParams) {
   };
 
   rotatorControl.behaviorZone_ =
-      new gtv.jq.KeyBehaviorZone('#' + rotatorControl.params_.containerId,
-                                 null,  // no key actions
-                                 actions,
-                                 navSelectors,
-                                 null,  // no selection classes
-                                 null,  // no nav data
-                                 false,  // don't save index
-                                 false,  // don't use geometry
-                                 true);  // allow hidden items to be selected
+      new gtv.jq.KeyBehaviorZone({
+        containerSelector: '#' + rotatorControl.params_.containerId,
+        actions: actions,
+        navSelectors: navSelectors,
+        selectHidden: true
+      });
 
   rotatorControl.params_.keyController.addBehaviorZone(
       rotatorControl.behaviorZone_, true, rotatorControl.params_.layerNames);
-
-  return true;
 };
 
 /**

@@ -35,7 +35,7 @@
  */
 
 var gtv = gtv || {
-  jq : {}
+  jq: {}
 };
 
 /**
@@ -49,32 +49,37 @@ gtv.jq.ItemRow_ = function() {
 /**
  * Creates a new key navigable row of items, contained in a container of
  * the specified id, with optional styles applied.
- * @param {gtv.jq.ControlParams} Parameters for creating the control.
+ * @param {gtv.jq.CreationParams} params Parameters for creating the control.
+ * @param {gtv.jq.ShowParams} showParams Parameters for showing the control.
  * @return {jQuery.Element} The new row's container element.
  */
-gtv.jq.ItemRow_.prototype.makeRow = function(controlParams) {
+gtv.jq.ItemRow_.prototype.makeRow = function(params, showParams) {
   var container = $('<div></div>')
-    .attr('id', controlParams.containerId)
-    .addClass('scroll-row ' + controlParams.styles.row)
+    .attr('id', params.containerId)
+    .addClass('scroll-row ' + params.styles.row)
     .data('index', 0);
 
   var itemsDiv =
       $('<div></div>')
-      .addClass('scroll-items-div ' + controlParams.styles.itemsDiv);
+      .addClass('scroll-items-div ' + params.styles.itemsDiv);
   container.append(itemsDiv);
 
-  var addNextItem = gtv.jq.GtvCore.makeAddNextItemParams(controlParams);
+  var addNextItem =
+    gtv.jq.GtvCore.makeAddNextItemParams(showParams.contents);
+  if (!addNextItem) {
+    throw new Error('Row requires either items or itemsGenerator');
+  }
 
   var itemAdded = true;
   var demoDiv;
   var index = 0;
   while (itemAdded) {
     demoDiv = $('<div></div>')
-        .addClass('scroll-div ' + controlParams.styles.itemDiv);
+        .addClass('scroll-div ' + params.styles.itemDiv);
     itemsDiv.append(demoDiv);
 
     var item = $('<div></div>')
-        .addClass('scroll-item ' + controlParams.styles.item);
+        .addClass('scroll-item ' + params.styles.item);
     item.data('index', index);
     demoDiv.append(item);
 
@@ -89,23 +94,30 @@ gtv.jq.ItemRow_.prototype.makeRow = function(controlParams) {
 
 /**
  * Creates a new RowControl object.
- * @param {CreateParams} createParams Configuration params for the control.
+ * @param {CreationParams} createParams Configuration params for the control.
  * @constructor
  */
 gtv.jq.RowControl = function(createParams) {
-  this.params_ = createParams;
+  this.params_ = new gtv.jq.CreationParams(createParams);
 };
 
 /**
  * Holds the params the control was created with.
- * @type {ControlParams}
+ * @type gtv.jq.CreationParams
  * @private
  */
 gtv.jq.RowControl.prototype.params_ = null;
 
 /**
+ * Holds the params for showing the control.
+ * @type gtv.jq.ShowParams
+ * @private
+ */
+gtv.jq.RowControl.prototype.showParams_ = null;
+
+/**
  * Parent element containing the row elements.
- * @type {jQuery.Element}
+ * @type jQuery.Element
  * @private
  */
 gtv.jq.RowControl.prototype.rowContainer_ = null;
@@ -113,14 +125,14 @@ gtv.jq.RowControl.prototype.rowContainer_ = null;
 /**
  * Instance of ItemRow created by this row control to represent its items on the
  *    page.
- * @type {gtv.jq.ItemRow_}
+ * @type gtv.jq.ItemRow_
  * @private
  */
 gtv.jq.RowControl.prototype.itemRow_ = null;
 
 /**
  * Key controller behavior zone for this control.
- * @type {KeyBehaviorZone}
+ * @type KeyBehaviorZone
  * @private
  */
 gtv.jq.RowControl.prototype.behaviorZone_ = null;
@@ -143,27 +155,20 @@ gtv.jq.RowControl.prototype.deleteControl = function() {
  * Creates a new RowControl with the specified items and adds it to a
  * container on the page. The container will trigger a 'load' event when
  * the contents have finished loading.
- * @param {gtv.jq.ShowParams} Parameters for creating the control.
- * @return {boolean} true on success.
+ * @param {gtv.jq.ShowParams} showParams Parameters for creating the control.
  */
-gtv.jq.RowControl.prototype.showControl = function(controlParams) {
+gtv.jq.RowControl.prototype.showControl = function(showParams) {
   var rowControl = this;
-  rowControl.params_ =
-      jQuery.extend(rowControl.params_, controlParams);
-
-  if (!gtv.jq.CreateParams.validateParams(rowControl.params_))
-    return false;
+  rowControl.showParams_ = new gtv.jq.ShowParams(showParams);
 
   rowControl.itemRow_ = new gtv.jq.ItemRow_();
   rowControl.rowContainer_ =
-      rowControl.itemRow_.makeRow(rowControl.params_);
+      rowControl.itemRow_.makeRow(rowControl.params_, rowControl.showParams_);
 
-  controlParams.topParent.append(rowControl.rowContainer_);
+  showParams.topParent.append(rowControl.rowContainer_);
   rowControl.rowContainer_.data('row-control', rowControl);
 
   gtv.jq.GtvCore.triggerOnLoad(rowControl.rowContainer_);
-
-  return true;
 };
 
 /**
@@ -203,6 +208,7 @@ gtv.jq.RowControl.prototype.enableNavigation = function() {
     }
   };
 
+  // Configure gtv.jq.KeyActions object.
   var actions = {
     scrollIntoView: function(selectedItem, newItem, getFinishCallback) {
       rowControl.scrollRow(newItem, getFinishCallback);
@@ -215,11 +221,13 @@ gtv.jq.RowControl.prototype.enableNavigation = function() {
   };
 
   rowControl.behaviorZone_ =
-      new gtv.jq.KeyBehaviorZone('#' + rowControl.params_.containerId,
-                                 keyMapping,
-                                 actions,
-                                 navSelectors,
-                                 selectionClasses);
+      new gtv.jq.KeyBehaviorZone({
+        containerSelector: '#' + rowControl.params_.containerId,
+        keyMapping: keyMapping,
+        actions: actions,
+        navSelectors: navSelectors,
+        selectionClasses: selectionClasses
+      });
 
   rowControl.params_.keyController.addBehaviorZone(
     rowControl.behaviorZone_,
@@ -273,23 +281,28 @@ gtv.jq.RowControl.prototype.scrollRow = function(item, getFinishedAction) {
 
 /**
  * RollerParams class contains roller-control specific creation params.
+ * @param {gtv.jq.RollerParams} opt_params Optional initial values.
  * @constructor
  */
-gtv.jq.RollerParams = function() {
+gtv.jq.RollerParams = function(opt_params) {
+  var params = opt_params || {};
+
+  this.createParams = new gtv.jq.CreationParams(params.createParams);
+  this.rollerHeight = params.rollerHeight || 0;
 };
 
 /**
  * Creation params for the roller control.
- * @type {CreateParams}
+ * @type CreationParams
  */
-gtv.jq.RollerParams.prototype.createParams = null;
+gtv.jq.RollerParams.prototype.createParams;
 
 /**
  * Height, in pixels, of the new roller container. Defaults to 2.5 times the
  * height of one row.
- * @type {number}
+ * @type number
  */
-gtv.jq.RollerParams.prototype.rollerHeight = null;
+gtv.jq.RollerParams.prototype.rollerHeight;
 
 /**
  * RollerControl class. RollerControl displays a vertial stack of RowControls
@@ -298,26 +311,33 @@ gtv.jq.RollerParams.prototype.rollerHeight = null;
  * @constructor
  */
 gtv.jq.RollerControl = function(rollerParams) {
-  this.params_ = jQuery.extend(rollerParams.createParams, rollerParams);
+  this.params_ = new gtv.jq.RollerParams(rollerParams);
 };
 
 /**
  * Holds the params the control was created with.
- * @type {ControlParams}
+ * @type gtv.jq.CreationParams
  * @private
  */
 gtv.jq.RollerControl.prototype.params_ = null;
 
 /**
+ * Holds the params to show the control.
+ * @type gtv.jq.ShowParams
+ * @private
+ */
+gtv.jq.RollerControl.prototype.showParams_ = null;
+
+/**
  * Parent element containing the roller elements.
- * @type {jQuery.Element}
+ * @type jQuery.Element
  * @private
  */
 gtv.jq.RollerControl.prototype.container_ = null;
 
 /**
  * Key controller behavior zone for this control.
- * @type {KeyBehaviorZone}
+ * @type KeyBehaviorZone
  * @private
  */
 gtv.jq.RollerControl.prototype.behaviorZone_ = null;
@@ -328,8 +348,8 @@ gtv.jq.RollerControl.prototype.behaviorZone_ = null;
 gtv.jq.RollerControl.prototype.deleteControl = function() {
   var rollerControl = this;
 
-  if (rollerControl.params_.keyController) {
-    rollerControl.params_.keyController.removeBehaviorZone(
+  if (rollerControl.params_.createParams.keyController) {
+    rollerControl.params_.createParams.keyController.removeBehaviorZone(
       rollerControl.behaviorZone_);
   }
 
@@ -339,65 +359,68 @@ gtv.jq.RollerControl.prototype.deleteControl = function() {
 /**
  * Creates a new RollerControl with the specified itms and adds it to a
  * container on the page.
- * @param {gtv.jq.ShowParams} Parameters for creating the control.
- * @return {boolean} true on success
+ * @param {gtv.jq.ShowParams} showParams Parameters for creating the control.
  */
-gtv.jq.RollerControl.prototype.showControl = function(controlParams) {
+gtv.jq.RollerControl.prototype.showControl = function(showParams) {
   var roller = this;
 
-  roller.params_ =
-      jQuery.extend(roller.params_, controlParams);
-
-  if (!gtv.jq.CreateParams.validateParams(roller.params_))
-    return false;
+  roller.showParams_ = new gtv.jq.ShowParams(showParams);
+  if (!roller.showParams_.contents.contentsArray) {
+    throw new Error('RollerControl requires contents array');
+  }
 
   var container = $('<div></div>')
-    .attr('id', roller.params_.containerId)
+    .attr('id', roller.params_.createParams.containerId)
     .addClass('roller-container');
-  controlParams.topParent.append(container);
+  showParams.topParent.append(container);
 
   roller.container_ = container;
 
   var height = 0;
-  var rowCount = roller.params_.itemsArray.length;
+  var rowCount = roller.showParams_.contents.contentsArray.length;
   var rowsLoaded = 0;
   for (var j = 0; j < rowCount; j++) {
-    var rowParams = {
-      topParent: container,
-      containerId: roller.params_.containerId + '-row-' + j,
-      styles: roller.params_.styles,
-      items: roller.params_.itemsArray[j]
+    var rowCreateParams = {
+      containerId: roller.params_.createParams.containerId + '-row-' + j,
+      styles: roller.params_.createParams.styles
     };
 
-    var rowControl = new gtv.jq.RowControl();
-    rowControl.showControl(rowParams);
-    var row = container.children('#' + rowParams.containerId);
+    var rowControl = new gtv.jq.RowControl(rowCreateParams);
 
-    height = row.height();
-    var rowWidth = row.width();
-    var borderWidth = row.outerWidth(true) - row.innerWidth();
-    row.width(row.innerWidth() - borderWidth);
+    var rowShowParams = {
+      topParent: container,
+      contents: roller.showParams_.contents.contentsArray[j]
+    };
+    rowControl.showControl(rowShowParams);
 
+    // For each row, set a load event callback to wait for resources in the
+    // row to load. After all the rows have loaded, scroll to the first item
+    // in the first row.
+    var row = container.children('#' + rowCreateParams.containerId);
     row.load(function() {
       rowsLoaded++;
       if (rowsLoaded == rowCount) {
-        scrollToFirst();
+        height = $(this).height();
+        var rowWidth = $(this).width();
+        var borderWidth = $(this).outerWidth(true) - $(this).innerWidth();
+        $(this).width($(this).innerWidth() - borderWidth);
+
+        // Set the container height of the roller control, either using the
+        // supplied number or a number computed from the height of a single row.
+        roller.params_.rollerHeight =
+          roller.params_.rollerHeight || height * 2.5;
+        container.height(roller.params_.rollerHeight);
+
+        var firstItem = container.find('.scroll-item').eq(0);
+        roller.scrollToRow(null, firstItem, function() {});
       }
     });
   }
-
-  roller.params_.rollerHeight = roller.params_.rollerHeight || height * 2.5;
-  container.height(roller.params_.rollerHeight);
-
-  function scrollToFirst() {
-    var firstItem = container.find('.scroll-item').eq(0);
-    roller.scrollToRow(null, firstItem, function() {});
-  }
-  return true;
 };
 
 /**
- * Enables key controller navigation for the control.
+ * Call this to enables key controller navigation for the control. Key
+ * navigation must be explicitly enabled for the roller control.
  */
 gtv.jq.RollerControl.prototype.enableNavigation = function() {
   var roller = this;
@@ -405,8 +428,8 @@ gtv.jq.RollerControl.prototype.enableNavigation = function() {
   var keyMapping = {
     // enter key
     13: function(selectedItem, newSelected) {
-      if (roller.params_.choiceCallback) {
-        roller.params_.choiceCallback(selectedItem);
+      if (roller.params_.createParams.choiceCallback) {
+        roller.params_.createParams.choiceCallback(selectedItem);
       }
       return new gtv.jq.Selection('skip');
     },
@@ -427,33 +450,35 @@ gtv.jq.RollerControl.prototype.enableNavigation = function() {
   };
 
   var selectionClasses = {
-    basic: roller.params_.styles.selected
+    basic: roller.params_.createParams.styles.selected
   };
 
+  // Configure gtv.jq.KeyActions object.
   var actions = {
     scrollIntoView: function(selectedItem, newItem, getFinishCallback) {
       roller.scrollToRow(selectedItem, newItem, getFinishCallback);
     },
     click: function(selectedItem) {
-      if (roller.params_.choiceCallback) {
-        roller.params_.choiceCallback(selectedItem);
+      if (roller.params_.createParams.choiceCallback) {
+        roller.params_.createParams.choiceCallback(selectedItem);
       }
     }
   };
 
   roller.behaviorZone_ =
-      new gtv.jq.KeyBehaviorZone('#' + roller.params_.containerId,
-                                 keyMapping,
-                                 actions,
-                                 navSelectors,
-                                 selectionClasses,
-                                 null,
-                                 true);
+      new gtv.jq.KeyBehaviorZone({
+        containerSelector: '#' + roller.params_.createParams.containerId,
+        keyMapping: keyMapping,
+        actions: actions,
+        navSelectors: navSelectors,
+        selectionClasses: selectionClasses,
+        saveRowPosition: true
+      });
 
-  roller.params_.keyController.addBehaviorZone(
+  roller.params_.createParams.keyController.addBehaviorZone(
     roller.behaviorZone_,
     true,
-    roller.params_.layerNames);
+    roller.params_.createParams.layerNames);
 };
 
 /**

@@ -13,58 +13,88 @@
 // limitations under the License.
 
 /**
- * @fileoverview Classes for PhotoControl and VideoControl
+ * @fileoverview Classes for PhotoControl, VideoControl, PlayerCallbacks
+ * PlayerButtons, PlaybackControl_, VideoParams, PhotoParams.
+ *
+ * Two controls are implemented here for the display/playback of photos
+ * and videos. The controls provide support for optional play/pause/next/prev
+ * functionality, handle key navigatation between these buttons, and
+ * handle media keys for them as well.
  * @author shines@google.com (Steven Hines)
  */
 
 var gtv = gtv || {
-  jq : {}
+  jq: {}
 };
 
 
 /**
  * PlayerCallbacks class holds set of callbacks implemented by client.
+ * @param {gtv.jq.PlayerCallbacks} opt_initial Optional initial values.
  * @constructor
  */
-gtv.jq.PlayerCallbacks = function() {
+gtv.jq.PlayerCallbacks = function(opt_initial) {
+  var initial = opt_initial || {};
+
+  this.play = initial.play || function() {
+    };
+  this.pause = initial.pause || function() {
+    };
+  this.next = initial.next || function() {
+    };
+  this.previous = initial.previous || function() {
+    };
+  this.done = initial.done || function() {
+    };
 };
 
 /**
  * Callback for play event.
  * @type {Function(mediaId)}
  */
-gtv.jq.PlayerCallbacks.prototype.play = null;
+gtv.jq.PlayerCallbacks.prototype.play;
 
 /**
  * Callback for pause event.
  * @type {Function(mediaId)}
  */
-gtv.jq.PlayerCallbacks.prototype.pause = null;
+gtv.jq.PlayerCallbacks.prototype.pause;
 
 /**
  * Callback for next event.
  * @type {Function(mediaId)}
  */
-gtv.jq.PlayerCallbacks.prototype.next = null;
+gtv.jq.PlayerCallbacks.prototype.next;
 
 /**
  * Callback for previous event.
  * @type {Function(mediaId)}
  */
-gtv.jq.PlayerCallbacks.prototype.previous = null;
+gtv.jq.PlayerCallbacks.prototype.previous;
 
 /**
  * Callback for done event.
  * @type {Function(mediaId)}
  */
-gtv.jq.PlayerCallbacks.prototype.done = null;
+gtv.jq.PlayerCallbacks.prototype.done;
 
 
 /**
  * PlayerButtons describes the buttons used for playback control.
+ * @param {gtv.jq.PlayerButtons} opt_initial Optional initial values.
  * @constructor
  */
-gtv.jq.PlayerButtons = function() {
+gtv.jq.PlayerButtons = function(opt_initial) {
+  var initial = opt_initial || {};
+
+  this.play = initial.play;
+  this.playImg = initial.playImg;
+  this.pause = initial.pause;
+  this.pauseImg = initial.pauseImg;
+  this.next = initial.next;
+  this.nextImg = initial.nextImg;
+  this.previous = initial.previous;
+  this.previousImg = initial.previousImg;
 };
 
 /**
@@ -72,56 +102,56 @@ gtv.jq.PlayerButtons = function() {
  * will be shown.
  * @type {string}
  */
-gtv.jq.PlayerButtons.prototype.play = null;
+gtv.jq.PlayerButtons.prototype.play;
 
 /**
  * The img url for the play button. If this and play are null, no play button
  * will be shown.
  * @type {string}
  */
-gtv.jq.PlayerButtons.prototype.playImg = null;
+gtv.jq.PlayerButtons.prototype.playImg;
 
 /**
  * The text for the pause button. If this and pauseImg are null, no pause button
  * will be shown.
  * @type {string}
  */
-gtv.jq.PlayerButtons.prototype.pause = null;
+gtv.jq.PlayerButtons.prototype.pause;
 
 /**
  * The img url for the pause button. If this and pause are null, no pause button
  * will be shown.
  * @type {string}
  */
-gtv.jq.PlayerButtons.prototype.pauseImg = null;
+gtv.jq.PlayerButtons.prototype.pauseImg;
 
 /**
  * The text for the next button. If this and nextImg are null, no next button
  * will be shown.
  * @type {string}
  */
-gtv.jq.PlayerButtons.prototype.next = null;
+gtv.jq.PlayerButtons.prototype.next;
 
 /**
  * The img url for the next button. If this and next are null, no next button
  * will be shown.
  * @type {string}
  */
-gtv.jq.PlayerButtons.prototype.nextImg = null;
+gtv.jq.PlayerButtons.prototype.nextImg;
 
 /**
  * The text for the prev button. If this and prevImg are null, no prev button
  * will be shown.
  * @type {string}
  */
-gtv.jq.PlayerButtons.prototype.prev = null;
+gtv.jq.PlayerButtons.prototype.previous;
 
 /**
  * The img url for the prev button. If this and prev are null, no prev button
  * will be shown.
  * @type {string}
  */
-gtv.jq.PlayerButtons.prototype.prevImg = null;
+gtv.jq.PlayerButtons.prototype.previousImg;
 
 
 /**
@@ -213,9 +243,9 @@ gtv.jq.PlaybackControl_.handleButton = function(control, item) {
   } else if (action == 'pause'){
     control.pause();
   } else if (action == 'next'){
-    control.next();
+    control.next_();
   } else if (action == 'previous'){
-    control.previous();
+    control.previous_();
   }
 
   return { status: 'skip' };
@@ -244,11 +274,11 @@ gtv.jq.PlaybackControl_.setMediaKeyMapping = function(control,
       return new gtv.jq.Selection('skip');
     },
     176: function(selectedItem, newSelected) {  // skip forward
-      control.next();
+      control.next_();
       return new gtv.jq.Selection('skip');
     },
     177: function(selectedItem, newSelected) {  // skip backward
-      control.previous();
+      control.previous_();
       return new gtv.jq.Selection('skip');
     }
   };
@@ -259,65 +289,73 @@ gtv.jq.PlaybackControl_.setMediaKeyMapping = function(control,
 
 /**
  * VideoParams class. Holds values for initialized a VideoControl
+ * @param {gtv.jq.VideoParams} opt_params Optional initial values.
  * @constructor
  */
-gtv.jq.VideoParams = function() {
+gtv.jq.VideoParams = function(opt_params) {
+  var params = opt_params || {};
+
+  this.createParams = new gtv.jq.CreationParams(params.createParams);
+
+  params.size = params.size || {};
+  this.size = new gtv.jq.Size(params.size.width, params.size.height);
+
+  this.callbacks = new gtv.jq.PlayerCallbacks(params.callbacks);
+
+  this.playerId = params.playerId || 'player1';
+  this.videoId = params.videoId;
+
+  this.buttons = new gtv.jq.PlayerButtons(params.buttons);
 };
 
 /**
  * Creation params for the Video control.
- * @type {CreateParams}
+ * @type {CreationParams}
  */
-gtv.jq.VideoParams.prototype.createParams = null;
+gtv.jq.VideoParams.prototype.createParams;
 
 /**
- * The width in pixels of the control.
- * @type {number}
+ * The size in pixels of the control.
+ * @type {gtv.jq.Size}
  */
-gtv.jq.VideoParams.prototype.width = null;
-
-/**
- * The height in pixels of the control.
- * @param {number}
- */
-gtv.jq.VideoParams.prototype.height = null;
+gtv.jq.VideoParams.prototype.size;
 
 /**
  Callbacks for various player
  *     events. These include: play, pause, next, previous.
  * @type {gtv.jq.PlayerCallbacks}
  */
-gtv.jq.VideoParams.prototype.callbacks = null;
+gtv.jq.VideoParams.prototype.callbacks;
 
 /**
  * playerId of the YouTube player. If not supplied, defaults to 'player1'.
  * @type {?string}
  */
-gtv.jq.VideoParams.prototype.playerId = null;
+gtv.jq.VideoParams.prototype.playerId;
 
 /**
  * videoId of the YouTube video to start with (plays immediately).
  * @type {?string}
  */
-gtv.jq.VideoParams.prototype.videoId = null;
+gtv.jq.VideoParams.prototype.videoId;
 
 /**
  * Set of buttons to display under player, any of:
  *     play, pause, next, previous.
  * @type {?PlayerButtons}
  */
-gtv.jq.VideoParams.prototype.buttons = null;
+gtv.jq.VideoParams.prototype.buttons;
 
 
 /**
  * VideoControl class. The Video control plays back YouTube videos from a feed,
  * automatically playing each video in turn, allowing the user to skip videos
  * or select a different video from a row control showing video thumbnails.
- * @param {gtv.jq.VideoParams} Values used to initialize the video control
+ * @param {gtv.jq.VideoParams} videoParams Creation values for the control.
  * @constructor
  */
 gtv.jq.VideoControl = function(videoParams) {
-  this.params_ = jQuery.extend(videoParams.createParams, videoParams);
+  this.params_ = new gtv.jq.VideoParams(videoParams);
 };
 
 /**
@@ -333,7 +371,7 @@ gtv.jq.VideoControl.players = [];
  * @param {string} playerId Id of the YouTube player this instance controls.
  * @private
  */
-gtv.jq.VideoControl._addPlayer = function(control, playerId) {
+gtv.jq.VideoControl.addPlayer_ = function(control, playerId) {
   gtv.jq.VideoControl.players.push({
     player: control,
     id: playerId
@@ -346,7 +384,7 @@ gtv.jq.VideoControl._addPlayer = function(control, playerId) {
  * @return {VideoControl} Instance of the VideoControl for the given id.
  * @private
  */
-gtv.jq.VideoControl._findPlayer = function(playerId) {
+gtv.jq.VideoControl.findPlayer_ = function(playerId) {
   for (var i = 0; i < gtv.jq.VideoControl.players.length; i++) {
     if (gtv.jq.VideoControl.players[i].id == playerId) {
       return gtv.jq.VideoControl.players[i].player;
@@ -361,7 +399,7 @@ gtv.jq.VideoControl._findPlayer = function(playerId) {
  * @param {string} playerId Id of the YouTube player to unregister.
  * @private
  */
-gtv.jq.VideoControl._removePlayer = function(playerId) {
+gtv.jq.VideoControl.removePlayer_ = function(playerId) {
   for (var i = 0; i < gtv.jq.VideoControl.players.length; i++) {
     if (gtv.jq.VideoControl.players[i].id == playerId) {
       gtv.jq.VideoControl.players.splice(i, 1);
@@ -377,8 +415,8 @@ gtv.jq.VideoControl._removePlayer = function(playerId) {
  * @return {function(error)} Function that calls an instance's error handler.
  * @private
  */
-gtv.jq.VideoControl._onError = function(playerId) {
-  var videoControl = gtv.jq.VideoControl._findPlayer(playerId);
+gtv.jq.VideoControl.onError_ = function(playerId) {
+  var videoControl = gtv.jq.VideoControl.findPlayer_(playerId);
 
   return function(error) {
     videoControl.onError(error);
@@ -393,11 +431,11 @@ gtv.jq.VideoControl._onError = function(playerId) {
  *     handler.
  * @private
  */
-gtv.jq.VideoControl._onStateChange = function(playerId) {
-  var videoControl = gtv.jq.VideoControl._findPlayer(playerId);
+gtv.jq.VideoControl.onStateChange_ = function(playerId) {
+  var videoControl = gtv.jq.VideoControl.findPlayer_(playerId);
 
   return function(state) {
-    videoControl.onStateChange(state);
+    videoControl.onStateChange_(state);
   };
 };
 
@@ -408,18 +446,46 @@ gtv.jq.VideoControl._onStateChange = function(playerId) {
  * @param {string} playerId The Id of the player that has initialized.
  */
 function onYouTubePlayerReady(playerId) {
-  var videoControl = gtv.jq.VideoControl._findPlayer(playerId);
+  var videoControl = gtv.jq.VideoControl.findPlayer_(playerId);
 
   var ytplayer = document.getElementById(playerId);
   videoControl.player_ = ytplayer;
 
   ytplayer.addEventListener(
       'onError',
-      'gtv.jq.VideoControl._onError("' + playerId + '")');
+      'gtv.jq.VideoControl.onError_("' + playerId + '")');
   ytplayer.addEventListener(
       'onStateChange',
-      'gtv.jq.VideoControl._onStateChange("' + playerId + '")');
+      'gtv.jq.VideoControl.onStateChange_("' + playerId + '")');
 }
+
+/**
+ * Parent element containing the control elements.
+ * @type {jQuery.Element}
+ * @private
+ */
+gtv.jq.VideoControl.prototype.container_ = null;
+
+/**
+ * Holds the params the control was created with.
+ * @type {CreationParams}
+ * @private
+ */
+gtv.jq.VideoControl.prototype.params_ = null;
+
+/**
+ * Holds the params for showing the control.
+ * @type {ShowParams}
+ * @private
+ */
+gtv.jq.VideoControl.prototype.showParams_ = null;
+
+/**
+ * Key controller behavior zone for this control.
+ * @type {KeyBehaviorZone}
+ * @private
+ */
+gtv.jq.VideoControl.prototype.behaviorZone_ = null;
 
 /**
  * Removes a video control from its container, unregisters its player, and
@@ -428,29 +494,25 @@ function onYouTubePlayerReady(playerId) {
 gtv.jq.VideoControl.prototype.deleteControl = function() {
   var videoControl = this;
 
-  gtv.jq.VideoControl._removePlayer(videoControl.playerId_);
-  videoControl.params_.keyController.removeBehaviorZone(
+  gtv.jq.VideoControl.removePlayer_(videoControl.playerId_);
+  videoControl.params_.createParams.keyController.removeBehaviorZone(
     videoControl.behaviorZone_);
   videoControl.container_.remove();
 };
 
 /**
- * Creates a new VideoControl with the specified items and adds it to a
+ * Creates a new VideoControl with the specified buttons and adds it to a
  * container on the page.
- * @param {gtv.jq.ControlParams} controlParams Params for creating the control.
+ * @param {gtv.jq.ShowParams} showParams Params for creating the control.
  */
-gtv.jq.VideoControl.prototype.showControl = function(controlParams) {
+gtv.jq.VideoControl.prototype.showControl = function(showParams) {
   var videoControl = this;
-  videoControl.params_ =
-      jQuery.extend(videoControl.params_, controlParams);
-
-  if (!gtv.jq.CreateParams.validateParams(videoControl.params_))
-    return false;
+  videoControl.showParams_ = new gtv.jq.ShowParams(showParams);
 
   var container = $('<div></div>')
     .addClass('video-container')
-    .attr('id', videoControl.params_.containerId);
-  videoControl.params_.topParent.append(container);
+    .attr('id', videoControl.params_.createParams.containerId);
+  videoControl.showParams_.topParent.append(container);
 
   var player = $('<div></div>')
     .css('position', 'absolute')
@@ -460,19 +522,18 @@ gtv.jq.VideoControl.prototype.showControl = function(controlParams) {
   var windowWidth = $(window).width();
   var containerOffset = container.offset();
   container.css({
-    left: ((windowWidth / 2) - (videoControl.params_.width / 2)) + 'px',
-    width: videoControl.params_.width + 'px',
-    height: videoControl.params_.height + 'px'
+    left: ((windowWidth / 2) - (videoControl.params_.size.width / 2)) + 'px',
+    width: videoControl.params_.size.width + 'px',
+    height: videoControl.params_.size.height + 'px'
   });
 
   videoControl.container_ = container;
   videoControl.videoId_ = videoControl.params_.videoId;
-  videoControl.params_.callbacks = videoControl.params_.callbacks || {};
-  videoControl.params_.playerId = videoControl.params_.playerId || 'player1';
 
-  gtv.jq.PlaybackControl_.addPlaybackButtons(videoControl.container_,
-                                             videoControl.params_.styles,
-                                             videoControl.params_.buttons);
+  gtv.jq.PlaybackControl_.addPlaybackButtons(
+    videoControl.container_,
+    videoControl.params_.createParams.styles,
+    videoControl.params_.buttons);
 
   var params = {
     allowScriptAccess: 'always'
@@ -482,14 +543,14 @@ gtv.jq.VideoControl.prototype.showControl = function(controlParams) {
     'class': 'video-player-container'
   };
 
-  gtv.jq.VideoControl._addPlayer(videoControl, videoControl.params_.playerId);
+  gtv.jq.VideoControl.addPlayer_(videoControl, videoControl.params_.playerId);
 
   swfobject.embedSWF(
       'http://www.youtube.com/apiplayer' +
           '?enablejsapi=1&playerapiid=' + videoControl.params_.playerId,
       'playerContainer',
-      videoControl.params_.width,
-      videoControl.params_.height,
+      videoControl.params_.size.width,
+      videoControl.params_.size.height,
       '8', null, null,
       params, atts);
 
@@ -499,7 +560,7 @@ gtv.jq.VideoControl.prototype.showControl = function(controlParams) {
   };
 
   var selectionClasses = {
-    basic: videoControl.params_.styles.selected
+    basic: videoControl.params_.createParams.styles.selected
   };
 
   var keyMapping = {
@@ -508,6 +569,7 @@ gtv.jq.VideoControl.prototype.showControl = function(controlParams) {
     }
   };
 
+  // Configure gtv.jq.KeyActions object.
   var actions = {
     click: function(item) {
       return gtv.jq.PlaybackControl_.handleButton(videoControl, item);
@@ -515,18 +577,23 @@ gtv.jq.VideoControl.prototype.showControl = function(controlParams) {
   };
 
   videoControl.behaviorZone_ =
-      new gtv.jq.KeyBehaviorZone('#' + videoControl.params_.containerId,
-                                 keyMapping,
-                                 actions,
-                                 navSelectors,
-                                 selectionClasses);
+      new gtv.jq.KeyBehaviorZone({
+        containerSelector: '#' + videoControl.params_.createParams.containerId,
+        keyMapping: keyMapping,
+        actions: actions,
+        navSelectors: navSelectors,
+        selectionClasses: selectionClasses
+      });
 
-  videoControl.params_.keyController.addBehaviorZone(
-      videoControl.behaviorZone_, true, videoControl.params_.layerNames);
+  videoControl.params_.createParams.keyController.addBehaviorZone(
+    videoControl.behaviorZone_,
+    true,
+    videoControl.params_.createParams.layerNames);
 
-  gtv.jq.PlaybackControl_.setMediaKeyMapping(videoControl,
-                                             videoControl.params_.keyController,
-                                             videoControl.params_.layerNames);
+  gtv.jq.PlaybackControl_.setMediaKeyMapping(
+    videoControl,
+    videoControl.params_.createParams.keyController,
+    videoControl.params_.createParams.layerNames);
 };
 
 /**
@@ -602,7 +669,7 @@ gtv.jq.VideoControl.prototype.pause = function() {
  * Makes a callback to callbacks.next with the id of the currently playing video
  * @private
  */
-gtv.jq.VideoControl.prototype.next = function() {
+gtv.jq.VideoControl.prototype.next_ = function() {
   var videoControl = this;
 
   if (videoControl.player_ && videoControl.params_.callbacks.next) {
@@ -615,7 +682,7 @@ gtv.jq.VideoControl.prototype.next = function() {
  * video
  * @private
  */
-gtv.jq.VideoControl.prototype.previous = function() {
+gtv.jq.VideoControl.prototype.previous_ = function() {
   var videoControl = this;
 
   if (videoControl.player_ && videoControl.params_.callbacks.previous) {
@@ -630,7 +697,7 @@ gtv.jq.VideoControl.prototype.previous = function() {
  * @param {number} state The new state of the player.
  * @private
  */
-gtv.jq.VideoControl.prototype.onStateChange = function(state) {
+gtv.jq.VideoControl.prototype.onStateChange_ = function(state) {
   var videoControl = this;
 
   if (state == -1) {
@@ -643,66 +710,72 @@ gtv.jq.VideoControl.prototype.onStateChange = function(state) {
 
 /**
  * PhotoParams class. Holds values for initialized a PhotoControl
+ * @params {gtv.jq.PhotoParams} opt_params Optional initial values.
  * @constructor
  */
-gtv.jq.PhotoParams = function() {
+gtv.jq.PhotoParams = function(opt_params) {
+  var params = opt_params || {};
+
+  this.createParams = new gtv.jq.CreationParams(params.createParams);
+
+  params.size = params.size || {};
+  this.size = new gtv.jq.Size(params.size.width, params.size.height);
+
+  this.callbacks = new gtv.jq.PlayerCallbacks(params.callbacks);
+  this.photoUrl = params.photoUrl;
+  this.buttons = new gtv.jq.PlayerButtons(params.buttons);
+  this.slideshowSpeed = params.slideshowSpeed || 4;
 };
 
 /**
  * Creation params for the Photo control.
- * @type {CreateParams}
+ * @type {CreationParams}
  */
-gtv.jq.PhotoParams.prototype.createParams = null;
+gtv.jq.PhotoParams.prototype.createParams;
 
 /**
- * The width in pixels of the control.
- * @type {number}
+ * The size in pixels of the control.
+ * @type {gtv.jq.Size}
  */
-gtv.jq.PhotoParams.prototype.width = null;
-
-/**
- * The height in pixels of the control.
- * @param {number}
- */
-gtv.jq.PhotoParams.prototype.height = null;
+gtv.jq.PhotoParams.prototype.size;
 
 /**
  Callbacks for various player
  *     events. These include: play, pause, next, previous.
  * @type {gtv.jq.PlayerCallbacks}
  */
-gtv.jq.PhotoParams.prototype.callbacks = null;
+gtv.jq.PhotoParams.prototype.callbacks;
 
 /**
  * Url of the photo to display. If supplied begins
  *     the slideshow.
  * @type {?photoUrl}
  */
-gtv.jq.PhotoParams.prototype.photoUrl = null;
+gtv.jq.PhotoParams.prototype.photoUrl;
 
 /**
  * Set of buttons to display under player, any of:
  *     play, pause, next, previous.
  * @type {?PlayerButtons}
  */
-gtv.jq.PhotoParams.prototype.buttons = null;
+gtv.jq.PhotoParams.prototype.buttons;
 
 /**
  * Delay, in seconds, between each photo.
  * @param {?number}
  */
-gtv.jq.PhotoParams.prototype.slideshowSpeed = null;
+gtv.jq.PhotoParams.prototype.slideshowSpeed;
 
 
 /**
  * PhotoControl class. The Photo control plays back photos from a feed,
  * either in slideshow mode or manual control. The user can select the photo
  * to view from a thumbnail on a row control.
- * @param {gtv.jq.PhotoParams} Values used to initialize the photo control
+ * @param {gtv.jq.PhotoParams} photoParams Creation params for the control.
  * @constructor
  */
 gtv.jq.PhotoControl = function(photoParams) {
-  this.params_ = jQuery.extend(photoParams.createParams, photoParams);
+  this.params_ = new gtv.jq.PhotoParams(photoParams);
 };
 
 /**
@@ -711,6 +784,13 @@ gtv.jq.PhotoControl = function(photoParams) {
  * @private
  */
 gtv.jq.PhotoControl.prototype.params_ = null;
+
+/**
+ * Holds the params for showing the control.
+ * @type {ShowParams}
+ * @private
+ */
+gtv.jq.VideoControl.prototype.showParams_ = null;
 
 /**
  * Parent element containing the roller elements.
@@ -734,47 +814,44 @@ gtv.jq.PhotoControl.prototype.deleteControl = function()
 {
   var photoControl = this;
 
-  photoControl.params_.keyController.removeBehaviorZone(
+  photoControl.params_.createParams.keyController.removeBehaviorZone(
     photoControl.behaviorZone_);
   photoControl.container_.remove();
 };
 
 /**
- * Creates a new PhotoControl with the specified items and adds it to a
+ * Creates a new PhotoControl with the specified buttons and adds it to a
  * container on the page.
- * @param {gtv.jq.ShowParams} controlParams Params for creating the control.
+ * @param {gtv.jq.ShowParams} showParams Params for creating the control.
  */
-gtv.jq.PhotoControl.prototype.showControl = function(controlParams) {
+gtv.jq.PhotoControl.prototype.showControl = function(showParams) {
   var photoControl = this;
-  photoControl.params_ =
-      jQuery.extend(photoControl.params_, controlParams);
-
-  if (!gtv.jq.CreateParams.validateParams(photoControl.params_))
-    return false;
+  photoControl.showParams_ = new gtv.jq.ShowParams(showParams);
 
   var container = $('<div></div>')
     .addClass('photo-container')
-    .attr('id', photoControl.params_.containerId)
+    .attr('id', photoControl.params_.createParams.containerId)
     .css({
-      width: photoControl.params_.width + 'px',
-      height: photoControl.params_.height + 'px'
+      position: 'absolute',
+      left: $(window).width() / 2 - photoControl.params_.size.width / 2,
+      width: photoControl.params_.size.width + 'px',
+      height: photoControl.params_.size.height + 'px'
     });
-  photoControl.params_.topParent.append(container);
+  photoControl.showParams_.topParent.append(container);
 
   photoControl.player_ = $('<img></img>')
-    .attr('height', photoControl.params_.height)
+    .attr('height', photoControl.params_.size.height)
     .css('position', 'absolute')
     .attr('id', 'playerContainer');
   container.append(photoControl.player_);
 
   photoControl.container_ = container;
   photoControl.photoId_ = 0;
-  photoControl.params_.slideshowSpeed_ =
-      photoControl.params_.slideshowSpeed || 4;
 
-  gtv.jq.PlaybackControl_.addPlaybackButtons(photoControl.container_,
-                                             photoControl.params_.styles,
-                                             photoControl.params_.buttons);
+  gtv.jq.PlaybackControl_.addPlaybackButtons(
+    photoControl.container_,
+    photoControl.params_.createParams.styles,
+    photoControl.params_.buttons);
 
   var navSelectors = {
     item: '.player-item',
@@ -782,7 +859,7 @@ gtv.jq.PhotoControl.prototype.showControl = function(controlParams) {
   };
 
   var selectionClasses = {
-    basic: photoControl.params_.styles.selected
+    basic: photoControl.params_.createParams.styles.selected
   };
 
   var keyMapping = {
@@ -791,6 +868,7 @@ gtv.jq.PhotoControl.prototype.showControl = function(controlParams) {
     }
   };
 
+  // Configure gtv.jq.KeyActions object.
   var actions = {
     click: function(item) {
       return gtv.jq.PlaybackControl_.handleButton(photoControl, item);
@@ -798,18 +876,23 @@ gtv.jq.PhotoControl.prototype.showControl = function(controlParams) {
   };
 
   photoControl.behaviorZone_ =
-      new gtv.jq.KeyBehaviorZone('#' + photoControl.params_.containerId,
-                                 keyMapping,
-                                 actions,
-                                 navSelectors,
-                                 selectionClasses);
+      new gtv.jq.KeyBehaviorZone({
+        containerSelector: '#' + photoControl.params_.createParams.containerId,
+        keyMapping: keyMapping,
+        actions: actions,
+        navSelectors: navSelectors,
+        selectionClasses: selectionClasses
+      });
 
-  photoControl.params_.keyController.addBehaviorZone(
-    photoControl.behaviorZone_, true, photoControl.params_.layerNames);
+  photoControl.params_.createParams.keyController.addBehaviorZone(
+    photoControl.behaviorZone_,
+    true,
+    photoControl.params_.createParams.layerNames);
 
-  gtv.jq.PlaybackControl_.setMediaKeyMapping(photoControl,
-                                             photoControl.params_.keyController,
-                                             photoControl.params_.layerNames);
+  gtv.jq.PlaybackControl_.setMediaKeyMapping(
+    photoControl,
+    photoControl.params_.createParams.keyController,
+    photoControl.params_.createParams.layerNames);
 
   if (photoControl.params_.slideshowSpeed) {
     photoControl.paused_ = false;
@@ -828,7 +911,7 @@ gtv.jq.PhotoControl.prototype.loadPhoto = function(url) {
   clearTimeout(photoControl.playTimeout_);
 
   var newPlayer = $('<img></img>')
-    .attr('height', photoControl.params_.height)
+    .attr('height', photoControl.params_.size.height)
     .css('opacity', '0')
     .css('position', 'absolute')
     .attr('src', url);
@@ -867,7 +950,7 @@ gtv.jq.PhotoControl.prototype.loadPhoto = function(url) {
 
           photoControl.playTimeout_ =
               setTimeout(function() {
-                           photoControl.next();
+                           photoControl.next_();
                          },
                          photoControl.params_.slideshowSpeed * 1000);
         }
@@ -905,7 +988,7 @@ gtv.jq.PhotoControl.prototype.play = function() {
     clearTimeout(photoControl.playTimeout_);
     photoControl.playTimeout_ =
         setTimeout(function() {
-                     photoControl.next();
+                     photoControl.next_();
                    },
                    photoControl.params_.slideshowSpeed * 1000);
   }
@@ -932,7 +1015,7 @@ gtv.jq.PhotoControl.prototype.pause = function() {
  * Makes callbacks.next() callback to get the next photo URL, then loads it.
  * @private
  */
-gtv.jq.PhotoControl.prototype.next = function() {
+gtv.jq.PhotoControl.prototype.next_ = function() {
   var photoControl = this;
   var url;
   if (photoControl.params_.callbacks.next) {
@@ -949,7 +1032,7 @@ gtv.jq.PhotoControl.prototype.next = function() {
  * then loads it.
  * @private
  */
-gtv.jq.PhotoControl.prototype.previous = function() {
+gtv.jq.PhotoControl.prototype.previous_ = function() {
   var photoControl = this;
 
   var url;
