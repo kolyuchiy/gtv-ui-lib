@@ -29,8 +29,10 @@
   function testBlurFocusKeyEvents() {
     var event = new goog.events.KeyEvent(goog.events.KeyCodes.DOWN, 0, false, null);
     var mock = new goog.testing.StrictMock(tv.ui.Component);
+    mock.getParent();
     mock.dispatchFocus_();
     mock.dispatchKey_(event);
+    mock.getParent();
     mock.dispatchBlur_();
     mock.$replay();
 

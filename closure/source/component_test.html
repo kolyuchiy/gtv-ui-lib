@@ -57,12 +57,12 @@
     mockMouseEvent.$verify();
   }
 
-  // Case when component is not focusable.
-  function testFocusing_componentIsNotFocusable() {
+  // Case when component is disabled.
+  function testFocusing_componentIsDisabled() {
     mockTvDocument.$replay();
     mockMouseEvent.$replay();
 
-    component.isFocusable = goog.functions.FALSE;
+    component.isEnabled = goog.functions.FALSE;
     component.onMouseDown(mockMouseEvent);
 
     mockTvDocument.$verify();

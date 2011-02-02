@@ -53,32 +53,34 @@ tv.ui.Container.CLASS = 'tv-container';
 tv.ui.Container.Class = {
   /**
    * Applied to root element if container has horizontal orientation.
-   * Class triggers decoration.
+   * In horizontal container elements span along x-axis.
+   * User can control selection by Left and Right keys.
    * @see #isHorizontal
    */
   HORIZONTAL: 'tv-container-horizontal',
 
   /**
    * Applied to root element if container has vertical orientation.
-   * This is default orientation. Class triggers decoration.
-   * @see #isHorizontal
+   * In vertical container elements span along y-axis.
+   * User can control selection by Up and Down keys.
+   * @see #isVertical
    */
   VERTICAL: 'tv-container-vertical',
+
+  /**
+   * Applied to root element if container has stack orientation.
+   * In stack container elements span along z-axis (only one element at the time
+   * is visible). User cannot control selection directly, an alternative way
+   * is usually provided by application developer, such as tab bar.
+   * @see #isStack
+   */
+  STACK: 'tv-container-stack',
 
   /**
    * Applied to root element of currently selected child component.
    * @see #getSelectedChild
    */
   SELECTED_CHILD: 'tv-container-selected-child',
-
-  /**
-   * Applied to root element of top-level container.
-   * Top-level containers blocks keyboard navigation on edges. For example,
-   * if "up" key is pressed and first child is selected, top-level container
-   * will nevertheless mark keyboard event as processed.
-   * @see #isTopLevel
-   */
-  TOP_LEVEL: 'tv-container-top-level',
 
   /**
    * Denotes highlight element that will be positioned above currently selected
@@ -256,11 +258,6 @@ tv.ui.Container.prototype.disposeInternal = function() {
 tv.ui.Container.prototype.decorate = function(element) {
   goog.base(this, 'decorate', element);
 
-  this.getEventHandler().listen(
-      this, tv.ui.Component.EventType.FOCUS, this.onCaptureFocus, true);
-  this.getEventHandler().listen(
-      this, tv.ui.Component.EventType.BLUR, this.onCaptureBlur, true);
-
   for (var childNode = element.firstChild; childNode;
        childNode = childNode.nextSibling) {
     if (childNode.nodeType != goog.dom.NodeType.ELEMENT) {
@@ -348,12 +345,27 @@ tv.ui.Container.prototype.getChildren = function() {
 };
 
 /**
- * @return {boolean} Whether container has horizontal orientation (it has
- *     vertical one otherwise).
+ * @return {boolean} Whether container has horizontal orientation.
  */
 tv.ui.Container.prototype.isHorizontal = function() {
   return goog.dom.classes.has(
       this.getElement(), tv.ui.Container.Class.HORIZONTAL);
+};
+
+/**
+ * @return {boolean} Whether container has vertical orientation.
+ */
+tv.ui.Container.prototype.isVertical = function() {
+  return goog.dom.classes.has(
+      this.getElement(), tv.ui.Container.Class.VERTICAL);
+};
+
+/**
+ * @return {boolean} Whether container has stack orientation.
+ */
+tv.ui.Container.prototype.isStack = function() {
+  return goog.dom.classes.has(
+      this.getElement(), tv.ui.Container.Class.STACK);
 };
 
 /**
@@ -369,6 +381,9 @@ tv.ui.Container.prototype.getHighlightElement = function() {
  * @param {Element} highlightElement highlight element.
  */
 tv.ui.Container.prototype.setHighlightElement = function(highlightElement) {
+  goog.asserts.assert(
+      !this.isStack(), 'Stack container doesn\'t support highlight.');
+
   this.highlightElement_ = highlightElement;
 };
 
@@ -413,26 +428,22 @@ tv.ui.Container.prototype.isStartScroll_ = function() {
  * @protected
  */
 tv.ui.Container.prototype.onKey = function(event) {
-  if (event.ctrlKey || event.altKey || event.shiftKey || event.metaKey) {
+  if (this.isStack() ||
+      event.ctrlKey || event.altKey || event.shiftKey || event.metaKey) {
     return;
   }
 
   var selectionChanged;
   if (event.keyCode == this.getPreviousKey_()) {
     selectionChanged = this.selectPreviousChild();
-    if (selectionChanged || this.isTopLevel()) {
-      event.stopPropagation();
-      event.preventDefault();
-    }
   } else if (event.keyCode == this.getNextKey_()) {
     selectionChanged = this.selectNextChild();
-    if (selectionChanged || this.isTopLevel()) {
-      event.stopPropagation();
-      event.preventDefault();
-    }
   }
 
   if (selectionChanged) {
+    event.stopPropagation();
+    event.preventDefault();
+
     this.getDocument().setFocusedComponent(
         this.selectedChild_.getSelectedDescendantOrSelf());
   }
@@ -466,18 +477,14 @@ tv.ui.Container.prototype.getNextKey_ = function() {
  * @protected
  */
 tv.ui.Container.prototype.selectFirstChild = function() {
-  if (this.children_.length == 0) {
-    return false;
-  }
-
-  var firstChild = this.children_[0];
-  if (firstChild.getSelectedDescendantOrSelf()) {
-    this.setSelectedChild(firstChild);
-    return true;
-  }
-
-  this.selectedChild_ = firstChild;
-  return this.selectNextChild();
+  return goog.base(this, 'selectFirstChild') &&
+      goog.array.some(this.children_, function(child) {
+        if (child.selectFirstChild()) {
+          this.setSelectedChild(child);
+          return true;
+        }
+        return false;
+      }, this);
 };
 
 /**
@@ -579,19 +586,15 @@ tv.ui.Container.prototype.setSelectedChild = function(selectedChild) {
 };
 
 /**
- * @return {boolean} Whether container is top-level.
- */
-tv.ui.Container.prototype.isTopLevel = function() {
-  return goog.dom.classes.has(this.element_, tv.ui.Container.Class.TOP_LEVEL);
-};
-
-/**
  * @inheritDoc
  */
 tv.ui.Container.prototype.render = function() {
   goog.base(this, 'render');
-  this.scroll_();
-  this.updateHighlight_();
+
+  if (!this.isStack()) {
+    this.scroll_();
+    this.updateHighlight_();
+  }
 };
 
 /**
@@ -827,28 +830,27 @@ tv.ui.Container.prototype.onChildVisibilityChange = function(child) {
  * @protected
  */
 tv.ui.Container.prototype.onChildSelectabilityChange = function(child) {
-  if (child.getSelectedDescendantOrSelf()) {
+  if (!this.selectedChild_ && child.getSelectedDescendantOrSelf()) {
     // Child became selectable, set it as selected if container has none.
-    if (!this.selectedChild_) {
-      this.setSelectedChild(child);
-    }
-  } else {
-    // Child stopped being selectable, try to adjust selection.
-    if (this.selectedChild_ == child &&
-        !this.selectNextChild() && !this.selectPreviousChild()) {
-      // No selectable children, give up.
-      this.setSelectedChild(null);
-    }
+    this.setSelectedChild(child);
+  } else if (this.selectedChild_ == child &&
+      !child.getSelectedDescendantOrSelf() &&
+      !this.selectNextChild() &&
+      !this.selectPreviousChild()) {
+    // Child stopped being selectable, no other selectable children found.
+    this.setSelectedChild(null);
   }
 };
 
 /**
- * Handles focus in capture phase.
+ * Handles focus event.
  * Enters mode when container is allowed to control external highlight and
  * updates position and look of highlight element.
  * @protected
  */
-tv.ui.Container.prototype.onCaptureFocus = function(event) {
+tv.ui.Container.prototype.onFocus = function(event) {
+  goog.base(this, 'onFocus', event);
+
   if (this.highlightElement_) {
     goog.dom.classes.add(
         this.highlightElement_, tv.ui.Container.Class.HIGHLIGHT_FOCUSED);
@@ -865,12 +867,14 @@ tv.ui.Container.prototype.onCaptureFocus = function(event) {
 };
 
 /**
- * Handles blur in capture phase.
+ * Handles blur event.
  * Exits mode when container is allowed to control external highlight and
  * updates look of highlight element.
  * @protected
  */
-tv.ui.Container.prototype.onCaptureBlur = function(event) {
+tv.ui.Container.prototype.onBlur = function(event) {
+  goog.base(this, 'onBlur', event);
+
   if (this.highlightElement_) {
     goog.dom.classes.remove(
         this.highlightElement_, tv.ui.Container.Class.HIGHLIGHT_FOCUSED);

@@ -80,12 +80,3 @@ tv.ui.Grid.prototype.onSelectChild_ = function(event) {
      }
   });
 };
-
-/**
- * @inheritDoc
- */
-tv.ui.Grid.prototype.selectFirstChild = function() {
-  return this.getChildren().length > 0 &&
-      this.getChildren()[0].selectFirstChild() &&
-      goog.base(this, 'selectFirstChild');
-};
