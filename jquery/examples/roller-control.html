@@ -1,0 +1,108 @@
+<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Droid+Sans&subset=latin">
+
+<link rel="stylesheet" href="../css/controls.css" />
+
+<style>
+.scroll-row-style {
+  overflow: hidden;
+  width: 100%;
+  background-color: #8bd;
+  border: 6px solid #999;
+  position: relative;
+}
+.scroll-div-style {
+  margin: 5px;
+}
+.scroll-items-div-style {
+}
+.scroll-item-style {
+  background-color: #58b;
+  border-radius: 10px;
+  color: #ddd;
+  padding: 10px;
+  font-family: 'Droid Sans';
+  font-size: 20pt;
+  border: #58b solid 6px;
+}
+.item-hover {
+  border: #dd0 solid 6px !important;
+}
+</style>
+
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+<script type="text/javascript" src="../js/scrollrow.js"></script>
+<script type="text/javascript" src="../js/gtvcore.js"></script>
+<script type="text/javascript" src="../js/keycontrol.js"></script>
+
+<script type="text/javascript">
+/**
+ * Creates the content to demonstrate the Roller control and attaches it to
+ * the supplied parent element. The page is actually constructed in the,
+ * callback from the hints page, which is made after the user dismisses the
+ * hints box.
+ * @param {jQuery.Element} topParent The parent element the content should
+ *     be appended to.
+ */
+makePage = function(topParent) {
+  var keyController = new gtv.jq.KeyController();
+  keyController.start();
+
+  var numRows = 3;
+  var photosPerRow = Math.floor(18 / numRows);
+
+  var itemsArray = new Array(numRows);
+  var photoIndex = 0;
+  for (var j = 0; j < numRows; j++) {
+    itemsArray[j] = {
+      items: new Array(photosPerRow)
+    };
+    for (var i = 0; i < photosPerRow; i++) {
+      itemsArray[j].items[i] =
+          $('<img></img>')
+            .attr('src', 'images/photo' + photoIndex + '.jpg')
+            .css({ height: '30%',
+                   display: 'block'});
+      photoIndex++;
+
+      if (photoIndex > 17) {
+        break;
+      }
+    }
+  }
+
+  var styles = {
+    row: 'scroll-row-style',
+    itemsDiv: 'scroll-items-div-style',
+    itemDiv: 'scroll-div-style',
+    item: 'scroll-item-style',
+    hover: 'item-hover'
+  };
+
+  var rollerParams = {
+    createParams: {
+      containerId: 'roller-container',
+      styles: styles,
+      keyController: keyController
+    }
+  };
+  roller = new gtv.jq.RollerControl(rollerParams);
+
+  var showParams = {
+    topParent: topParent,
+    contents: {
+      contentsArray: itemsArray
+    }
+  };
+  var rollerContainer = roller.showControl(showParams);
+  roller.enableNavigation();
+
+};
+
+/**
+ * jQuery callback made when the page has been loaded and is ready.
+ */
+$(document).ready(function() {
+    makePage($("body"));
+  });
+</script>
+

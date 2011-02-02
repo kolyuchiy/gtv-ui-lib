@@ -1,0 +1,130 @@
+<link rel="stylesheet" href="../css/controls.css" />
+
+<style>
+body {
+  overflow: hidden;
+  background-color: #333;
+}
+
+.player-item-div {
+  float: left;
+}
+
+.player-item-style {
+  text-align: center;
+  font-family: sans-serif;
+  font-size: 24pt;
+  color: #f1f1f1;
+  border: #444 solid 3px;
+  background: -webkit-gradient(linear,
+                               left top,
+                               right bottom,
+                               color-stop(0, #ccc),
+                               color-stop(.5, #666),
+                               color-stop(1, #ccc));
+}
+
+.player-item-hover {
+  border: #dd0 solid 3px;
+}
+.player-row {
+  position: absolute;
+}
+
+.scrollnav-row-style {
+}
+
+.scrollnav-item-div-style {
+  overflow: hidden;
+}
+
+.scrollnav-item-style {
+  margin: 0;
+  padding: 0;
+}
+
+.scrollnav-item-chosen {
+}
+
+.scrollnav-item-normal {
+}
+
+.scrollnav-holder {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.scrollnav-row-holder {
+  position: relative;
+}
+
+.scrollnav-nav-item-hover {
+  opacity: .6;
+}
+
+.scrollnav-nav-row-style {
+  overflow: hidden;
+  width: 100%;
+  position: relative;
+}
+.scrollnav-nav-div-style {
+  float: left;
+  margin: 0;
+  background-color: #cc0;
+}
+.scrollnav-nav-items-div-style {
+}
+.scrollnav-nav-item-style {
+  margin: 0;
+}
+</style>
+
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/swfobject/2.2/swfobject.js"></script>
+<script type="text/javascript" src="../js/pagebuilder.js"></script>
+<script type="text/javascript" src="../js/sidenav.js"></script>
+<script type="text/javascript" src="../js/scrollrow.js"></script>
+<script type="text/javascript" src="../js/video.js"></script>
+<script type="text/javascript" src="../js/gtvcore.js"></script>
+<script type="text/javascript" src="../js/keycontrol.js"></script>
+
+<script type="text/javascript">
+/**
+ * Creates the builder video page and adds it to the specified parent element.
+ * The page pulls videos from the top_rated YouTube feed and displays the
+ * thumbnail in a pop-up navbar.
+ * @param {jQuery.Element} topParent The parent element to add video page
+ *     content to.
+ */
+function makePage(topParent) {
+  var keyController = new gtv.jq.KeyController();
+  keyController.start();
+
+  var buildData = {
+    keyController: keyController,
+    feed: 'http://picasaweb.google.com/data/feed/base/featured?'
+        + 'alt=json-in-script&kind=photo&access=public&'
+        + 'slabel=featured&hl=en_US',
+    feedItemsSeeker: ['feed','entry'],
+    feedThumbSeeker: ['media$group','media$thumbnail','0','url'],
+    feedContentSeeker: ['media$group','media$content','0','url'],
+    size: {
+      width: 900
+    },
+    thumbnailSize: 150,
+    navbarType: 'popUp'
+  };
+
+  var page = new gtv.jq.BuilderPhotoPage(buildData);
+
+  page.makePage(topParent);
+};
+
+/**
+ * jQuery callback made when the page has been loaded and is ready.
+ */
+$(document).ready(function() {
+    makePage($("body"));
+  });
+</script>

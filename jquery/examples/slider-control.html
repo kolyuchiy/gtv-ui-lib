@@ -1,0 +1,117 @@
+<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Droid+Sans&subset=latin">
+
+<link rel="stylesheet" href="../css/controls.css" />
+
+<style>
+body {
+  overflow: hidden;
+  background-color: #333;
+}
+.slider-item-page-style {
+  position: absolute;
+  overflow: hidden;
+  width: 100%;
+}
+.slider-item-row-style {
+}
+.slider-item-div-style {
+  margin: 5px;
+  padding: 0;
+}
+.slider-item-style {
+  border: 6px solid transparent;
+  height: 260px;
+  overflow: hidden;
+}
+.slider-photo {
+  width: 400px;
+}
+.slider-text-desc {
+  width: 400px;
+  overflow: hidden;
+}
+.slider-text-title {
+  width: 10000px;
+  color: #ddd;
+  font-family: 'Droid Sans', sans-serif;
+  font-size: 20pt;
+}
+.item-hover {
+  border: #dd0 solid 6px !important;
+}
+</style>
+
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+<script type="text/javascript" src="../js/slider.js"></script>
+<script type="text/javascript" src="../js/gtvcore.js"></script>
+<script type="text/javascript" src="../js/keycontrol.js"></script>
+
+<script type="text/javascript">
+/**
+ * Creates a page to demo the sliding control and adds the content to the
+ * supplied topParent. This page demos the sliding control by adding a
+ * set of photo elements to the control with description titles.
+ * @param {jQuery.Element} topParent The container to which the page content
+ *     should be added.
+ */
+makePage = function(topParent)
+{
+  var keyController = new gtv.jq.KeyController();
+  keyController.start();
+
+  var container = $('<div></div>').addClass('sliding-container');
+  topParent.append(container);
+
+  container = container;
+
+  var styleClasses = {
+    page: 'slider-item-page-style',
+    row: 'slider-item-row-style',
+    itemDiv: 'slider-item-div-style',
+    item: 'slider-item-style',
+    selected: 'item-hover'
+  };
+
+  var photoCount = 15;
+
+  var pageItems = [];
+  for (var i = 0; i < photoCount; i++) {
+    var img = $('<img></img>')
+        .attr('src', 'images/photo' + i + '.jpg')
+        .addClass('slider-photo');
+
+    var description = $('<p></p>').append('photo ' + i)
+      .addClass('slider-text-title');
+    var descDiv = $('<div></div>').addClass('slider-text-desc');
+
+    descDiv.append(description);
+
+    pageItems.push({
+        item: img,
+        caption: descDiv
+      });
+  }
+
+  var createParams = {
+    containerId: 'slider-container',
+    styles: styleClasses,
+    keyController: keyController,
+  };
+  slidingControl = new gtv.jq.SlidingControl(createParams);
+
+  var showParams = {
+    topParent: container,
+    contents: {
+      captionItems: pageItems
+    }
+  };
+  slidingControl.showControl(showParams);
+};
+
+/**
+ * jQuery callback made when the page has been loaded and is ready.
+ */
+$(document).ready(function() {
+    makePage($("body"));
+  });
+</script>

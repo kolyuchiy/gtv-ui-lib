@@ -1,0 +1,88 @@
+<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Droid+Sans&subset=latin">
+
+<link rel="stylesheet" href="../css/controls.css" />
+
+<style>
+body {
+  overflow: hidden;
+  background-color: #333;
+}
+.stack-photo-title {
+  color: #f1f1f1;
+  background-color: #974;
+  padding: 10px;
+  margin: 0px 0px 10px 0px;
+  border: 5px solid #430;
+  font-family: 'Neucha';
+  font-size: 24pt;
+  text-align: center;
+}
+.stack-photo {
+}
+</style>
+
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+<script type="text/javascript" src="../js/stacker.js"></script>
+<script type="text/javascript" src="../js/gtvcore.js"></script>
+<script type="text/javascript" src="../js/keycontrol.js"></script>
+
+<script type="text/javascript">
+/**
+ * Creates the contents for the stack page and adds it to the specified
+ * parent element. This page demonstrates a stack control with a set of photos
+ * and provides a set of insight buttons that discuss the features being
+ * demonstrated.
+ * @param {jQuery.Element} topParent The parent element to hold the contents.
+ */
+makePage = function(topParent) {
+  var keyController = new gtv.jq.KeyController();
+  keyController.start();
+
+  var container = $('<div></div>');
+  topParent.append(container);
+  container = container;
+  insightsItem = 11;
+
+  var itemCount = 15;
+  var itemArray = new Array(itemCount);
+
+  for (var i = 0; i < itemCount; i++) {
+    var img = $('<img></img>')
+      .attr('src', 'images/photo' + i + '.jpg')
+      .addClass('stack-photo');
+    itemArray[i] = {
+      'caption': 'Photo ' + i,
+      'item': img
+    };
+  }
+
+  var styles = {
+    title: 'stack-photo-title'
+  };
+
+  var stackParams = {
+    createParams: {
+      containerId: 'stack-container',
+      styles: styles,
+      keyController: keyController
+    },
+    height: $(window).height() / 2
+  };
+  var stackControl = new gtv.jq.StackControl(stackParams);
+
+  var showParams = {
+    topParent: container,
+    contents: {
+      captionItems: itemArray
+    }
+  };
+  stackControl.showControl(showParams);
+};
+
+/**
+ * jQuery callback made when the page has been loaded and is ready.
+ */
+$(document).ready(function() {
+    makePage($("body"));
+  });
+</script>

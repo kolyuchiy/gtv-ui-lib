@@ -1,0 +1,258 @@
+<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Droid+Sans&subset=latin">
+
+<link rel="stylesheet" href="../css/controls.css" />
+
+<style>
+body {
+  overflow: hidden;
+  background-color: #333;
+}
+.item-hover {
+  border: #dd0 solid 6px !important;
+}
+.slider-item-page-style {
+  position: absolute;
+  overflow: hidden;
+  width: 100%;
+}
+.slider-item-row-style {
+}
+.slider-item-div-style {
+  margin: 5px;
+  padding: 0;
+}
+.slider-item-style {
+  border: 6px solid transparent;
+  height: 260px;
+  overflow: hidden;
+}
+.slider-photo {
+  width: 400px;
+}
+.slider-text-desc {
+  width: 400px;
+  overflow: hidden;
+}
+
+.slider-text-title {
+  width: 10000px;
+  color: #ddd;
+  font-family: 'Droid Sans', sans-serif;
+  font-size: 20pt;
+}
+.sidenav-row-style {
+}
+
+.sidenav-item-style {
+  text-align: center;
+  font-family: sans-serif;
+  font-size: 36pt;
+  border-radius: 15px;
+  border: transparent solid 4px;
+  margin: 5px;
+  padding: 20px;
+  width: 200px;
+}
+
+.sidenav-item-chosen {
+  border: #ff0 solid 4px;
+  background: -webkit-gradient(linear,
+                               left top,
+                               right bottom,
+                               color-stop(0, #cc0),
+                               color-stop(.5, #660),
+                               color-stop(1, #cc0));
+}
+
+.sidenav-item-normal {
+  border: #444 solid 4px;
+  background: -webkit-gradient(linear,
+                               left top,
+                               right bottom,
+                               color-stop(0, #ccc),
+                               color-stop(.5, #666),
+                               color-stop(1, #ccc));
+}
+
+.sidenav-item-hover {
+  border: #dd0 solid 4px !important;
+}
+
+.sidenav-holder {
+  float: left;
+}
+</style>
+
+
+
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+<script type="text/javascript" src="../js/slider.js"></script>
+<script type="text/javascript" src="../js/sidenav.js"></script>
+<script type="text/javascript" src="../js/gtvcore.js"></script>
+<script type="text/javascript" src="../js/keycontrol.js"></script>
+
+<script type="text/javascript">
+/**
+ * Creates the contents of the page and adds it to the specified parent
+ * element. This page consists of one SideNav control and one Slider control.
+ * The sidenav slides in from the left. When an item is chosen, it creates a 
+ * slider control in the main page to display a set of photos (filtered by the
+ * choice in the left/right nav).
+ * @param {jQuery.Element} topParent The parent element to hold the page
+ *     content.
+ */
+function makePage(topParent) {
+  var keyController = new gtv.jq.KeyController();
+  keyController.start();
+
+  var sideNavHolder = $('<div></div>').addClass('sidenav-holder');
+  topParent.append(sideNavHolder);
+
+  var navItems = [
+    'All',
+    'US',
+    'Europe',
+    'Asia',
+    'Africa'
+  ];
+
+  var styles = {
+    item: 'sidenav-item-style',
+    itemDiv: 'sidenav-item-div-style',
+    row: 'sidenav-row-style',
+    chosen: 'sidenav-item-chosen',
+    normal: 'sidenav-item-normal',
+    selected: 'sidenav-item-hover'
+  };
+
+  var behaviors = {
+    popOut: 'left',
+    orientation: 'vertical',
+    selectOnInit: true
+  };
+
+  var sidenavParams = {
+    createParams: {
+      containerId: 'sideNav',
+      styles: styles,
+      keyController: keyController,
+      choiceCallback: function(selectedItem) {
+        choiceCallback(selectedItem);
+      }
+    },
+    behaviors: behaviors
+  };
+  sideNavControl = new gtv.jq.SideNavControl(sidenavParams);
+
+  var showParams = {
+    topParent: sideNavHolder,
+    contents: {
+      items: navItems
+    }
+  };
+  sideNavControl.showControl(showParams);
+
+  function choiceCallback(selectedItem) {
+    var tag = selectedItem.text().toLowerCase();
+    makeSlider(topParent, keyController, tag);
+  }
+
+  sideNavControl.selectControl();
+};
+
+var slider;
+var slidingControl;
+/**
+ * Creates a slider control containing a set of photos, filtered by an
+ * optional tag.
+ * @param {jQuery.Element} topParent The element to attach the slider to.
+ * @param {gtv.jq.KeyController} keyController The KeyController for the page.
+ * @param {string} tag The filter to use to select which photos to display.
+ */
+function makeSlider(topParent, keyController, tag) {
+
+  if (!slider) {
+    slider = $('<div></div>').addClass('slider-holder');
+    topParent.append(slider);
+  } else {
+    if (slidingControl)
+      slidingControl.deleteControl();
+  }
+
+  var styleClasses = {
+    page: 'slider-item-page-style',
+    row: 'slider-item-row-style',
+    itemDiv: 'slider-item-div-style',
+    item: 'slider-item-style',
+    selected: 'item-hover'
+  };
+
+  var photos = [
+    { file: 'photo0.jpg', tag: 'europe', desc: 'Salzburg'},
+    { file: 'photo1.jpg', tag: 'europe', desc: 'Budapest'},
+    { file: 'photo2.jpg', tag: 'europe', desc: 'Czech Republic'},
+    { file: 'photo3.jpg', tag: 'europe', desc: 'Prague' },
+    { file: 'photo4.jpg', tag: 'africa', desc: 'Marrakesh' },
+    { file: 'photo5.jpg', tag: 'us' , desc: 'Napa'},
+    { file: 'photo6.jpg', tag: 'asia', desc: 'Kovalum'},
+    { file: 'photo7.jpg', tag: 'europe', desc: 'Paris'},
+    { file: 'photo8.jpg', tag: 'africa', desc: 'Marrakesh' },
+    { file: 'photo9.jpg', tag: 'africa', desc: 'Marrakesh' },
+    { file: 'photo10.jpg', tag: 'africa', desc: 'Atlas Mountains'},
+    { file: 'photo11.jpg', tag: 'us', desc: 'Pt. Loma' },
+    { file: 'photo12.jpg', tag: 'us', desc: 'Philadelpha' },
+    { file: 'photo13.jpg', tag: 'us', desc: 'Maine' },
+    { file: 'photo14.jpg', tag: 'europe', desc: 'Spain' },
+    { file: 'photo15.jpg', tag: 'asia', desc: 'Singapore' },
+    { file: 'photo16.jpg', tag: 'us', desc: 'Santa Ynez' },
+    { file: 'photo17.jpg', tag: 'asia', desc: 'Agra' }
+  ];
+
+  var photoCount = photos.length;
+
+  var pageItems = [];
+  for (var i = 0; i < photoCount; i++) {
+    if (photos[i].tag != tag && tag != 'all') {
+      continue;
+    }
+
+    var img = $('<img></img>')
+        .attr('src', 'images/' + photos[i].file)
+        .addClass('slider-photo');
+
+    var description = $('<p></p>').append(photos[i].desc)
+      .addClass('slider-text-title');
+    var descDiv = $('<div></div>').addClass('slider-text-desc');
+
+    descDiv.append(description);
+
+    pageItems.push({
+      item: img,
+      caption: descDiv
+    });
+  }
+
+  var createParams = {
+    containerId: 'sliding-control',
+    styles: styleClasses,
+    keyController: keyController
+  };
+  slidingControl = new gtv.jq.SlidingControl(createParams);
+
+  var showParams = {
+    topParent: slider,
+    contents: {
+      captionItems: pageItems
+    }
+  };
+  slidingControl.showControl(showParams);
+};
+
+/**
+ * jQuery callback made when the page has been loaded and is ready.
+ */
+$(document).ready(function() {
+    makePage($("body"));
+  });
+</script>
+
