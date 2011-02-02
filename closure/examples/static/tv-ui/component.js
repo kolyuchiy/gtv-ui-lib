@@ -67,10 +67,10 @@ tv.ui.Component.Class = {
   HIDDEN: 'tv-component-hidden',
 
   /**
-   * Applied when component cannot accept focus.
-   * @see #isFocusable
+   * Applied when component cannot be selected.
+   * @see #isEnabled
    */
-  NON_FOCUSABLE: 'tv-component-non-focusable'
+  DISABLED: 'tv-component-disabled'
 };
 
 /**
@@ -224,14 +224,6 @@ tv.ui.Component.prototype.dispatchFocus_ = function() {
  * @protected
  */
 tv.ui.Component.prototype.onFocus = function(event) {
-  // Update chain of selected children up to the root container.
-  // If component became focused as result of mouse event, such update ensures
-  // that focus will later traverse properly.
-  for (var child = this, parent = this.getParent(); parent;
-      child = parent, parent = parent.getParent()) {
-    parent.setSelectedChild(child);
-  }
-
   // Add focused class to element.
   goog.dom.classes.add(this.element_, tv.ui.Component.Class.FOCUSED);
 
@@ -287,20 +279,39 @@ tv.ui.Component.prototype.onKey = goog.nullFunction;
  * @protected
  */
 tv.ui.Component.prototype.onMouseDown = function(event) {
+  // Whether component and all its ancestors are enabled.
+  for (var component = this; component; component = component.getParent()) {
+    if (!component.isEnabled()) {
+      return;
+    }
+  }
+
   // Request focus to component or in case of containers to one of its
   // descendants.
   var focusedComponent = this.getSelectedDescendantOrSelf();
-  if (focusedComponent) {
-    this.getDocument().setFocusedComponent(focusedComponent);
-    event.stopPropagation();
+  if (!focusedComponent) {
+    return;
   }
+
+  this.getDocument().setFocusedComponent(focusedComponent);
+  event.stopPropagation();
 };
 
 /**
  * @return {tv.ui.Component} Self, or null if component cannot accept focus.
  */
 tv.ui.Component.prototype.getSelectedDescendantOrSelf = function() {
-  return this.isFocusable() && this.isVisible() ? this : null;
+  return this.isEnabled() && this.isVisible() ? this : null;
+};
+
+/**
+ * Does nothing for non-container components.
+ * Used solely because of return value.
+ * @return {boolean} True if component can be selected.
+ * @protected
+ */
+tv.ui.Component.prototype.selectFirstChild = function() {
+  return this.isEnabled() && this.isVisible();
 };
 
 /**
@@ -325,11 +336,11 @@ tv.ui.Component.prototype.setVisible = function(visible) {
 };
 
 /**
- * @return {boolean} Whether component can accept focus.
+ * @return {boolean} Whether component can be selected.
  */
-tv.ui.Component.prototype.isFocusable = function() {
+tv.ui.Component.prototype.isEnabled = function() {
   return !goog.dom.classes.has(
-      this.element_, tv.ui.Component.Class.NON_FOCUSABLE);
+      this.element_, tv.ui.Component.Class.DISABLED);
 };
 
 /**

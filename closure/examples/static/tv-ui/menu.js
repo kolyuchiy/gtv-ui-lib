@@ -95,13 +95,9 @@ tv.ui.Menu.prototype.onBarSelectChild = function(event) {
 /**
  * @inheritDoc
  */
-tv.ui.Menu.prototype.onBarCaptureFocus = function(event) {
-  goog.base(this, 'onBarCaptureFocus', event);
-
-  this.getEventHandler().listenOnce(
-      event.target, tv.ui.Component.EventType.FOCUS, function() {
-        this.resetSubMenuSelection_();
-      });
+tv.ui.Menu.prototype.onBarFocus = function(event) {
+  this.resetSubMenuSelection_();
+  goog.base(this, 'onBarFocus', event);
 };
 
 /**
@@ -111,9 +107,12 @@ tv.ui.Menu.prototype.onBarCaptureFocus = function(event) {
  * @protected
  */
 tv.ui.Menu.prototype.onBarAction = function(event) {
-  this.resetSubMenuSelection_();
-  this.tryFocus(this.getContentContainer());
-  event.stopPropagation();
+  if (!goog.dom.classes.has(
+      event.target.getElement(), tv.ui.Menu.Class.BACK_BUTTON)) {
+    this.resetSubMenuSelection_();
+    this.tryFocusSelectedDescendant(this.getContentContainer());
+    event.stopPropagation();
+  }
 };
 
 /**
@@ -126,7 +125,7 @@ tv.ui.Menu.prototype.onBarAction = function(event) {
 tv.ui.Menu.prototype.onContentAction = function(event) {
   if (goog.dom.classes.has(
       event.target.getElement(), tv.ui.Menu.Class.BACK_BUTTON)) {
-    this.tryFocus(this.getBarContainer());
+    this.tryFocusSelectedDescendant(this.getBarContainer());
     event.stopPropagation();
   }
 };
@@ -139,7 +138,7 @@ tv.ui.Menu.prototype.onContentAction = function(event) {
  */
 tv.ui.Menu.prototype.onContentKey = function(event) {
   if (event.keyCode == goog.events.KeyCodes.ESC) {
-    this.tryFocus(this.getBarContainer());
+    this.tryFocusSelectedDescendant(this.getBarContainer());
     event.stopPropagation();
   }
 };

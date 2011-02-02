@@ -16,8 +16,7 @@
 /**
  * @fileoverview Container that displays child components in tabs.
  * Container consists of two child containers - tab bar and tab content, whose
- * selections are synchronized. If tab bar isn't focusable, container will
- * transfer focus to tab content.
+ * selections are synchronized.
  */
 goog.provide('tv.ui.TabContainer');
 
@@ -56,7 +55,13 @@ tv.ui.TabContainer.Class = {
    * This element should be decorated as tv.ui.Container.
    * @see #getContentContainer
    */
-  CONTENT: 'tv-tab-container-content'
+  CONTENT: 'tv-tab-container-content',
+
+  /**
+   * Applied to tab content if it has to intercept focus from tab bar.
+   * This way tab bar is excluded from navigation but remains focusable.
+   */
+  FOCUS_ATTRACTOR: 'tv-tab-container-focus-attractor'
 };
 
 /**
@@ -86,6 +91,15 @@ tv.ui.TabContainer.prototype.getContentContainer = function() {
 };
 
 /**
+ * @return {boolean} Whether tab content container is focus attractor.
+ */
+tv.ui.TabContainer.prototype.hasFocusAttractor = function() {
+  return this.contentContainer_ && goog.dom.classes.has(
+      this.contentContainer_.getElement(),
+      tv.ui.TabContainer.Class.FOCUS_ATTRACTOR);
+};
+
+/**
  * @inheritDoc
  */
 tv.ui.TabContainer.prototype.getClass = function() {
@@ -110,8 +124,7 @@ tv.ui.TabContainer.prototype.addChild = function(child) {
     this.getEventHandler().listen(
         this.barContainer_,
         tv.ui.Component.EventType.FOCUS,
-        this.onBarCaptureFocus,
-        true);
+        this.onBarFocus);
   } else if (goog.dom.classes.has(
       child.getElement(), tv.ui.TabContainer.Class.CONTENT)) {
     goog.asserts.assert(
@@ -122,6 +135,20 @@ tv.ui.TabContainer.prototype.addChild = function(child) {
         tv.ui.Container.EventType.SELECT_CHILD,
         this.onContentSelectChild);
   }
+};
+
+/**
+ * @inheritDoc
+ */
+tv.ui.TabContainer.prototype.selectPreviousChild = function() {
+  return !this.hasFocusAttractor() && goog.base(this, 'selectPreviousChild');
+};
+
+/**
+ * @inheritDoc
+ */
+tv.ui.TabContainer.prototype.selectNextChild = function() {
+  return !this.hasFocusAttractor() && goog.base(this, 'selectNextChild');
 };
 
 /**
@@ -164,16 +191,12 @@ tv.ui.TabContainer.prototype.synchronizeSelectedChildren_ = function(
 };
 
 /**
- * Handles focus on bar container in capture phase.
+ * Handles focus on bar container.
  * @protected
  */
-tv.ui.TabContainer.prototype.onBarCaptureFocus = function(event) {
-  if (!this.barContainer_.isFocusable()) {
-    // We need to wait until child component updates selection chain.
-    this.getEventHandler().listenOnce(
-        event.target, tv.ui.Component.EventType.FOCUS, function() {
-          this.tryFocus(this.contentContainer_);
-        });
+tv.ui.TabContainer.prototype.onBarFocus = function(event) {
+  if (this.hasFocusAttractor()) {
+    this.tryFocusSelectedDescendant(this.contentContainer_);
   }
 };
 
@@ -183,9 +206,9 @@ tv.ui.TabContainer.prototype.onBarCaptureFocus = function(event) {
  * @param {goog.ui.Component} component Component to focus.
  * @protected
  */
-tv.ui.TabContainer.prototype.tryFocus = function(component) {
-  if (component.isFocusable()) {
-    this.getDocument().setFocusedComponent(
-        component.getSelectedDescendantOrSelf());
+tv.ui.TabContainer.prototype.tryFocusSelectedDescendant = function(component) {
+  var selectedDescendant = component.getSelectedDescendantOrSelf();
+  if (selectedDescendant) {
+    this.getDocument().setFocusedComponent(selectedDescendant);
   }
 };

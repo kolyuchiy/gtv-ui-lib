@@ -1,11 +1,11 @@
 <html>
 <head>
   <title>tv.ui.Decoration Demos</title>
-  <link rel="stylesheet" href="../static/tv-ui/container.css" type="text/css"/>
-  <link rel="stylesheet" href="../static/tv-ui/lightbox.css" type="text/css"/>
-  <link rel="stylesheet" href="../static/main.css" type="text/css"/>
-  <script src="../static/closure-library-20100917-r305/closure/goog/base.js" type="text/javascript" charset="utf-8"></script>
-  <script src="../static/tv-ui/deps.js" type="text/javascript" charset="utf-8"></script>
+  <link rel="stylesheet" href="/static/tv-ui/container.css" type="text/css"/>
+  <link rel="stylesheet" href="/static/tv-ui/lightbox.css" type="text/css"/>
+  <link rel="stylesheet" href="/static/main.css" type="text/css"/>
+  <script src="/static/closure-library-20100917-r305/closure/goog/base.js" type="text/javascript" charset="utf-8"></script>
+  <script src="/static/tv-ui/deps.js" type="text/javascript" charset="utf-8"></script>
   <script type="text/javascript">
     goog.require('goog.History');
     goog.require('goog.net.Jsonp');
@@ -18,6 +18,7 @@
     goog.require('tv.ui.Input');
     goog.require('tv.ui.Lightbox');
     goog.require('tv.ui.Link');
+    goog.require('tv.ui.Menu');
     goog.require('tv.ui.TabContainer');
     goog.require('tv.ui.ToggleButton');
   </script>
@@ -52,7 +53,7 @@
         </div>
       {% endfor %}
     </div>
-    <div class='tv-tab-container-content tv-container-vertical demo-selector-content'>
+    <div class='tv-tab-container-content tv-container tv-container-stack demo-selector-content'>
       {% for demo in demos %}
         {% include demo.template %}
       {% endfor %}
