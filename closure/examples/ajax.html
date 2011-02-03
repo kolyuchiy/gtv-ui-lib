@@ -1,0 +1,256 @@
+<html>
+
+<head>
+
+<link rel="stylesheet" href="../source/css/container.css">
+
+<style>
+
+body {
+  background-color: #000;
+  background-image: url(gradient.png);
+  background-repeat: no-repeat;
+  color: #FCFCFC;
+  font-family: "Droid Sans TV", "Driod Sans", Verdana, sans-serif;
+  font-size: 18px;
+  margin: 0;
+  overflow: hidden;
+  padding: 20px;
+  text-shadow: rgba(0, 0, 0, 0.75) 0 -1px 1px;
+  width: 760px;
+}
+
+.demo-header {
+  font-size: 36px;
+  padding-bottom: 20px;
+}
+
+.ajax-shelves {
+  overflow: hidden;
+}
+
+.ajax-shelves > .tv-container-start-scroll {
+  -webkit-transition: top 500ms ease;
+}
+
+.ajax-query {
+  border: 1px solid white;
+  border-radius: 3px;
+  margin: 10px 0 10px 110px;
+  position: relative;
+  width: 480px;
+}
+
+.ajax-query.tv-component-focused {
+  -webkit-box-shadow: 0 0 30px #6391DE, 0 0 15px #F2F2F2, 0 0 5px white;
+}
+
+.ajax-query .tv-input-hint {
+  color: #777;
+  display: none;
+  height: 100%;
+  margin: 4px 3px;
+  position: absolute;
+  width: 100%;
+  z-index: 1;
+}
+
+.ajax-query .tv-input-hint-shown {
+  display: block;
+}
+
+.ajax-query input {
+  background: none;
+  border: none;
+  color: #FCFCFC;
+  font-family: "Droid Sans TV", "Driod Sans", Verdana, sans-serif;
+  font-size: 18px;
+  outline: none;
+  padding: 2px 2px;
+  position: relative;
+  width: 454px;
+  z-index: 2;
+}
+
+.ajax-view-shelf {
+  position: relative;
+}
+
+.ajax-player-placeholder {
+  -webkit-border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  height: 298px;
+  line-height: 298px;
+  margin: 0 0 10px 110px;
+  padding: 10px;
+  position: absolute;
+  text-align: center;
+  width: 458px;
+}
+
+.ajax-player {
+  border: none;
+  height: 320px;
+  margin: 0 0 10px 110px;
+  position: relative;
+  width: 480px;
+  z-index: 1;
+}
+
+.ajax-previews {
+  overflow: hidden;
+  position: relative;
+  white-space: nowrap;
+  width: 700px;
+}
+
+.ajax-previews .tv-container-middle-scroll {
+  -webkit-transition: left 200ms ease;
+}
+
+.ajax-previews .tv-button {
+  vertical-align: top;
+  display: inline-block;
+}
+
+.ajax-thumbnail {
+  height: 150px;
+  margin: 5px;
+  width: 200px;
+}
+
+.tv-button.tv-component-focused .ajax-thumbnail {
+  -webkit-box-shadow: 0 0 20px #6391de, 0 0 7px #f2f2f2, 0 0 2px #FFF;
+}
+
+.ajax-title {
+  margin: 0 5px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 200px;
+}
+
+</style>
+
+<script src="bundle.js"></script>
+
+</head>
+
+<body>
+
+<div class="demo-header">AJAX</div>
+
+<div class="ajax-shelves tv-container-vertical">
+  <div class="tv-container-start-scroll">
+    <div class="ajax-search-shelf tv-container-vertical">
+      Decoration is powerful technique that significantly reduces amount of JavaScript code in your application by replacing it with declarative HTML and CSS.
+      That said, if your data is coming from network asynchronously, we still have a solution for you.
+      Below we load search results from YouTube using JSONP (<i>JS:</i> <code>goog.net.Jsonp</code>), generate DOM on the fly and decorate it (<i>JS:</i> <code>tv.ui.decorateChildren</code>).
+
+      <div class="ajax-query tv-input">
+        <div class="tv-input-hint">Search YouTube</div>
+        <input type="text">
+        &rarr;
+      </div>
+    </div>
+
+    <div class="ajax-view-shelf tv-container-vertical">
+      <div class="ajax-player-placeholder">
+        Press <b>Enter</b> to start playing selected video.
+      </div>
+
+      <iframe class="ajax-player"></iframe>
+      <div class="ajax-previews tv-container-horizontal">
+        <div class="containers-left-slit tv-container-start-slit">
+          <div class="containers-slit-top"></div>
+          <div class="containers-slit-middle"></div>
+          <div class="containers-slit-bottom"></div>
+        </div>
+        <div class="containers-right-slit tv-container-end-slit">
+          <div class="containers-slit-top"></div>
+          <div class="containers-slit-middle"></div>
+          <div class="containers-slit-bottom"></div>
+        </div>
+        <div class="tv-container-middle-scroll"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+
+var decorateHandler = new tv.ui.DecorateHandler();
+decorateHandler.addClassHandler('ajax-query', onQueryDecorate);
+decorateHandler.addClassHandler('ajax-previews', onPreviewsDecorate);
+
+var queryInput;
+
+function onQueryDecorate(input) {
+  queryInput = input;
+  goog.events.listen(
+      queryInput, tv.ui.Component.EventType.KEY, function(event) {
+        if (event.keyCode == goog.events.KeyCodes.ENTER) {
+          loadPreviews(queryInput.getInputElement().value, true);
+        }
+      });
+}
+
+var previewsContainer;
+
+function onPreviewsDecorate(container) {
+  previewsContainer = container;
+  loadPreviews('movie trailers');
+}
+
+function loadPreviews(query, opt_focusPreviews) {
+  previewsContainer.removeChildren();
+  var scrollElement = goog.dom.getElementByClass(
+      'tv-container-middle-scroll', previewsContainer.getElement());
+  goog.dom.removeChildren(scrollElement);
+
+  var request = new goog.net.Jsonp(
+      'http://gdata.youtube.com/feeds/api/videos');
+  request.send(
+      {v: 2, alt: 'jsonc', q: query, format: 5},
+      function(data) {
+        goog.array.forEach(data.data.items, function(item) {
+          var thumbnailElement = goog.dom.createDom(
+              'img', {src: item.thumbnail.hqDefault, class: 'ajax-thumbnail'});
+
+          var titleElement = goog.dom.createDom('div', 'ajax-title');
+          goog.dom.setTextContent(titleElement, item.title);
+
+          scrollElement.appendChild(goog.dom.createDom(
+              'div',
+              {class: 'tv-button', data: item.content[5]},
+              [thumbnailElement, titleElement]));
+        });
+        tv.ui.decorateChildren(
+            previewsContainer.getElement(),
+            onPreviewDecorate,
+            previewsContainer);
+
+        var firstPreviewButton = previewsContainer.getChildren()[0];
+        if (opt_focusPreviews && firstPreviewButton) {
+          firstPreviewButton.getDocument().setFocusedComponent(
+              firstPreviewButton);
+        }
+      });
+}
+
+function onPreviewDecorate(previewButton) {
+  goog.events.listen(previewButton, tv.ui.Button.EventType.ACTION, function() {
+    goog.dom.getElementByClass('ajax-player').src =
+        previewButton.getElement().data + '&autoplay=1';
+  });
+}
+
+tv.ui.decorate(document.body, decorateHandler.getHandler());
+tv.ui.Document.getInstance().setFocusedComponent(queryInput);
+
+</script>
+
+</body>
+
+</html>
+
