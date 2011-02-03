@@ -1,0 +1,88 @@
+<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Droid+Sans&subset=latin">
+
+<link rel="stylesheet" href="../source/css/controls.css" />
+
+<style>
+.scroll-row-style {
+  overflow: hidden;
+  width: 100%;
+  background-color: #8bd;
+  border: 6px solid #999;
+  position: relative;
+}
+.scroll-div-style {
+  margin: 5px;
+}
+.scroll-items-div-style {
+}
+.scroll-item-style {
+  background-color: #58b;
+  border-radius: 10px;
+  color: #ddd;
+  padding: 10px;
+  font-family: 'Droid Sans';
+  font-size: 20pt;
+  border: #58b solid 6px;
+}
+.item-hover {
+  border: #dd0 solid 6px !important;
+}
+.scrolling-page {
+  position: absolute;
+  width: 95%;
+}
+</style>
+
+
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+<script type="text/javascript" src="../source/js/scrollrow.js"></script>
+<script type="text/javascript" src="../source/js/gtvcore.js"></script>
+<script type="text/javascript" src="../source/js/keycontrol.js"></script>
+
+<script type="text/javascript">
+/**
+ * Creates the content for the page and adds it to the specified parent
+ * element. This page has a set of thumbnails displayed in a single row
+ * control.
+ * @param {jQuery.Element} topParent The parent element for the page contents.
+ */
+function makePage(topParent) {
+  var items = [];
+  for (var i = 0; i < 50; i++) {
+    var item = $('<p></p>').text(i.toString());
+    items.push(item);
+  }
+  var styles = {
+    row: 'scroll-row-style',
+    itemsDiv: 'scroll-items-div-style',
+    itemDiv: 'scroll-div-style',
+    item: 'scroll-item-style',
+    hover: 'item-hover'
+  };
+
+  var keyController = new gtv.jq.KeyController();
+  keyController.start();
+
+  var rowControl = new gtv.jq.RowControl({
+    containerId: 'row-container',
+    styles: styles,
+    keyController: keyController
+  });
+
+  rowControl.showControl({
+    topParent: topParent,
+    contents: {
+      items: items
+    }
+  });
+
+  rowControl.enableNavigation(keyController);
+};
+
+/**
+ * jQuery callback made when the page has been loaded and is ready.
+ */
+$(document).ready(function() {
+    makePage($("body"));
+  });
+</script>
