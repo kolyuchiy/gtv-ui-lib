@@ -1,0 +1,181 @@
+<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Molengo&subset=latin">
+<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Philosopher&subset=latin">
+<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Lobster&subset=latin">
+<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Neucha&subset=latin">
+<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Reenie+Beanie&subset=latin">
+<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Droid+Sans&subset=latin">
+<link id="nobile" rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Nobile&subset=latin">
+
+<link rel="stylesheet" href="../source/css/controls.css" />
+
+<style>
+body {
+  overflow: hidden;
+  background-color: #333;
+}
+
+.font-item {
+  color: #66f;
+  font-size: 80pt;
+  text-shadow: 6px 6px 8px #116;
+}
+
+.font-page-reenie {
+  font-family: 'Reenie Beanie', sans-serif;
+}
+.font-page-droidsans {
+  font-family: 'Droid Sans', sans-serif;
+}
+.font-page-molengo {
+  font-family: 'Molengo', sans-serif;
+}
+.font-page-philosopher {
+  font-family: 'Philosopher', sans-serif;
+}
+.font-page-lobster {
+  font-family: 'Lobster', sans-serif;
+}
+.font-page-neucha {
+  font-family: 'Neucha', sans-serif;
+}
+
+.font-demo-div-container {
+  overflow: hidden;
+  width: 99%;
+  border: 10px solid #ddd;
+  border-radius: 5px;
+  background-color: #555;
+}
+
+.font-demo-div {
+  width: 10000px;
+  padding: 1%;
+}
+
+.font-demo-item {
+  margin: .05% 0px;
+  padding: 0;
+  color: #eee;
+}
+
+.font-item {
+  margin: 0;
+  text-align: center;
+}
+</style>
+
+
+
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+<script type="text/javascript" src="../source/js/rotator.js"></script>
+<script type="text/javascript" src="../source/js/gtvcore.js"></script>
+<script type="text/javascript" src="../source/js/keycontrol.js"></script>
+
+<script type="text/javascript">
+/**
+ * Creates the font demo page and adds it to the parent element specified.
+ * This page displays a Rotator control with several different font names as
+ * elements, each name in its respective font. When the user chooses a font
+ * on the control, a demo div is shown with a text string in various sizes
+ * of the font to demonstrate the visibility of the font in a 10-foot UI.
+ * Insight buttons explain the various elements of the page and the
+ * significance.
+ * @param {jQuery.Element} topParent Element to which the content is attached.
+ */
+function makePage(topParent) {
+  var keyController = new gtv.jq.KeyController();
+  keyController.start();
+
+  var cssFontFace;
+
+  var items = new Array();
+
+  cssFontFace =
+      $('<p>Reenie Beanie</p>').addClass('font-item font-page-reenie');
+  items.push(cssFontFace);
+
+  cssFontFace =
+      $('<p>Molengo</p>').addClass('font-item font-page-molengo');
+  items.push(cssFontFace);
+
+  cssFontFace =
+      $('<p>Philosopher</p>').addClass('font-item font-page-philosopher');
+  items.push(cssFontFace);
+
+  cssFontFace = $('<p>Lobster</p>').addClass('font-item font-page-lobster');
+  items.push(cssFontFace);
+
+  cssFontFace = $('<p>Neucha</p>').addClass('font-item font-page-neucha');
+  items.push(cssFontFace);
+
+  items = items;
+
+  demoDivContainer =
+      $('<div></div>').addClass('font-demo-div-container');
+  demoDiv = $('<div></div>').addClass('font-demo-div');
+
+  var createParams = {
+    containerId: 'rotator-container',
+    items: items,
+    keyController: keyController,
+    choiceCallback: function(item) {
+      itemSelected(demoDiv, item);
+    }
+  };
+  var rotatorControl = new gtv.jq.RotatorControl(createParams);
+
+  var showParams = {
+    topParent: topParent,
+    contents: {
+      items: items
+    }
+  };
+  rotatorControl.showControl(showParams);
+
+  topParent.append(demoDivContainer);
+  demoDivContainer.append(demoDiv);
+
+  var windowHeight = $(window).height();
+  var containerOffset = demoDivContainer.offset();
+  var borderWidth = demoDivContainer.outerWidth() -
+      demoDivContainer.width();
+  demoDivContainer.css('height',
+                       windowHeight - containerOffset.top -
+                       borderWidth + 'px');
+};
+
+/**
+ * Displays a demo div of a block of text at various sizes in the font
+ * of the item passed in. This is called as a callback from the RotatorControl.
+ * @param {jQuery.Element} item The item whose font should be demo'ed.
+ */
+function itemSelected(demoDiv, item) {
+  demoDiv.empty();
+
+  var fontFamily = item.css('font-family');
+
+  var fontSizes = [80, 64, 56, 48, 36, 24, 20, 18, 16, 14, 12, 10, 8];
+  var demoText = 'The quick brown fox jumped over the lazy dog';
+
+  for (var i = 0; i < fontSizes.length; i++) {
+    var demoItem;
+    var fontSize = fontSizes[i];
+
+    demoItem = $('<p></p>')
+      .addClass('font-demo-item')
+      .css({ 'font-size': fontSize + 'pt',
+             'font-family': fontFamily })
+      .text(fontSize + 'pt: ' + demoText);
+
+    demoDiv.append(demoItem);
+  }
+};
+
+
+/**
+ * jQuery callback made when the page has been loaded and is ready.
+ */
+$(document).ready(function() {
+    makePage($("body"));
+  });
+</script>
