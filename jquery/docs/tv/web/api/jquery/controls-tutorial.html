@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+         
+
+    
+     
+      
+
+   
+    
+ 
+   
+ 
+
+           
+
+  
+  
+                           
+  
+
+
+
+<html>
+  <head>
+    <script type="text/javascript" language="JavaScript">
+    ORIGINAL_PAGE_PATH = "/tv/web/api/jquery/controls-tutorial.html";
+    </script>
+    
+    
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<title>Using Google TV jQuery UI Controls - Google TV - Google Code</title>
+<script type="text/javascript"><!--
+(function(){function a(){this.t={};this.tick=function(c){this.t[c]=(new Date).getTime()};this.tick("start")}var b=new a;window.jstiming={Timer:a,load:b};if(window.external&&window.external.pageT)window.jstiming.pt=window.external.pageT;})();
+
+var _tocPath_ = '/tv/web/docs/_toc.ezt';
+var codesite_token = null;
+var logged_in_user_email = null;
+//--></script>
+<link href="../../../../css/codesite.pack.04102009.css" type="text/css" rel="stylesheet">
+<script src="../../../../js/codesite_head.pack.04102009.js" type="text/javascript"></script>
+<script type="text/javascript">CODESITE_CSITimer['load'].tick('bhs');</script>
+<link rel="search" type="application/opensearchdescription+xml" title="Google Code" href="http://code.google.com/osd.xml">
+
+<!--[if IE]><link rel="stylesheet" type="text/css" href="../../../../css/iehacks.css"><![endif]-->
+
+    <link href="../../../../css/semantic_headers.css" rel="stylesheet" type="text/css" />
+    
+    
+  </head>
+
+  <body class="gc-documentation">
+
+    
+    
+
+    <div id="gb">
+ <span>
+  
+    <a id="lang-dropdown" href="http://code.google.com" onclick="return false;"><span style="text-decoration:underline">English</span> <span style="font-size:.75em;">&#9660;</span></a>
+  
+ </span>
+</div>
+
+<div class="gbh" style="left:0px;"></div>
+<div class="gbh" style="right:0px;"></div>
+
+<div id="gc-container">
+<a id="top"></a>
+<div id="skipto">
+  <a href="#gc-pagecontent">Skip to page content</a>
+  <a href="#gc-toc">Skip to main navigation</a>
+</div>
+
+<div id="gc-header">
+  <div id="logo"><a href="http://code.google.com">
+  
+  
+     <img src="../../../../images/code_logo.gif" height="40" width="167" alt="Google Code" style="border:0;margin:3px 0 0 0;">
+  
+  
+  </a></div>
+  <div id="search">
+    <div id="searchForm">
+      <form id="cse" action="http://www.google.com/cse" accept-charset="utf-8" onsubmit="executeGSearch(document.getElementById('gsearchInput').value); return false;">
+      <noscript>
+      <input type="hidden" name="cref" value="http://code.google.com/cse/googlecode-context.xml">
+      </noscript>
+      <div id="gsc-search-box">
+        <input id="gsearchInput" type="text" name="q" maxlength="2048" class="gsc-input" autocomplete="off" title="Google Code Search" style="width:345px">
+        <div id="cs-searchresults" onclick="event.cancelBubble = true;"></div>
+        <input title="Search" id="gsearchButton" class="gsc-search-button" name="sa" value="Search" type="submit">
+        <div class="greytext">e.g. "adwords" or "open source"</div>
+      </div>
+      </form>
+    </div> <!-- end searchForm -->
+  </div> <!-- end search -->
+
+
+
+
+</div> <!-- end gc-header -->
+
+
+<div id="codesiteContent">
+
+<a id="gc-topnav-anchor"></a>
+<div id="gc-topnav">
+  <h1 style="padding:0 0 0 6px;">Google TV</h1>
+  <ul id="docs" class="gc-topnav-tabs">
+
+    <li id="home_link">
+      <a href="http://code.google.com/tv/web" title="Google TV home page">Home</a>
+    </li>
+  
+    <li id="docs_link">
+      <a href="http://code.google.com/tv/web/docs/design_for_tv.html" class="selected" title="Official Google TV documentation">Docs</a>
+    </li>
+  
+    <li id="faq_link">
+      <a href="http://code.google.com/tv/web/faq.html" title="Answers to frequently asked questions about Google TV">FAQ</a>
+    </li>
+  
+    <li>
+      <a href="http://googletv.blogspot.com" title="Official Google TV blog">Blog</a>
+    </li>
+  
+    <li>
+      <a href="http://code.google.com/tv/web/forum" title="Google TV developer forum">Forum</a>
+    </li>
+  
+    <li>
+      <a href="http://gtv-gallery.appspot.com/" title="Google TV gallery">Gallery</a>
+    </li>
+  
+    <li>
+      <a href="http://www.google.com/accounts/TOS" title="Google TV terms of service">Terms</a>
+    </li>
+  
+
+  </ul>
+</div> <!-- end gc-topnav -->
+
+
+    <div class="g-section g-tpl-170">
+
+      <div class="g-unit g-first" id="gc-toc">
+        <ul>
+  <li><h2>Optimization Guide</h2>
+    <ul>
+      <li><a href="http://code.google.com/tv/web/docs/design_for_tv.html">Designing For TV</a></li>
+      <li><a href="http://code.google.com/tv/web/docs/implement_for_tv.html">Implementation Tips</a></li>
+      <li><a href="http://code.google.com/tv/web/docs/implement_for_tv.html#flash">Flash Optimization</a></li>
+      <li><a href="http://code.google.com/tv/web/docs/optimization_list.html">Optimization Checklist</a></li>
+    </ul>
+  </li>
+  <li><h2>Additional Resources</h2>
+    <ul>
+      <li><a href="http://www.google.com/tv/spotlight-gallery.html">Gallery</a></li>
+      <li><a href="http://www.google.com/support/webmasters/bin/answer.py?&answer=80472">Getting Your Videos Indexed</a></li>
+      <li><a href="http://code.google.com/tv/web/faq.html">FAQ</a></li>
+      <li><a href="http://code.google.com/tv/web/forum">Forum</a></li>
+      <li><a href="http://code.google.com/tv/web/api">UI Library for Google TV</a>
+        <ul>
+          <li><a href="index.html">jQuery</a></li>
+          <li><a href="http://code.google.com/tv/web/api/closure">Closure</a></li>
+          <li>Articles
+            <ul>
+              <li><a href="controls-tutorial.html">jQuery Controls Tutorial</a></li>
+              <li><a href="keycontroller.html">jQuery Key Navigation</a></li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+        <a class="hidden" href="#gc-topnav-anchor">More Google TV resource links</a>
+      </div>
+
+      <div class="g-unit" id="gc-pagecontent">
+        
+          <script type="text/javascript">CODESITE_docEarlyProcessing();</script>
+
+        
+        <h1 class="page_title">Using Google TV jQuery UI Controls</h1>
+
+
+
+
+<p>The Google TV UI Library provides a keyboard navigation controller as well as a variety of custom controls to simplify the task of developing for Google TV. The following article walks through creating a page to display photos from a Picasa photo feed, including a pop-up thumbnail display.</p>
+
+<p>You can jump to any of the sections in this article using this table of contents:</p>
+<ol class="toc">
+  <li><a href="#scrollrow">Create a RowControl</a></li>
+  <li><a href="#feed">Hook in a Picasa Feed</a></li>
+  <li><a href="#photo">Show the Photo</a></li>
+  <li><a href="#sidenav">Add a SideNav Menu</a></li>
+</ol>
+
+<h2 id="scrollrow">Scrolling Row</h2>
+
+<p>To start off, we'll create a scrolling row that will be used to display thumbnails from the photo feed. For the moment, we will just put a number in each item to make the example easier to read.</p>
+
+<p>The RowControl is simplest control to use. It requires only a collection of items, a few CSS classes, and a KeyController object. The following code creates a row control with 50 elements with their index as the contents:</p>
+
+<p>As a preliminary step, make sure we have the CSS styles we'll need and all the JavaScript files necessary:</p>
+
+<pre>
+&lt;link rel="stylesheet" href="../source/css/controls.css" /&gt;
+
+&lt;style&gt;
+body {
+  overflow: hidden;
+}
+.scroll-row-style {
+  overflow: hidden;
+  width: 99%;
+  background-color: #8bd;
+  border: 6px solid #999;
+  position: relative;
+}
+.scroll-div-style {
+  margin: 5px;
+}
+.scroll-items-div-style {
+}
+.scroll-item-style {
+  background-color: #58b;
+  border-radius: 10px;
+  color: #ddd;
+  padding: 10px;
+  font-family: sans-serif;
+  font-size: 20pt;
+  border: #58b solid 6px;
+}
+.item-hover {
+  border: #dd0 solid 6px !important;
+}
+.photo {
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+&lt;/style&gt;
+&lt;script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"&gt;&lt;/script&gt;
+&lt;script type="text/javascript" src="../source/js/scrollrow.js"&gt;&lt;/script&gt;
+&lt;script type="text/javascript" src="../source/js/gtvcore.js"&gt;&lt;/script&gt;
+&lt;script type="text/javascript" src="../source/js/keycontrol.js"&gt;&lt;/script&gt;
+</pre>
+
+<p>Now to create our page content. As a first early step, let's try the control library with a basic array of 50 elements and make the text the index number:</p>
+
+<pre>
+var items = [];
+for (var i = 0; i < 50; i++) {
+  var item = $('&lt;p&gt;&lt;/p&gt;').text(i.toString());
+  items.push(item);
+}
+</pre>
+
+<p>Next, we create a styles object to provide styles for the various components of the row:</p>
+<pre>
+var styles = {
+  row: 'scroll-row-style',
+  itemsDiv: 'scroll-items-div-style',
+  itemDiv: 'scroll-div-style',
+  item: 'scroll-item-style',
+  hover: 'item-hover'
+};
+</pre>
+
+<p>Finally, we create a Row Control object, add the row to the parent, and enable key navigation for it:</p>
+<pre>
+var keyController = new gtv.jq.KeyController();
+keyController.start();
+
+var rowControl = new gtv.jq.RowControl({
+  containerId: 'row-container',
+  styles: styles,
+  keyController: keyController
+});
+
+rowControl.showControl({
+  topParent: topParent,
+  contents: {
+    items: items
+  }
+});
+
+rowControl.enableNavigation(keyController);
+</pre>
+
+<h3>See how it looks</h3>
+Check out a working <a href="http://gtv-ui-lib.googlecode.com/svn/trunk/jquery/examples/tutorial-page1.html">demo</a> of the code so far.
+
+
+<h2 id="feed">Feed Processing</h2>
+<p>The GTV library contains a convenience routine for processing JSON/JSONP Feeds. Use this to quickly create a RowControl with contents from a feed.</p>
+
+<p>The following code uses thumbnails from the recent photo feed from Picassa for the RowControl contents.</p>
+
+<p>First, define the feed we’re going to be reading from:</p>
+<pre>
+var FEED_URL = 'http://picasaweb.google.com/data/feed/base/featured?' +
+               'alt=json-in-script&kind=photo&access=public&' +
+               'slabel=featured&hl=en_US&max-results=25';
+</pre>
+
+<p>Next, create a makeItem callback function. This will be called for each entry in the feed (with that entry as a parameter). It should return either a new element created for that entry, or null if entry should be skipped. In the callback below, we create a an &lt;img&gt; element to display a thumbnail (for each entry that has a thumbnail):</p>
+
+<pre>
+function makeItem(entry) {
+  var thumb = entry.media$group.media$thumbnail[0].url;
+  if (!thumb) {
+    return null;
+  }
+
+  var item = $('&lt;img&gt;&lt;/img&gt;');
+  item.css({
+    height: '150px',
+    display: 'block'
+  })
+  item.attr('src', thumb);
+
+  return item;
+}
+</pre>
+
+<p>Below is the code used in the first part to create the rows, but this time it is placed in a callback function. This callback receives an array of the elements that were created in makeItem. In this case, we want to create a row of elements from that array (which are thumbnail images):</p>
+<pre>
+var rowControl;
+function makeRow(items) {
+  var keyController = new gtv.jq.KeyController();
+  keyController.start();
+
+  var photo = $('<img></img>')
+    .addClass('photo')
+    .css('height', $(window).height());
+  topParent.append(photo);
+
+  var styles = {
+    row: 'scroll-row-style',
+    itemsDiv: 'scroll-items-div-style',
+    itemDiv: 'scroll-div-style',
+    item: 'scroll-item-style',
+    hover: 'item-hover'
+  };
+
+  var rowControl = new gtv.jq.RowControl({
+    containerId: 'row-container',
+    styles: styles,
+    keyController: keyController
+  });
+
+  rowControl.showControl({
+    topParent: topParent,
+    contents: {
+      items: items
+    }
+  });
+
+  rowControl.enableNavigation(keyController);
+}
+</pre>
+
+<p>The last part of the code is the first part that runs. The code below calls the utility function that will request the feed data from FEED_URL. It finds the array of entries using the array in the last parameter, passes each entry in turn to makeItem, and then the full array to makeRow:</p>
+<pre>
+gtv.jq.GtvCore.processJsonpFeed(
+  FEED_URL,
+  makeItem,
+  makeRow,
+  ['feed','entry']);
+</pre>
+
+<h2>Row Item Selection</h2>
+
+<p>Now that we have a page with thumbnails from a Picasa feed in a row control, the next step is to do something when the user selects one of the thumbnails, such as display the full-size photo that the thumbnail represents.</p>
+
+<p>But we also can present the row of photos in a more user-friendly way. Instead of having the row show up on the screen permanently, we can put it inside a SideNav Control, and have that control pop-up when selected and display the row of thumbnails.</p>
+
+<h3 id="photo">Showing the Photo</h3>
+<p>For the first step, showing the full-size photo, we have to store the URL to the photo with the item we create to display the thumbnail. jQuery provides a $.data() method to do this, so for convenience we’ll use that. Add this code to makeItem():</p>
+
+<pre>
+var content = entry.media$group.media$content[0].url;
+item.data('url', content);
+</pre>
+
+<p>The Row Control allows us to supply a callback to be called when the user clicks or presses the ENTER key when an item is highlighted. We can use this to display the photo on the page.</p>
+
+<pre>
+function choiceCallback(item) {
+  // the img we created was placed inside a container
+  // by Row Control
+  var image = item.children.first();
+  var url = image.data('url');
+
+  photo.attr('src', url);
+}
+</pre>
+
+<h3>See how it looks</h3>
+Check out a working <a href="http://gtv-ui-lib.googlecode.com/svn/trunk/jquery/examples/tutorial-page2.html">demo</a> of the code so far.
+
+<h3 id="sidenav">Creating the SideNav</h3>
+
+<p>First, we need to add a few more CSS classes for the SideNav control:<p>
+<pre>
+.sidenav-item-div-style {
+  overflow: hidden;
+}
+.sidenav-item-style {
+  margin: 0;
+  padding: 0;
+}
+.sidenav-holder {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.sidenav-row-holder {
+  position: relative;
+}
+</pre>
+
+<h4>addNavItem Callback</h4>
+<p>For the next step, creating the SideNav Control to hold the Row Control, we have to make a minor structural change to the code. When the SideNav Control is created, it can accept a function to create and add a new item as well as an array of items. In this case, we’re going to use the callback method to add our item, which in this case is will be a Row Control.</p>
+
+<p>The callback receives a parent object as a parameter. The function should create and add a new element to the parent object and return true, or return false if there are no more items to add.</p>
+
+<p>The code that actually creates the Row Control in the callback is largely the same.</p>
+
+<h4>The SideNav Control</h4>
+<p>The SideNav Control offers several menu behaviors and orientations. They can be static on the page; pop out from the top, bottom, left or right; or fade in and out of the page. In this case, we want to have the menu pop out from the bottom of the page, and be horizontally oriented.</p>
+
+<pre>
+var behaviors = {
+  popOut: 'bottom',
+  orientation: 'horizontal'
+};
+</pre>
+<p>Now we create a container for the SideNav control:</p>
+<pre>
+var sidenavHolder = $('&lt;div&gt;&lt;/div&gt;').addClass('sidenav-holder');
+topParent.append(sidenavHolder);
+</pre>
+
+<p>Then we create the control with the usual parameters:<p>
+
+<pre>
+var styles = {
+  item: 'sidenav-item-style',
+  itemDiv: 'sidenav-item-div-style',
+  row: 'sidenav-row-style',
+  chosen: 'sidenav-item-chosen',
+  normal: 'sidenav-item-normal',
+  selected: 'sidenav-item-hover'
+};
+
+sidenavControl = new gtv.jq.SideNavControl({
+   createParams: {
+     containerId: 'scrollnav',
+     styles: styles,
+     keyController: keyController
+   },
+   behaviors: behaviors
+ });
+
+scrollnavControl.showControl({
+  topParent: sidenavHolder,
+  contents: {
+    itemsGenerator: addNavItem
+  }
+});
+</pre>
+
+<p>(The SideNav Control defines a couple additional style classes used to distinguish the item that is chosen from the others (since its a menu, it provides a means, as an option, to visually track what selection the user has made). But since the SideNav is just housing another control in this example, these don’t apply, so we don’t need to provide them.)</p>
+
+<p>Since we want to navigate from the photo to the SideNav and back, let's put the photo in a container add it to a zone:</p>
+<pre>
+var photoContainer = $('&lt;div&gt;&lt;/div&gt;').attr('id', 'photo-container');
+topParent.append(photoContainer);
+
+var photo = $('&lt;img&gt;&lt;/img&gt;')
+  .addClass('photo')
+  .css('height', $(window).height());
+photoContainer.append(photo);
+
+var photoZone = new gtv.jq.KeyBehaviorZone({
+    containerSelector: '#photo-container',
+    navSelectors: {
+      item: '.photo'
+    }
+  });
+keyController.addBehaviorZone(photoZone);
+</pre>
+
+<h3>See how it looks</h3>
+Check out a working <a href="http://gtv-ui-lib.googlecode.com/svn/trunk/jquery/examples/tutorial-page3.html">demo</a> of the full code.
+
+
+      </div><!-- end gc-pagecontent -->
+    </div><!-- end gooey wrapper -->
+
+    </div> <!-- end codesite content -->
+
+
+<div id="gc-footer" dir="ltr">
+  <div class="text">
+    
+    ©2011 Google -
+    <a href="http://code.google.com">Code Home</a> -
+    <a href="http://code.google.com/terms.html">Terms of Service</a> -
+    <a href="http://code.google.com/privacy.html">Privacy Policy</a> -
+    <a href="http://code.google.com/more">Site Directory</a>
+    <br> <br>
+    Google Code offered in:
+    <a href="http://code.google.com/intl/en">English</a> -
+    <a href="http://code.google.com/intl/es">Español</a> -
+    <a href="http://code.google.com/intl/ja">日本語</a> -
+    <a href="http://code.google.com/intl/ko">한국어</a> -
+    <a href="http://code.google.com/intl/pt-BR">Português</a> -
+    <a href="http://code.google.com/intl/ru">Pусский</a> -
+    <a href="http://code.google.com/intl/zh-CN">中文(简体)</a> -
+    <a href="http://code.google.com/intl/zh-TW">中文(繁體)</a>
+  </div>
+</div><!-- end gc-footer -->
+
+</div><!-- end gc-container -->
+
+<script type="text/javascript">CODESITE_CSITimer['load'].tick('ats');</script>
+<script src="../../../../js/codesite_tail.pack.04102009.js" type="text/javascript"></script>
+
+
+
+
+<script type="text/javascript">
+var _gaq = _gaq || [];
+
+_gaq.push(
+
+
+    ['siteTracker._setAccount', 'UA-18071-1'],
+    ['siteTracker._setDomainName', 'code.google.com'],
+    ['siteTracker._setCookiePath', window.location.pathname.substring(0,
+        window.location.pathname.lastIndexOf('/') + 1)],
+    ['siteTracker._trackPageview']
+);
+(function() {
+  var ga = document.createElement('script');
+
+  ga.type = 'text/javascript';
+  ga.async = true;
+  ga.src = 'http://www.google-analytics.com/ga.js';
+  (document.getElementsByTagName('head')[0] ||
+   document.getElementsByTagName('body')[0]).appendChild(ga);
+ })();
+</script>
+
+
+
+
+  </body>
+</html>
+
+

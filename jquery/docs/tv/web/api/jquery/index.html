@@ -1,0 +1,5757 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+         
+
+    
+     
+      
+
+   
+    
+ 
+   
+ 
+
+           
+
+ 
+
+  
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <script type="text/javascript" language="JavaScript">
+    ORIGINAL_PAGE_PATH = "/tv/web/api/jquery/index.html";
+    </script>
+    
+    
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<title>Google TV jQuery UI Lib Reference (1.0) - Google TV - Google Code</title>
+<script type="text/javascript"><!--
+(function(){function a(){this.t={};this.tick=function(c){this.t[c]=(new Date).getTime()};this.tick("start")}var b=new a;window.jstiming={Timer:a,load:b};if(window.external&&window.external.pageT)window.jstiming.pt=window.external.pageT;})();
+
+var _tocPath_ = '/tv/web/docs/_toc.ezt';
+var codesite_token = null;
+var logged_in_user_email = null;
+//--></script>
+<link href="../../../../css/codesite.pack.04102009.css" type="text/css" rel="stylesheet">
+<script src="../../../../js/codesite_head.pack.04102009.js" type="text/javascript"></script>
+<script type="text/javascript">CODESITE_CSITimer['load'].tick('bhs');</script>
+<link rel="search" type="application/opensearchdescription+xml" title="Google Code" href="http://code.google.com/osd.xml">
+
+<!--[if IE]><link rel="stylesheet" type="text/css" href="../../../../css/iehacks.css"><![endif]-->
+
+  </head>
+
+  <body class="gc-documentation">
+
+    
+    
+    <div id="gb">
+ <span>
+  
+    <a id="lang-dropdown" href="http://code.google.com" onclick="return false;"><span style="text-decoration:underline">English</span> <span style="font-size:.75em;">&#9660;</span></a>
+  
+ </span>
+</div>
+
+<div class="gbh" style="left:0px;"></div>
+<div class="gbh" style="right:0px;"></div>
+
+<div id="gc-container">
+<a id="top"></a>
+<div id="skipto">
+  <a href="#gc-pagecontent">Skip to page content</a>
+  <a href="#gc-toc">Skip to main navigation</a>
+</div>
+
+<div id="gc-header">
+  <div id="logo"><a href="http://code.google.com">
+  
+  
+     <img src="../../../../images/code_logo.gif" height="40" width="167" alt="Google Code" style="border:0;margin:3px 0 0 0;">
+  
+  
+  </a></div>
+  <div id="search">
+    <div id="searchForm">
+      <form id="cse" action="http://www.google.com/cse" accept-charset="utf-8" onsubmit="executeGSearch(document.getElementById('gsearchInput').value); return false;">
+      <noscript>
+      <input type="hidden" name="cref" value="http://code.google.com/cse/googlecode-context.xml">
+      </noscript>
+      <div id="gsc-search-box">
+        <input id="gsearchInput" type="text" name="q" maxlength="2048" class="gsc-input" autocomplete="off" title="Google Code Search" style="width:345px">
+        <div id="cs-searchresults" onclick="event.cancelBubble = true;"></div>
+        <input title="Search" id="gsearchButton" class="gsc-search-button" name="sa" value="Search" type="submit">
+        <div class="greytext">e.g. "adwords" or "open source"</div>
+      </div>
+      </form>
+    </div> <!-- end searchForm -->
+  </div> <!-- end search -->
+
+
+
+
+</div> <!-- end gc-header -->
+
+
+<div id="codesiteContent">
+
+<a id="gc-topnav-anchor"></a>
+<div id="gc-topnav">
+  <h1 style="padding:0 0 0 6px;">Google TV</h1>
+  <ul id="docs" class="gc-topnav-tabs">
+
+    <li id="home_link">
+      <a href="http://code.google.com/tv/web" title="Google TV home page">Home</a>
+    </li>
+  
+    <li id="docs_link">
+      <a href="http://code.google.com/tv/web/docs/design_for_tv.html" class="selected" title="Official Google TV documentation">Docs</a>
+    </li>
+  
+    <li id="faq_link">
+      <a href="http://code.google.com/tv/web/faq.html" title="Answers to frequently asked questions about Google TV">FAQ</a>
+    </li>
+  
+    <li>
+      <a href="http://googletv.blogspot.com" title="Official Google TV blog">Blog</a>
+    </li>
+  
+    <li>
+      <a href="http://code.google.com/tv/web/forum" title="Google TV developer forum">Forum</a>
+    </li>
+  
+    <li>
+      <a href="http://gtv-gallery.appspot.com/" title="Google TV gallery">Gallery</a>
+    </li>
+  
+    <li>
+      <a href="http://www.google.com/accounts/TOS" title="Google TV terms of service">Terms</a>
+    </li>
+  
+
+  </ul>
+</div> <!-- end gc-topnav -->
+
+    <div class="g-section g-tpl-210">
+
+      <a name="gc-toc"></a>  
+      <div class="g-unit g-first" id="gc-toc">
+        <ul>
+  <li><h2>Optimization Guide</h2>
+    <ul>
+      <li><a href="http://code.google.com/tv/web/docs/design_for_tv.html">Designing For TV</a></li>
+      <li><a href="http://code.google.com/tv/web/docs/implement_for_tv.html">Implementation Tips</a></li>
+      <li><a href="http://code.google.com/tv/web/docs/implement_for_tv.html#flash">Flash Optimization</a></li>
+      <li><a href="http://code.google.com/tv/web/docs/optimization_list.html">Optimization Checklist</a></li>
+    </ul>
+  </li>
+  <li><h2>Additional Resources</h2>
+    <ul>
+      <li><a href="http://www.google.com/tv/spotlight-gallery.html">Gallery</a></li>
+      <li><a href="http://www.google.com/support/webmasters/bin/answer.py?&answer=80472">Getting Your Videos Indexed</a></li>
+      <li><a href="http://code.google.com/tv/web/faq.html">FAQ</a></li>
+      <li><a href="http://code.google.com/tv/web/forum">Forum</a></li>
+      <li><a href="http://code.google.com/tv/web/api">UI Library for Google TV</a>
+        <ul>
+          <li><a href="index.html">jQuery</a></li>
+          <li><a href="http://code.google.com/tv/web/api/closure">Closure</a></li>
+          <li>Articles
+            <ul>
+              <li><a href="controls-tutorial.html">jQuery Controls Tutorial</a></li>
+              <li><a href="keycontroller.html">jQuery Key Navigation</a></li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+      </div>
+      
+      <a name="gc-pagecontent"></a>   
+      <div class="g-unit" id="gc-pagecontent">
+        <h1 class="page_title">Google TV jQuery UI Lib Reference (1.0)</h1>
+
+
+<p>This is the API reference for the jQuery TV UI Library. The library provides keyboard navigation, custom controls, and ready-to-use pages.</p>
+
+<ol class="toc">
+  <li><a href="#keyboard">Keyboard Navigation</a></li>
+  <li><a href="#controls">Controls</a></li>
+  <li><a href="#pages">Pages</a></li>
+  <li><a href="#code">Get the Code</a></li>
+  <li><a href="#api">API Reference</a></li>
+</ol>
+
+
+<h1>Library Overview</h1>
+
+<h2 id="keyboard">Keyboard Navigation</h2>
+<p>This library includes a keyboard navigation controller class (<a href="#gtv.jq.KeyController">KeyController</a>) that is used by all of the controls in the library. This key controller provides a unified means for navigating around a site using a keyboard and mouse. It provides separation of control between different sections of the screen and can manage multiple 'layers' (such as popups, full screen displays, etc) independently of each other.</p>
+
+<h2 id="controls">Controls</h2>
+<p>The library also includes a number of controls that are intended to provide a starting point for a 10-foot UI. These controls all support keyboard navigation. They include:</p>
+<ul>
+<li><a href="#gtv.jq.RowControl">RowControl</a> - A scrolling, horizontal list of items on the page. See a <a href="http://gtv-ui-lib.googlecode.com/svn/trunk/jquery/examples/row-control.html">demo</a>.</li>
+<li><a href="#gtv.jq.SideNavControl">SideNavControl</a> - A menu presenting a list of choices in a horizontal or vertical orientation. Can be statically displayed, pop-out from a side, or fade in. See a <a href="http://gtv-ui-lib.googlecode.com/svn/trunk/jquery/examples/sidenav-control.html">demo</a>.</li>
+<li><a href="#gtv.jq.SlidingControl">SlidingControl</a> - A paging display of rows of items. Pages of items slide in from the right/left as the user navigates. See a <a href="http://gtv-ui-lib.googlecode.com/svn/trunk/jquery/examples/slider-control.html">demo</a>.</li>
+<li><a href="#gtv.jq.PhotoControl">PhotoControl</a> - A photo slideshow display with Play, Pause, Next, and Back buttons. Supports media keys. See a <a href="http://gtv-ui-lib.googlecode.com/svn/trunk/jquery/examples/builderphoto-page.html">demo</a>.</li>
+<li><a href="#gtv.jq.VideoControl">VideoControl</a> - A video playback control with Play, Pause, Next and back buttons. Supports media keys. See a <a href="http://gtv-ui-lib.googlecode.com/svn/trunk/jquery/examples/buildervideo-page.html">demo</a>.</li>
+<li><a href="#gtv.jq.RollerControl">RollerControl</a> - A multi-row 'roller' that vertically animates scrolling rows into focus as the user navigates. See a <a href="http://gtv-ui-lib.googlecode.com/svn/trunk/jquery/examples/roller-control.html">demo</a>.</li>
+<li><a href="#gtv.jq.RotatorControl">RotatorControl</a> - A single row that rotates in each item from a list into view as the user navigates up/down. See a <a href="http://gtv-ui-lib.googlecode.com/svn/trunk/jquery/examples/rotator-control.html">demo</a>.</li>
+<li><a href="#gtv.jq.StackControl">StackControl</a> - Provides a central display for a single items and 'stacks' items to the left and right, rotating in each item as the user navigates left/right through the stack. See a <a href="http://gtv-ui-lib.googlecode.com/svn/trunk/jquery/examples/stack-control.html">demo</a>.</li>
+</ul>
+
+<h2 id="pages">Pages</h2>
+<p>Finally, the library provides two full-page displays for quick-starts</p>
+<ul>
+<li><a href="#gtv.jq.BuilderPhotoPage">BuilderPhotoPage</a> - Constructs a page with a photo slide show and a scrolling thumbnail display, given a URL to a JSON-compatible feed of photos. See a <a href="http://gtv-ui-lib.googlecode.com/svn/trunk/jquery/examples/builderphoto-page.html">demo</a>.</li>
+<li><a href="#gtv.jq.BuilderVideoPage">BuilderVideoPage</a> - Constructs a page with a YouTube video player and a scrolling thumbnail display, given a URL to a YouTube feed. See a <a href="http://gtv-ui-lib.googlecode.com/svn/trunk/jquery/examples/buildervideo-page.html">demo</a>.</li>
+</ul>
+
+<h2 id="code">Get the Code</h2>
+<p>The library code can be found at: <a href='http://code.google.com/p/gtv-ui-lib'>http://code.google.com/p/gtv-ui-lib</a></p>
+
+
+<h1 id="api">Library Reference</h1>
+<h2>Table of Contents</h2>
+<ul>
+
+
+  <li><a href="#gtv.jq.BuildParams">BuildParams</a></li>
+<li><a href="#gtv.jq.BuilderPhotoPage">BuilderPhotoPage</a></li>
+<li><a href="#gtv.jq.BuilderVideoPage">BuilderVideoPage</a></li>
+<li><a href="#gtv.jq.CaptionItem">CaptionItem</a></li>
+<li><a href="#gtv.jq.ControlContents">ControlContents</a></li>
+<li><a href="#gtv.jq.CreationParams">CreationParams</a></li>
+<li><a href="#gtv.jq.KeyActions">KeyActions</a></li>
+<li><a href="#gtv.jq.KeyBehaviorZone">KeyBehaviorZone</a></li>
+<li><a href="#gtv.jq.KeyController">KeyController</a></li>
+<li><a href="#gtv.jq.KeyMapping">KeyMapping</a></li>
+<li><a href="#gtv.jq.KeyNavSelectors">KeyNavSelectors</a></li>
+<li><a href="#gtv.jq.KeySelectionCssClasses">KeySelectionCssClasses</a></li>
+<li><a href="#gtv.jq.KeyZoneCreationParams">KeyZoneCreationParams</a></li>
+<li><a href="#gtv.jq.PhotoControl">PhotoControl</a></li>
+<li><a href="#gtv.jq.PhotoParams">PhotoParams</a></li>
+<li><a href="#gtv.jq.PlayerButtons">PlayerButtons</a></li>
+<li><a href="#gtv.jq.PlayerCallbacks">PlayerCallbacks</a></li>
+<li><a href="#gtv.jq.RollerControl">RollerControl</a></li>
+<li><a href="#gtv.jq.RollerParams">RollerParams</a></li>
+<li><a href="#gtv.jq.RotatorControl">RotatorControl</a></li>
+<li><a href="#gtv.jq.RowControl">RowControl</a></li>
+<li><a href="#gtv.jq.ShowParams">ShowParams</a></li>
+<li><a href="#gtv.jq.SideNavBehaviors">SideNavBehaviors</a></li>
+<li><a href="#gtv.jq.SideNavControl">SideNavControl</a></li>
+<li><a href="#gtv.jq.SideNavParams">SideNavParams</a></li>
+<li><a href="#gtv.jq.Size">Size</a></li>
+<li><a href="#gtv.jq.SlidingControl">SlidingControl</a></li>
+<li><a href="#gtv.jq.StackControl">StackControl</a></li>
+<li><a href="#gtv.jq.StackParams">StackParams</a></li>
+<li><a href="#gtv.jq.VideoControl">VideoControl</a></li>
+<li><a href="#gtv.jq.VideoParams">VideoParams</a></li>
+
+</ul>
+
+
+
+
+
+
+
+
+<h1 id="gtv.jq.BuildParams">Class gtv.jq.BuildParams</h1>
+
+
+<!-- <i>Defined in <a href="pagebuilder.src.html">pagebuilder.js</a></i> -->
+
+<p class="summaryDetailLink">
+&nbsp;<a href="#gtv.jq.BuildParams_field_summary">SUMMARY</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#gtv.jq.BuildParams_field_detail">DETAIL</a>
+</p>
+
+
+
+
+
+
+
+<!-- =========== FIELD SUMMARY =========== -->
+
+<a name="gtv.jq.BuildParams_field_summary"> </a>
+<h2>Field Summary</h2>
+<dl>
+
+<dt>
+<code>Array.&lt;string&gt;</code>
+<code><b><a href="#gtv.jq.BuildParams.feedContentSeeker">feedContentSeeker</a></b></code>
+</dt>
+<dd>Array of names, in hierarchical order starting
+from the entry, used to locate the photo URL.
+</dd>
+
+<dt>
+<code>Array.&lt;string&gt;</code>
+<code><b><a href="#gtv.jq.BuildParams.feedItemsSeeker">feedItemsSeeker</a></b></code>
+</dt>
+<dd>Array of names, in hierarchical order, used to
+locate the array of entries in the feed.
+</dd>
+
+<dt>
+<code>Array.&lt;string&gt;</code>
+<code><b><a href="#gtv.jq.BuildParams.feedThumbSeeker">feedThumbSeeker</a></b></code>
+</dt>
+<dd>Array of names, in hierarchical order starting
+from the entry, used to locate thumbnail URL.
+</dd>
+
+<dt>
+<code>gtv.jq.KeyController</code>
+<code><b><a href="#gtv.jq.BuildParams.keyController">keyController</a></b></code>
+</dt>
+<dd>The key controller the page should use.
+</dd>
+
+<dt>
+<code>Array.&lt;string&gt;</code>
+<code><b><a href="#gtv.jq.BuildParams.layerNames">layerNames</a></b></code>
+</dt>
+<dd>Array of layer names the page should exist on.
+</dd>
+
+<dt>
+<code>string</code>
+<code><b><a href="#gtv.jq.BuildParams.navbarType">navbarType</a></b></code>
+</dt>
+<dd>The type of SideNav to use, one of 'popUp' or 'fade'.
+</dd>
+
+<dt>
+<code>gtv.jq.Size</code>
+<code><b><a href="#gtv.jq.BuildParams.size">size</a></b></code>
+</dt>
+<dd>Size of the player in pixels.
+</dd>
+
+<dt>
+<code>number</code>
+<code><b><a href="#gtv.jq.BuildParams.slideshowSpeed">slideshowSpeed</a></b></code>
+</dt>
+<dd>Delay, in seconds, between photos.
+</dd>
+
+<dt>
+<code>number</code>
+<code><b><a href="#gtv.jq.BuildParams.thumbnailHeight">thumbnailHeight</a></b></code>
+</dt>
+<dd>Height in pixels of the thumbnails.
+</dd>
+
+</dl>
+&nbsp;
+
+<!-- =========== END FIELD SUMMARY =========== -->
+
+
+
+<!-- ======== CONSTRUCTOR SUMMARY ======== -->
+<a name="gtv.jq.BuildParams_constructor_summary"> </a>
+<h2>Constructor Summary</h2>
+<dl>
+
+    <dt><code>
+        <b><a href="#gtv.jq.BuildParams">gtv.jq.BuildParams</a></b>()
+        </code></dt>
+    <dd>BuildParams class holds parameters used to create the page.</dd>
+
+</dl>
+&nbsp;
+<!-- ======== END CONSTRUCTOR SUMMARY ======== -->
+
+
+
+<!-- ========== METHOD SUMMARY =========== -->
+
+
+<!-- ========== EVENT SUMMARY =========== -->
+
+
+
+
+<!-- ========== INHERITED METHODS SUMMARY =========== -->
+
+<br/>
+
+<!-- ========== END INHERITED METHODS SUMMARY =========== -->
+
+<!-- ============ FIELD DETAIL START ========= -->
+
+<a name="gtv.jq.BuildParams_field_detail"> </a>
+<h2>Field Detail</h2>
+
+
+    <!-- One single method detail entry -->
+    <a name="gtv.jq.BuildParams.feedContentSeeker">
+    <!-- -->
+    </a> <h3>feedContentSeeker</h3>
+        <pre>Array.&lt;string&gt; <b>feedContentSeeker</b></pre>
+    <ul>
+       Array of names, in hierarchical order starting
+from the entry, used to locate the photo URL.
+    </ul>
+
+    <!-- One single method detail entry -->
+    <a name="gtv.jq.BuildParams.feedItemsSeeker">
+    <!-- -->
+    </a> <h3>feedItemsSeeker</h3>
+        <pre>Array.&lt;string&gt; <b>feedItemsSeeker</b></pre>
+    <ul>
+       Array of names, in hierarchical order, used to
+locate the array of entries in the feed.
+    </ul>
+
+    <!-- One single method detail entry -->
+    <a name="gtv.jq.BuildParams.feedThumbSeeker">
+    <!-- -->
+    </a> <h3>feedThumbSeeker</h3>
+        <pre>Array.&lt;string&gt; <b>feedThumbSeeker</b></pre>
+    <ul>
+       Array of names, in hierarchical order starting
+from the entry, used to locate thumbnail URL.
+    </ul>
+
+    <!-- One single method detail entry -->
+    <a name="gtv.jq.BuildParams.keyController">
+    <!-- -->
+    </a> <h3>keyController</h3>
+        <pre>gtv.jq.KeyController <b>keyController</b></pre>
+    <ul>
+       The key controller the page should use.
+    </ul>
+
+    <!-- One single method detail entry -->
+    <a name="gtv.jq.BuildParams.layerNames">
+    <!-- -->
+    </a> <h3>layerNames</h3>
+        <pre>Array.&lt;string&gt; <b>layerNames</b></pre>
+    <ul>
+       Array of layer names the page should exist on. If not supplied, uses
+the default layer.
+    </ul>
+
+    <!-- One single method detail entry -->
+    <a name="gtv.jq.BuildParams.navbarType">
+    <!-- -->
+    </a> <h3>navbarType</h3>
+        <pre>string <b>navbarType</b></pre>
+    <ul>
+       The type of SideNav to use, one of 'popUp' or 'fade'.
+    </ul>
+
+    <!-- One single method detail entry -->
+    <a name="gtv.jq.BuildParams.size">
+    <!-- -->
+    </a> <h3>size</h3>
+        <pre>gtv.jq.Size <b>size</b></pre>
+    <ul>
+       Size of the player in pixels. Width defaults to 1024. If not supplied,
+height it calculated from the player width assuming a 16:10 ratio.
+    </ul>
+
+    <!-- One single method detail entry -->
+    <a name="gtv.jq.BuildParams.slideshowSpeed">
+    <!-- -->
+    </a> <h3>slideshowSpeed</h3>
+        <pre>number <b>slideshowSpeed</b></pre>
+    <ul>
+       Delay, in seconds, between photos. Defaults to 4.
+    </ul>
+
+    <!-- One single method detail entry -->
+    <a name="gtv.jq.BuildParams.thumbnailHeight">
+    <!-- -->
+    </a> <h3>thumbnailHeight</h3>
+        <pre>number <b>thumbnailHeight</b></pre>
+    <ul>
+       Height in pixels of the thumbnails.
+    </ul>
+
+
+<!-- ============ FIELD DETAIL END ========== -->
+
+
+
+<!-- ========= CONSTRUCTOR DETAIL START ======== -->
+<a name="gtv.jq.BuildParams_constructor_detail"> </a>
+<h2>Constructor Detail</h2>
+
+<a name="gtv.jq.BuildParams"> </a>
+<h3>gtv.jq.BuildParams</h3>
+
+    <pre><b>gtv.jq.BuildParams</b>()</pre>
+    <ul>
+      BuildParams class holds parameters used to create the page.
+    </ul>
+
+    <!-- PARAMETERS START -->
+    
+    <!-- PARAMETERS END -->
+
+<!-- END ADDITIONAL ATTRIBUTES  -->
+<!-- ========= CONSTRUCTOR DETAIL END ======== -->
+
+
+
+<!-- ============ METHOD DETAIL START ======= -->
+
+<!-- ============ METHOD DETAIL END ========== -->
+
+<!-- ============ EVENT DETAIL START ======= -->
+
+
+
+<!-- ============ EVENT DETAIL END ========== -->
+
+<p class="backtotop"><a href="#top">Back to top</a></p>
+
+
+
+
+
+
+<h1 id="gtv.jq.BuilderPhotoPage">Class gtv.jq.BuilderPhotoPage</h1>
+
+
+<!-- <i>Defined in <a href="pagebuilder.src.html">pagebuilder.js</a></i> -->
+
+<p class="summaryDetailLink">
+&nbsp;<a href="#gtv.jq.BuilderPhotoPage_method_summary">SUMMARY</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#gtv.jq.BuilderPhotoPage_method_detail">DETAIL</a>
+</p>
+
+
+
+
+
+
+
+<!-- =========== FIELD SUMMARY =========== -->
+
+<!-- =========== END FIELD SUMMARY =========== -->
+
+
+
+<!-- ======== CONSTRUCTOR SUMMARY ======== -->
+<a name="gtv.jq.BuilderPhotoPage_constructor_summary"> </a>
+<h2>Constructor Summary</h2>
+<dl>
+
+    <dt><code>
+        <b><a href="#gtv.jq.BuilderPhotoPage">gtv.jq.BuilderPhotoPage</a></b>(buildParams)
+        </code></dt>
+    <dd>BuilderPhotoPage class.</dd>
+
+</dl>
+&nbsp;
+<!-- ======== END CONSTRUCTOR SUMMARY ======== -->
+
+
+
+<!-- ========== METHOD SUMMARY =========== -->
+
+<a name="gtv.jq.BuilderPhotoPage_method_summary"> </a>
+<h2>Method Summary</h2>
+<dl>
+    
+<dt><code>
+<b> <a href="#gtv.jq.BuilderPhotoPage.deletePage">deletePage</a></b>() </code>
+</dt>
+<dd>Removes the page's controls from the window.
+</dd>
+
+<dt><code>
+<b> <a href="#gtv.jq.BuilderPhotoPage.makePage">makePage</a></b>(topParent) </code>
+</dt>
+<dd>Creates a photo playback page.
+</dd>
+
+</dl>
+&nbsp;
+
+
+<!-- ========== EVENT SUMMARY =========== -->
+
+
+
+
+<!-- ========== INHERITED METHODS SUMMARY =========== -->
+
+<br/>
+
+<!-- ========== END INHERITED METHODS SUMMARY =========== -->
+
+<!-- ============ FIELD DETAIL START ========= -->
+
+<!-- ============ FIELD DETAIL END ========== -->
+
+
+
+<!-- ========= CONSTRUCTOR DETAIL START ======== -->
+<a name="gtv.jq.BuilderPhotoPage_constructor_detail"> </a>
+<h2>Constructor Detail</h2>
+
+<a name="gtv.jq.BuilderPhotoPage"> </a>
+<h3>gtv.jq.BuilderPhotoPage</h3>
+
+    <pre><b>gtv.jq.BuilderPhotoPage</b>(buildParams)</pre>
+    <ul>
+      BuilderPhotoPage class. This creates a complete page for viewing a slideshow
+of photos. Provided with an RSS feed in JSONP format and references to
+the thumbnails and full-size images in that feed, this will build a
+photo control to display a full-size image, a row of thumbnails to display
+all the images in the feed, and the key zones to handle movement between
+them.
+    </ul>
+
+    <!-- PARAMETERS START -->
+    
+    <ul>
+        <b>Parameters:</b>
+        
+        <ul>
+            <code><i>gtv.jq.BuildParams</i>&nbsp;buildParams</code> - Initialization values for the photo
+page.
+        </ul>
+        
+    </ul>
+    
+    <!-- PARAMETERS END -->
+
+<!-- END ADDITIONAL ATTRIBUTES  -->
+<!-- ========= CONSTRUCTOR DETAIL END ======== -->
+
+
+
+<!-- ============ METHOD DETAIL START ======= -->
+
+<a name="gtv.jq.BuilderPhotoPage_method_detail"> </a>
+<h2>Method Detail</h2>
+
+
+    <a name="gtv.jq.BuilderPhotoPage.deletePage"> </a> <h3>deletePage</h3>
+        <pre><b>deletePage</b>()</pre>
+    <ul>
+       Removes the page's controls from the window.
+    </ul>
+    <!-- METHOD PARAMETERS START -->
+    
+    <!-- METHOD PARAMETERS END -->
+    <!-- ADDITIONAL ATTRIBUTES START -->
+    
+    
+    <!-- ADDITIONAL ATTRIBUTES  END -->
+
+    <a name="gtv.jq.BuilderPhotoPage.makePage"> </a> <h3>makePage</h3>
+        <pre><b>makePage</b>(topParent)</pre>
+    <ul>
+       Creates a photo playback page.
+    </ul>
+    <!-- METHOD PARAMETERS START -->
+    <ul>
+        <b>Parameters:</b>
+        <ul>
+            <code><i>jQuery.Element</i>&nbsp;topParent </code> - The parent element for the page.
+        </ul>
+    </ul>
+    <!-- METHOD PARAMETERS END -->
+    <!-- ADDITIONAL ATTRIBUTES START -->
+    
+    
+    <!-- ADDITIONAL ATTRIBUTES  END -->
+
+
+<!-- ============ METHOD DETAIL END ========== -->
+
+<!-- ============ EVENT DETAIL START ======= -->
+
+
+
+<!-- ============ EVENT DETAIL END ========== -->
+
+<p class="backtotop"><a href="#top">Back to top</a></p>
+
+
+
+
+
+
+<h1 id="gtv.jq.BuilderVideoPage">Class gtv.jq.BuilderVideoPage</h1>
+
+
+<!-- <i>Defined in <a href="pagebuilder.src.html">pagebuilder.js</a></i> -->
+
+<p class="summaryDetailLink">
+&nbsp;<a href="#gtv.jq.BuilderVideoPage_method_summary">SUMMARY</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#gtv.jq.BuilderVideoPage_method_detail">DETAIL</a>
+</p>
+
+
+
+
+
+
+
+<!-- =========== FIELD SUMMARY =========== -->
+
+<!-- =========== END FIELD SUMMARY =========== -->
+
+
+
+<!-- ======== CONSTRUCTOR SUMMARY ======== -->
+<a name="gtv.jq.BuilderVideoPage_constructor_summary"> </a>
+<h2>Constructor Summary</h2>
+<dl>
+
+    <dt><code>
+        <b><a href="#gtv.jq.BuilderVideoPage">gtv.jq.BuilderVideoPage</a></b>(buildParams)
+        </code></dt>
+    <dd>BuilderVideoPage class.</dd>
+
+</dl>
+&nbsp;
+<!-- ======== END CONSTRUCTOR SUMMARY ======== -->
+
+
+
+<!-- ========== METHOD SUMMARY =========== -->
+
+<a name="gtv.jq.BuilderVideoPage_method_summary"> </a>
+<h2>Method Summary</h2>
+<dl>
+    
+<dt><code>
+<b> <a href="#gtv.jq.BuilderVideoPage.deletePage">deletePage</a></b>() </code>
+</dt>
+<dd>Removes the page's controls from the window.
+</dd>
+
+<dt><code>
+<b> <a href="#gtv.jq.BuilderVideoPage.makePage">makePage</a></b>(topParent) </code>
+</dt>
+<dd>Creates a photo playback page.
+</dd>
+
+</dl>
+&nbsp;
+
+
+<!-- ========== EVENT SUMMARY =========== -->
+
+
+
+
+<!-- ========== INHERITED METHODS SUMMARY =========== -->
+
+<br/>
+
+<!-- ========== END INHERITED METHODS SUMMARY =========== -->
+
+<!-- ============ FIELD DETAIL START ========= -->
+
+<!-- ============ FIELD DETAIL END ========== -->
+
+
+
+<!-- ========= CONSTRUCTOR DETAIL START ======== -->
+<a name="gtv.jq.BuilderVideoPage_constructor_detail"> </a>
+<h2>Constructor Detail</h2>
+
+<a name="gtv.jq.BuilderVideoPage"> </a>
+<h3>gtv.jq.BuilderVideoPage</h3>
+
+    <pre><b>gtv.jq.BuilderVideoPage</b>(buildParams)</pre>
+    <ul>
+      BuilderVideoPage class. This creates a complete page for viewing a slideshow
+of videos. Provided with an RSS feed in JSONP format and references to
+the thumbnails and YouTube videos in that feed, this will build a
+video control to play the video, a row of thumbnails to display the video
+thumbnails in the feed, and the key zones to handle movement between them.
+    </ul>
+
+    <!-- PARAMETERS START -->
+    
+    <ul>
+        <b>Parameters:</b>
+        
+        <ul>
+            <code><i>gtv.jq.BuildParams</i>&nbsp;buildParams</code>
+        </ul>
+        
+    </ul>
+    
+    <!-- PARAMETERS END -->
+
+<!-- END ADDITIONAL ATTRIBUTES  -->
+<!-- ========= CONSTRUCTOR DETAIL END ======== -->
+
+
+
+<!-- ============ METHOD DETAIL START ======= -->
+
+<a name="gtv.jq.BuilderVideoPage_method_detail"> </a>
+<h2>Method Detail</h2>
+
+
+    <a name="gtv.jq.BuilderVideoPage.deletePage"> </a> <h3>deletePage</h3>
+        <pre><b>deletePage</b>()</pre>
+    <ul>
+       Removes the page's controls from the window.
+    </ul>
+    <!-- METHOD PARAMETERS START -->
+    
+    <!-- METHOD PARAMETERS END -->
+    <!-- ADDITIONAL ATTRIBUTES START -->
+    
+    
+    <!-- ADDITIONAL ATTRIBUTES  END -->
+
+    <a name="gtv.jq.BuilderVideoPage.makePage"> </a> <h3>makePage</h3>
+        <pre><b>makePage</b>(topParent)</pre>
+    <ul>
+       Creates a photo playback page.
+    </ul>
+    <!-- METHOD PARAMETERS START -->
+    <ul>
+        <b>Parameters:</b>
+        <ul>
+            <code><i>jQuery.Element</i>&nbsp;topParent </code> - The parent element for the page.
+        </ul>
+    </ul>
+    <!-- METHOD PARAMETERS END -->
+    <!-- ADDITIONAL ATTRIBUTES START -->
+    
+    
+    <!-- ADDITIONAL ATTRIBUTES  END -->
+
+
+<!-- ============ METHOD DETAIL END ========== -->
+
+<!-- ============ EVENT DETAIL START ======= -->
+
+
+
+<!-- ============ EVENT DETAIL END ========== -->
+
+<p class="backtotop"><a href="#top">Back to top</a></p>
+
+
+
+
+
+
+<h1 id="gtv.jq.CaptionItem">Class gtv.jq.CaptionItem</h1>
+
+
+<!-- <i>Defined in <a href="gtvcore.src.html">gtvcore.js</a></i> -->
+
+<p class="summaryDetailLink">
+&nbsp;<a href="#gtv.jq.CaptionItem_field_summary">SUMMARY</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#gtv.jq.CaptionItem_field_detail">DETAIL</a>
+</p>
+
+
+
+
+
+
+
+<!-- =========== FIELD SUMMARY =========== -->
+
+<a name="gtv.jq.CaptionItem_field_summary"> </a>
+<h2>Field Summary</h2>
+<dl>
+
+<dt>
+<code>jQuery.Element</code>
+<code><b><a href="#gtv.jq.CaptionItem.caption">caption</a></b></code>
+</dt>
+<dd>The caption for the item, to be displayed beneath it.
+</dd>
+
+<dt>
+<code>object</code>
+<code><b><a href="#gtv.jq.CaptionItem.data">data</a></b></code>
+</dt>
+<dd>If supplied, this item will be given an active hover style by the key
+controller when selected.
+</dd>
+
+<dt>
+<code>jQuery.Element</code>
+<code><b><a href="#gtv.jq.CaptionItem.item">item</a></b></code>
+</dt>
+<dd>The item that will be outlined by selection.
+</dd>
+
+</dl>
+&nbsp;
+
+<!-- =========== END FIELD SUMMARY =========== -->
+
+
+
+<!-- ======== CONSTRUCTOR SUMMARY ======== -->
+<a name="gtv.jq.CaptionItem_constructor_summary"> </a>
+<h2>Constructor Summary</h2>
+<dl>
+
+    <dt><code>
+        <b><a href="#gtv.jq.CaptionItem">gtv.jq.CaptionItem</a></b>()
+        </code></dt>
+    <dd>Describes an item that has a caption and a data item to go with it.</dd>
+
+</dl>
+&nbsp;
+<!-- ======== END CONSTRUCTOR SUMMARY ======== -->
+
+
+
+<!-- ========== METHOD SUMMARY =========== -->
+
+
+<!-- ========== EVENT SUMMARY =========== -->
+
+
+
+
+<!-- ========== INHERITED METHODS SUMMARY =========== -->
+
+<br/>
+
+<!-- ========== END INHERITED METHODS SUMMARY =========== -->
+
+<!-- ============ FIELD DETAIL START ========= -->
+
+<a name="gtv.jq.CaptionItem_field_detail"> </a>
+<h2>Field Detail</h2>
+
+
+    <!-- One single method detail entry -->
+    <a name="gtv.jq.CaptionItem.caption">
+    <!-- -->
+    </a> <h3>caption</h3>
+        <pre>jQuery.Element <b>caption</b></pre>
+    <ul>
+       The caption for the item, to be displayed beneath it. The container of this
+caption will be styled so that it will be clipped at the width of the item.
+    </ul>
+
+    <!-- One single method detail entry -->
+    <a name="gtv.jq.CaptionItem.data">
+    <!-- -->
+    </a> <h3>data</h3>
+        <pre>object <b>data</b></pre>
+    <ul>
+       If supplied, this item will be given an active hover style by the key
+controller when selected. This allows items with data to be visually
+distinguished from those without. For example, an item that can be
+navigated to when chosen might have this value non-null; and item that
+cannot will have it null. The two different selection styles applied
+(styles.selected, styles.hasData) provide a visual clue to the user.
+    </ul>
+
+    <!-- One single method detail entry -->
+    <a name="gtv.jq.CaptionItem.item">
+    <!-- -->
+    </a> <h3>item</h3>
+        <pre>jQuery.Element <b>item</b></pre>
+    <ul>
+       The item that will be outlined by selection. This will be the child of
+the element with the CSS class styles.item.
+    </ul>
+
+
+<!-- ============ FIELD DETAIL END ========== -->
+
+
+
+<!-- ========= CONSTRUCTOR DETAIL START ======== -->
+<a name="gtv.jq.CaptionItem_constructor_detail"> </a>
+<h2>Constructor Detail</h2>
+
+<a name="gtv.jq.CaptionItem"> </a>
+<h3>gtv.jq.CaptionItem</h3>
+
+    <pre><b>gtv.jq.CaptionItem</b>()</pre>
+    <ul>
+      Describes an item that has a caption and a data item to go with it.
+Not all controls support CaptionItem (StackControl, SlidingControl).
+Use this instead of a simple items array when an item that needs
+selection (say, a thumbnail) also needs a caption (say, photo title)
+but the selection outline should only be drawn around the item.
+    </ul>
+
+    <!-- PARAMETERS START -->
+    
+    <!-- PARAMETERS END -->
+
+<!-- END ADDITIONAL ATTRIBUTES  -->
+<!-- ========= CONSTRUCTOR DETAIL END ======== -->
+
+
+
+<!-- ============ METHOD DETAIL START ======= -->
+
+<!-- ============ METHOD DETAIL END ========== -->
+
+<!-- ============ EVENT DETAIL START ======= -->
+
+
+
+<!-- ============ EVENT DETAIL END ========== -->
+
+<p class="backtotop"><a href="#top">Back to top</a></p>
+
+
+
+
+
+
+<h1 id="gtv.jq.ControlContents">Class gtv.jq.ControlContents</h1>
+
+
+<!-- <i>Defined in <a href="gtvcore.src.html">gtvcore.js</a></i> -->
+
+<p class="summaryDetailLink">
+&nbsp;<a href="#gtv.jq.ControlContents_field_summary">SUMMARY</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#gtv.jq.ControlContents_field_detail">DETAIL</a>
+</p>
+
+
+
+
+
+
+
+<!-- =========== FIELD SUMMARY =========== -->
+
+<a name="gtv.jq.ControlContents_field_summary"> </a>
+<h2>Field Summary</h2>
+<dl>
+
+<dt>
+<code>Array.&lt;gtv.jq.CaptionItem&gt;</code>
+<code><b><a href="#gtv.jq.ControlContents.captionItems">captionItems</a></b></code>
+</dt>
+<dd>Simple array of items to add to the control.
+</dd>
+
+<dt>
+<code>Array.&lt;gtv.jq.ControlContents&gt;</code>
+<code><b><a href="#gtv.jq.ControlContents.contentsArray">contentsArray</a></b></code>
+</dt>
+<dd>Array of ControlContents objects to add to a control.
+</dd>
+
+<dt>
+<code>Array.&lt;jQuery.Element&gt;</code>
+<code><b><a href="#gtv.jq.ControlContents.items">items</a></b></code>
+</dt>
+<dd>Simple array of items to add to the control.
+</dd>
+
+</dl>
+&nbsp;
+
+<!-- =========== END FIELD SUMMARY =========== -->
+
+
+
+<!-- ======== CONSTRUCTOR SUMMARY ======== -->
+<a name="gtv.jq.ControlContents_constructor_summary"> </a>
+<h2>Constructor Summary</h2>
+<dl>
+
+    <dt><code>
+        <b><a href="#gtv.jq.ControlContents">gtv.jq.ControlContents</a></b>(opt_params)
+        </code></dt>
+    <dd>Describes the contents to be added to a control.</dd>
+
+</dl>
+&nbsp;
+<!-- ======== END CONSTRUCTOR SUMMARY ======== -->
+
+
+
+<!-- ========== METHOD SUMMARY =========== -->
+
+
+<!-- ========== EVENT SUMMARY =========== -->
+
+
+
+
+<!-- ========== INHERITED METHODS SUMMARY =========== -->
+
+<br/>
+
+<!-- ========== END INHERITED METHODS SUMMARY =========== -->
+
+<!-- ============ FIELD DETAIL START ========= -->
+
+<a name="gtv.jq.ControlContents_field_detail"> </a>
+<h2>Field Detail</h2>
+
+
+    <!-- One single method detail entry -->
+    <a name="gtv.jq.ControlContents.captionItems">
+    <!-- -->
+    </a> <h3>captionItems</h3>
+        <pre>Array.&lt;gtv.jq.CaptionItem&gt; <b>captionItems</b></pre>
+    <ul>
+       Simple array of items to add to the control. These items will be added to
+the control in the order they appear in the array. Each item is added as
+a child of a separate Element to contain it. These container elements are
+created by the control and given the Styles.item CSS class.
+    </ul>
+
+    <!-- One single method detail entry -->
+    <a name="gtv.jq.ControlContents.contentsArray">
+    <!-- -->
+    </a> <h3>contentsArray</h3>
+        <pre>Array.&lt;gtv.jq.ControlContents&gt; <b>contentsArray</b></pre>
+    <ul>
+       Array of ControlContents objects to add to a control. Some multi-row
+controls (such as the RollerControl) require this so that each row can be
+described explicitly. That is, each row has a very specific contents
+instead of being created as-needed and filled in.
+
+Since this is an array of ControlContents objects, each element is can
+in turn be a simple array of items or an itemsGenerator. (It could also
+take an itemsArray, but no existing controls take an array of arrays of
+arrays.)
+    </ul>
+
+    <!-- One single method detail entry -->
+    <a name="gtv.jq.ControlContents.items">
+    <!-- -->
+    </a> <h3>items</h3>
+        <pre>Array.&lt;jQuery.Element&gt; <b>items</b></pre>
+    <ul>
+       Simple array of items to add to the control. These items will be added to
+the control in the order they appear in the array. Each item is added as
+a child of a separate Element to contain it. These container elements are
+created by the control and given the Styles.item CSS class.
+    </ul>
+
+
+<!-- ============ FIELD DETAIL END ========== -->
+
+
+
+<!-- ========= CONSTRUCTOR DETAIL START ======== -->
+<a name="gtv.jq.ControlContents_constructor_detail"> </a>
+<h2>Constructor Detail</h2>
+
+<a name="gtv.jq.ControlContents"> </a>
+<h3>gtv.jq.ControlContents</h3>
+
+    <pre><b>gtv.jq.ControlContents</b>(opt_params)</pre>
+    <ul>
+      Describes the contents to be added to a control. Passed with ShowParams
+object, used when calling showControl on a control object.
+
+items, itemsArray and itemsGenerator, indicate how new items will be
+added to the control being displayed. Only one of these should be supplied
+in an instance of the object.
+    </ul>
+
+    <!-- PARAMETERS START -->
+    
+    <ul>
+        <b>Parameters:</b>
+        
+        <ul>
+            <code><i>gtv.jq.ControlContents</i>&nbsp;opt_params</code> - Optional initialization values.
+        </ul>
+        
+    </ul>
+    
+    <!-- PARAMETERS END -->
+
+<!-- END ADDITIONAL ATTRIBUTES  -->
+<!-- ========= CONSTRUCTOR DETAIL END ======== -->
+
+
+
+<!-- ============ METHOD DETAIL START ======= -->
+
+<!-- ============ METHOD DETAIL END ========== -->
+
+<!-- ============ EVENT DETAIL START ======= -->
+
+
+
+<!-- ============ EVENT DETAIL END ========== -->
+
+<p class="backtotop"><a href="#top">Back to top</a></p>
+
+
+
+
+
+
+<h1 id="gtv.jq.CreationParams">Class gtv.jq.CreationParams</h1>
+
+
+<!-- <i>Defined in <a href="gtvcore.src.html">gtvcore.js</a></i> -->
+
+<p class="summaryDetailLink">
+&nbsp;<a href="#gtv.jq.CreationParams_field_summary">SUMMARY</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#gtv.jq.CreationParams_field_detail">DETAIL</a>
+</p>
+
+
+
+
+
+
+
+<!-- =========== FIELD SUMMARY =========== -->
+
+<a name="gtv.jq.CreationParams_field_summary"> </a>
+<h2>Field Summary</h2>
+<dl>
+
+<dt>
+<code>Function(selectedItem)</code>
+<code><b><a href="#gtv.jq.CreationParams.choiceCallback">choiceCallback</a></b></code>
+</dt>
+<dd>Callback to make when the user chooses an item (if applicable to the control)
+</dd>
+
+<dt>
+<code>string</code>
+<code><b><a href="#gtv.jq.CreationParams.containerId">containerId</a></b></code>
+</dt>
+<dd>The ID of the control container (an element will be created with this ID).
+</dd>
+
+<dt>
+<code>KeyController</code>
+<code><b><a href="#gtv.jq.CreationParams.keyController">keyController</a></b></code>
+</dt>
+<dd>Instance of the key controller this control is using.
+</dd>
+
+<dt>
+<code>string</code>
+<code><b><a href="#gtv.jq.CreationParams.layerNames">layerNames</a></b></code>
+</dt>
+<dd>Array of Layer name to add the control to, or 'default' if not supplied.
+</dd>
+
+<dt>
+<code>Object</code>
+<code><b><a href="#gtv.jq.CreationParams.styles">styles</a></b></code>
+</dt>
+<dd>CSS classes used to style the row.
+</dd>
+
+</dl>
+&nbsp;
+
+<!-- =========== END FIELD SUMMARY =========== -->
+
+
+
+<!-- ======== CONSTRUCTOR SUMMARY ======== -->
+<a name="gtv.jq.CreationParams_constructor_summary"> </a>
+<h2>Constructor Summary</h2>
+<dl>
+
+    <dt><code>
+        <b><a href="#gtv.jq.CreationParams">gtv.jq.CreationParams</a></b>(opt_params)
+        </code></dt>
+    <dd>Holds parameters used to create the library controls.</dd>
+
+</dl>
+&nbsp;
+<!-- ======== END CONSTRUCTOR SUMMARY ======== -->
+
+
+
+<!-- ========== METHOD SUMMARY =========== -->
+
+
+<!-- ========== EVENT SUMMARY =========== -->
+
+
+
+
+<!-- ========== INHERITED METHODS SUMMARY =========== -->
+
+<br/>
+
+<!-- ========== END INHERITED METHODS SUMMARY =========== -->
+
+<!-- ============ FIELD DETAIL START ========= -->
+
+<a name="gtv.jq.CreationParams_field_detail"> </a>
+<h2>Field Detail</h2>
+
+
+    <!-- One single method detail entry -->
+    <a name="gtv.jq.CreationParams.choiceCallback">
+    <!-- -->
+    </a> <h3>choiceCallback</h3>
+        <pre>Function(selectedItem) <b>choiceCallback</b></pre>
+    <ul>
+       Callback to make when the user chooses an item (if applicable to the control)
+    </ul>
+
+    <!-- One single method detail entry -->
+    <a name="gtv.jq.CreationParams.containerId">
+    <!-- -->
+    </a> <h3>containerId</h3>
+        <pre>string <b>containerId</b></pre>
+    <ul>
+       The ID of the control container (an element will be created with this ID).
+    </ul>
+
+    <!-- One single method detail entry -->
+    <a name="gtv.jq.CreationParams.keyController">
+    <!-- -->
+    </a> <h3>keyController</h3>
+        <pre>KeyController <b>keyController</b></pre>
+    <ul>
+       Instance of the key controller this control is using.
+    </ul>
+
+    <!-- One single method detail entry -->
+    <a name="gtv.jq.CreationParams.layerNames">
+    <!-- -->
+    </a> <h3>layerNames</h3>
+        <pre>string <b>layerNames</b></pre>
+    <ul>
+       Array of Layer name to add the control to, or 'default' if not supplied.
+    </ul>
+
+    <!-- One single method detail entry -->
+    <a name="gtv.jq.CreationParams.styles">
+    <!-- -->
+    </a> <h3>styles</h3>
+        <pre>Object <b>styles</b></pre>
+    <ul>
+       CSS classes used to style the row.
+    page {string} CSS class to style the container for each page of rows.
+    row {string} CSS class to style the row.
+    itemsDiv {string} CSS class to style the DIV holding the items.
+    itemDiv {string} CSS class to style the DIV holding a single item.
+    item {string} CSS class to style the individual item.
+    selected {string} CSS class to style the item that has the selection.
+    hasData {string} CSS class to style the item that has the selection,
+        for controls that support different selection styles based on
+        associated data (see gtv.jq.CaptionItem).
+    normal {string} For controls that maintain a sticky item choice, such
+        as SideNav. CSS class to style an item that has been 'chosen', that
+        is, the ENTER key was pressed while it had selection, or it
+        received a mouse click.
+    chosen {string}  For controls that maintain a sticky item choice, such
+        as SideNav. CSS class to style an item that has been 'chosen', that
+        is, the ENTER key was pressed while it had selection, or it
+        received a mouse click.
+    </ul>
+
+
+<!-- ============ FIELD DETAIL END ========== -->
+
+
+
+<!-- ========= CONSTRUCTOR DETAIL START ======== -->
+<a name="gtv.jq.CreationParams_constructor_detail"> </a>
+<h2>Constructor Detail</h2>
+
+<a name="gtv.jq.CreationParams"> </a>
+<h3>gtv.jq.CreationParams</h3>
+
+    <pre><b>gtv.jq.CreationParams</b>(opt_params)</pre>
+    <ul>
+      Holds parameters used to create the library controls.
+    </ul>
+
+    <!-- PARAMETERS START -->
+    
+    <ul>
+        <b>Parameters:</b>
+        
+        <ul>
+            <code><i>?gtv.jq.CreationParams</i>&nbsp;opt_params</code> - CreationParams to initialize
+    this new object with.
+        </ul>
+        
+    </ul>
+    
+    <!-- PARAMETERS END -->
+
+<!-- END ADDITIONAL ATTRIBUTES  -->
+<!-- ========= CONSTRUCTOR DETAIL END ======== -->
+
+
+
+<!-- ============ METHOD DETAIL START ======= -->
+
+<!-- ============ METHOD DETAIL END ========== -->
+
+<!-- ============ EVENT DETAIL START ======= -->
+
+
+
+<!-- ============ EVENT DETAIL END ========== -->
+
+<p class="backtotop"><a href="#top">Back to top</a></p>
+
+
+
+
+
+
+<h1 id="gtv.jq.KeyActions">Class gtv.jq.KeyActions</h1>
+
+
+<!-- <i>Defined in <a href="keycontrol.src.html">keycontrol.js</a></i> -->
+
+<p class="summaryDetailLink">
+&nbsp;<a href="#gtv.jq.KeyActions_field_summary">SUMMARY</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#gtv.jq.KeyActions_field_detail">DETAIL</a>
+</p>
+
+
+
+
+
+
+
+<!-- =========== FIELD SUMMARY =========== -->
+
+<a name="gtv.jq.KeyActions_field_summary"> </a>
+<h2>Field Summary</h2>
+<dl>
+
+<dt>
+<code>Function(item)</code>
+<code><b><a href="#gtv.jq.KeyActions.click">click</a></b></code>
+</dt>
+<dd>Called when the user clicks the mouse button on an item.
+</dd>
+
+<dt>
+<code>Function()</code>
+<code><b><a href="#gtv.jq.KeyActions.enterZone">enterZone</a></b></code>
+</dt>
+<dd>Called when a zone is entered.
+</dd>
+
+<dt>
+<code>Function(selectedItem)</code>
+<code><b><a href="#gtv.jq.KeyActions.leaveZone">leaveZone</a></b></code>
+</dt>
+<dd>Called when a zone is exited.
+</dd>
+
+<dt>
+<code>Function(selectedItem, newSelected)</code>
+<code><b><a href="#gtv.jq.KeyActions.moveSelected">moveSelected</a></b></code>
+</dt>
+<dd>Called after the selection has moved to a new item in the zone.
+</dd>
+
+<dt>
+<code>Function(newZone, newSelected, syncCallback)</code>
+<code><b><a href="#gtv.jq.KeyActions.scrollIntoView">scrollIntoView</a></b></code>
+</dt>
+<dd>Called every time an item in the zone receives the selection.
+</dd>
+
+</dl>
+&nbsp;
+
+<!-- =========== END FIELD SUMMARY =========== -->
+
+
+
+<!-- ======== CONSTRUCTOR SUMMARY ======== -->
+<a name="gtv.jq.KeyActions_constructor_summary"> </a>
+<h2>Constructor Summary</h2>
+<dl>
+
+    <dt><code>
+        <b><a href="#gtv.jq.KeyActions">gtv.jq.KeyActions</a></b>()
+        </code></dt>
+    <dd>KeyActions class.</dd>
+
+</dl>
+&nbsp;
+<!-- ======== END CONSTRUCTOR SUMMARY ======== -->
+
+
+
+<!-- ========== METHOD SUMMARY =========== -->
+
+
+<!-- ========== EVENT SUMMARY =========== -->
+
+
+
+
+<!-- ========== INHERITED METHODS SUMMARY =========== -->
+
+<br/>
+
+<!-- ========== END INHERITED METHODS SUMMARY =========== -->
+
+<!-- ============ FIELD DETAIL START ========= -->
+
+<a name="gtv.jq.KeyActions_field_detail"> </a>
+<h2>Field Detail</h2>
+
+
+    <!-- One single method detail entry -->
+    <a name="gtv.jq.KeyActions.click">
+    <!-- -->
+    </a> <h3>click</h3>
+        <pre>Function(item) <b>click</b></pre>
+    <ul>
+       Called when the user clicks the mouse button on an item.
+    </ul>
+
+    <!-- One single method detail entry -->
+    <a name="gtv.jq.KeyActions.enterZone">
+    <!-- -->
+    </a> <h3>enterZone</h3>
+        <pre>Function() <b>enterZone</b></pre>
+    <ul>
+       Called when a zone is entered. This is called in descending order from
+a parent to child zones. Optionally returns a the item to be selected
+after the zone is entered. This is only honored if the zone is at the
+end of the parent-child heirarchy.
+    </ul>
+
+    <!-- One single method detail entry -->
+    <a name="gtv.jq.KeyActions.leaveZone">
+    <!-- -->
+    </a> <h3>leaveZone</h3>
+        <pre>Function(selectedItem) <b>leaveZone</b></pre>
+    <ul>
+       Called when a zone is exited. This is called in ascending order from
+child to parent zones.
+    </ul>
+
+    <!-- One single method detail entry -->
+    <a name="gtv.jq.KeyActions.moveSelected">
+    <!-- -->
+    </a> <h3>moveSelected</h3>
+        <pre>Function(selectedItem, newSelected) <b>moveSelected</b></pre>
+    <ul>
+       Called after the selection has moved to a new item in the zone.
+    </ul>
+
+    <!-- One single method detail entry -->
+    <a name="gtv.jq.KeyActions.scrollIntoView">
+    <!-- -->
+    </a> <h3>scrollIntoView</h3>
+        <pre>Function(newZone, newSelected, syncCallback) <b>scrollIntoView</b></pre>
+    <ul>
+       Called every time an item in the zone receives the selection. This method
+must determine if the selected item is in view and, if it is, position it
+such that it is completely visible on the page. If the item is already
+visible, for performance reasons it is best to do nothing and return
+immediately.
+    </ul>
+
+
+<!-- ============ FIELD DETAIL END ========== -->
+
+
+
+<!-- ========= CONSTRUCTOR DETAIL START ======== -->
+<a name="gtv.jq.KeyActions_constructor_detail"> </a>
+<h2>Constructor Detail</h2>
+
+<a name="gtv.jq.KeyActions"> </a>
+<h3>gtv.jq.KeyActions</h3>
+
+    <pre><b>gtv.jq.KeyActions</b>()</pre>
+    <ul>
+      KeyActions class. Provides the key controller zone with a set of callbacks
+to make when certain events happen in the key controller.
+    </ul>
+
+    <!-- PARAMETERS START -->
+    
+    <!-- PARAMETERS END -->
+
+<!-- END ADDITIONAL ATTRIBUTES  -->
+<!-- ========= CONSTRUCTOR DETAIL END ======== -->
+
+
+
+<!-- ============ METHOD DETAIL START ======= -->
+
+<!-- ============ METHOD DETAIL END ========== -->
+
+<!-- ============ EVENT DETAIL START ======= -->
+
+
+
+<!-- ============ EVENT DETAIL END ========== -->
+
+<p class="backtotop"><a href="#top">Back to top</a></p>
+
+
+
+
+
+
+<h1 id="gtv.jq.KeyBehaviorZone">Class gtv.jq.KeyBehaviorZone</h1>
+
+
+<!-- <i>Defined in <a href="keycontrol.src.html">keycontrol.js</a></i> -->
+
+<p class="summaryDetailLink">
+
+</p>
+
+
+
+
+
+
+
+<!-- =========== FIELD SUMMARY =========== -->
+
+<!-- =========== END FIELD SUMMARY =========== -->
+
+
+
+<!-- ======== CONSTRUCTOR SUMMARY ======== -->
+<a name="gtv.jq.KeyBehaviorZone_constructor_summary"> </a>
+<h2>Constructor Summary</h2>
+<dl>
+
+    <dt><code>
+        <b><a href="#gtv.jq.KeyBehaviorZone">gtv.jq.KeyBehaviorZone</a></b>(createParams)
+        </code></dt>
+    <dd>KeyBehaviorZone class.</dd>
+
+</dl>
+&nbsp;
+<!-- ======== END CONSTRUCTOR SUMMARY ======== -->
+
+
+
+<!-- ========== METHOD SUMMARY =========== -->
+
+
+<!-- ========== EVENT SUMMARY =========== -->
+
+
+
+
+<!-- ========== INHERITED METHODS SUMMARY =========== -->
+
+<br/>
+
+<!-- ========== END INHERITED METHODS SUMMARY =========== -->
+
+<!-- ============ FIELD DETAIL START ========= -->
+
+<!-- ============ FIELD DETAIL END ========== -->
+
+
+
+<!-- ========= CONSTRUCTOR DETAIL START ======== -->
+<a name="gtv.jq.KeyBehaviorZone_constructor_detail"> </a>
+<h2>Constructor Detail</h2>
+
+<a name="gtv.jq.KeyBehaviorZone"> </a>
+<h3>gtv.jq.KeyBehaviorZone</h3>
+
+    <pre><b>gtv.jq.KeyBehaviorZone</b>(createParams)</pre>
+    <ul>
+      KeyBehaviorZone class. Defines a zone of key navigation rules.
+    </ul>
+
+    <!-- PARAMETERS START -->
+    
+    <ul>
+        <b>Parameters:</b>
+        
+        <ul>
+            <code><i>gtv.jq.KeyZoneCreationParams</i>&nbsp;createParams</code> - Initialization data for
+    the new zone.
+        </ul>
+        
+    </ul>
+    
+    <!-- PARAMETERS END -->
+
+<!-- END ADDITIONAL ATTRIBUTES  -->
+<!-- ========= CONSTRUCTOR DETAIL END ======== -->
+
+
+
+<!-- ============ METHOD DETAIL START ======= -->
+
+<!-- ============ METHOD DETAIL END ========== -->
+
+<!-- ============ EVENT DETAIL START ======= -->
+
+
+
+<!-- ============ EVENT DETAIL END ========== -->
+
+<p class="backtotop"><a href="#top">Back to top</a></p>
+
+
+
+
+
+
+<h1 id="gtv.jq.KeyController">Class gtv.jq.KeyController</h1>
+
+
+<!-- <i>Defined in <a href="keycontrol.src.html">keycontrol.js</a></i> -->
+
+<p class="summaryDetailLink">
+&nbsp;<a href="#gtv.jq.KeyController_method_summary">SUMMARY</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#gtv.jq.KeyController_method_detail">DETAIL</a>
+</p>
+
+
+
+
+
+
+
+<!-- =========== FIELD SUMMARY =========== -->
+
+<!-- =========== END FIELD SUMMARY =========== -->
+
+
+
+<!-- ======== CONSTRUCTOR SUMMARY ======== -->
+<a name="gtv.jq.KeyController_constructor_summary"> </a>
+<h2>Constructor Summary</h2>
+<dl>
+
+    <dt><code>
+        <b><a href="#gtv.jq.KeyController">gtv.jq.KeyController</a></b>()
+        </code></dt>
+    <dd>KeyController class.</dd>
+
+</dl>
+&nbsp;
+<!-- ======== END CONSTRUCTOR SUMMARY ======== -->
+
+
+
+<!-- ========== METHOD SUMMARY =========== -->
+
+<a name="gtv.jq.KeyController_method_summary"> </a>
+<h2>Method Summary</h2>
+<dl>
+    
+<dt><code>
+<b> <a href="#gtv.jq.KeyController.addBehaviorZone">addBehaviorZone</a></b>(zone, opt_selectOnInit, opt_layerNames) </code>
+</dt>
+<dd>Adds a new zone to a layer in the key controller.
+</dd>
+
+<dt><code>
+                &nbsp;KeyZoneLayer_
+                
+<b> <a href="#gtv.jq.KeyController.createLayer">createLayer</a></b>(layerName, priority) </code>
+</dt>
+<dd>Creates a layer of the specified name and priority.
+</dd>
+
+<dt><code>
+                &nbsp;boolean
+                
+<b> <a href="#gtv.jq.KeyController.deleteLayer">deleteLayer</a></b>(layerName) </code>
+</dt>
+<dd>Deletes the named layer.
+</dd>
+
+<dt><code>
+<b> <a href="#gtv.jq.KeyController.removeAllLayers">removeAllLayers</a></b>() </code>
+</dt>
+<dd>Removes all layers from the Key Controller.
+</dd>
+
+<dt><code>
+                &nbsp;Array.&lt;KeyBehaviorZone&gt;
+                
+<b> <a href="#gtv.jq.KeyController.removeAllZones">removeAllZones</a></b>(opt_layerName) </code>
+</dt>
+<dd>Removes all zones from a layer and returns the zones.
+</dd>
+
+<dt><code>
+<b> <a href="#gtv.jq.KeyController.removeBehaviorZone">removeBehaviorZone</a></b>(zone) </code>
+</dt>
+<dd>Removes a zone from the key controller.
+</dd>
+
+<dt><code>
+<b> <a href="#gtv.jq.KeyController.setGlobalKeyMapping">setGlobalKeyMapping</a></b>(keyMapping) </code>
+</dt>
+<dd>Sets a key mapping for the global key controller.
+</dd>
+
+<dt><code>
+<b> <a href="#gtv.jq.KeyController.setLayer">setLayer</a></b>(opt_layerName) </code>
+</dt>
+<dd>Makes the specified layer the active one, and moves selection to the first
+zone in that layer.
+</dd>
+
+<dt><code>
+<b> <a href="#gtv.jq.KeyController.setLayerKeyMapping">setLayerKeyMapping</a></b>(keyMapping, opt_layerName) </code>
+</dt>
+<dd>Sets a key mapping for specified layer.
+</dd>
+
+<dt><code>
+<b> <a href="#gtv.jq.KeyController.setSelected">setSelected</a></b>(newSelected, finishedCallback) </code>
+</dt>
+<dd>Sets the specified item as the selected item.
+</dd>
+
+<dt><code>
+                &nbsp;boolean
+                
+<b> <a href="#gtv.jq.KeyController.setZone">setZone</a></b>(newZone, opt_force) </code>
+</dt>
+<dd>Moves the selection to the specified zone only if there is not already a
+zone with selection.
+</dd>
+
+<dt><code>
+<b> <a href="#gtv.jq.KeyController.setZones">setZones</a></b>(zones, opt_selectOnInit, opt_layerNames) </code>
+</dt>
+<dd>Installs an array of zones into a layer.
+</dd>
+
+<dt><code>
+                &nbsp;boolean
+                
+<b> <a href="#gtv.jq.KeyController.start">start</a></b>(initialZone, opt_selectOnInit, opt_layerName) </code>
+</dt>
+<dd>Starts the Key Controller.
+</dd>
+
+<dt><code>
+<b> <a href="#gtv.jq.KeyController.stop">stop</a></b>() </code>
+</dt>
+<dd>Stops all key controller activity.
+</dd>
+
+</dl>
+&nbsp;
+
+
+<!-- ========== EVENT SUMMARY =========== -->
+
+
+
+
+<!-- ========== INHERITED METHODS SUMMARY =========== -->
+
+<br/>
+
+<!-- ========== END INHERITED METHODS SUMMARY =========== -->
+
+<!-- ============ FIELD DETAIL START ========= -->
+
+<!-- ============ FIELD DETAIL END ========== -->
+
+
+
+<!-- ========= CONSTRUCTOR DETAIL START ======== -->
+<a name="gtv.jq.KeyController_constructor_detail"> </a>
+<h2>Constructor Detail</h2>
+
+<a name="gtv.jq.KeyController"> </a>
+<h3>gtv.jq.KeyController</h3>
+
+    <pre><b>gtv.jq.KeyController</b>()</pre>
+    <ul>
+      KeyController class. Manages navigation for a page.
+    </ul>
+
+    <!-- PARAMETERS START -->
+    
+    <!-- PARAMETERS END -->
+
+<!-- END ADDITIONAL ATTRIBUTES  -->
+<!-- ========= CONSTRUCTOR DETAIL END ======== -->
+
+
+
+<!-- ============ METHOD DETAIL START ======= -->
+
+<a name="gtv.jq.KeyController_method_detail"> </a>
+<h2>Method Detail</h2>
+
+
+    <a name="gtv.jq.KeyController.addBehaviorZone"> </a> <h3>addBehaviorZone</h3>
+        <pre><b>addBehaviorZone</b>(zone, opt_selectOnInit, opt_layerNames)</pre>
+    <ul>
+       Adds a new zone to a layer in the key controller.
+    </ul>
+    <!-- METHOD PARAMETERS START -->
+    <ul>
+        <b>Parameters:</b>
+        <ul>
+            <code><i>KeyBehaviorZone</i>&nbsp;zone </code> - The zone to add.
+        </ul>
+        <ul>
+            <code><i>?boolean</i>&nbsp;opt_selectOnInit </code> - If true, the zone will receive the
+    selection if no other zone in the controller has the selection.
+        </ul>
+        <ul>
+            <code><i>?Array.&lt;string&gt;</i>&nbsp;opt_layerNames </code> - The names of the layers to add the
+    zone to. If not supplied, the default layer is used.
+        </ul>
+    </ul>
+    <!-- METHOD PARAMETERS END -->
+    <!-- ADDITIONAL ATTRIBUTES START -->
+    
+    
+    <!-- ADDITIONAL ATTRIBUTES  END -->
+
+    <a name="gtv.jq.KeyController.createLayer"> </a> <h3>createLayer</h3>
+        <pre>KeyZoneLayer_ <b>createLayer</b>(layerName, priority)</pre>
+    <ul>
+       Creates a layer of the specified name and priority. If priority isn't needed,
+callers can instead rely on the implicit layer creation when adding a zone.
+    </ul>
+    <!-- METHOD PARAMETERS START -->
+    <ul>
+        <b>Parameters:</b>
+        <ul>
+            <code><i>string</i>&nbsp;layerName </code> - The name of the layer.
+        </ul>
+        <ul>
+            <code><i>?number</i>&nbsp;priority </code> - Priority of the layer (presently unused).
+        </ul>
+    </ul>
+    <!-- METHOD PARAMETERS END -->
+    <!-- ADDITIONAL ATTRIBUTES START -->
+    <ul>
+        <b>Returns:</b>
+        <ul>
+            <code><i>KeyZoneLayer_</i>&nbsp;</code> The newly created layer.
+        </ul>
+    </ul>
+    
+    <!-- ADDITIONAL ATTRIBUTES  END -->
+
+    <a name="gtv.jq.KeyController.deleteLayer"> </a> <h3>deleteLayer</h3>
+        <pre>boolean <b>deleteLayer</b>(layerName)</pre>
+    <ul>
+       Deletes the named layer. If the layer is the currently active one, the
+default layer is selected as a replacement and selection is moved to the
+first zone.
+    </ul>
+    <!-- METHOD PARAMETERS START -->
+    <ul>
+        <b>Parameters:</b>
+        <ul>
+            <code><i>string</i>&nbsp;layerName </code> - The name of the layer to delete.
+        </ul>
+    </ul>
+    <!-- METHOD PARAMETERS END -->
+    <!-- ADDITIONAL ATTRIBUTES START -->
+    <ul>
+        <b>Returns:</b>
+        <ul>
+            <code><i>boolean</i>&nbsp;</code> False if the layer doesn't exist or the caller is trying
+    to delete the default layer. True otherwise.
+        </ul>
+    </ul>
+    
+    <!-- ADDITIONAL ATTRIBUTES  END -->
+
+    <a name="gtv.jq.KeyController.removeAllLayers"> </a> <h3>removeAllLayers</h3>
+        <pre><b>removeAllLayers</b>()</pre>
+    <ul>
+       Removes all layers from the Key Controller.
+    </ul>
+    <!-- METHOD PARAMETERS START -->
+    
+    <!-- METHOD PARAMETERS END -->
+    <!-- ADDITIONAL ATTRIBUTES START -->
+    
+    
+    <!-- ADDITIONAL ATTRIBUTES  END -->
+
+    <a name="gtv.jq.KeyController.removeAllZones"> </a> <h3>removeAllZones</h3>
+        <pre>Array.&lt;KeyBehaviorZone&gt; <b>removeAllZones</b>(opt_layerName)</pre>
+    <ul>
+       Removes all zones from a layer and returns the zones. Selection is moved to
+the next zone (thus activating a new layer), if available.
+    </ul>
+    <!-- METHOD PARAMETERS START -->
+    <ul>
+        <b>Parameters:</b>
+        <ul>
+            <code><i>?string</i>&nbsp;opt_layerName </code> - The layer to remove the zones from. If not
+supplied, uses the default layer.
+        </ul>
+    </ul>
+    <!-- METHOD PARAMETERS END -->
+    <!-- ADDITIONAL ATTRIBUTES START -->
+    <ul>
+        <b>Returns:</b>
+        <ul>
+            <code><i>Array.&lt;KeyBehaviorZone&gt;</i>&nbsp;</code> Array of zones removed.
+        </ul>
+    </ul>
+    
+    <!-- ADDITIONAL ATTRIBUTES  END -->
+
+    <a name="gtv.jq.KeyController.removeBehaviorZone"> </a> <h3>removeBehaviorZone</h3>
+        <pre><b>removeBehaviorZone</b>(zone)</pre>
+    <ul>
+       Removes a zone from the key controller. If the active zone is removed,
+selection is moved to the next zone.
+    </ul>
+    <!-- METHOD PARAMETERS START -->
+    <ul>
+        <b>Parameters:</b>
+        <ul>
+            <code><i>KeyBehaviorZone</i>&nbsp;zone </code> - The zone to remove.
+        </ul>
+    </ul>
+    <!-- METHOD PARAMETERS END -->
+    <!-- ADDITIONAL ATTRIBUTES START -->
+    
+    
+    <!-- ADDITIONAL ATTRIBUTES  END -->
+
+    <a name="gtv.jq.KeyController.setGlobalKeyMapping"> </a> <h3>setGlobalKeyMapping</h3>
+        <pre><b>setGlobalKeyMapping</b>(keyMapping)</pre>
+    <ul>
+       Sets a key mapping for the global key controller.
+    </ul>
+    <!-- METHOD PARAMETERS START -->
+    <ul>
+        <b>Parameters:</b>
+        <ul>
+            <code><i>KeyMap</i>&nbsp;keyMapping </code> - The key mapping to install.
+        </ul>
+    </ul>
+    <!-- METHOD PARAMETERS END -->
+    <!-- ADDITIONAL ATTRIBUTES START -->
+    
+    
+    <!-- ADDITIONAL ATTRIBUTES  END -->
+
+    <a name="gtv.jq.KeyController.setLayer"> </a> <h3>setLayer</h3>
+        <pre><b>setLayer</b>(opt_layerName)</pre>
+    <ul>
+       Makes the specified layer the active one, and moves selection to the first
+zone in that layer.
+    </ul>
+    <!-- METHOD PARAMETERS START -->
+    <ul>
+        <b>Parameters:</b>
+        <ul>
+            <code><i>?string</i>&nbsp;opt_layerName </code> - The name of the layer to active. If not,
+    supplied activates the default layer.
+        </ul>
+    </ul>
+    <!-- METHOD PARAMETERS END -->
+    <!-- ADDITIONAL ATTRIBUTES START -->
+    
+    
+    <!-- ADDITIONAL ATTRIBUTES  END -->
+
+    <a name="gtv.jq.KeyController.setLayerKeyMapping"> </a> <h3>setLayerKeyMapping</h3>
+        <pre><b>setLayerKeyMapping</b>(keyMapping, opt_layerName)</pre>
+    <ul>
+       Sets a key mapping for specified layer.
+    </ul>
+    <!-- METHOD PARAMETERS START -->
+    <ul>
+        <b>Parameters:</b>
+        <ul>
+            <code><i>KeyMap</i>&nbsp;keyMapping </code> - The key mapping to install in the layer.
+        </ul>
+        <ul>
+            <code><i>?string</i>&nbsp;opt_layerName </code> - The name of the layer to install the mapping.
+    If not supplied, the default layer is used.
+        </ul>
+    </ul>
+    <!-- METHOD PARAMETERS END -->
+    <!-- ADDITIONAL ATTRIBUTES START -->
+    
+    
+    <!-- ADDITIONAL ATTRIBUTES  END -->
+
+    <a name="gtv.jq.KeyController.setSelected"> </a> <h3>setSelected</h3>
+        <pre><b>setSelected</b>(newSelected, finishedCallback)</pre>
+    <ul>
+       Sets the specified item as the selected item. The item can be in any zone.
+    </ul>
+    <!-- METHOD PARAMETERS START -->
+    <ul>
+        <b>Parameters:</b>
+        <ul>
+            <code><i>jQuery.Element</i>&nbsp;newSelected </code> - The item to move selection to.
+        </ul>
+        <ul>
+            <code><i>Function</i>&nbsp;finishedCallback </code> - The function to call when any movement
+    animations have completed.
+        </ul>
+    </ul>
+    <!-- METHOD PARAMETERS END -->
+    <!-- ADDITIONAL ATTRIBUTES START -->
+    
+    
+    <!-- ADDITIONAL ATTRIBUTES  END -->
+
+    <a name="gtv.jq.KeyController.setZone"> </a> <h3>setZone</h3>
+        <pre>boolean <b>setZone</b>(newZone, opt_force)</pre>
+    <ul>
+       Moves the selection to the specified zone only if there is not already a
+zone with selection.
+    </ul>
+    <!-- METHOD PARAMETERS START -->
+    <ul>
+        <b>Parameters:</b>
+        <ul>
+            <code><i>KeyBehaviorZone</i>&nbsp;newZone </code> - The zone to move selection to.
+        </ul>
+        <ul>
+            <code><i>boolean</i>&nbsp;opt_force </code> - Set the zone even if there is already an active
+    zone.
+        </ul>
+    </ul>
+    <!-- METHOD PARAMETERS END -->
+    <!-- ADDITIONAL ATTRIBUTES START -->
+    <ul>
+        <b>Returns:</b>
+        <ul>
+            <code><i>boolean</i>&nbsp;</code> True if selection moved, false otherwise.
+        </ul>
+    </ul>
+    
+    <!-- ADDITIONAL ATTRIBUTES  END -->
+
+    <a name="gtv.jq.KeyController.setZones"> </a> <h3>setZones</h3>
+        <pre><b>setZones</b>(zones, opt_selectOnInit, opt_layerNames)</pre>
+    <ul>
+       Installs an array of zones into a layer. Replaces any existing zones.
+    </ul>
+    <!-- METHOD PARAMETERS START -->
+    <ul>
+        <b>Parameters:</b>
+        <ul>
+            <code><i>Array.&lt;KeyBehaviorZone&gt;</i>&nbsp;zones </code> - Array of zones to add.
+        </ul>
+        <ul>
+            <code><i>?boolean</i>&nbsp;opt_selectOnInit </code> - If true, selects the first zone.
+        </ul>
+        <ul>
+            <code><i>?Array.&lt;string&gt;</i>&nbsp;opt_layerNames </code> - The layer to install the zones into.
+    If not supplied, uses the default layer.
+        </ul>
+    </ul>
+    <!-- METHOD PARAMETERS END -->
+    <!-- ADDITIONAL ATTRIBUTES START -->
+    
+    
+    <!-- ADDITIONAL ATTRIBUTES  END -->
+
+    <a name="gtv.jq.KeyController.start"> </a> <h3>start</h3>
+        <pre>boolean <b>start</b>(initialZone, opt_selectOnInit, opt_layerName)</pre>
+    <ul>
+       Starts the Key Controller. Zones can be added to the controller both before
+and after it is started.
+    </ul>
+    <!-- METHOD PARAMETERS START -->
+    <ul>
+        <b>Parameters:</b>
+        <ul>
+            <code><i>?KeyBehaviorZone</i>&nbsp;initialZone </code> - Optional initial zone to select. If not
+    supplied, the first zone is selected.
+        </ul>
+        <ul>
+            <code><i>?boolean</i>&nbsp;opt_selectOnInit </code> - If supplied, initialZone will be selected.
+        </ul>
+        <ul>
+            <code><i>?string</i>&nbsp;opt_layerName </code> - If supplied, the specified layer will be the
+    active layer. If both an initialZone and opt_layerName are supplied, the
+    layer of initialZone will be active layer, and this value will be
+    ignored.
+        </ul>
+    </ul>
+    <!-- METHOD PARAMETERS END -->
+    <!-- ADDITIONAL ATTRIBUTES START -->
+    <ul>
+        <b>Returns:</b>
+        <ul>
+            <code><i>boolean</i>&nbsp;</code> True if the controller starts successfully.
+        </ul>
+    </ul>
+    
+    <!-- ADDITIONAL ATTRIBUTES  END -->
+
+    <a name="gtv.jq.KeyController.stop"> </a> <h3>stop</h3>
+        <pre><b>stop</b>()</pre>
+    <ul>
+       Stops all key controller activity. Unbinds event handlers and removes all
+layers.
+    </ul>
+    <!-- METHOD PARAMETERS START -->
+    
+    <!-- METHOD PARAMETERS END -->
+    <!-- ADDITIONAL ATTRIBUTES START -->
+    
+    
+    <!-- ADDITIONAL ATTRIBUTES  END -->
+
+
+<!-- ============ METHOD DETAIL END ========== -->
+
+<!-- ============ EVENT DETAIL START ======= -->
+
+
+
+<!-- ============ EVENT DETAIL END ========== -->
+
+<p class="backtotop"><a href="#top">Back to top</a></p>
+
+
+
+
+
+
+<h1 id="gtv.jq.KeyMapping">Class gtv.jq.KeyMapping</h1>
+
+
+<!-- <i>Defined in <a href="keycontrol.src.html">keycontrol.js</a></i> -->
+
+<p class="summaryDetailLink">
+&nbsp;<a href="#gtv.jq.KeyMapping_field_summary">SUMMARY</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#gtv.jq.KeyMapping_field_detail">DETAIL</a>
+</p>
+
+
+
+
+
+
+
+<!-- =========== FIELD SUMMARY =========== -->
+
+<a name="gtv.jq.KeyMapping_field_summary"> </a>
+<h2>Field Summary</h2>
+<dl>
+
+<dt>
+<code>object</code>
+<code><b><a href="#gtv.jq.KeyMapping.keyCallback">keyCallback</a></b></code>
+</dt>
+<dd>Key mapping callbacks should be numbered by keycode, for example, passing:
+    var keyMapping = { 13: enterCallback };
+will cause the function 'enterCallback' to be called when the ENTER key
+is pressed.
+</dd>
+
+</dl>
+&nbsp;
+
+<!-- =========== END FIELD SUMMARY =========== -->
+
+
+
+<!-- ======== CONSTRUCTOR SUMMARY ======== -->
+<a name="gtv.jq.KeyMapping_constructor_summary"> </a>
+<h2>Constructor Summary</h2>
+<dl>
+
+    <dt><code>
+        <b><a href="#gtv.jq.KeyMapping">gtv.jq.KeyMapping</a></b>()
+        </code></dt>
+    <dd>KeyMapping class.</dd>
+
+</dl>
+&nbsp;
+<!-- ======== END CONSTRUCTOR SUMMARY ======== -->
+
+
+
+<!-- ========== METHOD SUMMARY =========== -->
+
+
+<!-- ========== EVENT SUMMARY =========== -->
+
+
+
+
+<!-- ========== INHERITED METHODS SUMMARY =========== -->
+
+<br/>
+
+<!-- ========== END INHERITED METHODS SUMMARY =========== -->
+
+<!-- ============ FIELD DETAIL START ========= -->
+
+<a name="gtv.jq.KeyMapping_field_detail"> </a>
+<h2>Field Detail</h2>
+
+
+    <!-- One single method detail entry -->
+    <a name="gtv.jq.KeyMapping.keyCallback">
+    <!-- -->
+    </a> <h3>keyCallback</h3>
+        <pre>object <b>keyCallback</b></pre>
+    <ul>
+       Key mapping callbacks should be numbered by keycode, for example, passing:
+    var keyMapping = { 13: enterCallback };
+will cause the function 'enterCallback' to be called when the ENTER key
+is pressed.
+    </ul>
+
+
+<!-- ============ FIELD DETAIL END ========== -->
+
+
+
+<!-- ========= CONSTRUCTOR DETAIL START ======== -->
+<a name="gtv.jq.KeyMapping_constructor_detail"> </a>
+<h2>Constructor Detail</h2>
+
+<a name="gtv.jq.KeyMapping"> </a>
+<h3>gtv.jq.KeyMapping</h3>
+
+    <pre><b>gtv.jq.KeyMapping</b>()</pre>
+    <ul>
+      KeyMapping class. Holds key mappings to be called by the key controller
+when a key event is received. Each entry should be numbered by the keycode
+(e.g., ENTER = 13) paired with a callback.
+    </ul>
+
+    <!-- PARAMETERS START -->
+    
+    <!-- PARAMETERS END -->
+
+<!-- END ADDITIONAL ATTRIBUTES  -->
+<!-- ========= CONSTRUCTOR DETAIL END ======== -->
+
+
+
+<!-- ============ METHOD DETAIL START ======= -->
+
+<!-- ============ METHOD DETAIL END ========== -->
+
+<!-- ============ EVENT DETAIL START ======= -->
+
+
+
+<!-- ============ EVENT DETAIL END ========== -->
+
+<p class="backtotop"><a href="#top">Back to top</a></p>
+
+
+
+
+
+
+<h1 id="gtv.jq.KeyNavSelectors">Class gtv.jq.KeyNavSelectors</h1>
+
+
+<!-- <i>Defined in <a href="keycontrol.src.html">keycontrol.js</a></i> -->
+
+<p class="summaryDetailLink">
+&nbsp;<a href="#gtv.jq.KeyNavSelectors_field_summary">SUMMARY</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#gtv.jq.KeyNavSelectors_field_detail">DETAIL</a>
+</p>
+
+
+
+
+
+
+
+<!-- =========== FIELD SUMMARY =========== -->
+
+<a name="gtv.jq.KeyNavSelectors_field_summary"> </a>
+<h2>Field Summary</h2>
+<dl>
+
+<dt>
+<code>string</code>
+<code><b><a href="#gtv.jq.KeyNavSelectors.item">item</a></b></code>
+</dt>
+<dd>The jQuery selector to use to determine if an element is an item, that is,
+a navigable element on the page.
+</dd>
+
+<dt>
+<code>string</code>
+<code><b><a href="#gtv.jq.KeyNavSelectors.itemPage">itemPage</a></b></code>
+</dt>
+<dd>The jQuery selector to use to determine if an element represents a page of
+itemRows or itemParents.
+</dd>
+
+<dt>
+<code>string</code>
+<code><b><a href="#gtv.jq.KeyNavSelectors.itemParent">itemParent</a></b></code>
+</dt>
+<dd>The jQuery selector to use to determine if an element is the immediate
+container of an 'item'
+</dd>
+
+<dt>
+<code>string</code>
+<code><b><a href="#gtv.jq.KeyNavSelectors.itemRow">itemRow</a></b></code>
+</dt>
+<dd>The jQuery selector to use to determine if an element is the parent of
+an item parent.
+</dd>
+
+</dl>
+&nbsp;
+
+<!-- =========== END FIELD SUMMARY =========== -->
+
+
+
+<!-- ======== CONSTRUCTOR SUMMARY ======== -->
+<a name="gtv.jq.KeyNavSelectors_constructor_summary"> </a>
+<h2>Constructor Summary</h2>
+<dl>
+
+    <dt><code>
+        <b><a href="#gtv.jq.KeyNavSelectors">gtv.jq.KeyNavSelectors</a></b>()
+        </code></dt>
+    <dd>KeyNavSelectors class.</dd>
+
+</dl>
+&nbsp;
+<!-- ======== END CONSTRUCTOR SUMMARY ======== -->
+
+
+
+<!-- ========== METHOD SUMMARY =========== -->
+
+
+<!-- ========== EVENT SUMMARY =========== -->
+
+
+
+
+<!-- ========== INHERITED METHODS SUMMARY =========== -->
+
+<br/>
+
+<!-- ========== END INHERITED METHODS SUMMARY =========== -->
+
+<!-- ============ FIELD DETAIL START ========= -->
+
+<a name="gtv.jq.KeyNavSelectors_field_detail"> </a>
+<h2>Field Detail</h2>
+
+
+    <!-- One single method detail entry -->
+    <a name="gtv.jq.KeyNavSelectors.item">
+    <!-- -->
+    </a> <h3>item</h3>
+        <pre>string <b>item</b></pre>
+    <ul>
+       The jQuery selector to use to determine if an element is an item, that is,
+a navigable element on the page.
+    </ul>
+
+    <!-- One single method detail entry -->
+    <a name="gtv.jq.KeyNavSelectors.itemPage">
+    <!-- -->
+    </a> <h3>itemPage</h3>
+        <pre>string <b>itemPage</b></pre>
+    <ul>
+       The jQuery selector to use to determine if an element represents a page of
+itemRows or itemParents. Used to segment items to support paging.
+    </ul>
+
+    <!-- One single method detail entry -->
+    <a name="gtv.jq.KeyNavSelectors.itemParent">
+    <!-- -->
+    </a> <h3>itemParent</h3>
+        <pre>string <b>itemParent</b></pre>
+    <ul>
+       The jQuery selector to use to determine if an element is the immediate
+container of an 'item'
+    </ul>
+
+    <!-- One single method detail entry -->
+    <a name="gtv.jq.KeyNavSelectors.itemRow">
+    <!-- -->
+    </a> <h3>itemRow</h3>
+        <pre>string <b>itemRow</b></pre>
+    <ul>
+       The jQuery selector to use to determine if an element is the parent of
+an item parent. All itemParent children of a row are navigated horizontally,
+that is, with the left/right arrows. Rows themselves are navigated
+vertically (up/down arrows).
+    </ul>
+
+
+<!-- ============ FIELD DETAIL END ========== -->
+
+
+
+<!-- ========= CONSTRUCTOR DETAIL START ======== -->
+<a name="gtv.jq.KeyNavSelectors_constructor_detail"> </a>
+<h2>Constructor Detail</h2>
+
+<a name="gtv.jq.KeyNavSelectors"> </a>
+<h3>gtv.jq.KeyNavSelectors</h3>
+
+    <pre><b>gtv.jq.KeyNavSelectors</b>()</pre>
+    <ul>
+      KeyNavSelectors class.
+    </ul>
+
+    <!-- PARAMETERS START -->
+    
+    <!-- PARAMETERS END -->
+
+<!-- END ADDITIONAL ATTRIBUTES  -->
+<!-- ========= CONSTRUCTOR DETAIL END ======== -->
+
+
+
+<!-- ============ METHOD DETAIL START ======= -->
+
+<!-- ============ METHOD DETAIL END ========== -->
+
+<!-- ============ EVENT DETAIL START ======= -->
+
+
+
+<!-- ============ EVENT DETAIL END ========== -->
+
+<p class="backtotop"><a href="#top">Back to top</a></p>
+
+
+
+
+
+
+<h1 id="gtv.jq.KeySelectionCssClasses">Class gtv.jq.KeySelectionCssClasses</h1>
+
+
+<!-- <i>Defined in <a href="keycontrol.src.html">keycontrol.js</a></i> -->
+
+<p class="summaryDetailLink">
+&nbsp;<a href="#gtv.jq.KeySelectionCssClasses_field_summary">SUMMARY</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#gtv.jq.KeySelectionCssClasses_field_detail">DETAIL</a>
+</p>
+
+
+
+
+
+
+
+<!-- =========== FIELD SUMMARY =========== -->
+
+<a name="gtv.jq.KeySelectionCssClasses_field_summary"> </a>
+<h2>Field Summary</h2>
+<dl>
+
+<dt>
+<code>string</code>
+<code><b><a href="#gtv.jq.KeySelectionCssClasses.basic">basic</a></b></code>
+</dt>
+<dd>Used to highlight items that do not meet the criteria for any other
+selection class.
+</dd>
+
+<dt>
+<code>string</code>
+<code><b><a href="#gtv.jq.KeySelectionCssClasses.hasData">hasData</a></b></code>
+</dt>
+<dd>Used to highlight items that have a jQuery.data() value for the zone's
+navigableData string.
+</dd>
+
+</dl>
+&nbsp;
+
+<!-- =========== END FIELD SUMMARY =========== -->
+
+
+
+<!-- ======== CONSTRUCTOR SUMMARY ======== -->
+<a name="gtv.jq.KeySelectionCssClasses_constructor_summary"> </a>
+<h2>Constructor Summary</h2>
+<dl>
+
+    <dt><code>
+        <b><a href="#gtv.jq.KeySelectionCssClasses">gtv.jq.KeySelectionCssClasses</a></b>()
+        </code></dt>
+    <dd>KeySelectionCssClasses class.</dd>
+
+</dl>
+&nbsp;
+<!-- ======== END CONSTRUCTOR SUMMARY ======== -->
+
+
+
+<!-- ========== METHOD SUMMARY =========== -->
+
+
+<!-- ========== EVENT SUMMARY =========== -->
+
+
+
+
+<!-- ========== INHERITED METHODS SUMMARY =========== -->
+
+<br/>
+
+<!-- ========== END INHERITED METHODS SUMMARY =========== -->
+
+<!-- ============ FIELD DETAIL START ========= -->
+
+<a name="gtv.jq.KeySelectionCssClasses_field_detail"> </a>
+<h2>Field Detail</h2>
+
+
+    <!-- One single method detail entry -->
+    <a name="gtv.jq.KeySelectionCssClasses.basic">
+    <!-- -->
+    </a> <h3>basic</h3>
+        <pre>string <b>basic</b></pre>
+    <ul>
+       Used to highlight items that do not meet the criteria for any other
+selection class. At present, this means that if an item does not have
+a jQuery.data() value for zone's navigableData string, this class will
+be used to highlight.
+    </ul>
+
+    <!-- One single method detail entry -->
+    <a name="gtv.jq.KeySelectionCssClasses.hasData">
+    <!-- -->
+    </a> <h3>hasData</h3>
+        <pre>string <b>hasData</b></pre>
+    <ul>
+       Used to highlight items that have a jQuery.data() value for the zone's
+navigableData string. That is, if navigableData is 'destUrl', then any
+element where element.data('destUrl') != undefined will be highlighted
+with this CSS class.
+    </ul>
+
+
+<!-- ============ FIELD DETAIL END ========== -->
+
+
+
+<!-- ========= CONSTRUCTOR DETAIL START ======== -->
+<a name="gtv.jq.KeySelectionCssClasses_constructor_detail"> </a>
+<h2>Constructor Detail</h2>
+
+<a name="gtv.jq.KeySelectionCssClasses"> </a>
+<h3>gtv.jq.KeySelectionCssClasses</h3>
+
+    <pre><b>gtv.jq.KeySelectionCssClasses</b>()</pre>
+    <ul>
+      KeySelectionCssClasses class. A collection of CSS classes for highlighting
+    selected items of various states
+    </ul>
+
+    <!-- PARAMETERS START -->
+    
+    <!-- PARAMETERS END -->
+
+<!-- END ADDITIONAL ATTRIBUTES  -->
+<!-- ========= CONSTRUCTOR DETAIL END ======== -->
+
+
+
+<!-- ============ METHOD DETAIL START ======= -->
+
+<!-- ============ METHOD DETAIL END ========== -->
+
+<!-- ============ EVENT DETAIL START ======= -->
+
+
+
+<!-- ============ EVENT DETAIL END ========== -->
+
+<p class="backtotop"><a href="#top">Back to top</a></p>
+
+
+
+
+
+
+<h1 id="gtv.jq.KeyZoneCreationParams">Class gtv.jq.KeyZoneCreationParams</h1>
+
+
+<!-- <i>Defined in <a href="keycontrol.src.html">keycontrol.js</a></i> -->
+
+<p class="summaryDetailLink">
+&nbsp;<a href="#gtv.jq.KeyZoneCreationParams_field_summary">SUMMARY</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#gtv.jq.KeyZoneCreationParams_field_detail">DETAIL</a>
+</p>
+
+
+
+
+
+
+
+<!-- =========== FIELD SUMMARY =========== -->
+
+<a name="gtv.jq.KeyZoneCreationParams_field_summary"> </a>
+<h2>Field Summary</h2>
+<dl>
+
+<dt>
+<code>gtv.jq.KeyActions</code>
+<code><b><a href="#gtv.jq.KeyZoneCreationParams.actions">actions</a></b></code>
+</dt>
+<dd>Callbacks for supported Key Controller actions.
+</dd>
+
+<dt>
+<code>string</code>
+<code><b><a href="#gtv.jq.KeyZoneCreationParams.containerSelector">containerSelector</a></b></code>
+</dt>
+<dd>jQuery selector that uniquely identifies the containing zone on the page.
+</dd>
+
+<dt>
+<code>gtv.jq.KeyMapping</code>
+<code><b><a href="#gtv.jq.KeyZoneCreationParams.keyMapping">keyMapping</a></b></code>
+</dt>
+<dd>Mapping of key code numbers to callback methods.
+</dd>
+
+<dt>
+<code>string</code>
+<code><b><a href="#gtv.jq.KeyZoneCreationParams.navigableData">navigableData</a></b></code>
+</dt>
+<dd>Optional string that, if found in the element's jQuery.data(), will
+cause the item to be highlighted with the hasData selection class.
+</dd>
+
+<dt>
+<code>gtv.jq.KeyNavSelectors</code>
+<code><b><a href="#gtv.jq.KeyZoneCreationParams.navSelectors">navSelectors</a></b></code>
+</dt>
+<dd>A collection of jQuery selectors for non-geometry key navigation.
+</dd>
+
+<dt>
+<code>boolean</code>
+<code><b><a href="#gtv.jq.KeyZoneCreationParams.saveRowPosition">saveRowPosition</a></b></code>
+</dt>
+<dd>If true, a multi-row zone will save the selected item for each row,
+and return selection to that item when selection returns to that row.
+</dd>
+
+<dt>
+<code>boolean</code>
+<code><b><a href="#gtv.jq.KeyZoneCreationParams.selectHidden">selectHidden</a></b></code>
+</dt>
+<dd>If true, the key controller will move the selection to a non-visible
+element on the page.
+</dd>
+
+<dt>
+<code>gtv.jq.KeySelectionCssClasses</code>
+<code><b><a href="#gtv.jq.KeyZoneCreationParams.selectionClasses">selectionClasses</a></b></code>
+</dt>
+<dd>CSS classes to determine how to highlight a particular selected item.
+</dd>
+
+<dt>
+<code>boolean</code>
+<code><b><a href="#gtv.jq.KeyZoneCreationParams.useGeometry">useGeometry</a></b></code>
+</dt>
+<dd>If true, the key controller determines the next selected item by
+ examining the page and finding the closest item in the
+ direction the user has navigated.
+</dd>
+
+</dl>
+&nbsp;
+
+<!-- =========== END FIELD SUMMARY =========== -->
+
+
+
+<!-- ======== CONSTRUCTOR SUMMARY ======== -->
+<a name="gtv.jq.KeyZoneCreationParams_constructor_summary"> </a>
+<h2>Constructor Summary</h2>
+<dl>
+
+    <dt><code>
+        <b><a href="#gtv.jq.KeyZoneCreationParams">gtv.jq.KeyZoneCreationParams</a></b>()
+        </code></dt>
+    <dd>KeyZoneCreationParams class.</dd>
+
+</dl>
+&nbsp;
+<!-- ======== END CONSTRUCTOR SUMMARY ======== -->
+
+
+
+<!-- ========== METHOD SUMMARY =========== -->
+
+
+<!-- ========== EVENT SUMMARY =========== -->
+
+
+
+
+<!-- ========== INHERITED METHODS SUMMARY =========== -->
+
+<br/>
+
+<!-- ========== END INHERITED METHODS SUMMARY =========== -->
+
+<!-- ============ FIELD DETAIL START ========= -->
+
+<a name="gtv.jq.KeyZoneCreationParams_field_detail"> </a>
+<h2>Field Detail</h2>
+
+
+    <!-- One single method detail entry -->
+    <a name="gtv.jq.KeyZoneCreationParams.actions">
+    <!-- -->
+    </a> <h3>actions</h3>
+        <pre>gtv.jq.KeyActions <b>actions</b></pre>
+    <ul>
+       Callbacks for supported Key Controller actions.
+    </ul>
+
+    <!-- One single method detail entry -->
+    <a name="gtv.jq.KeyZoneCreationParams.containerSelector">
+    <!-- -->
+    </a> <h3>containerSelector</h3>
+        <pre>string <b>containerSelector</b></pre>
+    <ul>
+       jQuery selector that uniquely identifies the containing zone on the page.
+    </ul>
+
+    <!-- One single method detail entry -->
+    <a name="gtv.jq.KeyZoneCreationParams.keyMapping">
+    <!-- -->
+    </a> <h3>keyMapping</h3>
+        <pre>gtv.jq.KeyMapping <b>keyMapping</b></pre>
+    <ul>
+       Mapping of key code numbers to callback methods.
+    </ul>
+
+    <!-- One single method detail entry -->
+    <a name="gtv.jq.KeyZoneCreationParams.navigableData">
+    <!-- -->
+    </a> <h3>navigableData</h3>
+        <pre>string <b>navigableData</b></pre>
+    <ul>
+       Optional string that, if found in the element's jQuery.data(), will
+cause the item to be highlighted with the hasData selection class.
+    </ul>
+
+    <!-- One single method detail entry -->
+    <a name="gtv.jq.KeyZoneCreationParams.navSelectors">
+    <!-- -->
+    </a> <h3>navSelectors</h3>
+        <pre>gtv.jq.KeyNavSelectors <b>navSelectors</b></pre>
+    <ul>
+       A collection of jQuery selectors for non-geometry key navigation.
+    </ul>
+
+    <!-- One single method detail entry -->
+    <a name="gtv.jq.KeyZoneCreationParams.saveRowPosition">
+    <!-- -->
+    </a> <h3>saveRowPosition</h3>
+        <pre>boolean <b>saveRowPosition</b></pre>
+    <ul>
+       If true, a multi-row zone will save the selected item for each row,
+and return selection to that item when selection returns to that row.
+    </ul>
+
+    <!-- One single method detail entry -->
+    <a name="gtv.jq.KeyZoneCreationParams.selectHidden">
+    <!-- -->
+    </a> <h3>selectHidden</h3>
+        <pre>boolean <b>selectHidden</b></pre>
+    <ul>
+       If true, the key controller will move the selection to a non-visible
+element on the page. (The zone would likely supply a scrollIntoView
+callback that made the item visible when selected.)
+    </ul>
+
+    <!-- One single method detail entry -->
+    <a name="gtv.jq.KeyZoneCreationParams.selectionClasses">
+    <!-- -->
+    </a> <h3>selectionClasses</h3>
+        <pre>gtv.jq.KeySelectionCssClasses <b>selectionClasses</b></pre>
+    <ul>
+       CSS classes to determine how to highlight a particular selected item.
+    </ul>
+
+    <!-- One single method detail entry -->
+    <a name="gtv.jq.KeyZoneCreationParams.useGeometry">
+    <!-- -->
+    </a> <h3>useGeometry</h3>
+        <pre>boolean <b>useGeometry</b></pre>
+    <ul>
+       If true, the key controller determines the next selected item by
+ examining the page and finding the closest item in the
+ direction the user has navigated.
+    </ul>
+
+
+<!-- ============ FIELD DETAIL END ========== -->
+
+
+
+<!-- ========= CONSTRUCTOR DETAIL START ======== -->
+<a name="gtv.jq.KeyZoneCreationParams_constructor_detail"> </a>
+<h2>Constructor Detail</h2>
+
+<a name="gtv.jq.KeyZoneCreationParams"> </a>
+<h3>gtv.jq.KeyZoneCreationParams</h3>
+
+    <pre><b>gtv.jq.KeyZoneCreationParams</b>()</pre>
+    <ul>
+      KeyZoneCreationParams class. Holds params used to initialize a new
+KeyBehaviorZone.
+    </ul>
+
+    <!-- PARAMETERS START -->
+    
+    <!-- PARAMETERS END -->
+
+<!-- END ADDITIONAL ATTRIBUTES  -->
+<!-- ========= CONSTRUCTOR DETAIL END ======== -->
+
+
+
+<!-- ============ METHOD DETAIL START ======= -->
+
+<!-- ============ METHOD DETAIL END ========== -->
+
+<!-- ============ EVENT DETAIL START ======= -->
+
+
+
+<!-- ============ EVENT DETAIL END ========== -->
+
+<p class="backtotop"><a href="#top">Back to top</a></p>
+
+
+
+
+
+
+<h1 id="gtv.jq.PhotoControl">Class gtv.jq.PhotoControl</h1>
+
+
+<!-- <i>Defined in <a href="video.src.html">video.js</a></i> -->
+
+<p class="summaryDetailLink">
+&nbsp;<a href="#gtv.jq.PhotoControl_method_summary">SUMMARY</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#gtv.jq.PhotoControl_method_detail">DETAIL</a>
+</p>
+
+
+
+
+
+
+
+<!-- =========== FIELD SUMMARY =========== -->
+
+<!-- =========== END FIELD SUMMARY =========== -->
+
+
+
+<!-- ======== CONSTRUCTOR SUMMARY ======== -->
+<a name="gtv.jq.PhotoControl_constructor_summary"> </a>
+<h2>Constructor Summary</h2>
+<dl>
+
+    <dt><code>
+        <b><a href="#gtv.jq.PhotoControl">gtv.jq.PhotoControl</a></b>(photoParams)
+        </code></dt>
+    <dd>PhotoControl class.</dd>
+
+</dl>
+&nbsp;
+<!-- ======== END CONSTRUCTOR SUMMARY ======== -->
+
+
+
+<!-- ========== METHOD SUMMARY =========== -->
+
+<a name="gtv.jq.PhotoControl_method_summary"> </a>
+<h2>Method Summary</h2>
+<dl>
+    
+<dt><code>
+<b> <a href="#gtv.jq.PhotoControl.deleteControl">deleteControl</a></b>() </code>
+</dt>
+<dd>Removes the photo control from its container and removes its key zone from
+the key controller.
+</dd>
+
+<dt><code>
+<b> <a href="#gtv.jq.PhotoControl.loadPhoto">loadPhoto</a></b>(url) </code>
+</dt>
+<dd>Loads the specified photo and, once loaded, fades out any currently displayed
+photo and fades in the new photo.
+</dd>
+
+<dt><code>
+<b> <a href="#gtv.jq.PhotoControl.pause">pause</a></b>() </code>
+</dt>
+<dd>Pauses the slideshow.
+</dd>
+
+<dt><code>
+<b> <a href="#gtv.jq.PhotoControl.play">play</a></b>() </code>
+</dt>
+<dd>Starts playing the slideshow.
+</dd>
+
+<dt><code>
+<b> <a href="#gtv.jq.PhotoControl.playPause">playPause</a></b>() </code>
+</dt>
+<dd>Toggles the playing state of the slideshow.
+</dd>
+
+<dt><code>
+<b> <a href="#gtv.jq.PhotoControl.showControl">showControl</a></b>(showParams) </code>
+</dt>
+<dd>Creates a new PhotoControl with the specified buttons and adds it to a
+container on the page.
+</dd>
+
+</dl>
+&nbsp;
+
+
+<!-- ========== EVENT SUMMARY =========== -->
+
+
+
+
+<!-- ========== INHERITED METHODS SUMMARY =========== -->
+
+<br/>
+
+<!-- ========== END INHERITED METHODS SUMMARY =========== -->
+
+<!-- ============ FIELD DETAIL START ========= -->
+
+<!-- ============ FIELD DETAIL END ========== -->
+
+
+
+<!-- ========= CONSTRUCTOR DETAIL START ======== -->
+<a name="gtv.jq.PhotoControl_constructor_detail"> </a>
+<h2>Constructor Detail</h2>
+
+<a name="gtv.jq.PhotoControl"> </a>
+<h3>gtv.jq.PhotoControl</h3>
+
+    <pre><b>gtv.jq.PhotoControl</b>(photoParams)</pre>
+    <ul>
+      PhotoControl class. The Photo control plays back photos from a feed,
+either in slideshow mode or manual control. The user can select the photo
+to view from a thumbnail on a row control.
+    </ul>
+
+    <!-- PARAMETERS START -->
+    
+    <ul>
+        <b>Parameters:</b>
+        
+        <ul>
+            <code><i>gtv.jq.PhotoParams</i>&nbsp;photoParams</code> - Creation params for the control.
+        </ul>
+        
+    </ul>
+    
+    <!-- PARAMETERS END -->
+
+<!-- END ADDITIONAL ATTRIBUTES  -->
+<!-- ========= CONSTRUCTOR DETAIL END ======== -->
+
+
+
+<!-- ============ METHOD DETAIL START ======= -->
+
+<a name="gtv.jq.PhotoControl_method_detail"> </a>
+<h2>Method Detail</h2>
+
+
+    <a name="gtv.jq.PhotoControl.deleteControl"> </a> <h3>deleteControl</h3>
+        <pre><b>deleteControl</b>()</pre>
+    <ul>
+       Removes the photo control from its container and removes its key zone from
+the key controller.
+    </ul>
+    <!-- METHOD PARAMETERS START -->
+    
+    <!-- METHOD PARAMETERS END -->
+    <!-- ADDITIONAL ATTRIBUTES START -->
+    
+    
+    <!-- ADDITIONAL ATTRIBUTES  END -->
+
+    <a name="gtv.jq.PhotoControl.loadPhoto"> </a> <h3>loadPhoto</h3>
+        <pre><b>loadPhoto</b>(url)</pre>
+    <ul>
+       Loads the specified photo and, once loaded, fades out any currently displayed
+photo and fades in the new photo.
+    </ul>
+    <!-- METHOD PARAMETERS START -->
+    <ul>
+        <b>Parameters:</b>
+        <ul>
+            <code><i>string</i>&nbsp;url </code> - Url of the photo to display.
+        </ul>
+    </ul>
+    <!-- METHOD PARAMETERS END -->
+    <!-- ADDITIONAL ATTRIBUTES START -->
+    
+    
+    <!-- ADDITIONAL ATTRIBUTES  END -->
+
+    <a name="gtv.jq.PhotoControl.pause"> </a> <h3>pause</h3>
+        <pre><b>pause</b>()</pre>
+    <ul>
+       Pauses the slideshow.
+    </ul>
+    <!-- METHOD PARAMETERS START -->
+    
+    <!-- METHOD PARAMETERS END -->
+    <!-- ADDITIONAL ATTRIBUTES START -->
+    
+    
+    <!-- ADDITIONAL ATTRIBUTES  END -->
+
+    <a name="gtv.jq.PhotoControl.play"> </a> <h3>play</h3>
+        <pre><b>play</b>()</pre>
+    <ul>
+       Starts playing the slideshow.
+    </ul>
+    <!-- METHOD PARAMETERS START -->
+    
+    <!-- METHOD PARAMETERS END -->
+    <!-- ADDITIONAL ATTRIBUTES START -->
+    
+    
+    <!-- ADDITIONAL ATTRIBUTES  END -->
+
+    <a name="gtv.jq.PhotoControl.playPause"> </a> <h3>playPause</h3>
+        <pre><b>playPause</b>()</pre>
+    <ul>
+       Toggles the playing state of the slideshow.
+    </ul>
+    <!-- METHOD PARAMETERS START -->
+    
+    <!-- METHOD PARAMETERS END -->
+    <!-- ADDITIONAL ATTRIBUTES START -->
+    
+    
+    <!-- ADDITIONAL ATTRIBUTES  END -->
+
+    <a name="gtv.jq.PhotoControl.showControl"> </a> <h3>showControl</h3>
+        <pre><b>showControl</b>(showParams)</pre>
+    <ul>
+       Creates a new PhotoControl with the specified buttons and adds it to a
+container on the page.
+    </ul>
+    <!-- METHOD PARAMETERS START -->
+    <ul>
+        <b>Parameters:</b>
+        <ul>
+            <code><i>gtv.jq.ShowParams</i>&nbsp;showParams </code> - Params for creating the control.
+        </ul>
+    </ul>
+    <!-- METHOD PARAMETERS END -->
+    <!-- ADDITIONAL ATTRIBUTES START -->
+    
+    
+    <!-- ADDITIONAL ATTRIBUTES  END -->
+
+
+<!-- ============ METHOD DETAIL END ========== -->
+
+<!-- ============ EVENT DETAIL START ======= -->
+
+
+
+<!-- ============ EVENT DETAIL END ========== -->
+
+<p class="backtotop"><a href="#top">Back to top</a></p>
+
+
+
+
+
+
+<h1 id="gtv.jq.PhotoParams">Class gtv.jq.PhotoParams</h1>
+
+
+<!-- <i>Defined in <a href="video.src.html">video.js</a></i> -->
+
+<p class="summaryDetailLink">
+
+</p>
+
+
+
+
+
+
+
+<!-- =========== FIELD SUMMARY =========== -->
+
+<!-- =========== END FIELD SUMMARY =========== -->
+
+
+
+<!-- ======== CONSTRUCTOR SUMMARY ======== -->
+<a name="gtv.jq.PhotoParams_constructor_summary"> </a>
+<h2>Constructor Summary</h2>
+<dl>
+
+    <dt><code>
+        <b><a href="#gtv.jq.PhotoParams">gtv.jq.PhotoParams</a></b>(opt_params)
+        </code></dt>
+    <dd>PhotoParams class.</dd>
+
+</dl>
+&nbsp;
+<!-- ======== END CONSTRUCTOR SUMMARY ======== -->
+
+
+
+<!-- ========== METHOD SUMMARY =========== -->
+
+
+<!-- ========== EVENT SUMMARY =========== -->
+
+
+
+
+<!-- ========== INHERITED METHODS SUMMARY =========== -->
+
+<br/>
+
+<!-- ========== END INHERITED METHODS SUMMARY =========== -->
+
+<!-- ============ FIELD DETAIL START ========= -->
+
+<!-- ============ FIELD DETAIL END ========== -->
+
+
+
+<!-- ========= CONSTRUCTOR DETAIL START ======== -->
+<a name="gtv.jq.PhotoParams_constructor_detail"> </a>
+<h2>Constructor Detail</h2>
+
+<a name="gtv.jq.PhotoParams"> </a>
+<h3>gtv.jq.PhotoParams</h3>
+
+    <pre><b>gtv.jq.PhotoParams</b>(opt_params)</pre>
+    <ul>
+      PhotoParams class. Holds values for initialized a PhotoControl
+    </ul>
+
+    <!-- PARAMETERS START -->
+    
+    <ul>
+        <b>Parameters:</b>
+        
+        <ul>
+            <code>opt_params</code>
+        </ul>
+        
+    </ul>
+    
+    <!-- PARAMETERS END -->
+
+<!-- END ADDITIONAL ATTRIBUTES  -->
+<!-- ========= CONSTRUCTOR DETAIL END ======== -->
+
+
+
+<!-- ============ METHOD DETAIL START ======= -->
+
+<!-- ============ METHOD DETAIL END ========== -->
+
+<!-- ============ EVENT DETAIL START ======= -->
+
+
+
+<!-- ============ EVENT DETAIL END ========== -->
+
+<p class="backtotop"><a href="#top">Back to top</a></p>
+
+
+
+
+
+
+<h1 id="gtv.jq.PlayerButtons">Class gtv.jq.PlayerButtons</h1>
+
+
+<!-- <i>Defined in <a href="video.src.html">video.js</a></i> -->
+
+<p class="summaryDetailLink">
+
+</p>
+
+
+
+
+
+
+
+<!-- =========== FIELD SUMMARY =========== -->
+
+<!-- =========== END FIELD SUMMARY =========== -->
+
+
+
+<!-- ======== CONSTRUCTOR SUMMARY ======== -->
+<a name="gtv.jq.PlayerButtons_constructor_summary"> </a>
+<h2>Constructor Summary</h2>
+<dl>
+
+    <dt><code>
+        <b><a href="#gtv.jq.PlayerButtons">gtv.jq.PlayerButtons</a></b>(opt_initial)
+        </code></dt>
+    <dd>PlayerButtons describes the buttons used for playback control.</dd>
+
+</dl>
+&nbsp;
+<!-- ======== END CONSTRUCTOR SUMMARY ======== -->
+
+
+
+<!-- ========== METHOD SUMMARY =========== -->
+
+
+<!-- ========== EVENT SUMMARY =========== -->
+
+
+
+
+<!-- ========== INHERITED METHODS SUMMARY =========== -->
+
+<br/>
+
+<!-- ========== END INHERITED METHODS SUMMARY =========== -->
+
+<!-- ============ FIELD DETAIL START ========= -->
+
+<!-- ============ FIELD DETAIL END ========== -->
+
+
+
+<!-- ========= CONSTRUCTOR DETAIL START ======== -->
+<a name="gtv.jq.PlayerButtons_constructor_detail"> </a>
+<h2>Constructor Detail</h2>
+
+<a name="gtv.jq.PlayerButtons"> </a>
+<h3>gtv.jq.PlayerButtons</h3>
+
+    <pre><b>gtv.jq.PlayerButtons</b>(opt_initial)</pre>
+    <ul>
+      PlayerButtons describes the buttons used for playback control.
+    </ul>
+
+    <!-- PARAMETERS START -->
+    
+    <ul>
+        <b>Parameters:</b>
+        
+        <ul>
+            <code><i>gtv.jq.PlayerButtons</i>&nbsp;opt_initial</code> - Optional initial values.
+        </ul>
+        
+    </ul>
+    
+    <!-- PARAMETERS END -->
+
+<!-- END ADDITIONAL ATTRIBUTES  -->
+<!-- ========= CONSTRUCTOR DETAIL END ======== -->
+
+
+
+<!-- ============ METHOD DETAIL START ======= -->
+
+<!-- ============ METHOD DETAIL END ========== -->
+
+<!-- ============ EVENT DETAIL START ======= -->
+
+
+
+<!-- ============ EVENT DETAIL END ========== -->
+
+<p class="backtotop"><a href="#top">Back to top</a></p>
+
+
+
+
+
+
+<h1 id="gtv.jq.PlayerCallbacks">Class gtv.jq.PlayerCallbacks</h1>
+
+
+<!-- <i>Defined in <a href="video.src.html">video.js</a></i> -->
+
+<p class="summaryDetailLink">
+
+</p>
+
+
+
+
+
+
+
+<!-- =========== FIELD SUMMARY =========== -->
+
+<!-- =========== END FIELD SUMMARY =========== -->
+
+
+
+<!-- ======== CONSTRUCTOR SUMMARY ======== -->
+<a name="gtv.jq.PlayerCallbacks_constructor_summary"> </a>
+<h2>Constructor Summary</h2>
+<dl>
+
+    <dt><code>
+        <b><a href="#gtv.jq.PlayerCallbacks">gtv.jq.PlayerCallbacks</a></b>(opt_initial)
+        </code></dt>
+    <dd>PlayerCallbacks class holds set of callbacks implemented by client.</dd>
+
+</dl>
+&nbsp;
+<!-- ======== END CONSTRUCTOR SUMMARY ======== -->
+
+
+
+<!-- ========== METHOD SUMMARY =========== -->
+
+
+<!-- ========== EVENT SUMMARY =========== -->
+
+
+
+
+<!-- ========== INHERITED METHODS SUMMARY =========== -->
+
+<br/>
+
+<!-- ========== END INHERITED METHODS SUMMARY =========== -->
+
+<!-- ============ FIELD DETAIL START ========= -->
+
+<!-- ============ FIELD DETAIL END ========== -->
+
+
+
+<!-- ========= CONSTRUCTOR DETAIL START ======== -->
+<a name="gtv.jq.PlayerCallbacks_constructor_detail"> </a>
+<h2>Constructor Detail</h2>
+
+<a name="gtv.jq.PlayerCallbacks"> </a>
+<h3>gtv.jq.PlayerCallbacks</h3>
+
+    <pre><b>gtv.jq.PlayerCallbacks</b>(opt_initial)</pre>
+    <ul>
+      PlayerCallbacks class holds set of callbacks implemented by client.
+    </ul>
+
+    <!-- PARAMETERS START -->
+    
+    <ul>
+        <b>Parameters:</b>
+        
+        <ul>
+            <code><i>gtv.jq.PlayerCallbacks</i>&nbsp;opt_initial</code> - Optional initial values.
+        </ul>
+        
+    </ul>
+    
+    <!-- PARAMETERS END -->
+
+<!-- END ADDITIONAL ATTRIBUTES  -->
+<!-- ========= CONSTRUCTOR DETAIL END ======== -->
+
+
+
+<!-- ============ METHOD DETAIL START ======= -->
+
+<!-- ============ METHOD DETAIL END ========== -->
+
+<!-- ============ EVENT DETAIL START ======= -->
+
+
+
+<!-- ============ EVENT DETAIL END ========== -->
+
+<p class="backtotop"><a href="#top">Back to top</a></p>
+
+
+
+
+
+
+<h1 id="gtv.jq.RollerControl">Class gtv.jq.RollerControl</h1>
+
+
+<!-- <i>Defined in <a href="scrollrow.src.html">scrollrow.js</a></i> -->
+
+<p class="summaryDetailLink">
+&nbsp;<a href="#gtv.jq.RollerControl_method_summary">SUMMARY</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#gtv.jq.RollerControl_method_detail">DETAIL</a>
+</p>
+
+
+
+
+
+
+
+<!-- =========== FIELD SUMMARY =========== -->
+
+<!-- =========== END FIELD SUMMARY =========== -->
+
+
+
+<!-- ======== CONSTRUCTOR SUMMARY ======== -->
+<a name="gtv.jq.RollerControl_constructor_summary"> </a>
+<h2>Constructor Summary</h2>
+<dl>
+
+    <dt><code>
+        <b><a href="#gtv.jq.RollerControl">gtv.jq.RollerControl</a></b>(rollerParams)
+        </code></dt>
+    <dd>RollerControl class.</dd>
+
+</dl>
+&nbsp;
+<!-- ======== END CONSTRUCTOR SUMMARY ======== -->
+
+
+
+<!-- ========== METHOD SUMMARY =========== -->
+
+<a name="gtv.jq.RollerControl_method_summary"> </a>
+<h2>Method Summary</h2>
+<dl>
+    
+<dt><code>
+<b> <a href="#gtv.jq.RollerControl.deleteControl">deleteControl</a></b>() </code>
+</dt>
+<dd>Removes a roller control from its container and disables key control.
+</dd>
+
+<dt><code>
+<b> <a href="#gtv.jq.RollerControl.enableNavigation">enableNavigation</a></b>() </code>
+</dt>
+<dd>Call this to enables key controller navigation for the control.
+</dd>
+
+<dt><code>
+<b> <a href="#gtv.jq.RollerControl.showControl">showControl</a></b>(showParams) </code>
+</dt>
+<dd>Creates a new RollerControl with the specified itms and adds it to a
+container on the page.
+</dd>
+
+</dl>
+&nbsp;
+
+
+<!-- ========== EVENT SUMMARY =========== -->
+
+
+
+
+<!-- ========== INHERITED METHODS SUMMARY =========== -->
+
+<br/>
+
+<!-- ========== END INHERITED METHODS SUMMARY =========== -->
+
+<!-- ============ FIELD DETAIL START ========= -->
+
+<!-- ============ FIELD DETAIL END ========== -->
+
+
+
+<!-- ========= CONSTRUCTOR DETAIL START ======== -->
+<a name="gtv.jq.RollerControl_constructor_detail"> </a>
+<h2>Constructor Detail</h2>
+
+<a name="gtv.jq.RollerControl"> </a>
+<h3>gtv.jq.RollerControl</h3>
+
+    <pre><b>gtv.jq.RollerControl</b>(rollerParams)</pre>
+    <ul>
+      RollerControl class. RollerControl displays a vertial stack of RowControls
+and 'rolls' them up/down as the user scrolls between the rows.
+    </ul>
+
+    <!-- PARAMETERS START -->
+    
+    <ul>
+        <b>Parameters:</b>
+        
+        <ul>
+            <code><i>RollerParams</i>&nbsp;rollerParams</code> - Values to initialize the control with.
+        </ul>
+        
+    </ul>
+    
+    <!-- PARAMETERS END -->
+
+<!-- END ADDITIONAL ATTRIBUTES  -->
+<!-- ========= CONSTRUCTOR DETAIL END ======== -->
+
+
+
+<!-- ============ METHOD DETAIL START ======= -->
+
+<a name="gtv.jq.RollerControl_method_detail"> </a>
+<h2>Method Detail</h2>
+
+
+    <a name="gtv.jq.RollerControl.deleteControl"> </a> <h3>deleteControl</h3>
+        <pre><b>deleteControl</b>()</pre>
+    <ul>
+       Removes a roller control from its container and disables key control.
+    </ul>
+    <!-- METHOD PARAMETERS START -->
+    
+    <!-- METHOD PARAMETERS END -->
+    <!-- ADDITIONAL ATTRIBUTES START -->
+    
+    
+    <!-- ADDITIONAL ATTRIBUTES  END -->
+
+    <a name="gtv.jq.RollerControl.enableNavigation"> </a> <h3>enableNavigation</h3>
+        <pre><b>enableNavigation</b>()</pre>
+    <ul>
+       Call this to enables key controller navigation for the control. Key
+navigation must be explicitly enabled for the roller control.
+    </ul>
+    <!-- METHOD PARAMETERS START -->
+    
+    <!-- METHOD PARAMETERS END -->
+    <!-- ADDITIONAL ATTRIBUTES START -->
+    
+    
+    <!-- ADDITIONAL ATTRIBUTES  END -->
+
+    <a name="gtv.jq.RollerControl.showControl"> </a> <h3>showControl</h3>
+        <pre><b>showControl</b>(showParams)</pre>
+    <ul>
+       Creates a new RollerControl with the specified itms and adds it to a
+container on the page.
+    </ul>
+    <!-- METHOD PARAMETERS START -->
+    <ul>
+        <b>Parameters:</b>
+        <ul>
+            <code><i>gtv.jq.ShowParams</i>&nbsp;showParams </code> - Parameters for creating the control.
+        </ul>
+    </ul>
+    <!-- METHOD PARAMETERS END -->
+    <!-- ADDITIONAL ATTRIBUTES START -->
+    
+    
+    <!-- ADDITIONAL ATTRIBUTES  END -->
+
+
+<!-- ============ METHOD DETAIL END ========== -->
+
+<!-- ============ EVENT DETAIL START ======= -->
+
+
+
+<!-- ============ EVENT DETAIL END ========== -->
+
+<p class="backtotop"><a href="#top">Back to top</a></p>
+
+
+
+
+
+
+<h1 id="gtv.jq.RollerParams">Class gtv.jq.RollerParams</h1>
+
+
+<!-- <i>Defined in <a href="scrollrow.src.html">scrollrow.js</a></i> -->
+
+<p class="summaryDetailLink">
+
+</p>
+
+
+
+
+
+
+
+<!-- =========== FIELD SUMMARY =========== -->
+
+<!-- =========== END FIELD SUMMARY =========== -->
+
+
+
+<!-- ======== CONSTRUCTOR SUMMARY ======== -->
+<a name="gtv.jq.RollerParams_constructor_summary"> </a>
+<h2>Constructor Summary</h2>
+<dl>
+
+    <dt><code>
+        <b><a href="#gtv.jq.RollerParams">gtv.jq.RollerParams</a></b>(opt_params)
+        </code></dt>
+    <dd>RollerParams class contains roller-control specific creation params.</dd>
+
+</dl>
+&nbsp;
+<!-- ======== END CONSTRUCTOR SUMMARY ======== -->
+
+
+
+<!-- ========== METHOD SUMMARY =========== -->
+
+
+<!-- ========== EVENT SUMMARY =========== -->
+
+
+
+
+<!-- ========== INHERITED METHODS SUMMARY =========== -->
+
+<br/>
+
+<!-- ========== END INHERITED METHODS SUMMARY =========== -->
+
+<!-- ============ FIELD DETAIL START ========= -->
+
+<!-- ============ FIELD DETAIL END ========== -->
+
+
+
+<!-- ========= CONSTRUCTOR DETAIL START ======== -->
+<a name="gtv.jq.RollerParams_constructor_detail"> </a>
+<h2>Constructor Detail</h2>
+
+<a name="gtv.jq.RollerParams"> </a>
+<h3>gtv.jq.RollerParams</h3>
+
+    <pre><b>gtv.jq.RollerParams</b>(opt_params)</pre>
+    <ul>
+      RollerParams class contains roller-control specific creation params.
+    </ul>
+
+    <!-- PARAMETERS START -->
+    
+    <ul>
+        <b>Parameters:</b>
+        
+        <ul>
+            <code><i>gtv.jq.RollerParams</i>&nbsp;opt_params</code> - Optional initial values.
+        </ul>
+        
+    </ul>
+    
+    <!-- PARAMETERS END -->
+
+<!-- END ADDITIONAL ATTRIBUTES  -->
+<!-- ========= CONSTRUCTOR DETAIL END ======== -->
+
+
+
+<!-- ============ METHOD DETAIL START ======= -->
+
+<!-- ============ METHOD DETAIL END ========== -->
+
+<!-- ============ EVENT DETAIL START ======= -->
+
+
+
+<!-- ============ EVENT DETAIL END ========== -->
+
+<p class="backtotop"><a href="#top">Back to top</a></p>
+
+
+
+
+
+
+<h1 id="gtv.jq.RotatorControl">Class gtv.jq.RotatorControl</h1>
+
+
+<!-- <i>Defined in <a href="rotator.src.html">rotator.js</a></i> -->
+
+<p class="summaryDetailLink">
+&nbsp;<a href="#gtv.jq.RotatorControl_method_summary">SUMMARY</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#gtv.jq.RotatorControl_method_detail">DETAIL</a>
+</p>
+
+
+
+
+
+
+
+<!-- =========== FIELD SUMMARY =========== -->
+
+<!-- =========== END FIELD SUMMARY =========== -->
+
+
+
+<!-- ======== CONSTRUCTOR SUMMARY ======== -->
+<a name="gtv.jq.RotatorControl_constructor_summary"> </a>
+<h2>Constructor Summary</h2>
+<dl>
+
+    <dt><code>
+        <b><a href="#gtv.jq.RotatorControl">gtv.jq.RotatorControl</a></b>(createParams)
+        </code></dt>
+    <dd>RotatorControl class.</dd>
+
+</dl>
+&nbsp;
+<!-- ======== END CONSTRUCTOR SUMMARY ======== -->
+
+
+
+<!-- ========== METHOD SUMMARY =========== -->
+
+<a name="gtv.jq.RotatorControl_method_summary"> </a>
+<h2>Method Summary</h2>
+<dl>
+    
+<dt><code>
+<b> <a href="#gtv.jq.RotatorControl.deleteControl">deleteControl</a></b>() </code>
+</dt>
+<dd>Removes the control from its container and from the key controller.
+</dd>
+
+<dt><code>
+                &nbsp;boolean
+                
+<b> <a href="#gtv.jq.RotatorControl.showControl">showControl</a></b>(showParams) </code>
+</dt>
+<dd>Creates a new RotatorControl with the specified items and adds it to a
+container on the page.
+</dd>
+
+</dl>
+&nbsp;
+
+
+<!-- ========== EVENT SUMMARY =========== -->
+
+
+
+
+<!-- ========== INHERITED METHODS SUMMARY =========== -->
+
+<br/>
+
+<!-- ========== END INHERITED METHODS SUMMARY =========== -->
+
+<!-- ============ FIELD DETAIL START ========= -->
+
+<!-- ============ FIELD DETAIL END ========== -->
+
+
+
+<!-- ========= CONSTRUCTOR DETAIL START ======== -->
+<a name="gtv.jq.RotatorControl_constructor_detail"> </a>
+<h2>Constructor Detail</h2>
+
+<a name="gtv.jq.RotatorControl"> </a>
+<h3>gtv.jq.RotatorControl</h3>
+
+    <pre><b>gtv.jq.RotatorControl</b>(createParams)</pre>
+    <ul>
+      RotatorControl class. Rotator control displays a single item of a list at
+a time, rotating new items into view when user presses up/down.
+    </ul>
+
+    <!-- PARAMETERS START -->
+    
+    <ul>
+        <b>Parameters:</b>
+        
+        <ul>
+            <code><i>gtv.jq.CreationParams</i>&nbsp;createParams</code>
+        </ul>
+        
+    </ul>
+    
+    <!-- PARAMETERS END -->
+
+<!-- END ADDITIONAL ATTRIBUTES  -->
+<!-- ========= CONSTRUCTOR DETAIL END ======== -->
+
+
+
+<!-- ============ METHOD DETAIL START ======= -->
+
+<a name="gtv.jq.RotatorControl_method_detail"> </a>
+<h2>Method Detail</h2>
+
+
+    <a name="gtv.jq.RotatorControl.deleteControl"> </a> <h3>deleteControl</h3>
+        <pre><b>deleteControl</b>()</pre>
+    <ul>
+       Removes the control from its container and from the key controller.
+    </ul>
+    <!-- METHOD PARAMETERS START -->
+    
+    <!-- METHOD PARAMETERS END -->
+    <!-- ADDITIONAL ATTRIBUTES START -->
+    
+    
+    <!-- ADDITIONAL ATTRIBUTES  END -->
+
+    <a name="gtv.jq.RotatorControl.showControl"> </a> <h3>showControl</h3>
+        <pre>boolean <b>showControl</b>(showParams)</pre>
+    <ul>
+       Creates a new RotatorControl with the specified items and adds it to a
+container on the page.
+    </ul>
+    <!-- METHOD PARAMETERS START -->
+    <ul>
+        <b>Parameters:</b>
+        <ul>
+            <code><i>gtv.jq.ShowParams</i>&nbsp;showParams </code> - Params for creating the control.
+        </ul>
+    </ul>
+    <!-- METHOD PARAMETERS END -->
+    <!-- ADDITIONAL ATTRIBUTES START -->
+    <ul>
+        <b>Returns:</b>
+        <ul>
+            <code><i>boolean</i>&nbsp;</code> true on success
+        </ul>
+    </ul>
+    
+    <!-- ADDITIONAL ATTRIBUTES  END -->
+
+
+<!-- ============ METHOD DETAIL END ========== -->
+
+<!-- ============ EVENT DETAIL START ======= -->
+
+
+
+<!-- ============ EVENT DETAIL END ========== -->
+
+<p class="backtotop"><a href="#top">Back to top</a></p>
+
+
+
+
+
+
+<h1 id="gtv.jq.RowControl">Class gtv.jq.RowControl</h1>
+
+
+<!-- <i>Defined in <a href="scrollrow.src.html">scrollrow.js</a></i> -->
+
+<p class="summaryDetailLink">
+&nbsp;<a href="#gtv.jq.RowControl_method_summary">SUMMARY</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#gtv.jq.RowControl_method_detail">DETAIL</a>
+</p>
+
+
+
+
+
+
+
+<!-- =========== FIELD SUMMARY =========== -->
+
+<!-- =========== END FIELD SUMMARY =========== -->
+
+
+
+<!-- ======== CONSTRUCTOR SUMMARY ======== -->
+<a name="gtv.jq.RowControl_constructor_summary"> </a>
+<h2>Constructor Summary</h2>
+<dl>
+
+    <dt><code>
+        <b><a href="#gtv.jq.RowControl">gtv.jq.RowControl</a></b>(createParams)
+        </code></dt>
+    <dd>Creates a new RowControl object.</dd>
+
+</dl>
+&nbsp;
+<!-- ======== END CONSTRUCTOR SUMMARY ======== -->
+
+
+
+<!-- ========== METHOD SUMMARY =========== -->
+
+<a name="gtv.jq.RowControl_method_summary"> </a>
+<h2>Method Summary</h2>
+<dl>
+    
+<dt><code>
+<b> <a href="#gtv.jq.RowControl.deleteControl">deleteControl</a></b>() </code>
+</dt>
+<dd>Removes a row control from its container and disables key control.
+</dd>
+
+<dt><code>
+<b> <a href="#gtv.jq.RowControl.enableNavigation">enableNavigation</a></b>() </code>
+</dt>
+<dd>Enables key controller navigation for the control.
+</dd>
+
+<dt><code>
+<b> <a href="#gtv.jq.RowControl.showControl">showControl</a></b>(showParams) </code>
+</dt>
+<dd>Creates a new RowControl with the specified items and adds it to a
+container on the page.
+</dd>
+
+</dl>
+&nbsp;
+
+
+<!-- ========== EVENT SUMMARY =========== -->
+
+
+
+
+<!-- ========== INHERITED METHODS SUMMARY =========== -->
+
+<br/>
+
+<!-- ========== END INHERITED METHODS SUMMARY =========== -->
+
+<!-- ============ FIELD DETAIL START ========= -->
+
+<!-- ============ FIELD DETAIL END ========== -->
+
+
+
+<!-- ========= CONSTRUCTOR DETAIL START ======== -->
+<a name="gtv.jq.RowControl_constructor_detail"> </a>
+<h2>Constructor Detail</h2>
+
+<a name="gtv.jq.RowControl"> </a>
+<h3>gtv.jq.RowControl</h3>
+
+    <pre><b>gtv.jq.RowControl</b>(createParams)</pre>
+    <ul>
+      Creates a new RowControl object.
+    </ul>
+
+    <!-- PARAMETERS START -->
+    
+    <ul>
+        <b>Parameters:</b>
+        
+        <ul>
+            <code><i>CreationParams</i>&nbsp;createParams</code> - Configuration params for the control.
+        </ul>
+        
+    </ul>
+    
+    <!-- PARAMETERS END -->
+
+<!-- END ADDITIONAL ATTRIBUTES  -->
+<!-- ========= CONSTRUCTOR DETAIL END ======== -->
+
+
+
+<!-- ============ METHOD DETAIL START ======= -->
+
+<a name="gtv.jq.RowControl_method_detail"> </a>
+<h2>Method Detail</h2>
+
+
+    <a name="gtv.jq.RowControl.deleteControl"> </a> <h3>deleteControl</h3>
+        <pre><b>deleteControl</b>()</pre>
+    <ul>
+       Removes a row control from its container and disables key control.
+    </ul>
+    <!-- METHOD PARAMETERS START -->
+    
+    <!-- METHOD PARAMETERS END -->
+    <!-- ADDITIONAL ATTRIBUTES START -->
+    
+    
+    <!-- ADDITIONAL ATTRIBUTES  END -->
+
+    <a name="gtv.jq.RowControl.enableNavigation"> </a> <h3>enableNavigation</h3>
+        <pre><b>enableNavigation</b>()</pre>
+    <ul>
+       Enables key controller navigation for the control.
+    </ul>
+    <!-- METHOD PARAMETERS START -->
+    
+    <!-- METHOD PARAMETERS END -->
+    <!-- ADDITIONAL ATTRIBUTES START -->
+    
+    
+    <!-- ADDITIONAL ATTRIBUTES  END -->
+
+    <a name="gtv.jq.RowControl.showControl"> </a> <h3>showControl</h3>
+        <pre><b>showControl</b>(showParams)</pre>
+    <ul>
+       Creates a new RowControl with the specified items and adds it to a
+container on the page. The container will trigger a 'load' event when
+the contents have finished loading.
+    </ul>
+    <!-- METHOD PARAMETERS START -->
+    <ul>
+        <b>Parameters:</b>
+        <ul>
+            <code><i>gtv.jq.ShowParams</i>&nbsp;showParams </code> - Parameters for creating the control.
+        </ul>
+    </ul>
+    <!-- METHOD PARAMETERS END -->
+    <!-- ADDITIONAL ATTRIBUTES START -->
+    
+    
+    <!-- ADDITIONAL ATTRIBUTES  END -->
+
+
+<!-- ============ METHOD DETAIL END ========== -->
+
+<!-- ============ EVENT DETAIL START ======= -->
+
+
+
+<!-- ============ EVENT DETAIL END ========== -->
+
+<p class="backtotop"><a href="#top">Back to top</a></p>
+
+
+
+
+
+
+<h1 id="gtv.jq.ShowParams">Class gtv.jq.ShowParams</h1>
+
+
+<!-- <i>Defined in <a href="gtvcore.src.html">gtvcore.js</a></i> -->
+
+<p class="summaryDetailLink">
+&nbsp;<a href="#gtv.jq.ShowParams_field_summary">SUMMARY</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#gtv.jq.ShowParams_field_detail">DETAIL</a>
+</p>
+
+
+
+
+
+
+
+<!-- =========== FIELD SUMMARY =========== -->
+
+<a name="gtv.jq.ShowParams_field_summary"> </a>
+<h2>Field Summary</h2>
+<dl>
+
+<dt>
+<code>gtv.jq.ControlContents</code>
+<code><b><a href="#gtv.jq.ShowParams.contents">contents</a></b></code>
+</dt>
+<dd>The contents the control should have.
+</dd>
+
+<dt>
+<code>jQuery.Element</code>
+<code><b><a href="#gtv.jq.ShowParams.topParent">topParent</a></b></code>
+</dt>
+<dd>Parent element on the page that holds the control.
+</dd>
+
+</dl>
+&nbsp;
+
+<!-- =========== END FIELD SUMMARY =========== -->
+
+
+
+<!-- ======== CONSTRUCTOR SUMMARY ======== -->
+<a name="gtv.jq.ShowParams_constructor_summary"> </a>
+<h2>Constructor Summary</h2>
+<dl>
+
+    <dt><code>
+        <b><a href="#gtv.jq.ShowParams">gtv.jq.ShowParams</a></b>(opt_params)
+        </code></dt>
+    <dd>Holds parameters used to show the library controls.</dd>
+
+</dl>
+&nbsp;
+<!-- ======== END CONSTRUCTOR SUMMARY ======== -->
+
+
+
+<!-- ========== METHOD SUMMARY =========== -->
+
+
+<!-- ========== EVENT SUMMARY =========== -->
+
+
+
+
+<!-- ========== INHERITED METHODS SUMMARY =========== -->
+
+<br/>
+
+<!-- ========== END INHERITED METHODS SUMMARY =========== -->
+
+<!-- ============ FIELD DETAIL START ========= -->
+
+<a name="gtv.jq.ShowParams_field_detail"> </a>
+<h2>Field Detail</h2>
+
+
+    <!-- One single method detail entry -->
+    <a name="gtv.jq.ShowParams.contents">
+    <!-- -->
+    </a> <h3>contents</h3>
+        <pre>gtv.jq.ControlContents <b>contents</b></pre>
+    <ul>
+       The contents the control should have. See gtv.jq.ControlContents for
+details.
+    </ul>
+
+    <!-- One single method detail entry -->
+    <a name="gtv.jq.ShowParams.topParent">
+    <!-- -->
+    </a> <h3>topParent</h3>
+        <pre>jQuery.Element <b>topParent</b></pre>
+    <ul>
+       Parent element on the page that holds the control.
+    </ul>
+
+
+<!-- ============ FIELD DETAIL END ========== -->
+
+
+
+<!-- ========= CONSTRUCTOR DETAIL START ======== -->
+<a name="gtv.jq.ShowParams_constructor_detail"> </a>
+<h2>Constructor Detail</h2>
+
+<a name="gtv.jq.ShowParams"> </a>
+<h3>gtv.jq.ShowParams</h3>
+
+    <pre><b>gtv.jq.ShowParams</b>(opt_params)</pre>
+    <ul>
+      Holds parameters used to show the library controls.
+    </ul>
+
+    <!-- PARAMETERS START -->
+    
+    <ul>
+        <b>Parameters:</b>
+        
+        <ul>
+            <code><i>?gtv.jq.ShowParams</i>&nbsp;opt_params</code> - Optional parameters to initialize the
+    new object with.
+        </ul>
+        
+    </ul>
+    
+    <!-- PARAMETERS END -->
+
+<!-- END ADDITIONAL ATTRIBUTES  -->
+<!-- ========= CONSTRUCTOR DETAIL END ======== -->
+
+
+
+<!-- ============ METHOD DETAIL START ======= -->
+
+<!-- ============ METHOD DETAIL END ========== -->
+
+<!-- ============ EVENT DETAIL START ======= -->
+
+
+
+<!-- ============ EVENT DETAIL END ========== -->
+
+<p class="backtotop"><a href="#top">Back to top</a></p>
+
+
+
+
+
+
+<h1 id="gtv.jq.SideNavBehaviors">Class gtv.jq.SideNavBehaviors</h1>
+
+
+<!-- <i>Defined in <a href="sidenav.src.html">sidenav.js</a></i> -->
+
+<p class="summaryDetailLink">
+
+</p>
+
+
+
+
+
+
+
+<!-- =========== FIELD SUMMARY =========== -->
+
+<!-- =========== END FIELD SUMMARY =========== -->
+
+
+
+<!-- ======== CONSTRUCTOR SUMMARY ======== -->
+<a name="gtv.jq.SideNavBehaviors_constructor_summary"> </a>
+<h2>Constructor Summary</h2>
+<dl>
+
+    <dt><code>
+        <b><a href="#gtv.jq.SideNavBehaviors">gtv.jq.SideNavBehaviors</a></b>(opt_behaviors)
+        </code></dt>
+    <dd>SideNavBehaviors configures the behaviors for a SideNav control.</dd>
+
+</dl>
+&nbsp;
+<!-- ======== END CONSTRUCTOR SUMMARY ======== -->
+
+
+
+<!-- ========== METHOD SUMMARY =========== -->
+
+
+<!-- ========== EVENT SUMMARY =========== -->
+
+
+
+
+<!-- ========== INHERITED METHODS SUMMARY =========== -->
+
+<br/>
+
+<!-- ========== END INHERITED METHODS SUMMARY =========== -->
+
+<!-- ============ FIELD DETAIL START ========= -->
+
+<!-- ============ FIELD DETAIL END ========== -->
+
+
+
+<!-- ========= CONSTRUCTOR DETAIL START ======== -->
+<a name="gtv.jq.SideNavBehaviors_constructor_detail"> </a>
+<h2>Constructor Detail</h2>
+
+<a name="gtv.jq.SideNavBehaviors"> </a>
+<h3>gtv.jq.SideNavBehaviors</h3>
+
+    <pre><b>gtv.jq.SideNavBehaviors</b>(opt_behaviors)</pre>
+    <ul>
+      SideNavBehaviors configures the behaviors for a SideNav control.
+    </ul>
+
+    <!-- PARAMETERS START -->
+    
+    <ul>
+        <b>Parameters:</b>
+        
+        <ul>
+            <code><i>gtv.jq.SideNavBehaviors</i>&nbsp;opt_behaviors</code> - Optional initial values.
+        </ul>
+        
+    </ul>
+    
+    <!-- PARAMETERS END -->
+
+<!-- END ADDITIONAL ATTRIBUTES  -->
+<!-- ========= CONSTRUCTOR DETAIL END ======== -->
+
+
+
+<!-- ============ METHOD DETAIL START ======= -->
+
+<!-- ============ METHOD DETAIL END ========== -->
+
+<!-- ============ EVENT DETAIL START ======= -->
+
+
+
+<!-- ============ EVENT DETAIL END ========== -->
+
+<p class="backtotop"><a href="#top">Back to top</a></p>
+
+
+
+
+
+
+<h1 id="gtv.jq.SideNavControl">Class gtv.jq.SideNavControl</h1>
+
+
+<!-- <i>Defined in <a href="sidenav.src.html">sidenav.js</a></i> -->
+
+<p class="summaryDetailLink">
+&nbsp;<a href="#gtv.jq.SideNavControl_method_summary">SUMMARY</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#gtv.jq.SideNavControl_method_detail">DETAIL</a>
+</p>
+
+
+
+
+
+
+
+<!-- =========== FIELD SUMMARY =========== -->
+
+<!-- =========== END FIELD SUMMARY =========== -->
+
+
+
+<!-- ======== CONSTRUCTOR SUMMARY ======== -->
+<a name="gtv.jq.SideNavControl_constructor_summary"> </a>
+<h2>Constructor Summary</h2>
+<dl>
+
+    <dt><code>
+        <b><a href="#gtv.jq.SideNavControl">gtv.jq.SideNavControl</a></b>(sidenavParams)
+        </code></dt>
+    <dd>SideNavControl class.</dd>
+
+</dl>
+&nbsp;
+<!-- ======== END CONSTRUCTOR SUMMARY ======== -->
+
+
+
+<!-- ========== METHOD SUMMARY =========== -->
+
+<a name="gtv.jq.SideNavControl_method_summary"> </a>
+<h2>Method Summary</h2>
+<dl>
+    
+<dt><code>
+<b> <a href="#gtv.jq.SideNavControl.deleteControl">deleteControl</a></b>() </code>
+</dt>
+<dd>Removes the control from its container and its key control zone.
+</dd>
+
+<dt><code>
+<b> <a href="#gtv.jq.SideNavControl.selectControl">selectControl</a></b>() </code>
+</dt>
+<dd>Moves selection to the SideNav Control.
+</dd>
+
+<dt><code>
+<b> <a href="#gtv.jq.SideNavControl.setBehaviors">setBehaviors</a></b>(behaviors, force) </code>
+</dt>
+<dd>Applies a new set of behaviors to the control.
+</dd>
+
+<dt><code>
+<b> <a href="#gtv.jq.SideNavControl.showControl">showControl</a></b>(showParams) </code>
+</dt>
+<dd>Creates a new SideNavControl with the specified items and adds it to a
+container_ on the page.
+</dd>
+
+</dl>
+&nbsp;
+
+
+<!-- ========== EVENT SUMMARY =========== -->
+
+
+
+
+<!-- ========== INHERITED METHODS SUMMARY =========== -->
+
+<br/>
+
+<!-- ========== END INHERITED METHODS SUMMARY =========== -->
+
+<!-- ============ FIELD DETAIL START ========= -->
+
+<!-- ============ FIELD DETAIL END ========== -->
+
+
+
+<!-- ========= CONSTRUCTOR DETAIL START ======== -->
+<a name="gtv.jq.SideNavControl_constructor_detail"> </a>
+<h2>Constructor Detail</h2>
+
+<a name="gtv.jq.SideNavControl"> </a>
+<h3>gtv.jq.SideNavControl</h3>
+
+    <pre><b>gtv.jq.SideNavControl</b>(sidenavParams)</pre>
+    <ul>
+      SideNavControl class. SideNav control is a pop-out or fade-in menu control
+that can manage selection or contain other controls.
+    </ul>
+
+    <!-- PARAMETERS START -->
+    
+    <ul>
+        <b>Parameters:</b>
+        
+        <ul>
+            <code><i>gtv.jq.SideNavParams</i>&nbsp;sidenavParams</code>
+        </ul>
+        
+    </ul>
+    
+    <!-- PARAMETERS END -->
+
+<!-- END ADDITIONAL ATTRIBUTES  -->
+<!-- ========= CONSTRUCTOR DETAIL END ======== -->
+
+
+
+<!-- ============ METHOD DETAIL START ======= -->
+
+<a name="gtv.jq.SideNavControl_method_detail"> </a>
+<h2>Method Detail</h2>
+
+
+    <a name="gtv.jq.SideNavControl.deleteControl"> </a> <h3>deleteControl</h3>
+        <pre><b>deleteControl</b>()</pre>
+    <ul>
+       Removes the control from its container and its key control zone.
+    </ul>
+    <!-- METHOD PARAMETERS START -->
+    
+    <!-- METHOD PARAMETERS END -->
+    <!-- ADDITIONAL ATTRIBUTES START -->
+    
+    
+    <!-- ADDITIONAL ATTRIBUTES  END -->
+
+    <a name="gtv.jq.SideNavControl.selectControl"> </a> <h3>selectControl</h3>
+        <pre><b>selectControl</b>()</pre>
+    <ul>
+       Moves selection to the SideNav Control.
+    </ul>
+    <!-- METHOD PARAMETERS START -->
+    
+    <!-- METHOD PARAMETERS END -->
+    <!-- ADDITIONAL ATTRIBUTES START -->
+    
+    
+    <!-- ADDITIONAL ATTRIBUTES  END -->
+
+    <a name="gtv.jq.SideNavControl.setBehaviors"> </a> <h3>setBehaviors</h3>
+        <pre><b>setBehaviors</b>(behaviors, force)</pre>
+    <ul>
+       Applies a new set of behaviors to the control.
+    </ul>
+    <!-- METHOD PARAMETERS START -->
+    <ul>
+        <b>Parameters:</b>
+        <ul>
+            <code><i>Object</i>&nbsp;behaviors </code> - New behaviors to apply to the control.
+        </ul>
+        <ul>
+            <code><i>boolean</i>&nbsp;force </code> - Set the new behaviors even if identical.
+        </ul>
+    </ul>
+    <!-- METHOD PARAMETERS END -->
+    <!-- ADDITIONAL ATTRIBUTES START -->
+    
+    
+    <!-- ADDITIONAL ATTRIBUTES  END -->
+
+    <a name="gtv.jq.SideNavControl.showControl"> </a> <h3>showControl</h3>
+        <pre><b>showControl</b>(showParams)</pre>
+    <ul>
+       Creates a new SideNavControl with the specified items and adds it to a
+container_ on the page.
+    </ul>
+    <!-- METHOD PARAMETERS START -->
+    <ul>
+        <b>Parameters:</b>
+        <ul>
+            <code><i>gtv.jq.ShowParams</i>&nbsp;showParams </code> - Params for creating the control.
+        </ul>
+    </ul>
+    <!-- METHOD PARAMETERS END -->
+    <!-- ADDITIONAL ATTRIBUTES START -->
+    
+    
+    <!-- ADDITIONAL ATTRIBUTES  END -->
+
+
+<!-- ============ METHOD DETAIL END ========== -->
+
+<!-- ============ EVENT DETAIL START ======= -->
+
+
+
+<!-- ============ EVENT DETAIL END ========== -->
+
+<p class="backtotop"><a href="#top">Back to top</a></p>
+
+
+
+
+
+
+<h1 id="gtv.jq.SideNavParams">Class gtv.jq.SideNavParams</h1>
+
+
+<!-- <i>Defined in <a href="sidenav.src.html">sidenav.js</a></i> -->
+
+<p class="summaryDetailLink">
+&nbsp;<a href="#gtv.jq.SideNavParams_field_summary">SUMMARY</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#gtv.jq.SideNavParams_field_detail">DETAIL</a>
+</p>
+
+
+
+
+
+
+
+<!-- =========== FIELD SUMMARY =========== -->
+
+<a name="gtv.jq.SideNavParams_field_summary"> </a>
+<h2>Field Summary</h2>
+<dl>
+
+<dt>
+<code>SideNavBehaviors</code>
+<code><b><a href="#gtv.jq.SideNavParams.behaviors">behaviors</a></b></code>
+</dt>
+<dd>Behaviors for the SideNav control.
+</dd>
+
+<dt>
+<code>CreationParams</code>
+<code><b><a href="#gtv.jq.SideNavParams.createParams">createParams</a></b></code>
+</dt>
+<dd>CreationParams for the SideNav control.
+</dd>
+
+</dl>
+&nbsp;
+
+<!-- =========== END FIELD SUMMARY =========== -->
+
+
+
+<!-- ======== CONSTRUCTOR SUMMARY ======== -->
+<a name="gtv.jq.SideNavParams_constructor_summary"> </a>
+<h2>Constructor Summary</h2>
+<dl>
+
+    <dt><code>
+        <b><a href="#gtv.jq.SideNavParams">gtv.jq.SideNavParams</a></b>(opt_params)
+        </code></dt>
+    <dd>SideNavParams class holds configuration values specific to SideNav.</dd>
+
+</dl>
+&nbsp;
+<!-- ======== END CONSTRUCTOR SUMMARY ======== -->
+
+
+
+<!-- ========== METHOD SUMMARY =========== -->
+
+
+<!-- ========== EVENT SUMMARY =========== -->
+
+
+
+
+<!-- ========== INHERITED METHODS SUMMARY =========== -->
+
+<br/>
+
+<!-- ========== END INHERITED METHODS SUMMARY =========== -->
+
+<!-- ============ FIELD DETAIL START ========= -->
+
+<a name="gtv.jq.SideNavParams_field_detail"> </a>
+<h2>Field Detail</h2>
+
+
+    <!-- One single method detail entry -->
+    <a name="gtv.jq.SideNavParams.behaviors">
+    <!-- -->
+    </a> <h3>behaviors</h3>
+        <pre>SideNavBehaviors <b>behaviors</b></pre>
+    <ul>
+       Behaviors for the SideNav control.
+    </ul>
+
+    <!-- One single method detail entry -->
+    <a name="gtv.jq.SideNavParams.createParams">
+    <!-- -->
+    </a> <h3>createParams</h3>
+        <pre>CreationParams <b>createParams</b></pre>
+    <ul>
+       CreationParams for the SideNav control.
+    </ul>
+
+
+<!-- ============ FIELD DETAIL END ========== -->
+
+
+
+<!-- ========= CONSTRUCTOR DETAIL START ======== -->
+<a name="gtv.jq.SideNavParams_constructor_detail"> </a>
+<h2>Constructor Detail</h2>
+
+<a name="gtv.jq.SideNavParams"> </a>
+<h3>gtv.jq.SideNavParams</h3>
+
+    <pre><b>gtv.jq.SideNavParams</b>(opt_params)</pre>
+    <ul>
+      SideNavParams class holds configuration values specific to SideNav.
+    </ul>
+
+    <!-- PARAMETERS START -->
+    
+    <ul>
+        <b>Parameters:</b>
+        
+        <ul>
+            <code><i>gtv.jq.SideNavParams</i>&nbsp;opt_params</code> - Optional initialization values.
+        </ul>
+        
+    </ul>
+    
+    <!-- PARAMETERS END -->
+
+<!-- END ADDITIONAL ATTRIBUTES  -->
+<!-- ========= CONSTRUCTOR DETAIL END ======== -->
+
+
+
+<!-- ============ METHOD DETAIL START ======= -->
+
+<!-- ============ METHOD DETAIL END ========== -->
+
+<!-- ============ EVENT DETAIL START ======= -->
+
+
+
+<!-- ============ EVENT DETAIL END ========== -->
+
+<p class="backtotop"><a href="#top">Back to top</a></p>
+
+
+
+
+
+
+<h1 id="gtv.jq.Size">Class gtv.jq.Size</h1>
+
+
+<!-- <i>Defined in <a href="gtvcore.src.html">gtvcore.js</a></i> -->
+
+<p class="summaryDetailLink">
+
+</p>
+
+
+
+
+
+
+
+<!-- =========== FIELD SUMMARY =========== -->
+
+<!-- =========== END FIELD SUMMARY =========== -->
+
+
+
+<!-- ======== CONSTRUCTOR SUMMARY ======== -->
+<a name="gtv.jq.Size_constructor_summary"> </a>
+<h2>Constructor Summary</h2>
+<dl>
+
+    <dt><code>
+        <b><a href="#gtv.jq.Size">gtv.jq.Size</a></b>(width, height)
+        </code></dt>
+    <dd>Size class holds a width/height dimension pair.</dd>
+
+</dl>
+&nbsp;
+<!-- ======== END CONSTRUCTOR SUMMARY ======== -->
+
+
+
+<!-- ========== METHOD SUMMARY =========== -->
+
+
+<!-- ========== EVENT SUMMARY =========== -->
+
+
+
+
+<!-- ========== INHERITED METHODS SUMMARY =========== -->
+
+<br/>
+
+<!-- ========== END INHERITED METHODS SUMMARY =========== -->
+
+<!-- ============ FIELD DETAIL START ========= -->
+
+<!-- ============ FIELD DETAIL END ========== -->
+
+
+
+<!-- ========= CONSTRUCTOR DETAIL START ======== -->
+<a name="gtv.jq.Size_constructor_detail"> </a>
+<h2>Constructor Detail</h2>
+
+<a name="gtv.jq.Size"> </a>
+<h3>gtv.jq.Size</h3>
+
+    <pre><b>gtv.jq.Size</b>(width, height)</pre>
+    <ul>
+      Size class holds a width/height dimension pair.
+    </ul>
+
+    <!-- PARAMETERS START -->
+    
+    <ul>
+        <b>Parameters:</b>
+        
+        <ul>
+            <code><i>number</i>&nbsp;width</code>
+        </ul>
+        
+        <ul>
+            <code><i>number</i>&nbsp;height</code>
+        </ul>
+        
+    </ul>
+    
+    <!-- PARAMETERS END -->
+
+<!-- END ADDITIONAL ATTRIBUTES  -->
+<!-- ========= CONSTRUCTOR DETAIL END ======== -->
+
+
+
+<!-- ============ METHOD DETAIL START ======= -->
+
+<!-- ============ METHOD DETAIL END ========== -->
+
+<!-- ============ EVENT DETAIL START ======= -->
+
+
+
+<!-- ============ EVENT DETAIL END ========== -->
+
+<p class="backtotop"><a href="#top">Back to top</a></p>
+
+
+
+
+
+
+<h1 id="gtv.jq.SlidingControl">Class gtv.jq.SlidingControl</h1>
+
+
+<!-- <i>Defined in <a href="slider.src.html">slider.js</a></i> -->
+
+<p class="summaryDetailLink">
+&nbsp;<a href="#gtv.jq.SlidingControl_method_summary">SUMMARY</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#gtv.jq.SlidingControl_method_detail">DETAIL</a>
+</p>
+
+
+
+
+
+
+
+<!-- =========== FIELD SUMMARY =========== -->
+
+<!-- =========== END FIELD SUMMARY =========== -->
+
+
+
+<!-- ======== CONSTRUCTOR SUMMARY ======== -->
+<a name="gtv.jq.SlidingControl_constructor_summary"> </a>
+<h2>Constructor Summary</h2>
+<dl>
+
+    <dt><code>
+        <b><a href="#gtv.jq.SlidingControl">gtv.jq.SlidingControl</a></b>(createParams)
+        </code></dt>
+    <dd>SlidingControl class.</dd>
+
+</dl>
+&nbsp;
+<!-- ======== END CONSTRUCTOR SUMMARY ======== -->
+
+
+
+<!-- ========== METHOD SUMMARY =========== -->
+
+<a name="gtv.jq.SlidingControl_method_summary"> </a>
+<h2>Method Summary</h2>
+<dl>
+    
+<dt><code>
+<b> <a href="#gtv.jq.SlidingControl.deleteControl">deleteControl</a></b>() </code>
+</dt>
+<dd>Removes the control from its container and from the key controller.
+</dd>
+
+<dt><code>
+<b> <a href="#gtv.jq.SlidingControl.showControl">showControl</a></b>(controlParams) </code>
+</dt>
+<dd>Creates a new SideNavControl with the specified items and adds it to a
+container on the page.
+</dd>
+
+</dl>
+&nbsp;
+
+
+<!-- ========== EVENT SUMMARY =========== -->
+
+
+
+
+<!-- ========== INHERITED METHODS SUMMARY =========== -->
+
+<br/>
+
+<!-- ========== END INHERITED METHODS SUMMARY =========== -->
+
+<!-- ============ FIELD DETAIL START ========= -->
+
+<!-- ============ FIELD DETAIL END ========== -->
+
+
+
+<!-- ========= CONSTRUCTOR DETAIL START ======== -->
+<a name="gtv.jq.SlidingControl_constructor_detail"> </a>
+<h2>Constructor Detail</h2>
+
+<a name="gtv.jq.SlidingControl"> </a>
+<h3>gtv.jq.SlidingControl</h3>
+
+    <pre><b>gtv.jq.SlidingControl</b>(createParams)</pre>
+    <ul>
+      SlidingControl class. Creates a series of sliding "pages", left-right,
+that hold thumbnails/content in a rectangular arrangement.
+    </ul>
+
+    <!-- PARAMETERS START -->
+    
+    <ul>
+        <b>Parameters:</b>
+        
+        <ul>
+            <code><i>gtv.jq.CreationParams</i>&nbsp;createParams</code> - Initial values for creation of
+    the control.
+        </ul>
+        
+    </ul>
+    
+    <!-- PARAMETERS END -->
+
+<!-- END ADDITIONAL ATTRIBUTES  -->
+<!-- ========= CONSTRUCTOR DETAIL END ======== -->
+
+
+
+<!-- ============ METHOD DETAIL START ======= -->
+
+<a name="gtv.jq.SlidingControl_method_detail"> </a>
+<h2>Method Detail</h2>
+
+
+    <a name="gtv.jq.SlidingControl.deleteControl"> </a> <h3>deleteControl</h3>
+        <pre><b>deleteControl</b>()</pre>
+    <ul>
+       Removes the control from its container and from the key controller.
+    </ul>
+    <!-- METHOD PARAMETERS START -->
+    
+    <!-- METHOD PARAMETERS END -->
+    <!-- ADDITIONAL ATTRIBUTES START -->
+    
+    
+    <!-- ADDITIONAL ATTRIBUTES  END -->
+
+    <a name="gtv.jq.SlidingControl.showControl"> </a> <h3>showControl</h3>
+        <pre><b>showControl</b>(controlParams)</pre>
+    <ul>
+       Creates a new SideNavControl with the specified items and adds it to a
+container on the page.
+    </ul>
+    <!-- METHOD PARAMETERS START -->
+    <ul>
+        <b>Parameters:</b>
+        <ul>
+            <code><i>gtv.jq.ShowParams</i>&nbsp;controlParams </code> - Params for creating the control.
+    ControlContents.captionItems must be passed to this control.
+        </ul>
+    </ul>
+    <!-- METHOD PARAMETERS END -->
+    <!-- ADDITIONAL ATTRIBUTES START -->
+    
+    
+    <!-- ADDITIONAL ATTRIBUTES  END -->
+
+
+<!-- ============ METHOD DETAIL END ========== -->
+
+<!-- ============ EVENT DETAIL START ======= -->
+
+
+
+<!-- ============ EVENT DETAIL END ========== -->
+
+<p class="backtotop"><a href="#top">Back to top</a></p>
+
+
+
+
+
+
+<h1 id="gtv.jq.StackControl">Class gtv.jq.StackControl</h1>
+
+
+<!-- <i>Defined in <a href="stacker.src.html">stacker.js</a></i> -->
+
+<p class="summaryDetailLink">
+&nbsp;<a href="#gtv.jq.StackControl_method_summary">SUMMARY</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#gtv.jq.StackControl_method_detail">DETAIL</a>
+</p>
+
+
+
+
+
+
+
+<!-- =========== FIELD SUMMARY =========== -->
+
+<!-- =========== END FIELD SUMMARY =========== -->
+
+
+
+<!-- ======== CONSTRUCTOR SUMMARY ======== -->
+<a name="gtv.jq.StackControl_constructor_summary"> </a>
+<h2>Constructor Summary</h2>
+<dl>
+
+    <dt><code>
+        <b><a href="#gtv.jq.StackControl">gtv.jq.StackControl</a></b>(stackParams)
+        </code></dt>
+    <dd>StackControl class.</dd>
+
+</dl>
+&nbsp;
+<!-- ======== END CONSTRUCTOR SUMMARY ======== -->
+
+
+
+<!-- ========== METHOD SUMMARY =========== -->
+
+<a name="gtv.jq.StackControl_method_summary"> </a>
+<h2>Method Summary</h2>
+<dl>
+    
+<dt><code>
+<b> <a href="#gtv.jq.StackControl.deleteControl">deleteControl</a></b>() </code>
+</dt>
+<dd>Removes the control from its container and from the key controller.
+</dd>
+
+<dt><code>
+<b> <a href="#gtv.jq.StackControl.showControl">showControl</a></b>(showParams) </code>
+</dt>
+<dd>Creates a new StackControl with the specified items and adds it to a
+container on the page.
+</dd>
+
+</dl>
+&nbsp;
+
+
+<!-- ========== EVENT SUMMARY =========== -->
+
+
+
+
+<!-- ========== INHERITED METHODS SUMMARY =========== -->
+
+<br/>
+
+<!-- ========== END INHERITED METHODS SUMMARY =========== -->
+
+<!-- ============ FIELD DETAIL START ========= -->
+
+<!-- ============ FIELD DETAIL END ========== -->
+
+
+
+<!-- ========= CONSTRUCTOR DETAIL START ======== -->
+<a name="gtv.jq.StackControl_constructor_detail"> </a>
+<h2>Constructor Detail</h2>
+
+<a name="gtv.jq.StackControl"> </a>
+<h3>gtv.jq.StackControl</h3>
+
+    <pre><b>gtv.jq.StackControl</b>(stackParams)</pre>
+    <ul>
+      StackControl class. This control arranges individual items, rotated at
+90 degrees, with just a label showing, at the right side of a page and,
+through key navigation, moves the items to the center of the page (off
+of the "stack") and into the middle, and then to a new stack on the
+left of the page (again, rotated with only the label showing). This can
+be useful in presenting items on a widescreen display without taking
+up vertical real estate for navigation controls, while visually
+focusing on the item in the middle of the page.
+    </ul>
+
+    <!-- PARAMETERS START -->
+    
+    <ul>
+        <b>Parameters:</b>
+        
+        <ul>
+            <code><i>StackParams</i>&nbsp;stackParams</code> - Parameters for initializing the control.
+        </ul>
+        
+    </ul>
+    
+    <!-- PARAMETERS END -->
+
+<!-- END ADDITIONAL ATTRIBUTES  -->
+<!-- ========= CONSTRUCTOR DETAIL END ======== -->
+
+
+
+<!-- ============ METHOD DETAIL START ======= -->
+
+<a name="gtv.jq.StackControl_method_detail"> </a>
+<h2>Method Detail</h2>
+
+
+    <a name="gtv.jq.StackControl.deleteControl"> </a> <h3>deleteControl</h3>
+        <pre><b>deleteControl</b>()</pre>
+    <ul>
+       Removes the control from its container and from the key controller.
+    </ul>
+    <!-- METHOD PARAMETERS START -->
+    
+    <!-- METHOD PARAMETERS END -->
+    <!-- ADDITIONAL ATTRIBUTES START -->
+    
+    
+    <!-- ADDITIONAL ATTRIBUTES  END -->
+
+    <a name="gtv.jq.StackControl.showControl"> </a> <h3>showControl</h3>
+        <pre><b>showControl</b>(showParams)</pre>
+    <ul>
+       Creates a new StackControl with the specified items and adds it to a
+container on the page.
+    </ul>
+    <!-- METHOD PARAMETERS START -->
+    <ul>
+        <b>Parameters:</b>
+        <ul>
+            <code><i>gtv.jq.ShowParams</i>&nbsp;showParams </code> - Params for showing the control.
+    Requires captionItems passed in the controlContents. The caption will
+    become the title of the item.
+        </ul>
+    </ul>
+    <!-- METHOD PARAMETERS END -->
+    <!-- ADDITIONAL ATTRIBUTES START -->
+    
+    
+    <!-- ADDITIONAL ATTRIBUTES  END -->
+
+
+<!-- ============ METHOD DETAIL END ========== -->
+
+<!-- ============ EVENT DETAIL START ======= -->
+
+
+
+<!-- ============ EVENT DETAIL END ========== -->
+
+<p class="backtotop"><a href="#top">Back to top</a></p>
+
+
+
+
+
+
+<h1 id="gtv.jq.StackParams">Class gtv.jq.StackParams</h1>
+
+
+<!-- <i>Defined in <a href="stacker.src.html">stacker.js</a></i> -->
+
+<p class="summaryDetailLink">
+
+</p>
+
+
+
+
+
+
+
+<!-- =========== FIELD SUMMARY =========== -->
+
+<!-- =========== END FIELD SUMMARY =========== -->
+
+
+
+<!-- ======== CONSTRUCTOR SUMMARY ======== -->
+<a name="gtv.jq.StackParams_constructor_summary"> </a>
+<h2>Constructor Summary</h2>
+<dl>
+
+    <dt><code>
+        <b><a href="#gtv.jq.StackParams">gtv.jq.StackParams</a></b>(opt_params)
+        </code></dt>
+    <dd>StackParams class holds creation params for the StackControl.</dd>
+
+</dl>
+&nbsp;
+<!-- ======== END CONSTRUCTOR SUMMARY ======== -->
+
+
+
+<!-- ========== METHOD SUMMARY =========== -->
+
+
+<!-- ========== EVENT SUMMARY =========== -->
+
+
+
+
+<!-- ========== INHERITED METHODS SUMMARY =========== -->
+
+<br/>
+
+<!-- ========== END INHERITED METHODS SUMMARY =========== -->
+
+<!-- ============ FIELD DETAIL START ========= -->
+
+<!-- ============ FIELD DETAIL END ========== -->
+
+
+
+<!-- ========= CONSTRUCTOR DETAIL START ======== -->
+<a name="gtv.jq.StackParams_constructor_detail"> </a>
+<h2>Constructor Detail</h2>
+
+<a name="gtv.jq.StackParams"> </a>
+<h3>gtv.jq.StackParams</h3>
+
+    <pre><b>gtv.jq.StackParams</b>(opt_params)</pre>
+    <ul>
+      StackParams class holds creation params for the StackControl.
+    </ul>
+
+    <!-- PARAMETERS START -->
+    
+    <ul>
+        <b>Parameters:</b>
+        
+        <ul>
+            <code><i>gtv.jq.StackParams</i>&nbsp;opt_params</code> - Optional initialization values.
+        </ul>
+        
+    </ul>
+    
+    <!-- PARAMETERS END -->
+
+<!-- END ADDITIONAL ATTRIBUTES  -->
+<!-- ========= CONSTRUCTOR DETAIL END ======== -->
+
+
+
+<!-- ============ METHOD DETAIL START ======= -->
+
+<!-- ============ METHOD DETAIL END ========== -->
+
+<!-- ============ EVENT DETAIL START ======= -->
+
+
+
+<!-- ============ EVENT DETAIL END ========== -->
+
+<p class="backtotop"><a href="#top">Back to top</a></p>
+
+
+
+
+
+
+<h1 id="gtv.jq.VideoControl">Class gtv.jq.VideoControl</h1>
+
+
+<!-- <i>Defined in <a href="video.src.html">video.js</a></i> -->
+
+<p class="summaryDetailLink">
+&nbsp;<a href="#gtv.jq.VideoControl_method_summary">SUMMARY</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#gtv.jq.VideoControl_method_detail">DETAIL</a>
+</p>
+
+
+
+
+
+
+
+<!-- =========== FIELD SUMMARY =========== -->
+
+<!-- =========== END FIELD SUMMARY =========== -->
+
+
+
+<!-- ======== CONSTRUCTOR SUMMARY ======== -->
+<a name="gtv.jq.VideoControl_constructor_summary"> </a>
+<h2>Constructor Summary</h2>
+<dl>
+
+    <dt><code>
+        <b><a href="#gtv.jq.VideoControl">gtv.jq.VideoControl</a></b>(videoParams)
+        </code></dt>
+    <dd>VideoControl class.</dd>
+
+</dl>
+&nbsp;
+<!-- ======== END CONSTRUCTOR SUMMARY ======== -->
+
+
+
+<!-- ========== METHOD SUMMARY =========== -->
+
+<a name="gtv.jq.VideoControl_method_summary"> </a>
+<h2>Method Summary</h2>
+<dl>
+    
+<dt><code>
+<b> <a href="#gtv.jq.VideoControl.deleteControl">deleteControl</a></b>() </code>
+</dt>
+<dd>Removes a video control from its container, unregisters its player, and
+removes its key control zone.
+</dd>
+
+<dt><code>
+<b> <a href="#gtv.jq.VideoControl.loadVideo">loadVideo</a></b>(videoId) </code>
+</dt>
+<dd>Loads the video with the specified video id.
+</dd>
+
+<dt><code>
+<b> <a href="#gtv.jq.VideoControl.pause">pause</a></b>() </code>
+</dt>
+<dd>Pauses the current video.
+</dd>
+
+<dt><code>
+<b> <a href="#gtv.jq.VideoControl.play">play</a></b>() </code>
+</dt>
+<dd>Starts playing the current video.
+</dd>
+
+<dt><code>
+<b> <a href="#gtv.jq.VideoControl.playPause">playPause</a></b>() </code>
+</dt>
+<dd>Toggles the play/pause state of a video.
+</dd>
+
+<dt><code>
+<b> <a href="#gtv.jq.VideoControl.showControl">showControl</a></b>(showParams) </code>
+</dt>
+<dd>Creates a new VideoControl with the specified buttons and adds it to a
+container on the page.
+</dd>
+
+</dl>
+&nbsp;
+
+
+<!-- ========== EVENT SUMMARY =========== -->
+
+
+
+
+<!-- ========== INHERITED METHODS SUMMARY =========== -->
+
+<br/>
+
+<!-- ========== END INHERITED METHODS SUMMARY =========== -->
+
+<!-- ============ FIELD DETAIL START ========= -->
+
+<!-- ============ FIELD DETAIL END ========== -->
+
+
+
+<!-- ========= CONSTRUCTOR DETAIL START ======== -->
+<a name="gtv.jq.VideoControl_constructor_detail"> </a>
+<h2>Constructor Detail</h2>
+
+<a name="gtv.jq.VideoControl"> </a>
+<h3>gtv.jq.VideoControl</h3>
+
+    <pre><b>gtv.jq.VideoControl</b>(videoParams)</pre>
+    <ul>
+      VideoControl class. The Video control plays back YouTube videos from a feed,
+automatically playing each video in turn, allowing the user to skip videos
+or select a different video from a row control showing video thumbnails.
+    </ul>
+
+    <!-- PARAMETERS START -->
+    
+    <ul>
+        <b>Parameters:</b>
+        
+        <ul>
+            <code><i>gtv.jq.VideoParams</i>&nbsp;videoParams</code> - Creation values for the control.
+        </ul>
+        
+    </ul>
+    
+    <!-- PARAMETERS END -->
+
+<!-- END ADDITIONAL ATTRIBUTES  -->
+<!-- ========= CONSTRUCTOR DETAIL END ======== -->
+
+
+
+<!-- ============ METHOD DETAIL START ======= -->
+
+<a name="gtv.jq.VideoControl_method_detail"> </a>
+<h2>Method Detail</h2>
+
+
+    <a name="gtv.jq.VideoControl.deleteControl"> </a> <h3>deleteControl</h3>
+        <pre><b>deleteControl</b>()</pre>
+    <ul>
+       Removes a video control from its container, unregisters its player, and
+removes its key control zone.
+    </ul>
+    <!-- METHOD PARAMETERS START -->
+    
+    <!-- METHOD PARAMETERS END -->
+    <!-- ADDITIONAL ATTRIBUTES START -->
+    
+    
+    <!-- ADDITIONAL ATTRIBUTES  END -->
+
+    <a name="gtv.jq.VideoControl.loadVideo"> </a> <h3>loadVideo</h3>
+        <pre><b>loadVideo</b>(videoId)</pre>
+    <ul>
+       Loads the video with the specified video id.
+    </ul>
+    <!-- METHOD PARAMETERS START -->
+    <ul>
+        <b>Parameters:</b>
+        <ul>
+            <code><i>string</i>&nbsp;videoId </code> - The ID of the YouTube video to play.
+        </ul>
+    </ul>
+    <!-- METHOD PARAMETERS END -->
+    <!-- ADDITIONAL ATTRIBUTES START -->
+    
+    
+    <!-- ADDITIONAL ATTRIBUTES  END -->
+
+    <a name="gtv.jq.VideoControl.pause"> </a> <h3>pause</h3>
+        <pre><b>pause</b>()</pre>
+    <ul>
+       Pauses the current video.
+Makes a callback to callbacks.pause, if supplied, which returns true if
+it wishes to prevent the video from pausing.
+    </ul>
+    <!-- METHOD PARAMETERS START -->
+    
+    <!-- METHOD PARAMETERS END -->
+    <!-- ADDITIONAL ATTRIBUTES START -->
+    
+    
+    <!-- ADDITIONAL ATTRIBUTES  END -->
+
+    <a name="gtv.jq.VideoControl.play"> </a> <h3>play</h3>
+        <pre><b>play</b>()</pre>
+    <ul>
+       Starts playing the current video.
+Makes a callback to callbacks.play, if supplied, which returns true if
+it wishes to prevent the video from playing.
+    </ul>
+    <!-- METHOD PARAMETERS START -->
+    
+    <!-- METHOD PARAMETERS END -->
+    <!-- ADDITIONAL ATTRIBUTES START -->
+    
+    
+    <!-- ADDITIONAL ATTRIBUTES  END -->
+
+    <a name="gtv.jq.VideoControl.playPause"> </a> <h3>playPause</h3>
+        <pre><b>playPause</b>()</pre>
+    <ul>
+       Toggles the play/pause state of a video.
+    </ul>
+    <!-- METHOD PARAMETERS START -->
+    
+    <!-- METHOD PARAMETERS END -->
+    <!-- ADDITIONAL ATTRIBUTES START -->
+    
+    
+    <!-- ADDITIONAL ATTRIBUTES  END -->
+
+    <a name="gtv.jq.VideoControl.showControl"> </a> <h3>showControl</h3>
+        <pre><b>showControl</b>(showParams)</pre>
+    <ul>
+       Creates a new VideoControl with the specified buttons and adds it to a
+container on the page.
+    </ul>
+    <!-- METHOD PARAMETERS START -->
+    <ul>
+        <b>Parameters:</b>
+        <ul>
+            <code><i>gtv.jq.ShowParams</i>&nbsp;showParams </code> - Params for creating the control.
+        </ul>
+    </ul>
+    <!-- METHOD PARAMETERS END -->
+    <!-- ADDITIONAL ATTRIBUTES START -->
+    
+    
+    <!-- ADDITIONAL ATTRIBUTES  END -->
+
+
+<!-- ============ METHOD DETAIL END ========== -->
+
+<!-- ============ EVENT DETAIL START ======= -->
+
+
+
+<!-- ============ EVENT DETAIL END ========== -->
+
+<p class="backtotop"><a href="#top">Back to top</a></p>
+
+
+
+
+
+
+<h1 id="gtv.jq.VideoParams">Class gtv.jq.VideoParams</h1>
+
+
+<!-- <i>Defined in <a href="video.src.html">video.js</a></i> -->
+
+<p class="summaryDetailLink">
+
+</p>
+
+
+
+
+
+
+
+<!-- =========== FIELD SUMMARY =========== -->
+
+<!-- =========== END FIELD SUMMARY =========== -->
+
+
+
+<!-- ======== CONSTRUCTOR SUMMARY ======== -->
+<a name="gtv.jq.VideoParams_constructor_summary"> </a>
+<h2>Constructor Summary</h2>
+<dl>
+
+    <dt><code>
+        <b><a href="#gtv.jq.VideoParams">gtv.jq.VideoParams</a></b>(opt_params)
+        </code></dt>
+    <dd>VideoParams class.</dd>
+
+</dl>
+&nbsp;
+<!-- ======== END CONSTRUCTOR SUMMARY ======== -->
+
+
+
+<!-- ========== METHOD SUMMARY =========== -->
+
+
+<!-- ========== EVENT SUMMARY =========== -->
+
+
+
+
+<!-- ========== INHERITED METHODS SUMMARY =========== -->
+
+<br/>
+
+<!-- ========== END INHERITED METHODS SUMMARY =========== -->
+
+<!-- ============ FIELD DETAIL START ========= -->
+
+<!-- ============ FIELD DETAIL END ========== -->
+
+
+
+<!-- ========= CONSTRUCTOR DETAIL START ======== -->
+<a name="gtv.jq.VideoParams_constructor_detail"> </a>
+<h2>Constructor Detail</h2>
+
+<a name="gtv.jq.VideoParams"> </a>
+<h3>gtv.jq.VideoParams</h3>
+
+    <pre><b>gtv.jq.VideoParams</b>(opt_params)</pre>
+    <ul>
+      VideoParams class. Holds values for initialized a VideoControl
+    </ul>
+
+    <!-- PARAMETERS START -->
+    
+    <ul>
+        <b>Parameters:</b>
+        
+        <ul>
+            <code><i>gtv.jq.VideoParams</i>&nbsp;opt_params</code> - Optional initial values.
+        </ul>
+        
+    </ul>
+    
+    <!-- PARAMETERS END -->
+
+<!-- END ADDITIONAL ATTRIBUTES  -->
+<!-- ========= CONSTRUCTOR DETAIL END ======== -->
+
+
+
+<!-- ============ METHOD DETAIL START ======= -->
+
+<!-- ============ METHOD DETAIL END ========== -->
+
+<!-- ============ EVENT DETAIL START ======= -->
+
+
+
+<!-- ============ EVENT DETAIL END ========== -->
+
+<p class="backtotop"><a href="#top">Back to top</a></p>
+
+ <!-- outer most for loop !-->
+
+
+   
+      </div><!-- end gc-pagecontent -->
+   </div><!-- end gooey wrapper -->
+
+    </div> <!-- end codesite content -->
+
+
+<div id="gc-footer" dir="ltr">
+  <div class="text">
+    
+    ©2011 Google -
+    <a href="http://code.google.com">Code Home</a> -
+    <a href="http://code.google.com/terms.html">Terms of Service</a> -
+    <a href="http://code.google.com/privacy.html">Privacy Policy</a> -
+    <a href="http://code.google.com/more">Site Directory</a>
+    <br> <br>
+    Google Code offered in:
+    <a href="http://code.google.com/intl/en">English</a> -
+    <a href="http://code.google.com/intl/es">Español</a> -
+    <a href="http://code.google.com/intl/ja">日本語</a> -
+    <a href="http://code.google.com/intl/ko">한국어</a> -
+    <a href="http://code.google.com/intl/pt-BR">Português</a> -
+    <a href="http://code.google.com/intl/ru">Pусский</a> -
+    <a href="http://code.google.com/intl/zh-CN">中文(简体)</a> -
+    <a href="http://code.google.com/intl/zh-TW">中文(繁體)</a>
+  </div>
+</div><!-- end gc-footer -->
+
+</div><!-- end gc-container -->
+
+<script type="text/javascript">CODESITE_CSITimer['load'].tick('ats');</script>
+<script src="../../../../js/codesite_tail.pack.04102009.js" type="text/javascript"></script>
+
+
+
+
+<script type="text/javascript">
+var _gaq = _gaq || [];
+
+_gaq.push(
+
+
+    ['siteTracker._setAccount', 'UA-18071-1'],
+    ['siteTracker._setDomainName', 'code.google.com'],
+    ['siteTracker._setCookiePath', window.location.pathname.substring(0,
+        window.location.pathname.lastIndexOf('/') + 1)],
+    ['siteTracker._trackPageview']
+);
+(function() {
+  var ga = document.createElement('script');
+
+  ga.type = 'text/javascript';
+  ga.async = true;
+  ga.src = 'http://www.google-analytics.com/ga.js';
+  (document.getElementsByTagName('head')[0] ||
+   document.getElementsByTagName('body')[0]).appendChild(ga);
+ })();
+</script>
+
+
+
+
+  </body>
+</html>
+

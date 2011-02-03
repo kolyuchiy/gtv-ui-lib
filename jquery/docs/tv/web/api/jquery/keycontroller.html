@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+         
+
+    
+     
+      
+
+   
+    
+ 
+   
+ 
+
+           
+
+  
+  
+                           
+  
+
+
+
+<html>
+  <head>
+    <script type="text/javascript" language="JavaScript">
+    ORIGINAL_PAGE_PATH = "/tv/web/api/jquery/keycontroller.html";
+    </script>
+    
+    
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<title>Using Google TV jQuery Key Navigation - Google TV - Google Code</title>
+<script type="text/javascript"><!--
+(function(){function a(){this.t={};this.tick=function(c){this.t[c]=(new Date).getTime()};this.tick("start")}var b=new a;window.jstiming={Timer:a,load:b};if(window.external&&window.external.pageT)window.jstiming.pt=window.external.pageT;})();
+
+var _tocPath_ = '/tv/web/docs/_toc.ezt';
+var codesite_token = null;
+var logged_in_user_email = null;
+//--></script>
+<link href="../../../../css/codesite.pack.04102009.css" type="text/css" rel="stylesheet">
+<script src="../../../../js/codesite_head.pack.04102009.js" type="text/javascript"></script>
+<script type="text/javascript">CODESITE_CSITimer['load'].tick('bhs');</script>
+<link rel="search" type="application/opensearchdescription+xml" title="Google Code" href="http://code.google.com/osd.xml">
+
+<!--[if IE]><link rel="stylesheet" type="text/css" href="../../../../css/iehacks.css"><![endif]-->
+
+    <link href="../../../../css/semantic_headers.css" rel="stylesheet" type="text/css" />
+    
+    
+  </head>
+
+  <body class="gc-documentation">
+
+    
+    
+
+    <div id="gb">
+ <span>
+  
+    <a id="lang-dropdown" href="http://code.google.com" onclick="return false;"><span style="text-decoration:underline">English</span> <span style="font-size:.75em;">&#9660;</span></a>
+  
+ </span>
+</div>
+
+<div class="gbh" style="left:0px;"></div>
+<div class="gbh" style="right:0px;"></div>
+
+<div id="gc-container">
+<a id="top"></a>
+<div id="skipto">
+  <a href="#gc-pagecontent">Skip to page content</a>
+  <a href="#gc-toc">Skip to main navigation</a>
+</div>
+
+<div id="gc-header">
+  <div id="logo"><a href="http://code.google.com">
+  
+  
+     <img src="../../../../images/code_logo.gif" height="40" width="167" alt="Google Code" style="border:0;margin:3px 0 0 0;">
+  
+  
+  </a></div>
+  <div id="search">
+    <div id="searchForm">
+      <form id="cse" action="http://www.google.com/cse" accept-charset="utf-8" onsubmit="executeGSearch(document.getElementById('gsearchInput').value); return false;">
+      <noscript>
+      <input type="hidden" name="cref" value="http://code.google.com/cse/googlecode-context.xml">
+      </noscript>
+      <div id="gsc-search-box">
+        <input id="gsearchInput" type="text" name="q" maxlength="2048" class="gsc-input" autocomplete="off" title="Google Code Search" style="width:345px">
+        <div id="cs-searchresults" onclick="event.cancelBubble = true;"></div>
+        <input title="Search" id="gsearchButton" class="gsc-search-button" name="sa" value="Search" type="submit">
+        <div class="greytext">e.g. "adwords" or "open source"</div>
+      </div>
+      </form>
+    </div> <!-- end searchForm -->
+  </div> <!-- end search -->
+
+
+
+
+</div> <!-- end gc-header -->
+
+
+<div id="codesiteContent">
+
+<a id="gc-topnav-anchor"></a>
+<div id="gc-topnav">
+  <h1 style="padding:0 0 0 6px;">Google TV</h1>
+  <ul id="docs" class="gc-topnav-tabs">
+
+    <li id="home_link">
+      <a href="http://code.google.com/tv/web" title="Google TV home page">Home</a>
+    </li>
+  
+    <li id="docs_link">
+      <a href="http://code.google.com/tv/web/docs/design_for_tv.html" class="selected" title="Official Google TV documentation">Docs</a>
+    </li>
+  
+    <li id="faq_link">
+      <a href="http://code.google.com/tv/web/faq.html" title="Answers to frequently asked questions about Google TV">FAQ</a>
+    </li>
+  
+    <li>
+      <a href="http://googletv.blogspot.com" title="Official Google TV blog">Blog</a>
+    </li>
+  
+    <li>
+      <a href="http://code.google.com/tv/web/forum" title="Google TV developer forum">Forum</a>
+    </li>
+  
+    <li>
+      <a href="http://gtv-gallery.appspot.com/" title="Google TV gallery">Gallery</a>
+    </li>
+  
+    <li>
+      <a href="http://www.google.com/accounts/TOS" title="Google TV terms of service">Terms</a>
+    </li>
+  
+
+  </ul>
+</div> <!-- end gc-topnav -->
+
+
+    <div class="g-section g-tpl-170">
+
+      <div class="g-unit g-first" id="gc-toc">
+        <ul>
+  <li><h2>Optimization Guide</h2>
+    <ul>
+      <li><a href="http://code.google.com/tv/web/docs/design_for_tv.html">Designing For TV</a></li>
+      <li><a href="http://code.google.com/tv/web/docs/implement_for_tv.html">Implementation Tips</a></li>
+      <li><a href="http://code.google.com/tv/web/docs/implement_for_tv.html#flash">Flash Optimization</a></li>
+      <li><a href="http://code.google.com/tv/web/docs/optimization_list.html">Optimization Checklist</a></li>
+    </ul>
+  </li>
+  <li><h2>Additional Resources</h2>
+    <ul>
+      <li><a href="http://www.google.com/tv/spotlight-gallery.html">Gallery</a></li>
+      <li><a href="http://www.google.com/support/webmasters/bin/answer.py?&answer=80472">Getting Your Videos Indexed</a></li>
+      <li><a href="http://code.google.com/tv/web/faq.html">FAQ</a></li>
+      <li><a href="http://code.google.com/tv/web/forum">Forum</a></li>
+      <li><a href="http://code.google.com/tv/web/api">UI Library for Google TV</a>
+        <ul>
+          <li><a href="index.html">jQuery</a></li>
+          <li><a href="http://code.google.com/tv/web/api/closure">Closure</a></li>
+          <li>Articles
+            <ul>
+              <li><a href="controls-tutorial.html">jQuery Controls Tutorial</a></li>
+              <li><a href="keycontroller.html">jQuery Key Navigation</a></li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+        <a class="hidden" href="#gc-topnav-anchor">More Google TV resource links</a>
+      </div>
+
+      <div class="g-unit" id="gc-pagecontent">
+        
+          <script type="text/javascript">CODESITE_docEarlyProcessing();</script>
+
+        
+        <h1 class="page_title">Using Google TV jQuery Key Navigation</h1>
+
+
+
+<p>The Google TV jQuery Library provides a keyboard navigation system that can manage the selection for both keyboard and mouse navigation. It provides a large set of capabilities to handle complex pages, but it tries to provide intelligent defaults so that most pages will need only a little setup for it to work.<p>
+<p>The navigation system:</p>
+<ul>
+  <li>Separates the page into multiple navigation zones, each with customizable behaviors.</li>
+  <li>Can navigate by page structure or by calculating the nearest item.</li>
+  <li>Can manage multiple layers of zones on a page, so pages with pop-up dialogs or overlaid content can easily move the selection back and forth.</li>
+  <li>Handles keyboard navigation to text input and select elements.</li>
+  <li>Maintains a single selected item for keyboard and mouse navigation, across zones and layers.</li>
+</ul>
+
+<p>This article covers each of the primary objects involved in the navigation system, provides examples of how to use them, and goes into detail on some of the more advanced features.</p>
+
+<p>Contents:</p>
+<ol class="toc">
+  <li><a href="#controller">Key Controller</a>
+    <ol>
+      <li><a href="#navigation">Navigation</a></li>
+      <li><a href="#zones">Zone Hierarchy</a></li>
+      <li><a href="#layers">Layers</a></li>
+    </ol>
+  </li>
+  <li><a href="#keyzone">Key Behavior Zone</a>
+    <ol>
+      <li><a href="#zoneparams">Key Zone Creation Parameters</a></li>
+      <li><a href="#keyselectors">Key Nav Selectors</a></li>
+      <li><a href="#keymapping">Key Mappings</a></li>
+      <li><a href="#keyactions">Key Actions</a></li>
+    </ol>
+  </li>
+</ol>
+
+
+<h2 id="controller">KeyController</h2>
+<p>The KeyController manages selection navigation for a site. It maintains a single "selected item" across multiple "zones" that are owned by independent compound controls.</p>
+
+<p>The Key Controller listens for key events in the document as well as mouse enter and click events. This allows it to combine selection actions using the keyboard with those from the mouse (that is, if you select an item by hovering over it with the mouse, you can then move the selection from that point using the keyboard).</p>
+
+<p>The main benefit to using the key controller for a page is that it unifies the selection over multiple controls that may have different use models and separate implementations.</p>
+
+<p>For example, on a single page a SlidingControl might implement a behavior zone that allows it to slide in new sets of items as the user navigates to is left and right sides, and a SideNav control might select items by moving up and down, but for the page as a whole only one item can be selected at any one time. The Key Controller handles movement between these controls, maintains the single selected item, and allows multiple controls with different behaviors to exist on a single page at once without conflict.</p>
+
+<h3 id="navigation">Navigation Methods</h3>
+
+<h4>By Document Structure</h4>
+<p>If useGeometry is <b>false</b>, the Key Controller will navigate to other items based only on the structure of the document, not its visual presentation. That is, it will look for the item to the right by looking at the next itemParent in a row, even if for some reason that itemParent has floated below the row and is not <i>visually</i> to the right.</p>
+
+<p>This navigation method can be advantageous in cases where navigating back and forth between items should produce repeatable results (in some alignments navigating, say, left-right-left using Euclidean distance can result in returning to a different item). If a page has a fixed layout, navigating by document structure produces more predictable, controllable results.</p>
+
+<h5>Navigating Between Rows</h5>
+<p>The up and down arrows only select an item if the control has provided a zone with an itemRow Nav Selector. That is, for controls that have multiple rows. In addition, these directions will, by default, select the next item of the same index on a row where possible, and fall back to previous item indices until an existing item is found.</p>
+
+<p>For instance, if item 3 on a row is selected, and the user moves to a row with only 2 items, the controller will select item 2 on that row. This behavior can be overridden if the zone specifies 'saveRowPosition=true', in which case selection moves to the item that was last selected on the row, or the first item if there was none.</p>
+
+<h5>selectHidden</h5>
+<p>By default, the Key Controller skips over items that are not visible (that is, the item or its parent has the style 'display: none' or the item's width and height are set to 0). If required this can be overridden by specifying 'selectHidden=true' for a zone.</p>
+
+<p>The RotatorControl is an example of where this might be useful. In this case, the document structure consists of multiple rows of items, only one of which is visible at a time. When the user presses the up/down arrow, the selection should move to the previous/next row even though this row is hidden. The RotatorControl's scrollIntoView action hides the previous row and shows the new one.</p>
+
+<h4>By Page Geometry</h4>
+<p>If useGeometry is <b>true</b> the Key Controller will navigate to the next 'item' Nav Selector using a Euclidean distance calculation.</p>
+
+<p>The controller roughly prefers the item closer in the direction of movement that is closest to the center of the current item in the axis perpendicular to the axis of movement. That is, if the user presses the left arrow, the item closest to the left edge of the selected item that is also closest to the <i>vertical center</i> of the selected item is preferred.</p>
+
+<p>When calculating the closest item in the direction of movement, the controller will test a candidate item's closest edge and center. For example, when testing each item when moving left, it will use the closest of the left, right or center of the item when calculating the total distance between items. This handles cases where, for example, items of different sizes overlap each other.</p>
+
+<p><i>Note that 'saveRowPosition' and 'selectHidden' have no effect when navigating by page geometry.</i></p>
+
+<h3>Overriding Default Navigation</h3>
+<p>The Key Controller allows each zone to provide key mappings for every key, including those for which it provides default behavior.</p>
+
+<p>A zone provides a map for each key it wishes to override when it is initially created. After the key controller performs its default action for a key, if any, it calls any key mappings. It first calls any global key mappings and then any zone key mappings. Thus, global mappings can override default mappings, and zone mappings can override both global and default mappings.</p>
+
+<p>All key mapping callbacks are provided with both the currently selected item and the newly selected item. Note: both the selected item and the newly selected item may be undefined; callbacks must handle these situations.</p>
+
+<p>Key mapping callbacks may perform an action based on a key press (such as handling the ENTER key for a selection) or they may override any selection made either by default or a previous mapping.</p>
+
+<p>For example, a zone may override "Left Arrow", and, if the value for the newly selected item is undefined, choose to explicitly choose a newly selected item. This may happen if, for example, the zone provides a paging behavior where the next item in a row not an element on the page, but only virtually present. When called in this situation, the control may determine from the currently selected item what 'virtual' item should be selected, and return it as a result from its mapping callback.</p>
+
+<h3>scrollIntoView and Transition Animations</h3>
+<p>The controller uses getFinishCallback to make sure that all animations that must be completed before any further events can be processed are actually completed.</p>
+
+<p>For instance, imagine a control that is sliding pages, and it must slide 4 pages to get to the selected item. Additionally, this control cannot tolerate any other navigation events (mouse enter, click, arrow keys, etc) while the pages are moving. The control can ensure this by using getFinishCallback to track the completion of its animations. The Key Controller will not process any input events until the animations are over.</p>
+
+<p>The Key Controller does this by supplying a getFinishCallback method to the scrollIntoView action callback. The callback then calls this method to retrieve a function to be called when the animation is finished. Each time getFinishCallback is called, it increments a counter. When the function it returns is called, the counter is decremented. When the counter returns to zero, the Key Controller resumes processing events.</p>
+
+<p>The function getFinishCallback is generally called in an animation-finish callback. <i><b>Code that acquires callback functions by calling getFinishCallback() must call that callback function once for each time it acquired. Key navigation events will be suspended until all acquired callbacks are called.</b></i></p>
+
+<p>Below are examples of using the callback from getFinishCallback() to synchronize animations:</p>
+<h4>HTML5 transition</h4>
+<pre>
+// Acquire the finish callback here.
+var finishCallback = getFinishCallback();
+
+function transitionDone(event) {
+  someElem.removeEventListener('webkitTransitionEnd', transitionDone);
+
+  // Make the callback when the transition has completed.
+  finishCallback();
+}
+
+// Make sure transitionDone() is called at the end of the transition.
+someElem.addEventListener('webkitTransitionEnd', transitionDone);
+
+// Start the transition.
+$(someElem).css({
+  '-webkit-transition': 'all 2s ease-in-out',
+  opacity: 0
+});
+</pre>
+<h4>jQuery.animate</h4>
+<pre>
+// Acquire the finish callback.
+var finishCallback = getFinishCallback();
+
+// Tell jQuery.animate to call finishCallback when the animation is over.
+someElem.animate({
+  opacity: 0.0
+}, finishCallback);
+</pre>
+
+<p>[Internally, the Key Controller maintains a reference that it decrements only after it has completed its work of changing the selection, so that further event handling is blocked until the entire process is complete, even if the animations complete immediately.]</pre>
+
+<h3 id="zones">Zone Hierarchy</h3>
+<p>The Key Controller tracks the hierarchical relationship of zones. This relationship is implicitly established when a zone is added to the controller with a container that is the parent or child of another zone's container.</p>
+
+<p>The controller implements very specific behavior in these cases, allowing for controls that contain other controls to be notified of certain events that happen to their parent and child zones.</p>
+
+<h4>Entering Zones</h4>
+<p>For the purposes of managing selection, hierarchies are "flattened" across the page. That is, selection always "drops" down to the lowest child zones: when a parent zone gets the selection, it will transfer that selection to its first child, which will then transfer to its child, and so on, until a zone with no children receives the selection.</p>
+
+<p>During this process, however, enterZone actions are still called. These are called in the following order: first, the enterZone of each parent zone of the initially selected zone are called in turn. Then the enterZone of the selected zone is called. Then each child entered has its enterZone action called.</p>
+
+<h4>Leaving Zones</h4>
+<p>When a zone is left, a similar process is followed. The initial zone's leaveZone action is called (with the selected item set) followed by the leaveZone action of each parent (with the selected item null) in turn.</p>
+
+<h3 id="layers">Layers</h3>
+<p>The Key Controller supports multiple independent layers of control on a page. At any time, only one layer can be active. The active layer can be changed by setLayer(), setZone() to a zone in a different layer, or when the active layer or the last zone in the active layer is removed. Maintaining multiple layers allows the developer to create layers of controls on a page (for example, a login dialog over a content page) assigned to a layer without having to micromanage the key zones.</p>
+
+<p>By default, all zones are placed into the 'default' layer. Pages that don't need layering never need to specify a layer name. Pages that have one primary layer can use 'default' for the main content, and then use new layers when placing dialogs over that content. Specifically, the page might create a dialog and add its items to a zone in a new layer, and then activate that layer. When the page is done with the dialog, the layer would be removed and the default layer re-activated.</p>
+
+<p>In addition, each layer has its own page-wide key mapping that is active when the layer is active. This usage is generally preferred to setting a global key mapping.</p>
+
+<p>A zone can also exist in multiple layers. This makes it easy to create headers, footers, toolbars, etc, that only need to be instantiated once and can remain active on as many other layers as desired. For instance, a page might have a "details" and "full screen", each in a separate layer, and have a header in both layers that remains active as the user switches between them.</p>
+
+<h2 id="keyzone">KeyBehaviorZone</h3>
+<p>The KeyBehaviorZone describes the page navigation behavior inside a particular zone of the browser window. The zone is bounded by a container (generally a DIV) that describes the bounds of the zone. Objects of this type are used by the Key Controller.</p>
+
+<p>The zone describes everything about the zone, including key mapping overrides, overrideable actions, selectors for default key navigation, styles for selection states, and so on.</p>
+
+<pre>
+var zoneCreationParams = { /* set param values */ };
+var zone = new gtv.jq.KeyBehaviorZone(zoneCreationParams);
+</pre>
+
+<h3 id="zoneparams">KeyZoneCreationParams</h3>
+<p>Creation of a new zone requires filling out a gtv.jq.KeyZoneCreationParams object with initialization parameters. The following table describes these:</p>
+
+<table>
+  <tbody>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Optional?</th>
+      <th>Description</th>
+    </tr>
+    <tr>
+      <td>containerSelector</td>
+      <td>string</td>
+      <td>required</td>
+      <td>jQuery selector that uniquely identifies the zone container on the page. The most reliable selector is for an ID (i.e., for jQuery starting with a '#'), but classes, names, etc, can also be used as long as they identify a single element on the page.</td>
+    </tr>
+    <tr>
+      <td>navSelectors</td>
+      <td>KeyNavSelectors</td>
+      <td>required</td>
+      <td>A map of selectors that tell the Key Controller how it should determine what elements in the zone are items, item divs, and rows. These are used for the default navigation abilities of the key controller. See the Key Controller section for details.</td>
+    </tr>
+    <tr>
+      <td>selectionClasses</td>
+      <td>KeySelectionCssClasses</td>
+      <td>optional, recommended</td>
+      <td>A map of classes used to style a selected item. Currently two styles:
+basic	Default style for a selected item. Required if a zone desires a visual indication of the selected item.
+hasData	Style for selected items that have a data item matching navigableData (see the next parameter).</td>
+    </tr>
+    <tr>
+      <td>keyMapping</td>
+      <td>KeyMapping</td>
+      <td>optional</td>
+      <td>A map of key codes to callback functions. Any keycode can be overridden with a callback. See the documentation for Key Controller to see specifics on how to use these overrides.</td>
+    </tr>
+    <tr>
+      <td>actions</td>
+      <td>KeyActions</td>
+      <td>optional</td>
+      <td>A map of action names to callback functions. See the documentation for Key Controller to find the available actions and their callback parameters.</td>
+    </tr>
+    <tr>
+      <td>navigableData</td>
+      <td>string</td>
+      <td>optional</td>
+      <td>Indicates that items have a jQuery.data() value associated with them. If present, selectionClasses.hasData is styled for the element when it is selected. Use this to provide a visual indiciation that an item has an action associated with being chosen (i.e., with ENTER or with a mouse click).</td>
+    </tr>
+    <tr>
+      <td>saveRowPosition</td>
+      <td>string</td>
+      <td>optional</td>
+      <td>If true, the Key Controller remembers the index of the item selected on the row, and re-selects it when selection returns to the row.</td>
+    </tr>
+    <tr>
+      <td>useGeometry</td>
+      <td>string</td>
+      <td>optional</td>
+      <td>If true, the Key Controller will look for nearest-neighbors within a zone instead of using the static page/row/item layout of the page.</td>
+    </tr>
+    <tr>
+      <td>selectHidden</td>
+      <td>string</td>
+      <td>optional</td>
+      <td>If true, the Key Controller will move the selection to an item even if it is hidden on the page. By default this is false.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h4 id="keyselectors">KeyNavSelectors</h4>
+<p>This object tells the KeyController how the document is structured and thus how to find various elements for navigation.</p>
+<p>Each of these attributes are jQuery selector strings that are used to identify the kind of element. In most cases, the elements of a particular type have a CSS class associated with them, and this class is used as the selector</p>
+<p>For example, the following fragment describes two rows, the first with two items and the second with one item:</p>
+<pre>
+&lt;div class="item-row"&gt;
+  &lt;div class="item-parent"&gt;
+    &lt;div class="item"&gt;&lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class="item-parent"&gt;
+    &lt;div class="item"&gt;&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="item-row"&gt;
+  &lt;div class="item-parent"&gt;
+    &lt;div class="item"&gt;&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+</pre>
+<p>In this case, the KeyNavSelectors object would be:</p>
+<pre>
+var keyNavSelectors = {
+  item: '.item',
+  itemParent: '.item-parent',
+  itemRow: '.item-row'
+};
+</pre>
+<table>
+  <tbody>
+    <tr>
+      <th>Name</th>
+      <th>Description</th>
+    </tr>
+    <tr>
+      <td>item</td>
+      <td>Items are the navigable elements on the page. That is, they are the elements that can have selection and will be highlighed by the a selection CSS class (see below).</td>
+    </tr>
+    <tr>
+      <td>itemParent</td>
+      <td>The immediate parent of an item on the page. Items in rows always have parents.</td>
+    </tr>
+    <tr>
+      <td>itemRow</td>
+      <td>The parent of the itemParent. These represent horizontal collections of itemParents, each with an item.</td>
+    </tr>
+    <tr>
+      <td>itemPage</td>
+      <td>A page of itemRows. This is only applicable if the document is implemented to have multiple pages that are not all visible at the same time but which are navigable.</td>
+    </tr>
+  </tbody>
+</table>
+
+
+<h4>KeySelectionCssClasses</h4>
+<p>This object tells the KeyController what CSS class to use to mark an item when it is selected. This might be an outline, border, partially opaque color, and so on, to visibly indicate to the user that the item has the selection.</p>
+<p>Different classes can be provided to differentiate between items that are actionable by the user and those that aren't. For example, you might want a color highlight if an item has a URL associated with it, or gray if it doesn't.</p>
+<table>
+  <tbody>
+    <tr>
+      <th>Name</th>
+      <th>Description</th>
+    </tr>
+    <tr>
+      <td>basic</td>
+      <td>Default style for a selected item. Required if a zone desires a visual indication of the selected item.</td>
+    </tr>
+    <tr>
+      <td>hasData</td>
+      <td>Style for selected items that have a data item matching navigableData (see the next parameter).</td>
+    </tr>
+  </tbody>
+</table>
+
+<h4 id="keymapping">KeyMapping</h4>
+<p>A zone might wish to provide a key mapping to receive events about key presses on the page. For example, to receive a callback when the user presses the ENTER key (keycode 27) while an item was selected, the zone would supply:</p>
+<pre>
+function myEnterCallback(selectedItem, newSelected) {
+  alert('Enter pressed');
+  return new gtv.jq.Selection('none');
+}
+
+var keyMapping = {
+  27: myEnterCallback
+};
+</pre>
+<p>Each key mapping callback receives two parameters, both jQuery Elements, that say what the currently selected item is an, if the selected item is due to change, what the newly selected item will be.</p>
+<p>The callbacks return a Selection object that tells the KeyController what to do next.</p>
+<table>
+  <tbody>
+    <tr>
+      <th>Status contains (string)</th>
+      <th>Selected contains (jQuery.Element)</th>
+    <tr>
+    <tr>
+      <td>'none'</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>'skip'</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>'selected'</td>
+      <td>The element to select instead.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h5>Navigation Keys</h5>
+<p>The Key Controller provides default navigation key behavior for every zone that serves needs of the standard layout. This defaults can be overridden to choose a different selected item based on the input.</p>
+
+<p>These default keys are:</p>
+<table>
+  <tbody>
+    <tr>
+      <th>Name</th>
+      <th>Keycode</th>
+      <th>Description</th>
+    </tr>
+    <tr>
+      <td>TAB</td>
+      <td>9</td>
+      <td>Move between zones on a page. Selects the next zone in the order they were added to the page. Wraps around to the first zone after the last zone.</th>
+    </tr>
+    <tr>
+      <td>Left Arrow</td>
+      <td>37</td>
+      <td>Moves to the previous item. (Moves to the item's parent's previous sibling's child.)</td>
+    </tr>
+    <tr>
+      <td>Right Arrow</td>
+      <td>39</td>
+      <td>Moves to the next item. (Moves to the item's parent's next sibling's child).</td>
+    </tr>
+    <tr>
+      <td>Up Arrow</td>
+      <td>38</td>
+      <td>Moves to the previous row. (Moves to the item's parent's parent's previous sibling's child's child).</td>
+    </tr>
+    <tr>
+      <td>Down Arrow</td>
+      <td>40</td>
+      <td>Moves to the next row. (Moves to the item's parent's parent's next sibling's child's child).</td>
+    </tr>
+  </tbody>
+</table>
+
+<pre>
+function rightArrowWrap(selectedItem, newSelected) {
+  if (newSelected) {
+    // If newSelected is defined, then the Key Controller was able to find
+    // and item to the right, and we don't want to override it.
+    return new gtv.jq.Selection('none');
+  }
+
+  // newSelected is undefined, so we must have reached the right end of the items.
+  // We want to wrap around, so we look for the first item and return it.
+
+  // Use jQuery to get the parent items in the row that contains this item.
+  var parentItems = selectedItem.parent().siblings();
+
+  // Use jQuery to get the first item in the row.
+  var replaceItem = parentItems.first().children();
+
+  // Return this item, which the KeyController will now make the new selection.
+  return new gtv.jq.Selection('selected', replaceItem);
+}
+
+// Create a key mapping to call our wrap-around function when the right arrow is pressed.
+var keyMapping = {
+  39: rightArrowWrap
+};
+</pre>
+
+<h4 id="keyactions">KeyActions</h4>
+<p>The Key Controller supports action callbacks for a variety of events that happen during operation.</p>
+
+<table>
+  <tbody>
+    <tr>
+      <th>Action</th>
+      <th>Description</th>
+      <th>Function Signature</th>
+    </tr>
+    <tr>
+      <td>scrollIntoView</td>
+      <td>
+        <p>Called by the controller every time a new item is selected.</p>
+        <p>This action is generally provided by any control that may move elements into and out of view. The control is responsible for making sure that, upon return, the newItem is being moved into view.</p>
+        <p>Because this is called on each selection change, it is advisable to detect if newItem is already visible and return immediately if so.</p>
+      </td>
+      <td>
+        <table>
+          <tbody>
+            <tr>
+              <th>Parameter Name</th>
+              <th>Type</th>
+              <th>Description</th>
+            </tr>
+            <tr>
+              <td>selectedItem</td>
+              <td>jQuery.Element</td>
+              <td>The currently selected item, if any (may be undefined).</td>
+            </tr>
+            <tr>
+              <td>newItem</td>
+              <td>jQuery.Element</td>
+              <td>The newly selected item. This is the item that should be moved into view.</td>
+            </tr>
+            <tr>
+              <td>getFinishCallback</td>
+              <td>Function</td>
+              <td>The method to call to retrieve a callback function that must be called after any animation is completed (see below).</td>
+            </tr>
+          </tbody>
+        </table>
+        <table>
+          <tbody>
+            <tr>
+              <th>Return Type</th>
+            </tr>
+            <tr>
+              <td>None</td>
+            </tr>
+          </tbody>
+        </table>
+      </td>
+    </tr>
+    <tr>
+      <td>click</td>
+      <td>
+        <p>Called when an item in the zone is clicked on by the mouse. Commonly overridden in combination with the <enter> key to handle user choice.</p>
+      </td>
+      <td>
+        <table>
+          <tbody>
+            <tr>
+              <th>Name</th>
+              <th>Type</th>
+              <th>Description</th>
+            </tr>
+            <tr>
+              <td>item</td>
+              <td>jQuery.Element</td>
+              <td>The item in the zone that was clicked on.</td>
+            </tr>
+          </tbody>
+        </table>
+        <table>
+          <tbody>
+            <tr>
+              <th>Return Type</th>
+            </tr>
+            <tr>
+              <td>None</td>
+            </tr>
+          </tbody>
+        </table>
+      </td>
+    </tr>
+    <tr>
+      <td>enterZone</td>
+      <td>
+        <p>Called when selection enters a zone or a child of the zone. Can be used to move the contents of the zone into view upon selection, etc.</p>
+        <p>The callback can return the item that should be selected upon moving into the zone. By default, the controller selects the item that was selected when the zone was left, if any. This is only used if the zone is selectable (that is, is the last child in a zone hierarchy).</p>
+      </td>
+      <td>
+        <table>
+          <tbody>
+            <tr>
+              <th>Name</th>
+              <th>Type</th>
+              <th>Description</th>
+            </tr>
+            <tr>
+              <td>item</td>
+              <td>jQuery.Element</td>
+              <td>The item in the zone that was clicked on.</td>
+            </tr>
+          </tbody>
+        </table>
+        <table>
+          <tbody>
+            <tr>
+              <th>Return Type</th>
+              <th>Description</th>
+            </tr>
+            <tr>
+              <td>jQuery.Element</td>
+              <td>Item to be selected upon moving into the zone.</td>
+            </tr>
+          </tbody>
+        </table>
+      </td>
+    </tr>
+    <tr>
+      <td>leaveZone</td>
+      <td>
+        <p>Called when selection leaves a zone or the parent of a zone. Can be used to move the contents of the zone out of view, etc.</p>
+      </td>
+      <td>
+        <table>
+          <tbody>
+            <tr>
+              <th>Name</th>
+              <th>Type</th>
+              <th>Description</th>
+            </tr>
+            <tr>
+              <td>selectedItem</td>
+              <td>jQuery.Element</td>
+              <td>The item in the zone that was selected before leaving it.</td>
+            </tr>
+          </tbody>
+        </table>
+        <table>
+          <tbody>
+            <tr>
+              <th>Return Type</th>
+            </tr>
+            <tr>
+              <td>None</td>
+            </tr>
+          </tbody>
+        </table>
+      </td>
+    </tr>
+    <tr>
+      <td>moveSelected</td>
+      <td>
+        <p>Called after selection has been moved to a new item. This is a notification; the zone can't do anything to change the outcome of the item selected.</p>
+      </td>
+      <td>
+        <table>
+          <tbody>
+            <tr>
+              <th>Name</th>
+              <th>Type</th>
+              <th>Description</th>
+            </tr>
+            <tr>
+              <td>selectedItem</td>
+              <td>jQuery.Element</td>
+              <td>The currently selected item, about to be replaced by newSelected.</td>
+            </tr>
+            <tr>
+              <td>newSelected</td>
+              <td>jQuery.Element</td>
+              <td>The newly selected item.</td>
+            </tr>
+          </tbody>
+        </table>
+        <table>
+          <tbody>
+            <tr>
+              <th>Return Type</th>
+            </tr>
+            <tr>
+              <td>None</td>
+            </tr>
+          </tbody>
+        </table>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+
+
+      </div><!-- end gc-pagecontent -->
+    </div><!-- end gooey wrapper -->
+
+    </div> <!-- end codesite content -->
+
+
+<div id="gc-footer" dir="ltr">
+  <div class="text">
+    
+    ©2011 Google -
+    <a href="http://code.google.com">Code Home</a> -
+    <a href="http://code.google.com/terms.html">Terms of Service</a> -
+    <a href="http://code.google.com/privacy.html">Privacy Policy</a> -
+    <a href="http://code.google.com/more">Site Directory</a>
+    <br> <br>
+    Google Code offered in:
+    <a href="http://code.google.com/intl/en">English</a> -
+    <a href="http://code.google.com/intl/es">Español</a> -
+    <a href="http://code.google.com/intl/ja">日本語</a> -
+    <a href="http://code.google.com/intl/ko">한국어</a> -
+    <a href="http://code.google.com/intl/pt-BR">Português</a> -
+    <a href="http://code.google.com/intl/ru">Pусский</a> -
+    <a href="http://code.google.com/intl/zh-CN">中文(简体)</a> -
+    <a href="http://code.google.com/intl/zh-TW">中文(繁體)</a>
+  </div>
+</div><!-- end gc-footer -->
+
+</div><!-- end gc-container -->
+
+<script type="text/javascript">CODESITE_CSITimer['load'].tick('ats');</script>
+<script src="../../../../js/codesite_tail.pack.04102009.js" type="text/javascript"></script>
+
+
+
+
+<script type="text/javascript">
+var _gaq = _gaq || [];
+
+_gaq.push(
+
+
+    ['siteTracker._setAccount', 'UA-18071-1'],
+    ['siteTracker._setDomainName', 'code.google.com'],
+    ['siteTracker._setCookiePath', window.location.pathname.substring(0,
+        window.location.pathname.lastIndexOf('/') + 1)],
+    ['siteTracker._trackPageview']
+);
+(function() {
+  var ga = document.createElement('script');
+
+  ga.type = 'text/javascript';
+  ga.async = true;
+  ga.src = 'http://www.google-analytics.com/ga.js';
+  (document.getElementsByTagName('head')[0] ||
+   document.getElementsByTagName('body')[0]).appendChild(ga);
+ })();
+</script>
+
+
+
+
+  </body>
+</html>
+
+

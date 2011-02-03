@@ -1,0 +1,3736 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+         
+
+    
+     
+      
+
+   
+    
+ 
+   
+ 
+
+           
+
+ 
+
+  
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <script type="text/javascript" language="JavaScript">
+    ORIGINAL_PAGE_PATH = "/tv/web/api/closure/index.html";
+    </script>
+    
+    
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<title>Google TV Closure UI Lib Reference (1.0) - Google TV - Google Code</title>
+<script type="text/javascript"><!--
+(function(){function a(){this.t={};this.tick=function(c){this.t[c]=(new Date).getTime()};this.tick("start")}var b=new a;window.jstiming={Timer:a,load:b};if(window.external&&window.external.pageT)window.jstiming.pt=window.external.pageT;})();
+
+var _tocPath_ = '/tv/web/docs/_toc.ezt';
+var codesite_token = null;
+var logged_in_user_email = null;
+//--></script>
+<link href="../../../../css/codesite.pack.04102009.css" type="text/css" rel="stylesheet">
+<script src="../../../../js/codesite_head.pack.04102009.js" type="text/javascript"></script>
+<script type="text/javascript">CODESITE_CSITimer['load'].tick('bhs');</script>
+<link rel="search" type="application/opensearchdescription+xml" title="Google Code" href="http://code.google.com/osd.xml">
+
+<!--[if IE]><link rel="stylesheet" type="text/css" href="../../../../css/iehacks.css"><![endif]-->
+
+  </head>
+
+  <body class="gc-documentation">
+
+    
+    
+    <div id="gb">
+ <span>
+  
+    <a id="lang-dropdown" href="http://code.google.com" onclick="return false;"><span style="text-decoration:underline">English</span> <span style="font-size:.75em;">&#9660;</span></a>
+  
+ </span>
+</div>
+
+<div class="gbh" style="left:0px;"></div>
+<div class="gbh" style="right:0px;"></div>
+
+<div id="gc-container">
+<a id="top"></a>
+<div id="skipto">
+  <a href="#gc-pagecontent">Skip to page content</a>
+  <a href="#gc-toc">Skip to main navigation</a>
+</div>
+
+<div id="gc-header">
+  <div id="logo"><a href="http://code.google.com">
+  
+  
+     <img src="../../../../images/code_logo.gif" height="40" width="167" alt="Google Code" style="border:0;margin:3px 0 0 0;">
+  
+  
+  </a></div>
+  <div id="search">
+    <div id="searchForm">
+      <form id="cse" action="http://www.google.com/cse" accept-charset="utf-8" onsubmit="executeGSearch(document.getElementById('gsearchInput').value); return false;">
+      <noscript>
+      <input type="hidden" name="cref" value="http://code.google.com/cse/googlecode-context.xml">
+      </noscript>
+      <div id="gsc-search-box">
+        <input id="gsearchInput" type="text" name="q" maxlength="2048" class="gsc-input" autocomplete="off" title="Google Code Search" style="width:345px">
+        <div id="cs-searchresults" onclick="event.cancelBubble = true;"></div>
+        <input title="Search" id="gsearchButton" class="gsc-search-button" name="sa" value="Search" type="submit">
+        <div class="greytext">e.g. "adwords" or "open source"</div>
+      </div>
+      </form>
+    </div> <!-- end searchForm -->
+  </div> <!-- end search -->
+
+
+
+
+</div> <!-- end gc-header -->
+
+
+<div id="codesiteContent">
+
+<a id="gc-topnav-anchor"></a>
+<div id="gc-topnav">
+  <h1 style="padding:0 0 0 6px;">Google TV</h1>
+  <ul id="docs" class="gc-topnav-tabs">
+
+    <li id="home_link">
+      <a href="http://code.google.com/tv/web" title="Google TV home page">Home</a>
+    </li>
+  
+    <li id="docs_link">
+      <a href="http://code.google.com/tv/web/docs/design_for_tv.html" class="selected" title="Official Google TV documentation">Docs</a>
+    </li>
+  
+    <li id="faq_link">
+      <a href="http://code.google.com/tv/web/faq.html" title="Answers to frequently asked questions about Google TV">FAQ</a>
+    </li>
+  
+    <li>
+      <a href="http://googletv.blogspot.com" title="Official Google TV blog">Blog</a>
+    </li>
+  
+    <li>
+      <a href="http://code.google.com/tv/web/forum" title="Google TV developer forum">Forum</a>
+    </li>
+  
+    <li>
+      <a href="http://gtv-gallery.appspot.com/" title="Google TV gallery">Gallery</a>
+    </li>
+  
+    <li>
+      <a href="http://www.google.com/accounts/TOS" title="Google TV terms of service">Terms</a>
+    </li>
+  
+
+  </ul>
+</div> <!-- end gc-topnav -->
+
+    <div class="g-section g-tpl-210">
+
+      <a name="gc-toc"></a>  
+      <div class="g-unit g-first" id="gc-toc">
+        <ul>
+  <li><h2>Optimization Guide</h2>
+    <ul>
+      <li><a href="http://code.google.com/tv/web/docs/design_for_tv.html">Designing For TV</a></li>
+      <li><a href="http://code.google.com/tv/web/docs/implement_for_tv.html">Implementation Tips</a></li>
+      <li><a href="http://code.google.com/tv/web/docs/implement_for_tv.html#flash">Flash Optimization</a></li>
+      <li><a href="http://code.google.com/tv/web/docs/optimization_list.html">Optimization Checklist</a></li>
+    </ul>
+  </li>
+  <li><h2>Additional Resources</h2>
+    <ul>
+      <li><a href="http://www.google.com/tv/spotlight-gallery.html">Gallery</a></li>
+      <li><a href="http://www.google.com/support/webmasters/bin/answer.py?&answer=80472">Getting Your Videos Indexed</a></li>
+      <li><a href="http://code.google.com/tv/web/faq.html">FAQ</a></li>
+      <li><a href="http://code.google.com/tv/web/forum">Forum</a></li>
+      <li><a href="http://code.google.com/tv/web/api">UI Library for Google TV</a>
+        <ul>
+          <li><a href="http://code.google.com/tv/web/api/jquery">jQuery</a></li>
+          <li><a href="index.html">Closure</a></li>
+          <li>Articles
+            <ul>
+              <li><a href="http://code.google.com/tv/web/api/jquery/controls-tutorial.html">jQuery Controls Tutorial</a></li>
+              <li><a href="http://code.google.com/tv/web/api/jquery/keycontroller.html">jQuery Key Navigation</a></li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+      </div>
+      
+      <a name="gc-pagecontent"></a>   
+      <div class="g-unit" id="gc-pagecontent">
+        <h1 class="page_title">Google TV Closure UI Lib Reference (1.0)</h1>
+
+
+<p>This is the API reference for the Closure TV UI Library.</p>
+
+<p>The library code can be found at: <a href='http://code.google.com/p/gtv-ui-lib'>http://code.google.com/p/gtv-ui-lib</a></p>
+
+
+<h1 id="api">Library Reference</h1>
+<h2>Table of Contents</h2>
+<ul>
+
+
+  <li><a href="#tv.ui.Button">Button</a></li>
+<li><a href="#tv.ui.Component">Component</a></li>
+<li><a href="#tv.ui.Container">Container</a></li>
+<li><a href="#tv.ui.DecorateHandler">DecorateHandler</a></li>
+<li><a href="#tv.ui.Grid">Grid</a></li>
+<li><a href="#tv.ui.Input">Input</a></li>
+<li><a href="#tv.ui.Lightbox">Lightbox</a></li>
+<li><a href="#tv.ui.Link">Link</a></li>
+<li><a href="#tv.ui.Menu">Menu</a></li>
+<li><a href="#tv.ui.TabContainer">TabContainer</a></li>
+<li><a href="#tv.ui.ToggleButton">ToggleButton</a></li>
+
+</ul>
+
+
+
+
+
+
+
+
+<h1 id="tv.ui.Button">Class tv.ui.Button</h1>
+
+
+    Extends <a href=".html"></a>.<br/>
+
+<!-- <i>Defined in <a href="button.src.html">button.js</a></i> -->
+
+<p class="summaryDetailLink">
+SUMMARY:&nbsp;<a href="#tv.ui.Button_field_summary">FIELD</a>&nbsp;|&nbsp;<a href="#tv.ui.Button_method_summary">METHOD</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DETAIL:&nbsp;<a href="#tv.ui.Button_field_detail">FIELD</a>&nbsp;|&nbsp;<a href="#tv.ui.Button_method_detail">METHOD</a>
+</p>
+
+
+
+
+
+
+
+<!-- =========== FIELD SUMMARY =========== -->
+
+<a name="tv.ui.Button_field_summary"> </a>
+<h2>Field Summary</h2>
+<dl>
+
+<dt>
+<code>object</code>
+<code><b><a href="#tv.ui.Button.onAction">onAction</a></b></code>
+</dt>
+<dd>Handles action event.
+</dd>
+
+</dl>
+&nbsp;
+
+<!-- =========== END FIELD SUMMARY =========== -->
+
+
+
+<!-- ======== CONSTRUCTOR SUMMARY ======== -->
+<a name="tv.ui.Button_constructor_summary"> </a>
+<h2>Constructor Summary</h2>
+<dl>
+
+    <dt><code>
+        <b><a href="#tv.ui.Button">tv.ui.Button</a></b>()
+        </code></dt>
+    <dd>Constructs button.</dd>
+
+</dl>
+&nbsp;
+<!-- ======== END CONSTRUCTOR SUMMARY ======== -->
+
+
+
+<!-- ========== METHOD SUMMARY =========== -->
+
+<a name="tv.ui.Button_method_summary"> </a>
+<h2>Method Summary</h2>
+<dl>
+    
+<dt><code>
+<b> <a href="#tv.ui.Button.decorate">decorate</a></b>(element) </code>
+</dt>
+<dd>
+</dd>
+
+<dt><code>
+<b> <a href="#tv.ui.Button.getClass">getClass</a></b>() </code>
+</dt>
+<dd>
+</dd>
+
+<dt><code>
+                &nbsp;boolean
+                
+<b> <a href="#tv.ui.Button.isEager">isEager</a></b>() </code>
+</dt>
+<dd>
+</dd>
+
+<dt><code>
+<b> <a href="#tv.ui.Button.onClick">onClick</a></b>(event) </code>
+</dt>
+<dd>Handles click event.
+</dd>
+
+<dt><code>
+<b> <a href="#tv.ui.Button.onKey">onKey</a></b>(event) </code>
+</dt>
+<dd>Handles key event.
+</dd>
+
+<dt><code>
+<b> <a href="#tv.ui.Button.onMouseDown">onMouseDown</a></b>(event) </code>
+</dt>
+<dd>
+</dd>
+
+</dl>
+&nbsp;
+
+
+<!-- ========== EVENT SUMMARY =========== -->
+
+
+
+
+<!-- ========== INHERITED METHODS SUMMARY =========== -->
+
+<br/>
+
+<!-- ========== END INHERITED METHODS SUMMARY =========== -->
+
+<!-- ============ FIELD DETAIL START ========= -->
+
+<a name="tv.ui.Button_field_detail"> </a>
+<h2>Field Detail</h2>
+
+
+    <!-- One single method detail entry -->
+    <a name="tv.ui.Button.onAction">
+    <!-- -->
+    </a> <h3>onAction</h3>
+        <pre>object <b>onAction</b></pre>
+    <ul>
+       Handles action event.
+To be used in subclasses.
+    </ul>
+
+
+<!-- ============ FIELD DETAIL END ========== -->
+
+
+
+<!-- ========= CONSTRUCTOR DETAIL START ======== -->
+<a name="tv.ui.Button_constructor_detail"> </a>
+<h2>Constructor Detail</h2>
+
+<a name="tv.ui.Button"> </a>
+<h3>tv.ui.Button</h3>
+
+    <pre><b>tv.ui.Button</b>()</pre>
+    <ul>
+      Constructs button.
+    </ul>
+
+    <!-- PARAMETERS START -->
+    
+    <!-- PARAMETERS END -->
+
+<!-- END ADDITIONAL ATTRIBUTES  -->
+<!-- ========= CONSTRUCTOR DETAIL END ======== -->
+
+
+
+<!-- ============ METHOD DETAIL START ======= -->
+
+<a name="tv.ui.Button_method_detail"> </a>
+<h2>Method Detail</h2>
+
+
+    <a name="tv.ui.Button.decorate"> </a> <h3>decorate</h3>
+        <pre><b>decorate</b>(element)</pre>
+    <ul>
+       
+    </ul>
+    <!-- METHOD PARAMETERS START -->
+    <ul>
+        <b>Parameters:</b>
+        <ul>
+            <code>element </code>
+        </ul>
+    </ul>
+    <!-- METHOD PARAMETERS END -->
+    <!-- ADDITIONAL ATTRIBUTES START -->
+    
+    
+    <!-- ADDITIONAL ATTRIBUTES  END -->
+
+    <a name="tv.ui.Button.getClass"> </a> <h3>getClass</h3>
+        <pre><b>getClass</b>()</pre>
+    <ul>
+       
+    </ul>
+    <!-- METHOD PARAMETERS START -->
+    
+    <!-- METHOD PARAMETERS END -->
+    <!-- ADDITIONAL ATTRIBUTES START -->
+    
+    
+    <!-- ADDITIONAL ATTRIBUTES  END -->
+
+    <a name="tv.ui.Button.isEager"> </a> <h3>isEager</h3>
+        <pre>boolean <b>isEager</b>()</pre>
+    <ul>
+       
+    </ul>
+    <!-- METHOD PARAMETERS START -->
+    
+    <!-- METHOD PARAMETERS END -->
+    <!-- ADDITIONAL ATTRIBUTES START -->
+    <ul>
+        <b>Returns:</b>
+        <ul>
+            <code><i>boolean</i>&nbsp;</code> Whether ACTION event is dispatched on mouse down.
+        </ul>
+    </ul>
+    
+    <!-- ADDITIONAL ATTRIBUTES  END -->
+
+    <a name="tv.ui.Button.onClick"> </a> <h3>onClick</h3>
+        <pre><b>onClick</b>(event)</pre>
+    <ul>
+       Handles click event.
+Dispatches ACTION event.
+    </ul>
+    <!-- METHOD PARAMETERS START -->
+    <ul>
+        <b>Parameters:</b>
+        <ul>
+            <code><i>goog.events.Event</i>&nbsp;event </code> - Click event.
+        </ul>
+    </ul>
+    <!-- METHOD PARAMETERS END -->
+    <!-- ADDITIONAL ATTRIBUTES START -->
+    
+    
+    <!-- ADDITIONAL ATTRIBUTES  END -->
+
+    <a name="tv.ui.Button.onKey"> </a> <h3>onKey</h3>
+        <pre><b>onKey</b>(event)</pre>
+    <ul>
+       Handles key event.
+Dispatches ACTION event if Enter is pressed.
+    </ul>
+    <!-- METHOD PARAMETERS START -->
+    <ul>
+        <b>Parameters:</b>
+        <ul>
+            <code><i>goog.events.KeyEvent</i>&nbsp;event </code> - Key event.
+        </ul>
+    </ul>
+    <!-- METHOD PARAMETERS END -->
+    <!-- ADDITIONAL ATTRIBUTES START -->
+    
+    
+    <!-- ADDITIONAL ATTRIBUTES  END -->
+
+    <a name="tv.ui.Button.onMouseDown"> </a> <h3>onMouseDown</h3>
+        <pre><b>onMouseDown</b>(event)</pre>
+    <ul>
+       
+    </ul>
+    <!-- METHOD PARAMETERS START -->
+    <ul>
+        <b>Parameters:</b>
+        <ul>
+            <code>event </code>
+        </ul>
+    </ul>
+    <!-- METHOD PARAMETERS END -->
+    <!-- ADDITIONAL ATTRIBUTES START -->
+    
+    
+    <!-- ADDITIONAL ATTRIBUTES  END -->
+
+
+<!-- ============ METHOD DETAIL END ========== -->
+
+<!-- ============ EVENT DETAIL START ======= -->
+
+
+
+<!-- ============ EVENT DETAIL END ========== -->
+
+<p class="backtotop"><a href="#top">Back to top</a></p>
+
+
+
+
+
+
+<h1 id="tv.ui.Component">Class tv.ui.Component</h1>
+
+
+    Extends <a href=".html"></a>.<br/>
+
+<!-- <i>Defined in <a href="component.src.html">component.js</a></i> -->
+
+<p class="summaryDetailLink">
+SUMMARY:&nbsp;<a href="#tv.ui.Component_field_summary">FIELD</a>&nbsp;|&nbsp;<a href="#tv.ui.Component_method_summary">METHOD</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DETAIL:&nbsp;<a href="#tv.ui.Component_field_detail">FIELD</a>&nbsp;|&nbsp;<a href="#tv.ui.Component_method_detail">METHOD</a>
+</p>
+
+
+
+
+
+
+
+<!-- =========== FIELD SUMMARY =========== -->
+
+<a name="tv.ui.Component_field_summary"> </a>
+<h2>Field Summary</h2>
+<dl>
+
+<dt>
+<code>object</code>
+<code><b><a href="#tv.ui.Component.onKey">onKey</a></b></code>
+</dt>
+<dd>Handles key event.
+</dd>
+
+</dl>
+&nbsp;
+
+<!-- =========== END FIELD SUMMARY =========== -->
+
+
+
+<!-- ======== CONSTRUCTOR SUMMARY ======== -->
+<a name="tv.ui.Component_constructor_summary"> </a>
+<h2>Constructor Summary</h2>
+<dl>
+
+    <dt><code>
+        <b><a href="#tv.ui.Component">tv.ui.Component</a></b>()
+        </code></dt>
+    <dd>Constructs component.</dd>
+
+</dl>
+&nbsp;
+<!-- ======== END CONSTRUCTOR SUMMARY ======== -->
+
+
+
+<!-- ========== METHOD SUMMARY =========== -->
+
+<a name="tv.ui.Component_method_summary"> </a>
+<h2>Method Summary</h2>
+<dl>
+    
+<dt><code>
+<b> <a href="#tv.ui.Component.decorate">decorate</a></b>(element) </code>
+</dt>
+<dd>Decorates given DOM element and makes it root element for component.
+</dd>
+
+<dt><code>
+<b> <a href="#tv.ui.Component.dispatchBlur_">dispatchBlur_</a></b>() </code>
+</dt>
+<dd>Called by tv.ui.Document when component loses focus.
+</dd>
+
+<dt><code>
+<b> <a href="#tv.ui.Component.dispatchFocus_">dispatchFocus_</a></b>() </code>
+</dt>
+<dd>Called by tv.ui.Document when component gains focus.
+</dd>
+
+<dt><code>
+<b> <a href="#tv.ui.Component.dispatchKey_">dispatchKey_</a></b>(event) </code>
+</dt>
+<dd>Called by tv.ui.Document on focused component when document receives key
+event.
+</dd>
+
+<dt><code>
+<b> <a href="#tv.ui.Component.disposeInternal">disposeInternal</a></b>() </code>
+</dt>
+<dd>
+</dd>
+
+<dt><code>
+                &nbsp;string
+                
+<b> <a href="#tv.ui.Component.getClass">getClass</a></b>() </code>
+</dt>
+<dd>
+</dd>
+
+<dt><code>
+                &nbsp;tv.ui.Document
+                
+<b> <a href="#tv.ui.Component.getDocument">getDocument</a></b>() </code>
+</dt>
+<dd>
+</dd>
+
+<dt><code>
+                &nbsp;Element
+                
+<b> <a href="#tv.ui.Component.getElement">getElement</a></b>() </code>
+</dt>
+<dd>
+</dd>
+
+<dt><code>
+                &nbsp;goog.events.EventHandler
+                
+<b> <a href="#tv.ui.Component.getEventHandler">getEventHandler</a></b>() </code>
+</dt>
+<dd>
+</dd>
+
+<dt><code>
+                &nbsp;tv.ui.Container
+                
+<b> <a href="#tv.ui.Component.getParent">getParent</a></b>() </code>
+</dt>
+<dd>
+</dd>
+
+<dt><code>
+                &nbsp;tv.ui.Component
+                
+<b> <a href="#tv.ui.Component.getSelectedDescendantOrSelf">getSelectedDescendantOrSelf</a></b>() </code>
+</dt>
+<dd>
+</dd>
+
+<dt><code>
+                &nbsp;boolean
+                
+<b> <a href="#tv.ui.Component.isEnabled">isEnabled</a></b>() </code>
+</dt>
+<dd>
+</dd>
+
+<dt><code>
+                &nbsp;boolean
+                
+<b> <a href="#tv.ui.Component.isFocused">isFocused</a></b>() </code>
+</dt>
+<dd>
+</dd>
+
+<dt><code>
+                &nbsp;boolean
+                
+<b> <a href="#tv.ui.Component.isVisible">isVisible</a></b>() </code>
+</dt>
+<dd>
+</dd>
+
+<dt><code>
+<b> <a href="#tv.ui.Component.onBlur">onBlur</a></b>(event) </code>
+</dt>
+<dd>Handles blur event.
+</dd>
+
+<dt><code>
+<b> <a href="#tv.ui.Component.onFocus">onFocus</a></b>(event) </code>
+</dt>
+<dd>Handles focus event.
+</dd>
+
+<dt><code>
+<b> <a href="#tv.ui.Component.onMouseDown">onMouseDown</a></b>(event) </code>
+</dt>
+<dd>Handles mouse down event.
+</dd>
+
+<dt><code>
+<b> <a href="#tv.ui.Component.render">render</a></b>() </code>
+</dt>
+<dd>Updates styles and layout according to state of component.
+</dd>
+
+<dt><code>
+<b> <a href="#tv.ui.Component.scheduleRender">scheduleRender</a></b>() </code>
+</dt>
+<dd>Schedules eventual rendering of component.
+</dd>
+
+<dt><code>
+                &nbsp;boolean
+                
+<b> <a href="#tv.ui.Component.selectFirstChild">selectFirstChild</a></b>() </code>
+</dt>
+<dd>Does nothing for non-container components.
+</dd>
+
+<dt><code>
+<b> <a href="#tv.ui.Component.setParent">setParent</a></b>(parent) </code>
+</dt>
+<dd>
+</dd>
+
+<dt><code>
+<b> <a href="#tv.ui.Component.setVisible">setVisible</a></b>(visible) </code>
+</dt>
+<dd>
+</dd>
+
+</dl>
+&nbsp;
+
+
+<!-- ========== EVENT SUMMARY =========== -->
+
+
+
+
+<!-- ========== INHERITED METHODS SUMMARY =========== -->
+
+<br/>
+
+<!-- ========== END INHERITED METHODS SUMMARY =========== -->
+
+<!-- ============ FIELD DETAIL START ========= -->
+
+<a name="tv.ui.Component_field_detail"> </a>
+<h2>Field Detail</h2>
+
+
+    <!-- One single method detail entry -->
+    <a name="tv.ui.Component.onKey">
+    <!-- -->
+    </a> <h3>onKey</h3>
+        <pre>object <b>onKey</b></pre>
+    <ul>
+       Handles key event.
+To be used in subclasses.
+    </ul>
+
+
+<!-- ============ FIELD DETAIL END ========== -->
+
+
+
+<!-- ========= CONSTRUCTOR DETAIL START ======== -->
+<a name="tv.ui.Component_constructor_detail"> </a>
+<h2>Constructor Detail</h2>
+
+<a name="tv.ui.Component"> </a>
+<h3>tv.ui.Component</h3>
+
+    <pre><b>tv.ui.Component</b>()</pre>
+    <ul>
+      Constructs component.
+    </ul>
+
+    <!-- PARAMETERS START -->
+    
+    <!-- PARAMETERS END -->
+
+<!-- END ADDITIONAL ATTRIBUTES  -->
+<!-- ========= CONSTRUCTOR DETAIL END ======== -->
+
+
+
+<!-- ============ METHOD DETAIL START ======= -->
+
+<a name="tv.ui.Component_method_detail"> </a>
+<h2>Method Detail</h2>
+
+
+    <a name="tv.ui.Component.decorate"> </a> <h3>decorate</h3>
+        <pre><b>decorate</b>(element)</pre>
+    <ul>
+       Decorates given DOM element and makes it root element for component.
+    </ul>
+    <!-- METHOD PARAMETERS START -->
+    <ul>
+        <b>Parameters:</b>
+        <ul>
+            <code><i>Element</i>&nbsp;element </code> - DOM element to decorate.
+        </ul>
+    </ul>
+    <!-- METHOD PARAMETERS END -->
+    <!-- ADDITIONAL ATTRIBUTES START -->
+    
+    
+    <!-- ADDITIONAL ATTRIBUTES  END -->
+
+    <a name="tv.ui.Component.dispatchBlur_"> </a> <h3>dispatchBlur_</h3>
+        <pre><b>dispatchBlur_</b>()</pre>
+    <ul>
+       Called by tv.ui.Document when component loses focus.
+    </ul>
+    <!-- METHOD PARAMETERS START -->
+    
+    <!-- METHOD PARAMETERS END -->
+    <!-- ADDITIONAL ATTRIBUTES START -->
+    
+    
+    <!-- ADDITIONAL ATTRIBUTES  END -->
+
+    <a name="tv.ui.Component.dispatchFocus_"> </a> <h3>dispatchFocus_</h3>
+        <pre><b>dispatchFocus_</b>()</pre>
+    <ul>
+       Called by tv.ui.Document when component gains focus.
+    </ul>
+    <!-- METHOD PARAMETERS START -->
+    
+    <!-- METHOD PARAMETERS END -->
+    <!-- ADDITIONAL ATTRIBUTES START -->
+    
+    
+    <!-- ADDITIONAL ATTRIBUTES  END -->
+
+    <a name="tv.ui.Component.dispatchKey_"> </a> <h3>dispatchKey_</h3>
+        <pre><b>dispatchKey_</b>(event)</pre>
+    <ul>
+       Called by tv.ui.Document on focused component when document receives key
+event.
+    </ul>
+    <!-- METHOD PARAMETERS START -->
+    <ul>
+        <b>Parameters:</b>
+        <ul>
+            <code><i>goog.events.KeyEvent</i>&nbsp;event </code> - Key event. Warning: method is
+    destructive against event object.
+        </ul>
+    </ul>
+    <!-- METHOD PARAMETERS END -->
+    <!-- ADDITIONAL ATTRIBUTES START -->
+    
+    
+    <!-- ADDITIONAL ATTRIBUTES  END -->
+
+    <a name="tv.ui.Component.disposeInternal"> </a> <h3>disposeInternal</h3>
+        <pre><b>disposeInternal</b>()</pre>
+    <ul>
+       
+    </ul>
+    <!-- METHOD PARAMETERS START -->
+    
+    <!-- METHOD PARAMETERS END -->
+    <!-- ADDITIONAL ATTRIBUTES START -->
+    
+    
+    <!-- ADDITIONAL ATTRIBUTES  END -->
+
+    <a name="tv.ui.Component.getClass"> </a> <h3>getClass</h3>
+        <pre>string <b>getClass</b>()</pre>
+    <ul>
+       
+    </ul>
+    <!-- METHOD PARAMETERS START -->
+    
+    <!-- METHOD PARAMETERS END -->
+    <!-- ADDITIONAL ATTRIBUTES START -->
+    <ul>
+        <b>Returns:</b>
+        <ul>
+            <code><i>string</i>&nbsp;</code> Main CSS class that triggers decoration.
+        </ul>
+    </ul>
+    
+    <!-- ADDITIONAL ATTRIBUTES  END -->
+
+    <a name="tv.ui.Component.getDocument"> </a> <h3>getDocument</h3>
+        <pre>tv.ui.Document <b>getDocument</b>()</pre>
+    <ul>
+       
+    </ul>
+    <!-- METHOD PARAMETERS START -->
+    
+    <!-- METHOD PARAMETERS END -->
+    <!-- ADDITIONAL ATTRIBUTES START -->
+    <ul>
+        <b>Returns:</b>
+        <ul>
+            <code><i>tv.ui.Document</i>&nbsp;</code> Document where component is located.
+        </ul>
+    </ul>
+    
+    <!-- ADDITIONAL ATTRIBUTES  END -->
+
+    <a name="tv.ui.Component.getElement"> </a> <h3>getElement</h3>
+        <pre>Element <b>getElement</b>()</pre>
+    <ul>
+       
+    </ul>
+    <!-- METHOD PARAMETERS START -->
+    
+    <!-- METHOD PARAMETERS END -->
+    <!-- ADDITIONAL ATTRIBUTES START -->
+    <ul>
+        <b>Returns:</b>
+        <ul>
+            <code><i>Element</i>&nbsp;</code> Root DOM element of component.
+        </ul>
+    </ul>
+    
+    <!-- ADDITIONAL ATTRIBUTES  END -->
+
+    <a name="tv.ui.Component.getEventHandler"> </a> <h3>getEventHandler</h3>
+        <pre>goog.events.EventHandler <b>getEventHandler</b>()</pre>
+    <ul>
+       
+    </ul>
+    <!-- METHOD PARAMETERS START -->
+    
+    <!-- METHOD PARAMETERS END -->
+    <!-- ADDITIONAL ATTRIBUTES START -->
+    <ul>
+        <b>Returns:</b>
+        <ul>
+            <code><i>goog.events.EventHandler</i>&nbsp;</code> Event handler.
+        </ul>
+    </ul>
+    
+    <!-- ADDITIONAL ATTRIBUTES  END -->
+
+    <a name="tv.ui.Component.getParent"> </a> <h3>getParent</h3>
+        <pre>tv.ui.Container <b>getParent</b>()</pre>
+    <ul>
+       
+    </ul>
+    <!-- METHOD PARAMETERS START -->
+    
+    <!-- METHOD PARAMETERS END -->
+    <!-- ADDITIONAL ATTRIBUTES START -->
+    <ul>
+        <b>Returns:</b>
+        <ul>
+            <code><i>tv.ui.Container</i>&nbsp;</code> Parent container.
+        </ul>
+    </ul>
+    
+    <!-- ADDITIONAL ATTRIBUTES  END -->
+
+    <a name="tv.ui.Component.getSelectedDescendantOrSelf"> </a> <h3>getSelectedDescendantOrSelf</h3>
+        <pre>tv.ui.Component <b>getSelectedDescendantOrSelf</b>()</pre>
+    <ul>
+       
+    </ul>
+    <!-- METHOD PARAMETERS START -->
+    
+    <!-- METHOD PARAMETERS END -->
+    <!-- ADDITIONAL ATTRIBUTES START -->
+    <ul>
+        <b>Returns:</b>
+        <ul>
+            <code><i>tv.ui.Component</i>&nbsp;</code> Self, or null if component cannot accept focus.
+        </ul>
+    </ul>
+    
+    <!-- ADDITIONAL ATTRIBUTES  END -->
+
+    <a name="tv.ui.Component.isEnabled"> </a> <h3>isEnabled</h3>
+        <pre>boolean <b>isEnabled</b>()</pre>
+    <ul>
+       
+    </ul>
+    <!-- METHOD PARAMETERS START -->
+    
+    <!-- METHOD PARAMETERS END -->
+    <!-- ADDITIONAL ATTRIBUTES START -->
+    <ul>
+        <b>Returns:</b>
+        <ul>
+            <code><i>boolean</i>&nbsp;</code> Whether component can be selected.
+        </ul>
+    </ul>
+    
+    <!-- ADDITIONAL ATTRIBUTES  END -->
+
+    <a name="tv.ui.Component.isFocused"> </a> <h3>isFocused</h3>
+        <pre>boolean <b>isFocused</b>()</pre>
+    <ul>
+       
+    </ul>
+    <!-- METHOD PARAMETERS START -->
+    
+    <!-- METHOD PARAMETERS END -->
+    <!-- ADDITIONAL ATTRIBUTES START -->
+    <ul>
+        <b>Returns:</b>
+        <ul>
+            <code><i>boolean</i>&nbsp;</code> Whether element is focused.
+        </ul>
+    </ul>
+    
+    <!-- ADDITIONAL ATTRIBUTES  END -->
+
+    <a name="tv.ui.Component.isVisible"> </a> <h3>isVisible</h3>
+        <pre>boolean <b>isVisible</b>()</pre>
+    <ul>
+       
+    </ul>
+    <!-- METHOD PARAMETERS START -->
+    
+    <!-- METHOD PARAMETERS END -->
+    <!-- ADDITIONAL ATTRIBUTES START -->
+    <ul>
+        <b>Returns:</b>
+        <ul>
+            <code><i>boolean</i>&nbsp;</code> Whether component is visible.
+        </ul>
+    </ul>
+    
+    <!-- ADDITIONAL ATTRIBUTES  END -->
+
+    <a name="tv.ui.Component.onBlur"> </a> <h3>onBlur</h3>
+        <pre><b>onBlur</b>(event)</pre>
+    <ul>
+       Handles blur event.
+    </ul>
+    <!-- METHOD PARAMETERS START -->
+    <ul>
+        <b>Parameters:</b>
+        <ul>
+            <code><i>goog.events.Event</i>&nbsp;event </code> - Blur event.
+        </ul>
+    </ul>
+    <!-- METHOD PARAMETERS END -->
+    <!-- ADDITIONAL ATTRIBUTES START -->
+    
+    
+    <!-- ADDITIONAL ATTRIBUTES  END -->
+
+    <a name="tv.ui.Component.onFocus"> </a> <h3>onFocus</h3>
+        <pre><b>onFocus</b>(event)</pre>
+    <ul>
+       Handles focus event.
+    </ul>
+    <!-- METHOD PARAMETERS START -->
+    <ul>
+        <b>Parameters:</b>
+        <ul>
+            <code><i>goog.events.Event</i>&nbsp;event </code> - Focus event.
+        </ul>
+    </ul>
+    <!-- METHOD PARAMETERS END -->
+    <!-- ADDITIONAL ATTRIBUTES START -->
+    
+    
+    <!-- ADDITIONAL ATTRIBUTES  END -->
+
+    <a name="tv.ui.Component.onMouseDown"> </a> <h3>onMouseDown</h3>
+        <pre><b>onMouseDown</b>(event)</pre>
+    <ul>
+       Handles mouse down event.
+    </ul>
+    <!-- METHOD PARAMETERS START -->
+    <ul>
+        <b>Parameters:</b>
+        <ul>
+            <code><i>goog.events.Event</i>&nbsp;event </code> - Mouse down event.
+        </ul>
+    </ul>
+    <!-- METHOD PARAMETERS END -->
+    <!-- ADDITIONAL ATTRIBUTES START -->
+    
+    
+    <!-- ADDITIONAL ATTRIBUTES  END -->
+
+    <a name="tv.ui.Component.render"> </a> <h3>render</h3>
+        <pre><b>render</b>()</pre>
+    <ul>
+       Updates styles and layout according to state of component.
+Supposed to be used for computation-heavy updates that are too costly to
+call after every state mutation.
+    </ul>
+    <!-- METHOD PARAMETERS START -->
+    
+    <!-- METHOD PARAMETERS END -->
+    <!-- ADDITIONAL ATTRIBUTES START -->
+    
+    
+    <!-- ADDITIONAL ATTRIBUTES  END -->
+
+    <a name="tv.ui.Component.scheduleRender"> </a> <h3>scheduleRender</h3>
+        <pre><b>scheduleRender</b>()</pre>
+    <ul>
+       Schedules eventual rendering of component.
+Render is performed only once, no matter how many times it was scheduled.
+    </ul>
+    <!-- METHOD PARAMETERS START -->
+    
+    <!-- METHOD PARAMETERS END -->
+    <!-- ADDITIONAL ATTRIBUTES START -->
+    
+    
+    <!-- ADDITIONAL ATTRIBUTES  END -->
+
+    <a name="tv.ui.Component.selectFirstChild"> </a> <h3>selectFirstChild</h3>
+        <pre>boolean <b>selectFirstChild</b>()</pre>
+    <ul>
+       Does nothing for non-container components.
+Used solely because of return value.
+    </ul>
+    <!-- METHOD PARAMETERS START -->
+    
+    <!-- METHOD PARAMETERS END -->
+    <!-- ADDITIONAL ATTRIBUTES START -->
+    <ul>
+        <b>Returns:</b>
+        <ul>
+            <code><i>boolean</i>&nbsp;</code> True if component can be selected.
+        </ul>
+    </ul>
+    
+    <!-- ADDITIONAL ATTRIBUTES  END -->
+
+    <a name="tv.ui.Component.setParent"> </a> <h3>setParent</h3>
+        <pre><b>setParent</b>(parent)</pre>
+    <ul>
+       
+    </ul>
+    <!-- METHOD PARAMETERS START -->
+    <ul>
+        <b>Parameters:</b>
+        <ul>
+            <code><i>tv.ui.Container</i>&nbsp;parent </code> - Sets parent container.
+        </ul>
+    </ul>
+    <!-- METHOD PARAMETERS END -->
+    <!-- ADDITIONAL ATTRIBUTES START -->
+    
+    
+    <!-- ADDITIONAL ATTRIBUTES  END -->
+
+    <a name="tv.ui.Component.setVisible"> </a> <h3>setVisible</h3>
+        <pre><b>setVisible</b>(visible)</pre>
+    <ul>
+       
+    </ul>
+    <!-- METHOD PARAMETERS START -->
+    <ul>
+        <b>Parameters:</b>
+        <ul>
+            <code><i>boolean</i>&nbsp;visible </code> - Sets whether component is visible.
+        </ul>
+    </ul>
+    <!-- METHOD PARAMETERS END -->
+    <!-- ADDITIONAL ATTRIBUTES START -->
+    
+    
+    <!-- ADDITIONAL ATTRIBUTES  END -->
+
+
+<!-- ============ METHOD DETAIL END ========== -->
+
+<!-- ============ EVENT DETAIL START ======= -->
+
+
+
+<!-- ============ EVENT DETAIL END ========== -->
+
+<p class="backtotop"><a href="#top">Back to top</a></p>
+
+
+
+
+
+
+<h1 id="tv.ui.Container">Class tv.ui.Container</h1>
+
+
+    Extends <a href=".html"></a>.<br/>
+
+<!-- <i>Defined in <a href="container.src.html">container.js</a></i> -->
+
+<p class="summaryDetailLink">
+&nbsp;<a href="#tv.ui.Container_method_summary">SUMMARY</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#tv.ui.Container_method_detail">DETAIL</a>
+</p>
+
+
+
+
+
+
+
+<!-- =========== FIELD SUMMARY =========== -->
+
+<!-- =========== END FIELD SUMMARY =========== -->
+
+
+
+<!-- ======== CONSTRUCTOR SUMMARY ======== -->
+<a name="tv.ui.Container_constructor_summary"> </a>
+<h2>Constructor Summary</h2>
+<dl>
+
+    <dt><code>
+        <b><a href="#tv.ui.Container">tv.ui.Container</a></b>()
+        </code></dt>
+    <dd>Constructs container.</dd>
+
+</dl>
+&nbsp;
+<!-- ======== END CONSTRUCTOR SUMMARY ======== -->
+
+
+
+<!-- ========== METHOD SUMMARY =========== -->
+
+<a name="tv.ui.Container_method_summary"> </a>
+<h2>Method Summary</h2>
+<dl>
+    
+<dt><code>
+<b> <a href="#tv.ui.Container.addChild">addChild</a></b>(child) </code>
+</dt>
+<dd>Adds child component.
+</dd>
+
+<dt><code>
+<b> <a href="#tv.ui.Container.decorate">decorate</a></b>(element) </code>
+</dt>
+<dd>
+</dd>
+
+<dt><code>
+<b> <a href="#tv.ui.Container.disposeInternal">disposeInternal</a></b>() </code>
+</dt>
+<dd>
+</dd>
+
+<dt><code>
+                &nbsp;Array.&lt;tv.ui.Component&gt;
+                
+<b> <a href="#tv.ui.Container.getChildren">getChildren</a></b>() </code>
+</dt>
+<dd>
+</dd>
+
+<dt><code>
+<b> <a href="#tv.ui.Container.getClass">getClass</a></b>() </code>
+</dt>
+<dd>
+</dd>
+
+<dt><code>
+                &nbsp;Element
+                
+<b> <a href="#tv.ui.Container.getHighlightElement">getHighlightElement</a></b>() </code>
+</dt>
+<dd>
+</dd>
+
+<dt><code>
+                &nbsp;tv.ui.Component
+                
+<b> <a href="#tv.ui.Container.getSelectedChild">getSelectedChild</a></b>() </code>
+</dt>
+<dd>
+</dd>
+
+<dt><code>
+                &nbsp;tv.ui.Component
+                
+<b> <a href="#tv.ui.Container.getSelectedDescendantOrSelf">getSelectedDescendantOrSelf</a></b>() </code>
+</dt>
+<dd>
+</dd>
+
+<dt><code>
+                &nbsp;boolean
+                
+<b> <a href="#tv.ui.Container.isHorizontal">isHorizontal</a></b>() </code>
+</dt>
+<dd>
+</dd>
+
+<dt><code>
+                &nbsp;boolean
+                
+<b> <a href="#tv.ui.Container.isStack">isStack</a></b>() </code>
+</dt>
+<dd>
+</dd>
+
+<dt><code>
+                &nbsp;boolean
+                
+<b> <a href="#tv.ui.Container.isVertical">isVertical</a></b>() </code>
+</dt>
+<dd>
+</dd>
+
+<dt><code>
+<b> <a href="#tv.ui.Container.onBlur">onBlur</a></b>(event) </code>
+</dt>
+<dd>Handles blur event.
+</dd>
+
+<dt><code>
+<b> <a href="#tv.ui.Container.onChildSelectabilityChange">onChildSelectabilityChange</a></b>(child) </code>
+</dt>
+<dd>Updates selected child if necessary.
+</dd>
+
+<dt><code>
+<b> <a href="#tv.ui.Container.onChildVisibilityChange">onChildVisibilityChange</a></b>(child) </code>
+</dt>
+<dd>Updates DOM styles.
+</dd>
+
+<dt><code>
+<b> <a href="#tv.ui.Container.onFocus">onFocus</a></b>(event) </code>
+</dt>
+<dd>Handles focus event.
+</dd>
+
+<dt><code>
+<b> <a href="#tv.ui.Container.onKey">onKey</a></b>(event) </code>
+</dt>
+<dd>Handles key event.
+</dd>
+
+<dt><code>
+<b> <a href="#tv.ui.Container.removeChildren">removeChildren</a></b>() </code>
+</dt>
+<dd>Removes all child components.
+</dd>
+
+<dt><code>
+<b> <a href="#tv.ui.Container.render">render</a></b>() </code>
+</dt>
+<dd>
+</dd>
+
+<dt><code>
+                &nbsp;boolean
+                
+<b> <a href="#tv.ui.Container.selectFirstChild">selectFirstChild</a></b>() </code>
+</dt>
+<dd>Tries to select one of the child components starting from first one.
+</dd>
+
+<dt><code>
+                &nbsp;boolean
+                
+<b> <a href="#tv.ui.Container.selectNextChild">selectNextChild</a></b>() </code>
+</dt>
+<dd>Tries to select one of the child components after currently selected one.
+</dd>
+
+<dt><code>
+                &nbsp;boolean
+                
+<b> <a href="#tv.ui.Container.selectPreviousChild">selectPreviousChild</a></b>() </code>
+</dt>
+<dd>Tries to select one of the child components before currently selected one.
+</dd>
+
+<dt><code>
+<b> <a href="#tv.ui.Container.setHighlightElement">setHighlightElement</a></b>(highlightElement) </code>
+</dt>
+<dd>Sets highlight element.
+</dd>
+
+<dt><code>
+<b> <a href="#tv.ui.Container.setSelectedChild">setSelectedChild</a></b>(selectedChild) </code>
+</dt>
+<dd>
+</dd>
+
+</dl>
+&nbsp;
+
+
+<!-- ========== EVENT SUMMARY =========== -->
+
+
+
+
+<!-- ========== INHERITED METHODS SUMMARY =========== -->
+
+<br/>
+
+<!-- ========== END INHERITED METHODS SUMMARY =========== -->
+
+<!-- ============ FIELD DETAIL START ========= -->
+
+<!-- ============ FIELD DETAIL END ========== -->
+
+
+
+<!-- ========= CONSTRUCTOR DETAIL START ======== -->
+<a name="tv.ui.Container_constructor_detail"> </a>
+<h2>Constructor Detail</h2>
+
+<a name="tv.ui.Container"> </a>
+<h3>tv.ui.Container</h3>
+
+    <pre><b>tv.ui.Container</b>()</pre>
+    <ul>
+      Constructs container.
+    </ul>
+
+    <!-- PARAMETERS START -->
+    
+    <!-- PARAMETERS END -->
+
+<!-- END ADDITIONAL ATTRIBUTES  -->
+<!-- ========= CONSTRUCTOR DETAIL END ======== -->
+
+
+
+<!-- ============ METHOD DETAIL START ======= -->
+
+<a name="tv.ui.Container_method_detail"> </a>
+<h2>Method Detail</h2>
+
+
+    <a name="tv.ui.Container.addChild"> </a> <h3>addChild</h3>
+        <pre><b>addChild</b>(child)</pre>
+    <ul>
+       Adds child component.
+    </ul>
+    <!-- METHOD PARAMETERS START -->
+    <ul>
+        <b>Parameters:</b>
+        <ul>
+            <code><i>tv.ui.Component</i>&nbsp;child </code> - Child component.
+        </ul>
+    </ul>
+    <!-- METHOD PARAMETERS END -->
+    <!-- ADDITIONAL ATTRIBUTES START -->
+    
+    
+    <!-- ADDITIONAL ATTRIBUTES  END -->
+
+    <a name="tv.ui.Container.decorate"> </a> <h3>decorate</h3>
+        <pre><b>decorate</b>(element)</pre>
+    <ul>
+       
+    </ul>
+    <!-- METHOD PARAMETERS START -->
+    <ul>
+        <b>Parameters:</b>
+        <ul>
+            <code>element </code>
+        </ul>
+    </ul>
+    <!-- METHOD PARAMETERS END -->
+    <!-- ADDITIONAL ATTRIBUTES START -->
+    
+    
+    <!-- ADDITIONAL ATTRIBUTES  END -->
+
+    <a name="tv.ui.Container.disposeInternal"> </a> <h3>disposeInternal</h3>
+        <pre><b>disposeInternal</b>()</pre>
+    <ul>
+       
+    </ul>
+    <!-- METHOD PARAMETERS START -->
+    
+    <!-- METHOD PARAMETERS END -->
+    <!-- ADDITIONAL ATTRIBUTES START -->
+    
+    
+    <!-- ADDITIONAL ATTRIBUTES  END -->
+
+    <a name="tv.ui.Container.getChildren"> </a> <h3>getChildren</h3>
+        <pre>Array.&lt;tv.ui.Component&gt; <b>getChildren</b>()</pre>
+    <ul>
+       
+    </ul>
+    <!-- METHOD PARAMETERS START -->
+    
+    <!-- METHOD PARAMETERS END -->
+    <!-- ADDITIONAL ATTRIBUTES START -->
+    <ul>
+        <b>Returns:</b>
+        <ul>
+            <code><i>Array.&lt;tv.ui.Component&gt;</i>&nbsp;</code> List of children.
+        </ul>
+    </ul>
+    
+    <!-- ADDITIONAL ATTRIBUTES  END -->
+
+    <a name="tv.ui.Container.getClass"> </a> <h3>getClass</h3>
+        <pre><b>getClass</b>()</pre>
+    <ul>
+       
+    </ul>
+    <!-- METHOD PARAMETERS START -->
+    
+    <!-- METHOD PARAMETERS END -->
+    <!-- ADDITIONAL ATTRIBUTES START -->
+    
+    
+    <!-- ADDITIONAL ATTRIBUTES  END -->
+
+    <a name="tv.ui.Container.getHighlightElement"> </a> <h3>getHighlightElement</h3>
+        <pre>Element <b>getHighlightElement</b>()</pre>
+    <ul>
+       
+    </ul>
+    <!-- METHOD PARAMETERS START -->
+    
+    <!-- METHOD PARAMETERS END -->
+    <!-- ADDITIONAL ATTRIBUTES START -->
+    <ul>
+        <b>Returns:</b>
+        <ul>
+            <code><i>Element</i>&nbsp;</code> Highlight element.
+        </ul>
+    </ul>
+    
+    <!-- ADDITIONAL ATTRIBUTES  END -->
+
+    <a name="tv.ui.Container.getSelectedChild"> </a> <h3>getSelectedChild</h3>
+        <pre>tv.ui.Component <b>getSelectedChild</b>()</pre>
+    <ul>
+       
+    </ul>
+    <!-- METHOD PARAMETERS START -->
+    
+    <!-- METHOD PARAMETERS END -->
+    <!-- ADDITIONAL ATTRIBUTES START -->
+    <ul>
+        <b>Returns:</b>
+        <ul>
+            <code><i>tv.ui.Component</i>&nbsp;</code> Currently selected child.
+    Guaranteed to be focusable or have focusable child selected.
+        </ul>
+    </ul>
+    
+    <!-- ADDITIONAL ATTRIBUTES  END -->
+
+    <a name="tv.ui.Container.getSelectedDescendantOrSelf"> </a> <h3>getSelectedDescendantOrSelf</h3>
+        <pre>tv.ui.Component <b>getSelectedDescendantOrSelf</b>()</pre>
+    <ul>
+       
+    </ul>
+    <!-- METHOD PARAMETERS START -->
+    
+    <!-- METHOD PARAMETERS END -->
+    <!-- ADDITIONAL ATTRIBUTES START -->
+    <ul>
+        <b>Returns:</b>
+        <ul>
+            <code><i>tv.ui.Component</i>&nbsp;</code> Selected grand-...-grandchild, or null if no
+    child is selected.
+        </ul>
+    </ul>
+    
+    <!-- ADDITIONAL ATTRIBUTES  END -->
+
+    <a name="tv.ui.Container.isHorizontal"> </a> <h3>isHorizontal</h3>
+        <pre>boolean <b>isHorizontal</b>()</pre>
+    <ul>
+       
+    </ul>
+    <!-- METHOD PARAMETERS START -->
+    
+    <!-- METHOD PARAMETERS END -->
+    <!-- ADDITIONAL ATTRIBUTES START -->
+    <ul>
+        <b>Returns:</b>
+        <ul>
+            <code><i>boolean</i>&nbsp;</code> Whether container has horizontal orientation.
+        </ul>
+    </ul>
+    
+    <!-- ADDITIONAL ATTRIBUTES  END -->
+
+    <a name="tv.ui.Container.isStack"> </a> <h3>isStack</h3>
+        <pre>boolean <b>isStack</b>()</pre>
+    <ul>
+       
+    </ul>
+    <!-- METHOD PARAMETERS START -->
+    
+    <!-- METHOD PARAMETERS END -->
+    <!-- ADDITIONAL ATTRIBUTES START -->
+    <ul>
+        <b>Returns:</b>
+        <ul>
+            <code><i>boolean</i>&nbsp;</code> Whether container has stack orientation.
+        </ul>
+    </ul>
+    
+    <!-- ADDITIONAL ATTRIBUTES  END -->
+
+    <a name="tv.ui.Container.isVertical"> </a> <h3>isVertical</h3>
+        <pre>boolean <b>isVertical</b>()</pre>
+    <ul>
+       
+    </ul>
+    <!-- METHOD PARAMETERS START -->
+    
+    <!-- METHOD PARAMETERS END -->
+    <!-- ADDITIONAL ATTRIBUTES START -->
+    <ul>
+        <b>Returns:</b>
+        <ul>
+            <code><i>boolean</i>&nbsp;</code> Whether container has vertical orientation.
+        </ul>
+    </ul>
+    
+    <!-- ADDITIONAL ATTRIBUTES  END -->
+
+    <a name="tv.ui.Container.onBlur"> </a> <h3>onBlur</h3>
+        <pre><b>onBlur</b>(event)</pre>
+    <ul>
+       Handles blur event.
+Exits mode when container is allowed to control external highlight and
+updates look of highlight element.
+    </ul>
+    <!-- METHOD PARAMETERS START -->
+    <ul>
+        <b>Parameters:</b>
+        <ul>
+            <code>event </code>
+        </ul>
+    </ul>
+    <!-- METHOD PARAMETERS END -->
+    <!-- ADDITIONAL ATTRIBUTES START -->
+    
+    
+    <!-- ADDITIONAL ATTRIBUTES  END -->
+
+    <a name="tv.ui.Container.onChildSelectabilityChange"> </a> <h3>onChildSelectabilityChange</h3>
+        <pre><b>onChildSelectabilityChange</b>(child)</pre>
+    <ul>
+       Updates selected child if necessary.
+Called by child component to notify parent container that one of conditions
+affecting selected child choice has changed.
+    </ul>
+    <!-- METHOD PARAMETERS START -->
+    <ul>
+        <b>Parameters:</b>
+        <ul>
+            <code><i>tv.ui.Component</i>&nbsp;child </code> - Child component which property has changed.
+        </ul>
+    </ul>
+    <!-- METHOD PARAMETERS END -->
+    <!-- ADDITIONAL ATTRIBUTES START -->
+    
+    
+    <!-- ADDITIONAL ATTRIBUTES  END -->
+
+    <a name="tv.ui.Container.onChildVisibilityChange"> </a> <h3>onChildVisibilityChange</h3>
+        <pre><b>onChildVisibilityChange</b>(child)</pre>
+    <ul>
+       Updates DOM styles.
+Called by child component to notify parent container that its visibility
+has changed.
+    </ul>
+    <!-- METHOD PARAMETERS START -->
+    <ul>
+        <b>Parameters:</b>
+        <ul>
+            <code><i>tv.ui.Component</i>&nbsp;child </code> - Child component which visibility has changed.
+        </ul>
+    </ul>
+    <!-- METHOD PARAMETERS END -->
+    <!-- ADDITIONAL ATTRIBUTES START -->
+    
+    
+    <!-- ADDITIONAL ATTRIBUTES  END -->
+
+    <a name="tv.ui.Container.onFocus"> </a> <h3>onFocus</h3>
+        <pre><b>onFocus</b>(event)</pre>
+    <ul>
+       Handles focus event.
+Enters mode when container is allowed to control external highlight and
+updates position and look of highlight element.
+    </ul>
+    <!-- METHOD PARAMETERS START -->
+    <ul>
+        <b>Parameters:</b>
+        <ul>
+            <code>event </code>
+        </ul>
+    </ul>
+    <!-- METHOD PARAMETERS END -->
+    <!-- ADDITIONAL ATTRIBUTES START -->
+    
+    
+    <!-- ADDITIONAL ATTRIBUTES  END -->
+
+    <a name="tv.ui.Container.onKey"> </a> <h3>onKey</h3>
+        <pre><b>onKey</b>(event)</pre>
+    <ul>
+       Handles key event.
+Controls child component focus.
+    </ul>
+    <!-- METHOD PARAMETERS START -->
+    <ul>
+        <b>Parameters:</b>
+        <ul>
+            <code><i>goog.events.KeyEvent</i>&nbsp;event </code> - Key event.
+        </ul>
+    </ul>
+    <!-- METHOD PARAMETERS END -->
+    <!-- ADDITIONAL ATTRIBUTES START -->
+    
+    
+    <!-- ADDITIONAL ATTRIBUTES  END -->
+
+    <a name="tv.ui.Container.removeChildren"> </a> <h3>removeChildren</h3>
+        <pre><b>removeChildren</b>()</pre>
+    <ul>
+       Removes all child components.
+    </ul>
+    <!-- METHOD PARAMETERS START -->
+    
+    <!-- METHOD PARAMETERS END -->
+    <!-- ADDITIONAL ATTRIBUTES START -->
+    
+    
+    <!-- ADDITIONAL ATTRIBUTES  END -->
+
+    <a name="tv.ui.Container.render"> </a> <h3>render</h3>
+        <pre><b>render</b>()</pre>
+    <ul>
+       
+    </ul>
+    <!-- METHOD PARAMETERS START -->
+    
+    <!-- METHOD PARAMETERS END -->
+    <!-- ADDITIONAL ATTRIBUTES START -->
+    
+    
+    <!-- ADDITIONAL ATTRIBUTES  END -->
+
+    <a name="tv.ui.Container.selectFirstChild"> </a> <h3>selectFirstChild</h3>
+        <pre>boolean <b>selectFirstChild</b>()</pre>
+    <ul>
+       Tries to select one of the child components starting from first one.
+Only components that can receive focus (or have children that can receive
+focus) are qualified.
+    </ul>
+    <!-- METHOD PARAMETERS START -->
+    
+    <!-- METHOD PARAMETERS END -->
+    <!-- ADDITIONAL ATTRIBUTES START -->
+    <ul>
+        <b>Returns:</b>
+        <ul>
+            <code><i>boolean</i>&nbsp;</code> Whether focusable child has been found.
+        </ul>
+    </ul>
+    
+    <!-- ADDITIONAL ATTRIBUTES  END -->
+
+    <a name="tv.ui.Container.selectNextChild"> </a> <h3>selectNextChild</h3>
+        <pre>boolean <b>selectNextChild</b>()</pre>
+    <ul>
+       Tries to select one of the child components after currently selected one.
+Only components that can receive focus (or have children that can receive
+focus) are qualified.
+    </ul>
+    <!-- METHOD PARAMETERS START -->
+    
+    <!-- METHOD PARAMETERS END -->
+    <!-- ADDITIONAL ATTRIBUTES START -->
+    <ul>
+        <b>Returns:</b>
+        <ul>
+            <code><i>boolean</i>&nbsp;</code> Whether selection changed.
+        </ul>
+    </ul>
+    
+    <!-- ADDITIONAL ATTRIBUTES  END -->
+
+    <a name="tv.ui.Container.selectPreviousChild"> </a> <h3>selectPreviousChild</h3>
+        <pre>boolean <b>selectPreviousChild</b>()</pre>
+    <ul>
+       Tries to select one of the child components before currently selected one.
+Only components that can receive focus (or have children that can receive
+focus) are qualified.
+    </ul>
+    <!-- METHOD PARAMETERS START -->
+    
+    <!-- METHOD PARAMETERS END -->
+    <!-- ADDITIONAL ATTRIBUTES START -->
+    <ul>
+        <b>Returns:</b>
+        <ul>
+            <code><i>boolean</i>&nbsp;</code> Whether selection changed.
+        </ul>
+    </ul>
+    
+    <!-- ADDITIONAL ATTRIBUTES  END -->
+
+    <a name="tv.ui.Container.setHighlightElement"> </a> <h3>setHighlightElement</h3>
+        <pre><b>setHighlightElement</b>(highlightElement)</pre>
+    <ul>
+       Sets highlight element. This method is the only way to set external
+highlight element.
+    </ul>
+    <!-- METHOD PARAMETERS START -->
+    <ul>
+        <b>Parameters:</b>
+        <ul>
+            <code><i>Element</i>&nbsp;highlightElement </code> - highlight element.
+        </ul>
+    </ul>
+    <!-- METHOD PARAMETERS END -->
+    <!-- ADDITIONAL ATTRIBUTES START -->
+    
+    
+    <!-- ADDITIONAL ATTRIBUTES  END -->
+
+    <a name="tv.ui.Container.setSelectedChild"> </a> <h3>setSelectedChild</h3>
+        <pre><b>setSelectedChild</b>(selectedChild)</pre>
+    <ul>
+       
+    </ul>
+    <!-- METHOD PARAMETERS START -->
+    <ul>
+        <b>Parameters:</b>
+        <ul>
+            <code><i>tv.ui.Component</i>&nbsp;selectedChild </code> - Sets currently selected child.
+        </ul>
+    </ul>
+    <!-- METHOD PARAMETERS END -->
+    <!-- ADDITIONAL ATTRIBUTES START -->
+    
+    
+    <!-- ADDITIONAL ATTRIBUTES  END -->
+
+
+<!-- ============ METHOD DETAIL END ========== -->
+
+<!-- ============ EVENT DETAIL START ======= -->
+
+
+
+<!-- ============ EVENT DETAIL END ========== -->
+
+<p class="backtotop"><a href="#top">Back to top</a></p>
+
+
+
+
+
+
+<h1 id="tv.ui.DecorateHandler">Class tv.ui.DecorateHandler</h1>
+
+
+<!-- <i>Defined in <a href="decorate_handler.src.html">decorate_handler.js</a></i> -->
+
+<p class="summaryDetailLink">
+&nbsp;<a href="#tv.ui.DecorateHandler_method_summary">SUMMARY</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#tv.ui.DecorateHandler_method_detail">DETAIL</a>
+</p>
+
+
+
+
+
+
+
+<!-- =========== FIELD SUMMARY =========== -->
+
+<!-- =========== END FIELD SUMMARY =========== -->
+
+
+
+<!-- ======== CONSTRUCTOR SUMMARY ======== -->
+<a name="tv.ui.DecorateHandler_constructor_summary"> </a>
+<h2>Constructor Summary</h2>
+<dl>
+
+    <dt><code>
+        <b><a href="#tv.ui.DecorateHandler">tv.ui.DecorateHandler</a></b>(opt_context)
+        </code></dt>
+    <dd>Creates handler.</dd>
+
+</dl>
+&nbsp;
+<!-- ======== END CONSTRUCTOR SUMMARY ======== -->
+
+
+
+<!-- ========== METHOD SUMMARY =========== -->
+
+<a name="tv.ui.DecorateHandler_method_summary"> </a>
+<h2>Method Summary</h2>
+<dl>
+    
+<dt><code>
+<b> <a href="#tv.ui.DecorateHandler.addClassHandler">addClassHandler</a></b>(className, handler) </code>
+</dt>
+<dd>Adds handler to be called when element with specific CSS class is decorated.
+</dd>
+
+<dt><code>
+<b> <a href="#tv.ui.DecorateHandler.addIdHandler">addIdHandler</a></b>(id, handler) </code>
+</dt>
+<dd>Adds handler to be called when element with specific id is decorated.
+</dd>
+
+<dt><code>
+                &nbsp;Function
+                
+<b> <a href="#tv.ui.DecorateHandler.getHandler">getHandler</a></b>() </code>
+</dt>
+<dd>
+</dd>
+
+</dl>
+&nbsp;
+
+
+<!-- ========== EVENT SUMMARY =========== -->
+
+
+
+
+<!-- ========== INHERITED METHODS SUMMARY =========== -->
+
+<br/>
+
+<!-- ========== END INHERITED METHODS SUMMARY =========== -->
+
+<!-- ============ FIELD DETAIL START ========= -->
+
+<!-- ============ FIELD DETAIL END ========== -->
+
+
+
+<!-- ========= CONSTRUCTOR DETAIL START ======== -->
+<a name="tv.ui.DecorateHandler_constructor_detail"> </a>
+<h2>Constructor Detail</h2>
+
+<a name="tv.ui.DecorateHandler"> </a>
+<h3>tv.ui.DecorateHandler</h3>
+
+    <pre><b>tv.ui.DecorateHandler</b>(opt_context)</pre>
+    <ul>
+      Creates handler.
+    </ul>
+
+    <!-- PARAMETERS START -->
+    
+    <ul>
+        <b>Parameters:</b>
+        
+        <ul>
+            <code><i>Object=</i>&nbsp;opt_context</code> - Context to call handlers in.
+        </ul>
+        
+    </ul>
+    
+    <!-- PARAMETERS END -->
+
+<!-- END ADDITIONAL ATTRIBUTES  -->
+<!-- ========= CONSTRUCTOR DETAIL END ======== -->
+
+
+
+<!-- ============ METHOD DETAIL START ======= -->
+
+<a name="tv.ui.DecorateHandler_method_detail"> </a>
+<h2>Method Detail</h2>
+
+
+    <a name="tv.ui.DecorateHandler.addClassHandler"> </a> <h3>addClassHandler</h3>
+        <pre><b>addClassHandler</b>(className, handler)</pre>
+    <ul>
+       Adds handler to be called when element with specific CSS class is decorated.
+    </ul>
+    <!-- METHOD PARAMETERS START -->
+    <ul>
+        <b>Parameters:</b>
+        <ul>
+            <code><i>string</i>&nbsp;className </code> - CSS class name.
+        </ul>
+        <ul>
+            <code><i>Function</i>&nbsp;handler </code> - Handler to call.
+        </ul>
+    </ul>
+    <!-- METHOD PARAMETERS END -->
+    <!-- ADDITIONAL ATTRIBUTES START -->
+    
+    
+    <!-- ADDITIONAL ATTRIBUTES  END -->
+
+    <a name="tv.ui.DecorateHandler.addIdHandler"> </a> <h3>addIdHandler</h3>
+        <pre><b>addIdHandler</b>(id, handler)</pre>
+    <ul>
+       Adds handler to be called when element with specific id is decorated.
+    </ul>
+    <!-- METHOD PARAMETERS START -->
+    <ul>
+        <b>Parameters:</b>
+        <ul>
+            <code><i>string</i>&nbsp;id </code> - Element id.
+        </ul>
+        <ul>
+            <code><i>Function</i>&nbsp;handler </code> - Handler to call.
+        </ul>
+    </ul>
+    <!-- METHOD PARAMETERS END -->
+    <!-- ADDITIONAL ATTRIBUTES START -->
+    
+    
+    <!-- ADDITIONAL ATTRIBUTES  END -->
+
+    <a name="tv.ui.DecorateHandler.getHandler"> </a> <h3>getHandler</h3>
+        <pre>Function <b>getHandler</b>()</pre>
+    <ul>
+       
+    </ul>
+    <!-- METHOD PARAMETERS START -->
+    
+    <!-- METHOD PARAMETERS END -->
+    <!-- ADDITIONAL ATTRIBUTES START -->
+    <ul>
+        <b>Returns:</b>
+        <ul>
+            <code><i>Function</i>&nbsp;</code> Handler to pass to tv.ui.decorate() function.
+        </ul>
+    </ul>
+    
+    <!-- ADDITIONAL ATTRIBUTES  END -->
+
+
+<!-- ============ METHOD DETAIL END ========== -->
+
+<!-- ============ EVENT DETAIL START ======= -->
+
+
+
+<!-- ============ EVENT DETAIL END ========== -->
+
+<p class="backtotop"><a href="#top">Back to top</a></p>
+
+
+
+
+
+
+<h1 id="tv.ui.Grid">Class tv.ui.Grid</h1>
+
+
+    Extends <a href=".html"></a>.<br/>
+
+<!-- <i>Defined in <a href="grid.src.html">grid.js</a></i> -->
+
+<p class="summaryDetailLink">
+&nbsp;<a href="#tv.ui.Grid_method_summary">SUMMARY</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#tv.ui.Grid_method_detail">DETAIL</a>
+</p>
+
+
+
+
+
+
+
+<!-- =========== FIELD SUMMARY =========== -->
+
+<!-- =========== END FIELD SUMMARY =========== -->
+
+
+
+<!-- ======== CONSTRUCTOR SUMMARY ======== -->
+<a name="tv.ui.Grid_constructor_summary"> </a>
+<h2>Constructor Summary</h2>
+<dl>
+
+    <dt><code>
+        <b><a href="#tv.ui.Grid">tv.ui.Grid</a></b>()
+        </code></dt>
+    <dd>Constructs grid.</dd>
+
+</dl>
+&nbsp;
+<!-- ======== END CONSTRUCTOR SUMMARY ======== -->
+
+
+
+<!-- ========== METHOD SUMMARY =========== -->
+
+<a name="tv.ui.Grid_method_summary"> </a>
+<h2>Method Summary</h2>
+<dl>
+    
+<dt><code>
+<b> <a href="#tv.ui.Grid.addChild">addChild</a></b>(child) </code>
+</dt>
+<dd>
+</dd>
+
+<dt><code>
+<b> <a href="#tv.ui.Grid.getClass">getClass</a></b>() </code>
+</dt>
+<dd>
+</dd>
+
+</dl>
+&nbsp;
+
+
+<!-- ========== EVENT SUMMARY =========== -->
+
+
+
+
+<!-- ========== INHERITED METHODS SUMMARY =========== -->
+
+<br/>
+
+<!-- ========== END INHERITED METHODS SUMMARY =========== -->
+
+<!-- ============ FIELD DETAIL START ========= -->
+
+<!-- ============ FIELD DETAIL END ========== -->
+
+
+
+<!-- ========= CONSTRUCTOR DETAIL START ======== -->
+<a name="tv.ui.Grid_constructor_detail"> </a>
+<h2>Constructor Detail</h2>
+
+<a name="tv.ui.Grid"> </a>
+<h3>tv.ui.Grid</h3>
+
+    <pre><b>tv.ui.Grid</b>()</pre>
+    <ul>
+      Constructs grid.
+    </ul>
+
+    <!-- PARAMETERS START -->
+    
+    <!-- PARAMETERS END -->
+
+<!-- END ADDITIONAL ATTRIBUTES  -->
+<!-- ========= CONSTRUCTOR DETAIL END ======== -->
+
+
+
+<!-- ============ METHOD DETAIL START ======= -->
+
+<a name="tv.ui.Grid_method_detail"> </a>
+<h2>Method Detail</h2>
+
+
+    <a name="tv.ui.Grid.addChild"> </a> <h3>addChild</h3>
+        <pre><b>addChild</b>(child)</pre>
+    <ul>
+       
+    </ul>
+    <!-- METHOD PARAMETERS START -->
+    <ul>
+        <b>Parameters:</b>
+        <ul>
+            <code>child </code>
+        </ul>
+    </ul>
+    <!-- METHOD PARAMETERS END -->
+    <!-- ADDITIONAL ATTRIBUTES START -->
+    
+    
+    <!-- ADDITIONAL ATTRIBUTES  END -->
+
+    <a name="tv.ui.Grid.getClass"> </a> <h3>getClass</h3>
+        <pre><b>getClass</b>()</pre>
+    <ul>
+       
+    </ul>
+    <!-- METHOD PARAMETERS START -->
+    
+    <!-- METHOD PARAMETERS END -->
+    <!-- ADDITIONAL ATTRIBUTES START -->
+    
+    
+    <!-- ADDITIONAL ATTRIBUTES  END -->
+
+
+<!-- ============ METHOD DETAIL END ========== -->
+
+<!-- ============ EVENT DETAIL START ======= -->
+
+
+
+<!-- ============ EVENT DETAIL END ========== -->
+
+<p class="backtotop"><a href="#top">Back to top</a></p>
+
+
+
+
+
+
+<h1 id="tv.ui.Input">Class tv.ui.Input</h1>
+
+
+    Extends <a href=".html"></a>.<br/>
+
+<!-- <i>Defined in <a href="input.src.html">input.js</a></i> -->
+
+<p class="summaryDetailLink">
+&nbsp;<a href="#tv.ui.Input_method_summary">SUMMARY</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#tv.ui.Input_method_detail">DETAIL</a>
+</p>
+
+
+
+
+
+
+
+<!-- =========== FIELD SUMMARY =========== -->
+
+<!-- =========== END FIELD SUMMARY =========== -->
+
+
+
+<!-- ======== CONSTRUCTOR SUMMARY ======== -->
+<a name="tv.ui.Input_constructor_summary"> </a>
+<h2>Constructor Summary</h2>
+<dl>
+
+    <dt><code>
+        <b><a href="#tv.ui.Input">tv.ui.Input</a></b>()
+        </code></dt>
+    <dd>Constructs input.</dd>
+
+</dl>
+&nbsp;
+<!-- ======== END CONSTRUCTOR SUMMARY ======== -->
+
+
+
+<!-- ========== METHOD SUMMARY =========== -->
+
+<a name="tv.ui.Input_method_summary"> </a>
+<h2>Method Summary</h2>
+<dl>
+    
+<dt><code>
+<b> <a href="#tv.ui.Input.decorate">decorate</a></b>(element) </code>
+</dt>
+<dd>
+</dd>
+
+<dt><code>
+<b> <a href="#tv.ui.Input.disposeInternal">disposeInternal</a></b>() </code>
+</dt>
+<dd>
+</dd>
+
+<dt><code>
+<b> <a href="#tv.ui.Input.getClass">getClass</a></b>() </code>
+</dt>
+<dd>
+</dd>
+
+<dt><code>
+                &nbsp;Element
+                
+<b> <a href="#tv.ui.Input.getInputElement">getInputElement</a></b>() </code>
+</dt>
+<dd>
+</dd>
+
+<dt><code>
+<b> <a href="#tv.ui.Input.onBlur">onBlur</a></b>(event) </code>
+</dt>
+<dd>
+</dd>
+
+<dt><code>
+<b> <a href="#tv.ui.Input.onFocus">onFocus</a></b>(event) </code>
+</dt>
+<dd>
+</dd>
+
+<dt><code>
+<b> <a href="#tv.ui.Input.onInput">onInput</a></b>(event) </code>
+</dt>
+<dd>Handles input event.
+</dd>
+
+<dt><code>
+<b> <a href="#tv.ui.Input.onKey">onKey</a></b>(event) </code>
+</dt>
+<dd>Handles key event.
+</dd>
+
+</dl>
+&nbsp;
+
+
+<!-- ========== EVENT SUMMARY =========== -->
+
+
+
+
+<!-- ========== INHERITED METHODS SUMMARY =========== -->
+
+<br/>
+
+<!-- ========== END INHERITED METHODS SUMMARY =========== -->
+
+<!-- ============ FIELD DETAIL START ========= -->
+
+<!-- ============ FIELD DETAIL END ========== -->
+
+
+
+<!-- ========= CONSTRUCTOR DETAIL START ======== -->
+<a name="tv.ui.Input_constructor_detail"> </a>
+<h2>Constructor Detail</h2>
+
+<a name="tv.ui.Input"> </a>
+<h3>tv.ui.Input</h3>
+
+    <pre><b>tv.ui.Input</b>()</pre>
+    <ul>
+      Constructs input.
+    </ul>
+
+    <!-- PARAMETERS START -->
+    
+    <!-- PARAMETERS END -->
+
+<!-- END ADDITIONAL ATTRIBUTES  -->
+<!-- ========= CONSTRUCTOR DETAIL END ======== -->
+
+
+
+<!-- ============ METHOD DETAIL START ======= -->
+
+<a name="tv.ui.Input_method_detail"> </a>
+<h2>Method Detail</h2>
+
+
+    <a name="tv.ui.Input.decorate"> </a> <h3>decorate</h3>
+        <pre><b>decorate</b>(element)</pre>
+    <ul>
+       
+    </ul>
+    <!-- METHOD PARAMETERS START -->
+    <ul>
+        <b>Parameters:</b>
+        <ul>
+            <code>element </code>
+        </ul>
+    </ul>
+    <!-- METHOD PARAMETERS END -->
+    <!-- ADDITIONAL ATTRIBUTES START -->
+    
+    
+    <!-- ADDITIONAL ATTRIBUTES  END -->
+
+    <a name="tv.ui.Input.disposeInternal"> </a> <h3>disposeInternal</h3>
+        <pre><b>disposeInternal</b>()</pre>
+    <ul>
+       
+    </ul>
+    <!-- METHOD PARAMETERS START -->
+    
+    <!-- METHOD PARAMETERS END -->
+    <!-- ADDITIONAL ATTRIBUTES START -->
+    
+    
+    <!-- ADDITIONAL ATTRIBUTES  END -->
+
+    <a name="tv.ui.Input.getClass"> </a> <h3>getClass</h3>
+        <pre><b>getClass</b>()</pre>
+    <ul>
+       
+    </ul>
+    <!-- METHOD PARAMETERS START -->
+    
+    <!-- METHOD PARAMETERS END -->
+    <!-- ADDITIONAL ATTRIBUTES START -->
+    
+    
+    <!-- ADDITIONAL ATTRIBUTES  END -->
+
+    <a name="tv.ui.Input.getInputElement"> </a> <h3>getInputElement</h3>
+        <pre>Element <b>getInputElement</b>()</pre>
+    <ul>
+       
+    </ul>
+    <!-- METHOD PARAMETERS START -->
+    
+    <!-- METHOD PARAMETERS END -->
+    <!-- ADDITIONAL ATTRIBUTES START -->
+    <ul>
+        <b>Returns:</b>
+        <ul>
+            <code><i>Element</i>&nbsp;</code> 'input' element.
+        </ul>
+    </ul>
+    
+    <!-- ADDITIONAL ATTRIBUTES  END -->
+
+    <a name="tv.ui.Input.onBlur"> </a> <h3>onBlur</h3>
+        <pre><b>onBlur</b>(event)</pre>
+    <ul>
+       
+    </ul>
+    <!-- METHOD PARAMETERS START -->
+    <ul>
+        <b>Parameters:</b>
+        <ul>
+            <code>event </code>
+        </ul>
+    </ul>
+    <!-- METHOD PARAMETERS END -->
+    <!-- ADDITIONAL ATTRIBUTES START -->
+    
+    
+    <!-- ADDITIONAL ATTRIBUTES  END -->
+
+    <a name="tv.ui.Input.onFocus"> </a> <h3>onFocus</h3>
+        <pre><b>onFocus</b>(event)</pre>
+    <ul>
+       
+    </ul>
+    <!-- METHOD PARAMETERS START -->
+    <ul>
+        <b>Parameters:</b>
+        <ul>
+            <code>event </code>
+        </ul>
+    </ul>
+    <!-- METHOD PARAMETERS END -->
+    <!-- ADDITIONAL ATTRIBUTES START -->
+    
+    
+    <!-- ADDITIONAL ATTRIBUTES  END -->
+
+    <a name="tv.ui.Input.onInput"> </a> <h3>onInput</h3>
+        <pre><b>onInput</b>(event)</pre>
+    <ul>
+       Handles input event.
+    </ul>
+    <!-- METHOD PARAMETERS START -->
+    <ul>
+        <b>Parameters:</b>
+        <ul>
+            <code><i>goog.events.BrowserEvent</i>&nbsp;event </code> - Input event.
+        </ul>
+    </ul>
+    <!-- METHOD PARAMETERS END -->
+    <!-- ADDITIONAL ATTRIBUTES START -->
+    
+    
+    <!-- ADDITIONAL ATTRIBUTES  END -->
+
+    <a name="tv.ui.Input.onKey"> </a> <h3>onKey</h3>
+        <pre><b>onKey</b>(event)</pre>
+    <ul>
+       Handles key event.
+Consumes navigation keys if cursor is not on the boundaries of input.
+    </ul>
+    <!-- METHOD PARAMETERS START -->
+    <ul>
+        <b>Parameters:</b>
+        <ul>
+            <code><i>goog.events.KeyEvent</i>&nbsp;event </code> - Key event.
+        </ul>
+    </ul>
+    <!-- METHOD PARAMETERS END -->
+    <!-- ADDITIONAL ATTRIBUTES START -->
+    
+    
+    <!-- ADDITIONAL ATTRIBUTES  END -->
+
+
+<!-- ============ METHOD DETAIL END ========== -->
+
+<!-- ============ EVENT DETAIL START ======= -->
+
+
+
+<!-- ============ EVENT DETAIL END ========== -->
+
+<p class="backtotop"><a href="#top">Back to top</a></p>
+
+
+
+
+
+
+<h1 id="tv.ui.Lightbox">Class tv.ui.Lightbox</h1>
+
+
+    Extends <a href=".html"></a>.<br/>
+
+<!-- <i>Defined in <a href="lightbox.src.html">lightbox.js</a></i> -->
+
+<p class="summaryDetailLink">
+SUMMARY:&nbsp;<a href="#tv.ui.Lightbox_field_summary">FIELD</a>&nbsp;|&nbsp;<a href="#tv.ui.Lightbox_method_summary">METHOD</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DETAIL:&nbsp;<a href="#tv.ui.Lightbox_field_detail">FIELD</a>&nbsp;|&nbsp;<a href="#tv.ui.Lightbox_method_detail">METHOD</a>
+</p>
+
+
+
+
+
+
+
+<!-- =========== FIELD SUMMARY =========== -->
+
+<a name="tv.ui.Lightbox_field_summary"> </a>
+<h2>Field Summary</h2>
+<dl>
+
+<dt>
+<code>Element</code>
+<code><b><a href="#tv.ui.Lightbox.backgroundElement_">backgroundElement_</a></b></code>
+</dt>
+<dd>Acompanion background element put under lightbox container.
+</dd>
+
+</dl>
+&nbsp;
+
+<!-- =========== END FIELD SUMMARY =========== -->
+
+
+
+<!-- ======== CONSTRUCTOR SUMMARY ======== -->
+<a name="tv.ui.Lightbox_constructor_summary"> </a>
+<h2>Constructor Summary</h2>
+<dl>
+
+    <dt><code>
+        <b><a href="#tv.ui.Lightbox">tv.ui.Lightbox</a></b>()
+        </code></dt>
+    <dd>Constructs photo lightbox.</dd>
+
+</dl>
+&nbsp;
+<!-- ======== END CONSTRUCTOR SUMMARY ======== -->
+
+
+
+<!-- ========== METHOD SUMMARY =========== -->
+
+<a name="tv.ui.Lightbox_method_summary"> </a>
+<h2>Method Summary</h2>
+<dl>
+    
+<dt><code>
+<b> <a href="#tv.ui.Lightbox.disposeInternal">disposeInternal</a></b>() </code>
+</dt>
+<dd>Disposes lightbox.
+</dd>
+
+<dt><code>
+<b> <a href="#tv.ui.Lightbox.onKey">onKey</a></b>(event) </code>
+</dt>
+<dd>
+</dd>
+
+</dl>
+&nbsp;
+
+
+<!-- ========== EVENT SUMMARY =========== -->
+
+
+
+
+<!-- ========== INHERITED METHODS SUMMARY =========== -->
+
+<br/>
+
+<!-- ========== END INHERITED METHODS SUMMARY =========== -->
+
+<!-- ============ FIELD DETAIL START ========= -->
+
+<a name="tv.ui.Lightbox_field_detail"> </a>
+<h2>Field Detail</h2>
+
+
+    <!-- One single method detail entry -->
+    <a name="tv.ui.Lightbox.backgroundElement_">
+    <!-- -->
+    </a> <h3>backgroundElement_</h3>
+        <pre>Element <b>backgroundElement_</b></pre>
+    <ul>
+       Acompanion background element put under lightbox container.
+    </ul>
+
+
+<!-- ============ FIELD DETAIL END ========== -->
+
+
+
+<!-- ========= CONSTRUCTOR DETAIL START ======== -->
+<a name="tv.ui.Lightbox_constructor_detail"> </a>
+<h2>Constructor Detail</h2>
+
+<a name="tv.ui.Lightbox"> </a>
+<h3>tv.ui.Lightbox</h3>
+
+    <pre><b>tv.ui.Lightbox</b>()</pre>
+    <ul>
+      Constructs photo lightbox.
+    </ul>
+
+    <!-- PARAMETERS START -->
+    
+    <!-- PARAMETERS END -->
+
+<!-- END ADDITIONAL ATTRIBUTES  -->
+<!-- ========= CONSTRUCTOR DETAIL END ======== -->
+
+
+
+<!-- ============ METHOD DETAIL START ======= -->
+
+<a name="tv.ui.Lightbox_method_detail"> </a>
+<h2>Method Detail</h2>
+
+
+    <a name="tv.ui.Lightbox.disposeInternal"> </a> <h3>disposeInternal</h3>
+        <pre><b>disposeInternal</b>()</pre>
+    <ul>
+       Disposes lightbox. Removes from document background  and conaiter elements.
+    </ul>
+    <!-- METHOD PARAMETERS START -->
+    
+    <!-- METHOD PARAMETERS END -->
+    <!-- ADDITIONAL ATTRIBUTES START -->
+    
+    
+    <!-- ADDITIONAL ATTRIBUTES  END -->
+
+    <a name="tv.ui.Lightbox.onKey"> </a> <h3>onKey</h3>
+        <pre><b>onKey</b>(event)</pre>
+    <ul>
+       
+    </ul>
+    <!-- METHOD PARAMETERS START -->
+    <ul>
+        <b>Parameters:</b>
+        <ul>
+            <code>event </code>
+        </ul>
+    </ul>
+    <!-- METHOD PARAMETERS END -->
+    <!-- ADDITIONAL ATTRIBUTES START -->
+    
+    
+    <!-- ADDITIONAL ATTRIBUTES  END -->
+
+
+<!-- ============ METHOD DETAIL END ========== -->
+
+<!-- ============ EVENT DETAIL START ======= -->
+
+
+
+<!-- ============ EVENT DETAIL END ========== -->
+
+<p class="backtotop"><a href="#top">Back to top</a></p>
+
+
+
+
+
+
+<h1 id="tv.ui.Link">Class tv.ui.Link</h1>
+
+
+    Extends <a href=".html"></a>.<br/>
+
+<!-- <i>Defined in <a href="link.src.html">link.js</a></i> -->
+
+<p class="summaryDetailLink">
+&nbsp;<a href="#tv.ui.Link_method_summary">SUMMARY</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#tv.ui.Link_method_detail">DETAIL</a>
+</p>
+
+
+
+
+
+
+
+<!-- =========== FIELD SUMMARY =========== -->
+
+<!-- =========== END FIELD SUMMARY =========== -->
+
+
+
+<!-- ======== CONSTRUCTOR SUMMARY ======== -->
+<a name="tv.ui.Link_constructor_summary"> </a>
+<h2>Constructor Summary</h2>
+<dl>
+
+    <dt><code>
+        <b><a href="#tv.ui.Link">tv.ui.Link</a></b>()
+        </code></dt>
+    <dd>Constructs button.</dd>
+
+</dl>
+&nbsp;
+<!-- ======== END CONSTRUCTOR SUMMARY ======== -->
+
+
+
+<!-- ========== METHOD SUMMARY =========== -->
+
+<a name="tv.ui.Link_method_summary"> </a>
+<h2>Method Summary</h2>
+<dl>
+    
+<dt><code>
+<b> <a href="#tv.ui.Link.getClass">getClass</a></b>() </code>
+</dt>
+<dd>
+</dd>
+
+<dt><code>
+<b> <a href="#tv.ui.Link.onAction">onAction</a></b>(event) </code>
+</dt>
+<dd>Handles action event.
+</dd>
+
+</dl>
+&nbsp;
+
+
+<!-- ========== EVENT SUMMARY =========== -->
+
+
+
+
+<!-- ========== INHERITED METHODS SUMMARY =========== -->
+
+<br/>
+
+<!-- ========== END INHERITED METHODS SUMMARY =========== -->
+
+<!-- ============ FIELD DETAIL START ========= -->
+
+<!-- ============ FIELD DETAIL END ========== -->
+
+
+
+<!-- ========= CONSTRUCTOR DETAIL START ======== -->
+<a name="tv.ui.Link_constructor_detail"> </a>
+<h2>Constructor Detail</h2>
+
+<a name="tv.ui.Link"> </a>
+<h3>tv.ui.Link</h3>
+
+    <pre><b>tv.ui.Link</b>()</pre>
+    <ul>
+      Constructs button.
+    </ul>
+
+    <!-- PARAMETERS START -->
+    
+    <!-- PARAMETERS END -->
+
+<!-- END ADDITIONAL ATTRIBUTES  -->
+<!-- ========= CONSTRUCTOR DETAIL END ======== -->
+
+
+
+<!-- ============ METHOD DETAIL START ======= -->
+
+<a name="tv.ui.Link_method_detail"> </a>
+<h2>Method Detail</h2>
+
+
+    <a name="tv.ui.Link.getClass"> </a> <h3>getClass</h3>
+        <pre><b>getClass</b>()</pre>
+    <ul>
+       
+    </ul>
+    <!-- METHOD PARAMETERS START -->
+    
+    <!-- METHOD PARAMETERS END -->
+    <!-- ADDITIONAL ATTRIBUTES START -->
+    
+    
+    <!-- ADDITIONAL ATTRIBUTES  END -->
+
+    <a name="tv.ui.Link.onAction"> </a> <h3>onAction</h3>
+        <pre><b>onAction</b>(event)</pre>
+    <ul>
+       Handles action event.
+Follows the hyperlink.
+    </ul>
+    <!-- METHOD PARAMETERS START -->
+    <ul>
+        <b>Parameters:</b>
+        <ul>
+            <code><i>goog.events.Event</i>&nbsp;event </code> - Action event.
+        </ul>
+    </ul>
+    <!-- METHOD PARAMETERS END -->
+    <!-- ADDITIONAL ATTRIBUTES START -->
+    
+    
+    <!-- ADDITIONAL ATTRIBUTES  END -->
+
+
+<!-- ============ METHOD DETAIL END ========== -->
+
+<!-- ============ EVENT DETAIL START ======= -->
+
+
+
+<!-- ============ EVENT DETAIL END ========== -->
+
+<p class="backtotop"><a href="#top">Back to top</a></p>
+
+
+
+
+
+
+<h1 id="tv.ui.Menu">Class tv.ui.Menu</h1>
+
+
+    Extends <a href=".html"></a>.<br/>
+
+<!-- <i>Defined in <a href="menu.src.html">menu.js</a></i> -->
+
+<p class="summaryDetailLink">
+&nbsp;<a href="#tv.ui.Menu_method_summary">SUMMARY</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#tv.ui.Menu_method_detail">DETAIL</a>
+</p>
+
+
+
+
+
+
+
+<!-- =========== FIELD SUMMARY =========== -->
+
+<!-- =========== END FIELD SUMMARY =========== -->
+
+
+
+<!-- ======== CONSTRUCTOR SUMMARY ======== -->
+<a name="tv.ui.Menu_constructor_summary"> </a>
+<h2>Constructor Summary</h2>
+<dl>
+
+    <dt><code>
+        <b><a href="#tv.ui.Menu">tv.ui.Menu</a></b>()
+        </code></dt>
+    <dd>Constructs menu.</dd>
+
+</dl>
+&nbsp;
+<!-- ======== END CONSTRUCTOR SUMMARY ======== -->
+
+
+
+<!-- ========== METHOD SUMMARY =========== -->
+
+<a name="tv.ui.Menu_method_summary"> </a>
+<h2>Method Summary</h2>
+<dl>
+    
+<dt><code>
+<b> <a href="#tv.ui.Menu.addChild">addChild</a></b>(child) </code>
+</dt>
+<dd>
+</dd>
+
+<dt><code>
+<b> <a href="#tv.ui.Menu.getClass">getClass</a></b>() </code>
+</dt>
+<dd>
+</dd>
+
+<dt><code>
+<b> <a href="#tv.ui.Menu.onBarAction">onBarAction</a></b>(event) </code>
+</dt>
+<dd>Handles action event on tab bar.
+</dd>
+
+<dt><code>
+<b> <a href="#tv.ui.Menu.onBarFocus">onBarFocus</a></b>(event) </code>
+</dt>
+<dd>
+</dd>
+
+<dt><code>
+<b> <a href="#tv.ui.Menu.onBarSelectChild">onBarSelectChild</a></b>(event) </code>
+</dt>
+<dd>
+</dd>
+
+<dt><code>
+<b> <a href="#tv.ui.Menu.onContentAction">onContentAction</a></b>(event) </code>
+</dt>
+<dd>Handles action event on tab content.
+</dd>
+
+<dt><code>
+<b> <a href="#tv.ui.Menu.onContentKey">onContentKey</a></b>(event) </code>
+</dt>
+<dd>Handles key event on tab content.
+</dd>
+
+</dl>
+&nbsp;
+
+
+<!-- ========== EVENT SUMMARY =========== -->
+
+
+
+
+<!-- ========== INHERITED METHODS SUMMARY =========== -->
+
+<br/>
+
+<!-- ========== END INHERITED METHODS SUMMARY =========== -->
+
+<!-- ============ FIELD DETAIL START ========= -->
+
+<!-- ============ FIELD DETAIL END ========== -->
+
+
+
+<!-- ========= CONSTRUCTOR DETAIL START ======== -->
+<a name="tv.ui.Menu_constructor_detail"> </a>
+<h2>Constructor Detail</h2>
+
+<a name="tv.ui.Menu"> </a>
+<h3>tv.ui.Menu</h3>
+
+    <pre><b>tv.ui.Menu</b>()</pre>
+    <ul>
+      Constructs menu.
+    </ul>
+
+    <!-- PARAMETERS START -->
+    
+    <!-- PARAMETERS END -->
+
+<!-- END ADDITIONAL ATTRIBUTES  -->
+<!-- ========= CONSTRUCTOR DETAIL END ======== -->
+
+
+
+<!-- ============ METHOD DETAIL START ======= -->
+
+<a name="tv.ui.Menu_method_detail"> </a>
+<h2>Method Detail</h2>
+
+
+    <a name="tv.ui.Menu.addChild"> </a> <h3>addChild</h3>
+        <pre><b>addChild</b>(child)</pre>
+    <ul>
+       
+    </ul>
+    <!-- METHOD PARAMETERS START -->
+    <ul>
+        <b>Parameters:</b>
+        <ul>
+            <code>child </code>
+        </ul>
+    </ul>
+    <!-- METHOD PARAMETERS END -->
+    <!-- ADDITIONAL ATTRIBUTES START -->
+    
+    
+    <!-- ADDITIONAL ATTRIBUTES  END -->
+
+    <a name="tv.ui.Menu.getClass"> </a> <h3>getClass</h3>
+        <pre><b>getClass</b>()</pre>
+    <ul>
+       
+    </ul>
+    <!-- METHOD PARAMETERS START -->
+    
+    <!-- METHOD PARAMETERS END -->
+    <!-- ADDITIONAL ATTRIBUTES START -->
+    
+    
+    <!-- ADDITIONAL ATTRIBUTES  END -->
+
+    <a name="tv.ui.Menu.onBarAction"> </a> <h3>onBarAction</h3>
+        <pre><b>onBarAction</b>(event)</pre>
+    <ul>
+       Handles action event on tab bar.
+Focuses sub-menu that corresponds to selected menu item.
+    </ul>
+    <!-- METHOD PARAMETERS START -->
+    <ul>
+        <b>Parameters:</b>
+        <ul>
+            <code><i>goog.events.Event</i>&nbsp;event </code> - Action event.
+        </ul>
+    </ul>
+    <!-- METHOD PARAMETERS END -->
+    <!-- ADDITIONAL ATTRIBUTES START -->
+    
+    
+    <!-- ADDITIONAL ATTRIBUTES  END -->
+
+    <a name="tv.ui.Menu.onBarFocus"> </a> <h3>onBarFocus</h3>
+        <pre><b>onBarFocus</b>(event)</pre>
+    <ul>
+       
+    </ul>
+    <!-- METHOD PARAMETERS START -->
+    <ul>
+        <b>Parameters:</b>
+        <ul>
+            <code>event </code>
+        </ul>
+    </ul>
+    <!-- METHOD PARAMETERS END -->
+    <!-- ADDITIONAL ATTRIBUTES START -->
+    
+    
+    <!-- ADDITIONAL ATTRIBUTES  END -->
+
+    <a name="tv.ui.Menu.onBarSelectChild"> </a> <h3>onBarSelectChild</h3>
+        <pre><b>onBarSelectChild</b>(event)</pre>
+    <ul>
+       
+    </ul>
+    <!-- METHOD PARAMETERS START -->
+    <ul>
+        <b>Parameters:</b>
+        <ul>
+            <code>event </code>
+        </ul>
+    </ul>
+    <!-- METHOD PARAMETERS END -->
+    <!-- ADDITIONAL ATTRIBUTES START -->
+    
+    
+    <!-- ADDITIONAL ATTRIBUTES  END -->
+
+    <a name="tv.ui.Menu.onContentAction"> </a> <h3>onContentAction</h3>
+        <pre><b>onContentAction</b>(event)</pre>
+    <ul>
+       Handles action event on tab content.
+Focuses menu item that corresponds to selected sub-menu if 'Back' button was
+pressed.
+    </ul>
+    <!-- METHOD PARAMETERS START -->
+    <ul>
+        <b>Parameters:</b>
+        <ul>
+            <code><i>goog.events.Event</i>&nbsp;event </code> - Action event.
+        </ul>
+    </ul>
+    <!-- METHOD PARAMETERS END -->
+    <!-- ADDITIONAL ATTRIBUTES START -->
+    
+    
+    <!-- ADDITIONAL ATTRIBUTES  END -->
+
+    <a name="tv.ui.Menu.onContentKey"> </a> <h3>onContentKey</h3>
+        <pre><b>onContentKey</b>(event)</pre>
+    <ul>
+       Handles key event on tab content.
+Focuses menu item that corresponds to selected sub-menu if Esc is pressed.
+    </ul>
+    <!-- METHOD PARAMETERS START -->
+    <ul>
+        <b>Parameters:</b>
+        <ul>
+            <code><i>goog.events.KeyEvent</i>&nbsp;event </code> - Key event.
+        </ul>
+    </ul>
+    <!-- METHOD PARAMETERS END -->
+    <!-- ADDITIONAL ATTRIBUTES START -->
+    
+    
+    <!-- ADDITIONAL ATTRIBUTES  END -->
+
+
+<!-- ============ METHOD DETAIL END ========== -->
+
+<!-- ============ EVENT DETAIL START ======= -->
+
+
+
+<!-- ============ EVENT DETAIL END ========== -->
+
+<p class="backtotop"><a href="#top">Back to top</a></p>
+
+
+
+
+
+
+<h1 id="tv.ui.TabContainer">Class tv.ui.TabContainer</h1>
+
+
+    Extends <a href=".html"></a>.<br/>
+
+<!-- <i>Defined in <a href="tab_container.src.html">tab_container.js</a></i> -->
+
+<p class="summaryDetailLink">
+&nbsp;<a href="#tv.ui.TabContainer_method_summary">SUMMARY</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#tv.ui.TabContainer_method_detail">DETAIL</a>
+</p>
+
+
+
+
+
+
+
+<!-- =========== FIELD SUMMARY =========== -->
+
+<!-- =========== END FIELD SUMMARY =========== -->
+
+
+
+<!-- ======== CONSTRUCTOR SUMMARY ======== -->
+<a name="tv.ui.TabContainer_constructor_summary"> </a>
+<h2>Constructor Summary</h2>
+<dl>
+
+    <dt><code>
+        <b><a href="#tv.ui.TabContainer">tv.ui.TabContainer</a></b>()
+        </code></dt>
+    <dd>Constructs tab container.</dd>
+
+</dl>
+&nbsp;
+<!-- ======== END CONSTRUCTOR SUMMARY ======== -->
+
+
+
+<!-- ========== METHOD SUMMARY =========== -->
+
+<a name="tv.ui.TabContainer_method_summary"> </a>
+<h2>Method Summary</h2>
+<dl>
+    
+<dt><code>
+<b> <a href="#tv.ui.TabContainer.addChild">addChild</a></b>(child) </code>
+</dt>
+<dd>
+</dd>
+
+<dt><code>
+                &nbsp;tv.ui.Container
+                
+<b> <a href="#tv.ui.TabContainer.getBarContainer">getBarContainer</a></b>() </code>
+</dt>
+<dd>
+</dd>
+
+<dt><code>
+<b> <a href="#tv.ui.TabContainer.getClass">getClass</a></b>() </code>
+</dt>
+<dd>
+</dd>
+
+<dt><code>
+                &nbsp;tv.ui.Container
+                
+<b> <a href="#tv.ui.TabContainer.getContentContainer">getContentContainer</a></b>() </code>
+</dt>
+<dd>
+</dd>
+
+<dt><code>
+                &nbsp;boolean
+                
+<b> <a href="#tv.ui.TabContainer.hasFocusAttractor">hasFocusAttractor</a></b>() </code>
+</dt>
+<dd>
+</dd>
+
+<dt><code>
+<b> <a href="#tv.ui.TabContainer.onBarFocus">onBarFocus</a></b>(event) </code>
+</dt>
+<dd>Handles focus on bar container.
+</dd>
+
+<dt><code>
+<b> <a href="#tv.ui.TabContainer.onBarSelectChild">onBarSelectChild</a></b>() </code>
+</dt>
+<dd>Handles child selection in bar container.
+</dd>
+
+<dt><code>
+<b> <a href="#tv.ui.TabContainer.onContentSelectChild">onContentSelectChild</a></b>() </code>
+</dt>
+<dd>Handles child selection in content container.
+</dd>
+
+<dt><code>
+<b> <a href="#tv.ui.TabContainer.selectNextChild">selectNextChild</a></b>() </code>
+</dt>
+<dd>
+</dd>
+
+<dt><code>
+<b> <a href="#tv.ui.TabContainer.selectPreviousChild">selectPreviousChild</a></b>() </code>
+</dt>
+<dd>
+</dd>
+
+<dt><code>
+<b> <a href="#tv.ui.TabContainer.tryFocusSelectedDescendant">tryFocusSelectedDescendant</a></b>(component) </code>
+</dt>
+<dd>Focuses given component if it is able to receive focus.
+</dd>
+
+</dl>
+&nbsp;
+
+
+<!-- ========== EVENT SUMMARY =========== -->
+
+
+
+
+<!-- ========== INHERITED METHODS SUMMARY =========== -->
+
+<br/>
+
+<!-- ========== END INHERITED METHODS SUMMARY =========== -->
+
+<!-- ============ FIELD DETAIL START ========= -->
+
+<!-- ============ FIELD DETAIL END ========== -->
+
+
+
+<!-- ========= CONSTRUCTOR DETAIL START ======== -->
+<a name="tv.ui.TabContainer_constructor_detail"> </a>
+<h2>Constructor Detail</h2>
+
+<a name="tv.ui.TabContainer"> </a>
+<h3>tv.ui.TabContainer</h3>
+
+    <pre><b>tv.ui.TabContainer</b>()</pre>
+    <ul>
+      Constructs tab container.
+    </ul>
+
+    <!-- PARAMETERS START -->
+    
+    <!-- PARAMETERS END -->
+
+<!-- END ADDITIONAL ATTRIBUTES  -->
+<!-- ========= CONSTRUCTOR DETAIL END ======== -->
+
+
+
+<!-- ============ METHOD DETAIL START ======= -->
+
+<a name="tv.ui.TabContainer_method_detail"> </a>
+<h2>Method Detail</h2>
+
+
+    <a name="tv.ui.TabContainer.addChild"> </a> <h3>addChild</h3>
+        <pre><b>addChild</b>(child)</pre>
+    <ul>
+       
+    </ul>
+    <!-- METHOD PARAMETERS START -->
+    <ul>
+        <b>Parameters:</b>
+        <ul>
+            <code>child </code>
+        </ul>
+    </ul>
+    <!-- METHOD PARAMETERS END -->
+    <!-- ADDITIONAL ATTRIBUTES START -->
+    
+    
+    <!-- ADDITIONAL ATTRIBUTES  END -->
+
+    <a name="tv.ui.TabContainer.getBarContainer"> </a> <h3>getBarContainer</h3>
+        <pre>tv.ui.Container <b>getBarContainer</b>()</pre>
+    <ul>
+       
+    </ul>
+    <!-- METHOD PARAMETERS START -->
+    
+    <!-- METHOD PARAMETERS END -->
+    <!-- ADDITIONAL ATTRIBUTES START -->
+    <ul>
+        <b>Returns:</b>
+        <ul>
+            <code><i>tv.ui.Container</i>&nbsp;</code> Bar container.
+        </ul>
+    </ul>
+    
+    <!-- ADDITIONAL ATTRIBUTES  END -->
+
+    <a name="tv.ui.TabContainer.getClass"> </a> <h3>getClass</h3>
+        <pre><b>getClass</b>()</pre>
+    <ul>
+       
+    </ul>
+    <!-- METHOD PARAMETERS START -->
+    
+    <!-- METHOD PARAMETERS END -->
+    <!-- ADDITIONAL ATTRIBUTES START -->
+    
+    
+    <!-- ADDITIONAL ATTRIBUTES  END -->
+
+    <a name="tv.ui.TabContainer.getContentContainer"> </a> <h3>getContentContainer</h3>
+        <pre>tv.ui.Container <b>getContentContainer</b>()</pre>
+    <ul>
+       
+    </ul>
+    <!-- METHOD PARAMETERS START -->
+    
+    <!-- METHOD PARAMETERS END -->
+    <!-- ADDITIONAL ATTRIBUTES START -->
+    <ul>
+        <b>Returns:</b>
+        <ul>
+            <code><i>tv.ui.Container</i>&nbsp;</code> Content container.
+        </ul>
+    </ul>
+    
+    <!-- ADDITIONAL ATTRIBUTES  END -->
+
+    <a name="tv.ui.TabContainer.hasFocusAttractor"> </a> <h3>hasFocusAttractor</h3>
+        <pre>boolean <b>hasFocusAttractor</b>()</pre>
+    <ul>
+       
+    </ul>
+    <!-- METHOD PARAMETERS START -->
+    
+    <!-- METHOD PARAMETERS END -->
+    <!-- ADDITIONAL ATTRIBUTES START -->
+    <ul>
+        <b>Returns:</b>
+        <ul>
+            <code><i>boolean</i>&nbsp;</code> Whether tab content container is focus attractor.
+        </ul>
+    </ul>
+    
+    <!-- ADDITIONAL ATTRIBUTES  END -->
+
+    <a name="tv.ui.TabContainer.onBarFocus"> </a> <h3>onBarFocus</h3>
+        <pre><b>onBarFocus</b>(event)</pre>
+    <ul>
+       Handles focus on bar container.
+    </ul>
+    <!-- METHOD PARAMETERS START -->
+    <ul>
+        <b>Parameters:</b>
+        <ul>
+            <code>event </code>
+        </ul>
+    </ul>
+    <!-- METHOD PARAMETERS END -->
+    <!-- ADDITIONAL ATTRIBUTES START -->
+    
+    
+    <!-- ADDITIONAL ATTRIBUTES  END -->
+
+    <a name="tv.ui.TabContainer.onBarSelectChild"> </a> <h3>onBarSelectChild</h3>
+        <pre><b>onBarSelectChild</b>()</pre>
+    <ul>
+       Handles child selection in bar container.
+    </ul>
+    <!-- METHOD PARAMETERS START -->
+    
+    <!-- METHOD PARAMETERS END -->
+    <!-- ADDITIONAL ATTRIBUTES START -->
+    
+    
+    <!-- ADDITIONAL ATTRIBUTES  END -->
+
+    <a name="tv.ui.TabContainer.onContentSelectChild"> </a> <h3>onContentSelectChild</h3>
+        <pre><b>onContentSelectChild</b>()</pre>
+    <ul>
+       Handles child selection in content container.
+    </ul>
+    <!-- METHOD PARAMETERS START -->
+    
+    <!-- METHOD PARAMETERS END -->
+    <!-- ADDITIONAL ATTRIBUTES START -->
+    
+    
+    <!-- ADDITIONAL ATTRIBUTES  END -->
+
+    <a name="tv.ui.TabContainer.selectNextChild"> </a> <h3>selectNextChild</h3>
+        <pre><b>selectNextChild</b>()</pre>
+    <ul>
+       
+    </ul>
+    <!-- METHOD PARAMETERS START -->
+    
+    <!-- METHOD PARAMETERS END -->
+    <!-- ADDITIONAL ATTRIBUTES START -->
+    
+    
+    <!-- ADDITIONAL ATTRIBUTES  END -->
+
+    <a name="tv.ui.TabContainer.selectPreviousChild"> </a> <h3>selectPreviousChild</h3>
+        <pre><b>selectPreviousChild</b>()</pre>
+    <ul>
+       
+    </ul>
+    <!-- METHOD PARAMETERS START -->
+    
+    <!-- METHOD PARAMETERS END -->
+    <!-- ADDITIONAL ATTRIBUTES START -->
+    
+    
+    <!-- ADDITIONAL ATTRIBUTES  END -->
+
+    <a name="tv.ui.TabContainer.tryFocusSelectedDescendant"> </a> <h3>tryFocusSelectedDescendant</h3>
+        <pre><b>tryFocusSelectedDescendant</b>(component)</pre>
+    <ul>
+       Focuses given component if it is able to receive focus.
+Does nothing otherwise.
+    </ul>
+    <!-- METHOD PARAMETERS START -->
+    <ul>
+        <b>Parameters:</b>
+        <ul>
+            <code><i>goog.ui.Component</i>&nbsp;component </code> - Component to focus.
+        </ul>
+    </ul>
+    <!-- METHOD PARAMETERS END -->
+    <!-- ADDITIONAL ATTRIBUTES START -->
+    
+    
+    <!-- ADDITIONAL ATTRIBUTES  END -->
+
+
+<!-- ============ METHOD DETAIL END ========== -->
+
+<!-- ============ EVENT DETAIL START ======= -->
+
+
+
+<!-- ============ EVENT DETAIL END ========== -->
+
+<p class="backtotop"><a href="#top">Back to top</a></p>
+
+
+
+
+
+
+<h1 id="tv.ui.ToggleButton">Class tv.ui.ToggleButton</h1>
+
+
+    Extends <a href=".html"></a>.<br/>
+
+<!-- <i>Defined in <a href="toggle_button.src.html">toggle_button.js</a></i> -->
+
+<p class="summaryDetailLink">
+&nbsp;<a href="#tv.ui.ToggleButton_method_summary">SUMMARY</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#tv.ui.ToggleButton_method_detail">DETAIL</a>
+</p>
+
+
+
+
+
+
+
+<!-- =========== FIELD SUMMARY =========== -->
+
+<!-- =========== END FIELD SUMMARY =========== -->
+
+
+
+<!-- ======== CONSTRUCTOR SUMMARY ======== -->
+<a name="tv.ui.ToggleButton_constructor_summary"> </a>
+<h2>Constructor Summary</h2>
+<dl>
+
+    <dt><code>
+        <b><a href="#tv.ui.ToggleButton">tv.ui.ToggleButton</a></b>()
+        </code></dt>
+    <dd>Constructs button.</dd>
+
+</dl>
+&nbsp;
+<!-- ======== END CONSTRUCTOR SUMMARY ======== -->
+
+
+
+<!-- ========== METHOD SUMMARY =========== -->
+
+<a name="tv.ui.ToggleButton_method_summary"> </a>
+<h2>Method Summary</h2>
+<dl>
+    
+<dt><code>
+<b> <a href="#tv.ui.ToggleButton.getClass">getClass</a></b>() </code>
+</dt>
+<dd>
+</dd>
+
+<dt><code>
+                &nbsp;boolean
+                
+<b> <a href="#tv.ui.ToggleButton.isOn">isOn</a></b>() </code>
+</dt>
+<dd>
+</dd>
+
+<dt><code>
+<b> <a href="#tv.ui.ToggleButton.onAction">onAction</a></b>(event) </code>
+</dt>
+<dd>Handles action event.
+</dd>
+
+<dt><code>
+<b> <a href="#tv.ui.ToggleButton.setOn">setOn</a></b>(on) </code>
+</dt>
+<dd>Sets on/off state.
+</dd>
+
+</dl>
+&nbsp;
+
+
+<!-- ========== EVENT SUMMARY =========== -->
+
+
+
+
+<!-- ========== INHERITED METHODS SUMMARY =========== -->
+
+<br/>
+
+<!-- ========== END INHERITED METHODS SUMMARY =========== -->
+
+<!-- ============ FIELD DETAIL START ========= -->
+
+<!-- ============ FIELD DETAIL END ========== -->
+
+
+
+<!-- ========= CONSTRUCTOR DETAIL START ======== -->
+<a name="tv.ui.ToggleButton_constructor_detail"> </a>
+<h2>Constructor Detail</h2>
+
+<a name="tv.ui.ToggleButton"> </a>
+<h3>tv.ui.ToggleButton</h3>
+
+    <pre><b>tv.ui.ToggleButton</b>()</pre>
+    <ul>
+      Constructs button.
+    </ul>
+
+    <!-- PARAMETERS START -->
+    
+    <!-- PARAMETERS END -->
+
+<!-- END ADDITIONAL ATTRIBUTES  -->
+<!-- ========= CONSTRUCTOR DETAIL END ======== -->
+
+
+
+<!-- ============ METHOD DETAIL START ======= -->
+
+<a name="tv.ui.ToggleButton_method_detail"> </a>
+<h2>Method Detail</h2>
+
+
+    <a name="tv.ui.ToggleButton.getClass"> </a> <h3>getClass</h3>
+        <pre><b>getClass</b>()</pre>
+    <ul>
+       
+    </ul>
+    <!-- METHOD PARAMETERS START -->
+    
+    <!-- METHOD PARAMETERS END -->
+    <!-- ADDITIONAL ATTRIBUTES START -->
+    
+    
+    <!-- ADDITIONAL ATTRIBUTES  END -->
+
+    <a name="tv.ui.ToggleButton.isOn"> </a> <h3>isOn</h3>
+        <pre>boolean <b>isOn</b>()</pre>
+    <ul>
+       
+    </ul>
+    <!-- METHOD PARAMETERS START -->
+    
+    <!-- METHOD PARAMETERS END -->
+    <!-- ADDITIONAL ATTRIBUTES START -->
+    <ul>
+        <b>Returns:</b>
+        <ul>
+            <code><i>boolean</i>&nbsp;</code> Whether button is in 'on' state.
+        </ul>
+    </ul>
+    
+    <!-- ADDITIONAL ATTRIBUTES  END -->
+
+    <a name="tv.ui.ToggleButton.onAction"> </a> <h3>onAction</h3>
+        <pre><b>onAction</b>(event)</pre>
+    <ul>
+       Handles action event.
+Toggles button state.
+    </ul>
+    <!-- METHOD PARAMETERS START -->
+    <ul>
+        <b>Parameters:</b>
+        <ul>
+            <code><i>goog.events.Event</i>&nbsp;event </code> - Action event.
+        </ul>
+    </ul>
+    <!-- METHOD PARAMETERS END -->
+    <!-- ADDITIONAL ATTRIBUTES START -->
+    
+    
+    <!-- ADDITIONAL ATTRIBUTES  END -->
+
+    <a name="tv.ui.ToggleButton.setOn"> </a> <h3>setOn</h3>
+        <pre><b>setOn</b>(on)</pre>
+    <ul>
+       Sets on/off state.
+    </ul>
+    <!-- METHOD PARAMETERS START -->
+    <ul>
+        <b>Parameters:</b>
+        <ul>
+            <code><i>boolean</i>&nbsp;on </code> - Button state.
+        </ul>
+    </ul>
+    <!-- METHOD PARAMETERS END -->
+    <!-- ADDITIONAL ATTRIBUTES START -->
+    
+    
+    <!-- ADDITIONAL ATTRIBUTES  END -->
+
+
+<!-- ============ METHOD DETAIL END ========== -->
+
+<!-- ============ EVENT DETAIL START ======= -->
+
+
+
+<!-- ============ EVENT DETAIL END ========== -->
+
+<p class="backtotop"><a href="#top">Back to top</a></p>
+
+ <!-- outer most for loop !-->
+
+
+   
+      </div><!-- end gc-pagecontent -->
+   </div><!-- end gooey wrapper -->
+
+    </div> <!-- end codesite content -->
+
+
+<div id="gc-footer" dir="ltr">
+  <div class="text">
+    
+    ©2011 Google -
+    <a href="http://code.google.com">Code Home</a> -
+    <a href="http://code.google.com/terms.html">Terms of Service</a> -
+    <a href="http://code.google.com/privacy.html">Privacy Policy</a> -
+    <a href="http://code.google.com/more">Site Directory</a>
+    <br> <br>
+    Google Code offered in:
+    <a href="http://code.google.com/intl/en">English</a> -
+    <a href="http://code.google.com/intl/es">Español</a> -
+    <a href="http://code.google.com/intl/ja">日本語</a> -
+    <a href="http://code.google.com/intl/ko">한국어</a> -
+    <a href="http://code.google.com/intl/pt-BR">Português</a> -
+    <a href="http://code.google.com/intl/ru">Pусский</a> -
+    <a href="http://code.google.com/intl/zh-CN">中文(简体)</a> -
+    <a href="http://code.google.com/intl/zh-TW">中文(繁體)</a>
+  </div>
+</div><!-- end gc-footer -->
+
+</div><!-- end gc-container -->
+
+<script type="text/javascript">CODESITE_CSITimer['load'].tick('ats');</script>
+<script src="../../../../js/codesite_tail.pack.04102009.js" type="text/javascript"></script>
+
+
+
+
+<script type="text/javascript">
+var _gaq = _gaq || [];
+
+_gaq.push(
+
+
+    ['siteTracker._setAccount', 'UA-18071-1'],
+    ['siteTracker._setDomainName', 'code.google.com'],
+    ['siteTracker._setCookiePath', window.location.pathname.substring(0,
+        window.location.pathname.lastIndexOf('/') + 1)],
+    ['siteTracker._trackPageview']
+);
+(function() {
+  var ga = document.createElement('script');
+
+  ga.type = 'text/javascript';
+  ga.async = true;
+  ga.src = 'http://www.google-analytics.com/ga.js';
+  (document.getElementsByTagName('head')[0] ||
+   document.getElementsByTagName('body')[0]).appendChild(ga);
+ })();
+</script>
+
+
+
+
+  </body>
+</html>
+
