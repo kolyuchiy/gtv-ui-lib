@@ -22,7 +22,7 @@
  * advance through the photos as a slideshow. Uses PhotoControl, VideoControl
  * and RowControl. Video support for YouTube only at the moment.
  *
- * @author shines@google.com (Steven Hines)
+ * 
  */
 
 var gtv = gtv || {

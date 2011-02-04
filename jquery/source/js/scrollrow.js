@@ -31,7 +31,7 @@
  * where the items are all of a kind, but may be separated by categories
  * (each category a separate row).
  *
- * @author shines@google.com (Steven Hines)
+ * 
  */
 
 var gtv = gtv || {

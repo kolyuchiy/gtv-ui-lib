@@ -17,7 +17,7 @@
  *     public static methods for processing feeds. SynchronizedCallback
  *     can be used to aggregate multiple asynch callback events into a single
  *     call.
- * @author shines@google.com (Steven Hines)
+ * 
  */
 
 var gtv = gtv || {
@@ -177,6 +177,73 @@ gtv.jq.GtvCore.processJsonpFeed = function(feed,
       doneCallback(itemsArray);
     }
   });
+};
+
+gtv.jq.GtvCore.doAjaxCall = function(url, dataType, jsonpCallback, callbackSuccess, callbackError) {
+  var options = {
+    url: url,
+    dataType: dataType,
+    error: function(httpRequest, textStatus, errorThrown){
+      callbackError(errorThrown);
+    },
+    success: function(data, textStatus, httpRequest){
+      callbackSuccess(data);
+    }
+  };
+  if (dataType == 'jsonp') {
+    options.jsonpCallback = jsonpCallback;
+  }
+  return $.ajax(options);
+};
+
+gtv.jq.GtvCore.getZoom = function() {
+  var zoom = parseFloat($(document.body).css('zoom'));
+  if (isNaN(zoom)) {
+    zoom = 1;
+  }
+  return zoom;
+};
+
+gtv.jq.GtvCore.getInt = function(value) {
+  value = parseInt(value);
+  if (isNaN(value)) {
+    value = 0;
+  }
+
+  return value;
+};
+
+gtv.jq.GtvCore.preloadImages = function(images) {
+  var img = new Image();
+  for(var i=0; i<images.length; i++) {
+    img.src = images[i];
+  }
+};
+
+gtv.jq.GtvCore.formatTime = function(seconds, unit) {
+  function padCero(num) {
+    if (num < 10) {
+      return '0' + num;
+    }
+    return num.toString();
+  }
+
+  switch (unit) {
+    case 'hours': {
+      var hours = Math.floor(seconds / 3600);
+      var minutes = Math.floor(seconds % 3600);
+      return padCero(hours) + ':' + gtv.jq.GtvCore.formatTime(minutes, 'minutes');
+    }
+    case 'minutes': {
+      var minutes = Math.floor(seconds / 60);
+      seconds = Math.floor(seconds % 60);
+      return padCero(minutes) + ':' + gtv.jq.GtvCore.formatTime(seconds, 'seconds');
+    }
+    case 'seconds': {
+      return padCero(seconds);
+    }
+  }
+  return padCero(seconds);
 };
 
 

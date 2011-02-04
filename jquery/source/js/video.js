@@ -20,7 +20,7 @@
  * and videos. The controls provide support for optional play/pause/next/prev
  * functionality, handle key navigatation between these buttons, and
  * handle media keys for them as well.
- * @author shines@google.com (Steven Hines)
+ * 
  */
 
 var gtv = gtv || {

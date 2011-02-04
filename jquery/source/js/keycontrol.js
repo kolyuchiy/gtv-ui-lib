@@ -36,7 +36,7 @@
  *    The KeyController handles most behaviors automatically, including arrow
  *    keys, mouseenter, etc.
  *
- * @author shines@google.com (Steven Hines)
+ * 
  */
 
 var gtv = gtv || {

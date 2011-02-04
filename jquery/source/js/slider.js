@@ -14,7 +14,7 @@
 
 /**
  * @fileoverview Classes for SlidingControl
- * @author shines@google.com (Steven Hines)
+ * 
  */
 
 var gtv = gtv || {
