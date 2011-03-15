@@ -35,7 +35,7 @@ tv.test = tv.test || {};
 
   // Note: This must be set so that the dependency resolver in the closure
   // system knows to include dependencies relative to this directory
-  window.CLOSURE_BASE_PATH = '../closure-library/closure/goog/';
+  window.CLOSURE_BASE_PATH = '../../closure-library/closure/goog/';
 
   // Closure base.
   includeTestScript(CLOSURE_BASE_PATH + 'base.js');
@@ -70,7 +70,7 @@ tv.test = tv.test || {};
       // Check deps.
       if (typeof goog == 'undefined') {
         writeWarning(
-           'Unable to find goog. You need to have Closure Library checked out. Run in closure/source dir:',
+           'Unable to find goog. You need to have Closure Library checked out. Run in gtv-ui-lib/closure dir:',
            'svn checkout http://closure-library.googlecode.com/svn/trunk/ closure-library');
         return;
       }

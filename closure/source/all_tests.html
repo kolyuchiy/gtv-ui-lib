@@ -2,13 +2,13 @@
 <html>
 <head>
 <title>Google TV Closure UI Library - All JsUnit Tests</title>
-<script src="closure-library/closure/goog/base.js"></script>
+<script src="../closure-library/closure/goog/base.js"></script>
 <script src="deps.js"></script>
 <script src="alltests.js"></script>
 <script>
 goog.require('goog.testing.MultiTestRunner');
 </script>
-<link rel="stylesheet" href="closure-library/closure/goog/css/multitestrunner.css" type="text/css">
+<link rel="stylesheet" href="../closure-library/closure/goog/css/multitestrunner.css" type="text/css">
 <style>
 h1 {
   font: normal x-large arial, helvetica, sans-serif;
@@ -55,7 +55,7 @@ a:hover {
       document.write('<p>No testfiles detected in alltests.js.</p>')
     } else if (typeof goog == 'undefined') {
        document.write('<p style="color: red;">'
-           + 'Unable to find goog. You need to have Closure Library checked out. Run in closure/source dir:<br>'
+           + 'Unable to find goog. You need to have Closure Library checked out. Run in gtv-ui-lib/closure dir:<br>'
            + 'svn checkout http://closure-library.googlecode.com/svn/trunk/ closure-library</p>');
     } else {
       var hidePassesInput = document.getElementById('hidepasses');
