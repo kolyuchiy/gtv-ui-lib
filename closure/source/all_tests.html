@@ -38,7 +38,7 @@ a:hover {
 </style>
 </head>
 <body>
-<h1>javascript/tv - All JsUnit Tests</h1>
+<h1>Google TV Closure UI Library  - All JsUnit Tests</h1>
 <div id="runner"></div>
 <!--  Use a form so browser persists input values -->
 <form id="footer" onsubmit="return false">
@@ -52,7 +52,11 @@ a:hover {
 </form>
 <script>
     if (typeof _allTests == 'undefined') {
-      document.write('<p>No testfiles detected.</p>')
+      document.write('<p>No testfiles detected in alltests.js.</p>')
+    } else if (typeof goog == 'undefined') {
+       document.write('<p style="color: red;">'
+           + 'Unable to find goog. You need to have Closure Library checked out. Run in closure/source dir:<br>'
+           + 'svn checkout http://closure-library.googlecode.com/svn/trunk/ closure-library</p>');
     } else {
       var hidePassesInput = document.getElementById('hidepasses');
       var parallelInput = document.getElementById('parallel');
