@@ -12,7 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-
 /**
  * @fileoverview Container that displays child components in tabs.
  * Container consists of two child containers - tab bar and tab content, whose
@@ -140,15 +139,17 @@ tv.ui.TabContainer.prototype.addChild = function(child) {
 /**
  * @inheritDoc
  */
-tv.ui.TabContainer.prototype.selectPreviousChild = function() {
-  return !this.hasFocusAttractor() && goog.base(this, 'selectPreviousChild');
+tv.ui.TabContainer.prototype.findPreviousSelectableChild = function() {
+  return this.hasFocusAttractor() ?
+      null : goog.base(this, 'findPreviousSelectableChild');
 };
 
 /**
  * @inheritDoc
  */
-tv.ui.TabContainer.prototype.selectNextChild = function() {
-  return !this.hasFocusAttractor() && goog.base(this, 'selectNextChild');
+tv.ui.TabContainer.prototype.findNextSelectableChild = function() {
+  return this.hasFocusAttractor() ?
+      null : goog.base(this, 'findNextSelectableChild');
 };
 
 /**
@@ -196,19 +197,6 @@ tv.ui.TabContainer.prototype.synchronizeSelectedChildren_ = function(
  */
 tv.ui.TabContainer.prototype.onBarFocus = function(event) {
   if (this.hasFocusAttractor()) {
-    this.tryFocusSelectedDescendant(this.contentContainer_);
-  }
-};
-
-/**
- * Focuses given component if it is able to receive focus.
- * Does nothing otherwise.
- * @param {goog.ui.Component} component Component to focus.
- * @protected
- */
-tv.ui.TabContainer.prototype.tryFocusSelectedDescendant = function(component) {
-  var selectedDescendant = component.getSelectedDescendantOrSelf();
-  if (selectedDescendant) {
-    this.getDocument().setFocusedComponent(selectedDescendant);
+    this.contentContainer_.tryFocus();
   }
 };

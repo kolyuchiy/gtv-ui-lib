@@ -12,7 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-
 /**
  * @fileoverview Photo lightbox. Simple variation of lightbox that displays
  * only photos. Designed to take whole page space.
@@ -67,16 +66,16 @@ tv.ui.Lightbox.prototype.onKey = function(event) {
       event.stopPropagation();
       break;
     case goog.events.KeyCodes.SPACE:
-      if (this.selectNextChild()) {
-        this.getDocument().setFocusedComponent(
-            this.getSelectedDescendantOrSelf());
+      var selectedChild = this.findNextSelectableChild();
+      if (selectedChild) {
+        selectedChild.tryFocus();
         event.stopPropagation();
       }
       break;
     case goog.events.KeyCodes.BACKSPACE:
-      if (this.selectPreviousChild()) {
-        this.getDocument().setFocusedComponent(
-            this.getSelectedDescendantOrSelf());
+      var selectedChild = this.findPreviousSelectableChild();
+      if (selectedChild) {
+        selectedChild.tryFocus();
         event.stopPropagation();
       }
       break;

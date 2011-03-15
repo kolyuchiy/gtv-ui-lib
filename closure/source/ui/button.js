@@ -12,7 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-
 /**
  * @fileoverview Push button.
  */
@@ -90,10 +89,25 @@ tv.ui.Button.prototype.getClass = function() {
 tv.ui.Button.prototype.onMouseDown = function(event) {
   goog.base(this, 'onMouseDown', event);
 
+  // TODO(maksym): Disabled button shouldn't trigger event.
   if (this.isEager() &&
       event.isButton(goog.events.BrowserEvent.MouseButton.LEFT)) {
     this.dispatchAction();
     event.stopPropagation();
+  }
+};
+
+/**
+ * @inheritDoc
+ */
+tv.ui.Button.prototype.onTouchEnd = function(event) {
+  goog.base(this, 'onTouchEnd', event);
+
+  // TODO(maksym): Should we have eager buttons in touch mode?
+  if (!this.isEager() &&
+      !this.wasTouchMoved() &&
+      event.getBrowserEvent().touches.length == 0) {
+    this.dispatchAction();
   }
 };
 

@@ -12,7 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-
 /**
  * @fileoverview Document controls focus and key event flow.
  */
@@ -95,14 +94,17 @@ tv.ui.Document.prototype.getFocusedComponent = function() {
  * Note that it is not guaranteed that component will be focused immediately
  * after exiting this method or even at all.
  * @param {tv.ui.Component} componentPendingFocus Component to focus.
+ * @param {boolean} opt_noScroll Don't scroll focused component into viewport.
  */
-tv.ui.Document.prototype.setFocusedComponent = function(componentPendingFocus) {
+tv.ui.Document.prototype.setFocusedComponent = function(
+    componentPendingFocus, opt_noScroll) {
   // Detect recursive call from blur or focus handler.
   var recursive = goog.isDef(this.componentPendingFocus_);
 
   // Remember component to focus.
   // If called recursively from handler, last call wins.
   this.componentPendingFocus_ = componentPendingFocus;
+  this.noScroll_ = opt_noScroll || false;
 
   // Request will proceed in loop below.
   if (recursive) {
@@ -143,7 +145,7 @@ tv.ui.Document.prototype.setFocusedComponent = function(componentPendingFocus) {
     }
     for (; selectIndex >= 0; selectIndex--) {
       focusCandidates[selectIndex + 1].setSelectedChild(
-          focusCandidates[selectIndex]);
+          focusCandidates[selectIndex], this.noScroll_);
     }
 
     // Focus components down from the common ancestor.

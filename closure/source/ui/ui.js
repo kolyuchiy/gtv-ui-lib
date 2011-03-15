@@ -12,7 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-
 /**
  * @fileoverview Core utilities for TV components.
  */
@@ -158,4 +157,47 @@ tv.ui.scheduleRender = function(component) {
   } else {
     tv.ui.componentsScheduledRender_.push(component);
   }
+};
+
+/**
+ * Identifier of last registered component.
+ * @type {number}
+ * @private
+ */
+tv.ui.lastUniqueComponentId_ = 0;
+
+/**
+ * Map from numeric identifier to decorated component.
+ * @type {Object.<number, tv.ui.Component>}
+ * @private
+ */
+tv.ui.idToComponentMap_ = {};
+
+/**
+ * Links DOM element and corresponding TV UI component.
+ * Components register themselves during decoration.
+ * @param {tv.ui.Component} component Component to register.
+ */
+tv.ui.registerComponent = function(component) {
+  var componentId = ++tv.ui.lastUniqueComponentId_;
+  component.getElement().componentId = componentId;
+  tv.ui.idToComponentMap_[componentId] = component;
+};
+
+/**
+ * Unlinks DOM element and corresponding TV UI component.
+ * Components unregister themselves during disposal.
+ * @param {tv.ui.Component} component Component to unregister.
+ */
+tv.ui.unregisterComponent = function(component) {
+  delete tv.ui.idToComponentMap_[component.getElement().componentId];
+};
+
+/**
+ * @param {Element} element Decorated DOM element.
+ * @return {tv.ui.Component} TV UI component that was created as the result of
+ *     decoration of given DOM element.
+ */
+tv.ui.getComponentByElement = function(element) {
+  return tv.ui.idToComponentMap_[element.componentId];
 };

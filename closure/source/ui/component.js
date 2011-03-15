@@ -12,7 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-
 /**
  * @fileoverview Base class for TV UI components.
  */
@@ -56,7 +55,7 @@ tv.ui.Component.Class = {
   /**
    * Applied when component receives focus.
    * @see tv.ui.Component.EventType#FOCUS
-   * @see tv.ui.Document#setFocusedComponent
+   * @see #tryFocus
    */
   FOCUSED: 'tv-component-focused',
 
@@ -120,9 +119,17 @@ tv.ui.Component.prototype.element_;
 tv.ui.Component.prototype.renderScheduled_;
 
 /**
+ * Whether finger was moved during touch,
+ * @type {boolean}
+ * @private
+ */
+tv.ui.Component.prototype.touchMoved_;
+
+/**
  * @inheritDoc
  */
 tv.ui.Component.prototype.disposeInternal = function() {
+  tv.ui.unregisterComponent(this);
   this.eventHandler_.dispose();
   delete this.element_;
 
@@ -171,13 +178,23 @@ tv.ui.Component.prototype.decorate = function(element) {
   this.element_ = element;
   goog.dom.classes.add(this.element_, this.getClass());
 
+  tv.ui.registerComponent(this);
+
+  // TODO(maksym): Is this needed?
   this.setVisible(!goog.dom.classes.has(
       this.element_, tv.ui.Component.Class.HIDDEN));
 
+  if (goog.isDef(window.ontouchstart)) {
+    this.getEventHandler().listen(
+        element, goog.events.EventType.TOUCHSTART, this.onTouchStart);
+    this.getEventHandler().listen(
+        element, goog.events.EventType.TOUCHMOVE, this.onTouchMove);
+    this.getEventHandler().listen(
+        element, goog.events.EventType.TOUCHEND, this.onTouchEnd);
+  }
   this.eventHandler_.listen(
-      element,
-      goog.events.EventType.MOUSEDOWN,
-      this.onMouseDown);
+      element, goog.events.EventType.MOUSEDOWN, this.onMouseDown);
+
   this.eventHandler_.listen(
       this, tv.ui.Component.EventType.FOCUS, this.onFocus);
   this.eventHandler_.listen(
@@ -286,21 +303,16 @@ tv.ui.Component.prototype.onMouseDown = function(event) {
     }
   }
 
-  // Request focus to component or in case of containers to one of its
-  // descendants.
-  var focusedComponent = this.getSelectedDescendantOrSelf();
-  if (!focusedComponent) {
-    return;
+  if (this.tryFocus()) {
+    event.stopPropagation();
   }
-
-  this.getDocument().setFocusedComponent(focusedComponent);
-  event.stopPropagation();
 };
 
 /**
+ * @param {number} opt_keyCode Code of key that triggered selection change.
  * @return {tv.ui.Component} Self, or null if component cannot accept focus.
  */
-tv.ui.Component.prototype.getSelectedDescendantOrSelf = function() {
+tv.ui.Component.prototype.getSelectedDescendantOrSelf = function(opt_keyCode) {
   return this.isEnabled() && this.isVisible() ? this : null;
 };
 
@@ -310,8 +322,34 @@ tv.ui.Component.prototype.getSelectedDescendantOrSelf = function() {
  * @return {boolean} True if component can be selected.
  * @protected
  */
-tv.ui.Component.prototype.selectFirstChild = function() {
+tv.ui.Component.prototype.selectFirstDescendant = function() {
   return this.isEnabled() && this.isVisible();
+};
+
+/**
+ * Can this component accept focus?
+ * @return {boolean} True if component can be selected.
+ * @protected
+ */
+tv.ui.Component.prototype.isSelectable = function() {
+  return this.isEnabled() && this.isVisible();
+};
+
+/**
+ * Requests focus to component or in case of containers to one of its
+ * descendants. Does nothing if component is not focusable.
+ * @param {boolean} opt_noScroll Don't scroll focused component into viewport.
+ * @return {boolean} Whether component is focusable.
+ * @see tv.ui.Document#setFocusedComponent
+ */
+tv.ui.Component.prototype.tryFocus = function(opt_noScroll) {
+  var focusedComponent = this.getSelectedDescendantOrSelf();
+  if (!focusedComponent) {
+    return false;
+  }
+
+  this.getDocument().setFocusedComponent(focusedComponent, opt_noScroll);
+  return true;
 };
 
 /**
@@ -363,4 +401,44 @@ tv.ui.Component.prototype.scheduleRender = function() {
     this.renderScheduled_ = true;
     tv.ui.scheduleRender(this);
   }
+};
+
+/**
+ * Handles touch start event.
+ * @param {goog.events.Event} event Touch event.
+ * @protected
+ */
+tv.ui.Component.prototype.onTouchStart = function(event) {
+  this.touchMoved_ = false;
+  event.preventDefault();
+};
+
+/**
+ * Handles touch move event.
+ * @param {goog.events.Event} event Touch event.
+ * @protected
+ */
+tv.ui.Component.prototype.onTouchMove = function(event) {
+  this.touchMoved_ = true;
+  event.preventDefault();
+};
+
+/**
+ * Handles touch end event.
+ * @param {goog.events.Event} event Touch event.
+ * @protected
+ */
+tv.ui.Component.prototype.onTouchEnd = function(event) {
+  if (!this.touchMoved_ && event.getBrowserEvent().touches.length == 0) {
+    this.tryFocus(true);
+  }
+  event.preventDefault();
+};
+
+/**
+ * @return {boolean} Whether finger was moved during touch,
+ * @protected
+ */
+tv.ui.Component.prototype.wasTouchMoved = function() {
+  return this.touchMoved_;
 };

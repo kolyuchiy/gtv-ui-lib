@@ -12,7 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-
 /**
  * @fileoverview Two-dimensional grid. It's a container that consists
  * of other containers, whose selections are synchronized.

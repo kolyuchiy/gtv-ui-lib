@@ -12,7 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-
 /**
  * @fileoverview Component container that features highlighting and scrolling.
  */
@@ -22,6 +21,7 @@ goog.require('goog.dom');
 goog.require('goog.dom.classes');
 goog.require('goog.math.Coordinate');
 goog.require('goog.style');
+goog.require('goog.userAgent.product');
 goog.require('tv.ui');
 goog.require('tv.ui.Component');
 
@@ -157,7 +157,13 @@ tv.ui.Container.Class = {
    * Mock child is an element that has dimensions of typical child.
    * It should be used when scroll element or child elements have animations.
    */
-  MOCK_SCROLL: 'tv-container-mock-scroll'
+  MOCK_SCROLL: 'tv-container-mock-scroll',
+
+  /**
+   * Applied to root element if container resets its selection on blur.
+   * @see #hasTransientSelection
+   */
+  TRANSIENT_SELECTION: 'tv-container-transient-selection'
 };
 
 tv.ui.registerDecorator(
@@ -187,7 +193,19 @@ tv.ui.Container.EventType = {
   UPDATE_HIGHLIGHT: goog.events.getUniqueId('update_highlight')
 };
 
-// TODO(maksym): Comment member variables.
+// TODO(maksym): Comment member and static variables.
+/**
+ * @type {number}
+ * @private
+ */
+tv.ui.Container.AVERAGE_VELOCITY_CALCULATION_INTERVAL = 50;
+
+/**
+ * @type {number}
+ * @private
+ */
+tv.ui.Container.DECELERATION_ANIMATION_INTERVAL = 20;
+
 /**
  * @type {Element}
  * @private
@@ -235,6 +253,50 @@ tv.ui.Container.prototype.selectedChild_;
  * @private
  */
 tv.ui.Container.prototype.controllingSharedHighlight_;
+
+/**
+ * @type {number}
+ * @private
+ */
+tv.ui.Container.prototype.scrollElementCoordinate_;
+
+/**
+ * @type {number}
+ * @private
+ */
+tv.ui.Container.prototype.minScrollElementCoordinate_;
+
+/**
+ * @type {number}
+ * @private
+ */
+tv.ui.Container.prototype.touchIdentifier_;
+
+/**
+ * @type {Array.<{time: number, coordinate: number}>}
+ * @private
+ */
+tv.ui.Container.prototype.touchMoves_;
+
+/**
+ * @type {goog.Timer}
+ * @private
+ */
+tv.ui.Container.prototype.decelerationTimer_;
+
+/**
+ * @type {number}
+ * @private
+ */
+tv.ui.Container.prototype.decelerationVelocity_;
+
+// TODO(maksym): Flag below is dangerous because it assumes that render() will
+// be called immediately from scheduleRender(), which may not always be true.
+/**
+ * @type {boolean}
+ * @private
+ */
+tv.ui.Container.prototype.skipNextScroll_;
 
 /**
  * @inheritDoc
@@ -285,6 +347,23 @@ tv.ui.Container.prototype.decorate = function(element) {
       this.mockChildElement_ = /** @type {Element} */(
           childElement.removeChild(childElement.firstChild));
     }
+  }
+
+  if (this.scrollElement_ && goog.isDef(window.ontouchstart)) {
+    this.scrollTo_(0);
+
+    this.decelerationTimer_ = new goog.Timer(
+        tv.ui.Container.DECELERATION_ANIMATION_INTERVAL);
+    this.getEventHandler().listen(
+        this.decelerationTimer_, goog.Timer.TICK, function() {
+          this.scrollTo_(
+              this.scrollElementCoordinate_ + this.decelerationVelocity_);
+
+          this.decelerationVelocity_ *= 0.95;
+          if (Math.abs(this.decelerationVelocity_) < 0.05) {
+            this.decelerationTimer_.stop();
+          }
+        });
   }
 };
 
@@ -422,6 +501,14 @@ tv.ui.Container.prototype.isStartScroll_ = function() {
 };
 
 /**
+ * @return {boolean} Whether container resets its selection on blur.
+ */
+tv.ui.Container.prototype.hasTransientSelection = function() {
+  return goog.dom.classes.has(
+      this.getElement(), tv.ui.Container.Class.TRANSIENT_SELECTION);
+};
+
+/**
  * Handles key event.
  * Controls child component focus.
  * @param {goog.events.KeyEvent} event Key event.
@@ -433,53 +520,57 @@ tv.ui.Container.prototype.onKey = function(event) {
     return;
   }
 
-  var selectionChanged;
-  if (event.keyCode == this.getPreviousKey_()) {
-    selectionChanged = this.selectPreviousChild();
-  } else if (event.keyCode == this.getNextKey_()) {
-    selectionChanged = this.selectNextChild();
+
+  var selectedChild;
+  var keyCode = event.keyCode;
+  if (keyCode == this.getPreviousKey_()) {
+    selectedChild = this.findPreviousSelectableChild(keyCode);
+  } else if (keyCode == this.getNextKey_()) {
+    selectedChild = this.findNextSelectableChild(keyCode);
   }
 
-  if (selectionChanged) {
+  if (selectedChild) {
+    this.setSelectedChild(selectedChild);
+    this.tryFocus();
+
     event.stopPropagation();
     event.preventDefault();
-
-    this.getDocument().setFocusedComponent(
-        this.selectedChild_.getSelectedDescendantOrSelf());
   }
 };
 
 /**
- * @return {number} Code for key that moves selection towards start of the
- *     container.
+ * @return {number} Code for the key that moves the selection towards start of
+ *     the container, or 0 if there is no such key.
  * @private
  */
 tv.ui.Container.prototype.getPreviousKey_ = function() {
-  return this.isHorizontal() ?
-      goog.events.KeyCodes.LEFT : goog.events.KeyCodes.UP;
+  return this.isHorizontal() ? goog.events.KeyCodes.LEFT :
+         this.isVertical() ? goog.events.KeyCodes.UP :
+         0;
 };
 
 /**
- * @return {number} Code for key that moves selection towards end of the
- *     container.
+ * @return {number} Code for the key that moves the selection towards end of the
+ *     container, or 0 if there is no such key.
  * @private
  */
 tv.ui.Container.prototype.getNextKey_ = function() {
-  return this.isHorizontal() ?
-      goog.events.KeyCodes.RIGHT : goog.events.KeyCodes.DOWN;
+  return this.isHorizontal() ? goog.events.KeyCodes.RIGHT :
+         this.isVertical() ? goog.events.KeyCodes.DOWN :
+         0;
 };
 
+// TODO(maksym): Change to findFirstSelectableChild().
 /**
- * Tries to select one of the child components starting from first one.
- * Only components that can receive focus (or have children that can receive
- * focus) are qualified.
- * @return {boolean} Whether focusable child has been found.
+ * Looks for first selectable descendant and updates selection chain up to this
+ * container. Does nothing if container doesn't have selectable descendants.
+ * @return {boolean} Whether selectable descendant has been found.
  * @protected
  */
-tv.ui.Container.prototype.selectFirstChild = function() {
-  return goog.base(this, 'selectFirstChild') &&
+tv.ui.Container.prototype.selectFirstDescendant = function() {
+  return goog.base(this, 'selectFirstDescendant') &&
       goog.array.some(this.children_, function(child) {
-        if (child.selectFirstChild()) {
+        if (child.selectFirstDescendant()) {
           this.setSelectedChild(child);
           return true;
         }
@@ -488,41 +579,81 @@ tv.ui.Container.prototype.selectFirstChild = function() {
 };
 
 /**
- * Tries to select one of the child components before currently selected one.
- * Only components that can receive focus (or have children that can receive
- * focus) are qualified.
- * @return {boolean} Whether selection changed.
+ * Walks down the container tree, and sometimes changes which child is selected.
+ * If the key that was used to change selection matches the container's next/
+ * previous key, we change the selection to the first/last child respectively.
+ * Does nothing if container has no selectable descendants.
+ * @param {number} keyCode Code of key that triggered selection change.
+ * @return {boolean} Whether selectable descendant has been found.
  * @protected
  */
-tv.ui.Container.prototype.selectPreviousChild = function() {
-  return this.changeSelectedChildIndexBy_(-1, 0);
+tv.ui.Container.prototype.adjustSelectionFromKey = function(keyCode) {
+  if (!this.isSelectable()) {
+    return false;
+  }
+  var indexBegin, indexEnd;
+  if (keyCode === this.getNextKey_()) {
+    // We entered the container by pressing 'right' or 'down'.
+    indexBegin = 0;
+    indexEnd = this.children_.length;
+  } else if (keyCode === this.getPreviousKey_()) {
+    // We entered the container by pressing 'left' or 'up'.
+    indexBegin = this.children_.length - 1;
+    indexEnd = -1;
+  } else {
+    // Don't change selection in this container.
+    return this.selectedChild_ &&
+           (this.selectedChild_.adjustSelectionFromKey &&
+            this.selectedChild_.adjustSelectionFromKey(keyCode) ||
+            this.selectedChild_.isSelectable());
+  }
+  var delta = indexBegin < indexEnd ? 1 : -1;
+  for (var i = indexBegin; i != indexEnd; i += delta) {
+    var child = this.children_[i];
+    if (child.adjustSelectionFromKey &&
+        child.adjustSelectionFromKey(keyCode) ||
+        child.isSelectable()) {
+      this.setSelectedChild(child);
+      return true;
+    }
+  }
+  return false;
 };
 
 /**
- * Tries to select one of the child components after currently selected one.
- * Only components that can receive focus (or have children that can receive
- * focus) are qualified.
- * @return {boolean} Whether selection changed.
- * @protected
+ * Looks for selectable child components before currently selected one.
+ * @param {number} opt_keyCode Code of key that triggered selection change.
+ * @return {tv.ui.Component} Selectable child component or null if there are
+ *     none before currently selected one.
  */
-tv.ui.Container.prototype.selectNextChild = function() {
-  return this.changeSelectedChildIndexBy_(1, this.children_.length - 1);
+tv.ui.Container.prototype.findPreviousSelectableChild = function(opt_keyCode) {
+  return this.findSelectableChild_(-1, 0, opt_keyCode);
 };
 
 /**
- * Tries to select one of the child components in given direction relatively to
+ * Looks for selectable child components after currently selected one.
+ * @param {number} opt_keyCode Code of key that triggered selection change.
+ * @return {tv.ui.Component} Selectable child component or null if there are
+ *     none after currently selected one.
+ */
+tv.ui.Container.prototype.findNextSelectableChild = function(opt_keyCode) {
+  return this.findSelectableChild_(1, this.children_.length - 1, opt_keyCode);
+};
+
+/**
+ * Looks for selectable child components in given direction relatively to
  * currently selected one.
- * Only components that can receive focus (or have children that can receive
- * focus) are qualified.
  * @param {number} delta +/-1 for direction.
  * @param {number} lastIndex Last child index.
- * @return {boolean} Whether selection changed.
+ * @param {number} opt_keyCode Code of key that triggered selection change.
+ * @return {tv.ui.Component} Selectable child component or null if there are
+ *     none in given direction.
  * @private
  */
-tv.ui.Container.prototype.changeSelectedChildIndexBy_ = function(
-    delta, lastIndex) {
+tv.ui.Container.prototype.findSelectableChild_ = function(
+    delta, lastIndex, opt_keyCode) {
   if (!this.selectedChild_) {
-    return false;
+    return null;
   }
 
   var selectedChildIndex =
@@ -531,23 +662,30 @@ tv.ui.Container.prototype.changeSelectedChildIndexBy_ = function(
   while (selectedChildIndex != lastIndex) {
     selectedChildIndex += delta;
     var selectedChild = this.children_[selectedChildIndex];
-    if (selectedChild.getSelectedDescendantOrSelf()) {
-      this.setSelectedChild(selectedChild);
-      return true;
+    if (selectedChild.getSelectedDescendantOrSelf(opt_keyCode)) {
+      return selectedChild;
     }
   }
 
-  return false;
+  return null;
 };
 
 /**
+ * @param {number} opt_keyCode Code of key that triggered selection change.
  * @return {tv.ui.Component} Selected grand-...-grandchild, or null if no
  *     child is selected.
  */
-tv.ui.Container.prototype.getSelectedDescendantOrSelf = function() {
-  return goog.base(this, 'getSelectedDescendantOrSelf') &&
-      this.selectedChild_ &&
-      this.selectedChild_.getSelectedDescendantOrSelf();
+tv.ui.Container.prototype.getSelectedDescendantOrSelf = function(opt_keyCode) {
+  if (!goog.base(this, 'getSelectedDescendantOrSelf', opt_keyCode)) {
+    return null;
+  }
+  if (!this.isFocused()) {
+    // We are not focused, so we can adjust selected child if necessary.
+    this.adjustSelectionFromKey(opt_keyCode);
+  }
+  // Now check whether we have a selected child.
+  return (this.selectedChild_ &&
+          this.selectedChild_.getSelectedDescendantOrSelf(opt_keyCode));
 };
 
 /**
@@ -559,9 +697,12 @@ tv.ui.Container.prototype.getSelectedChild = function() {
 };
 
 /**
- * @param {tv.ui.Component} selectedChild Sets currently selected child.
+ * Sets currently selected child.
+ * @param {tv.ui.Component} selectedChild Child to select.
+ * @param {boolean} opt_noScroll Don't scroll focused component into viewport.
  */
-tv.ui.Container.prototype.setSelectedChild = function(selectedChild) {
+tv.ui.Container.prototype.setSelectedChild = function(
+    selectedChild, opt_noScroll) {
   if (this.selectedChild_ == selectedChild) {
     return;
   }
@@ -576,6 +717,7 @@ tv.ui.Container.prototype.setSelectedChild = function(selectedChild) {
   if (this.selectedChild_) {
     goog.dom.classes.add(
         this.selectedChild_.getElement(), tv.ui.Container.Class.SELECTED_CHILD);
+    this.skipNextScroll_ = opt_noScroll || false;
     this.scheduleRender();
   }
 
@@ -607,10 +749,19 @@ tv.ui.Container.prototype.scroll_ = function() {
     return;
   }
 
+  this.minScrollElementCoordinate_ = Math.min(0,
+      this.getOffsetSize_(this.element_) -
+      this.getScrollSize_(this.mockScrollElement_ || this.scrollElement_));
+
+  if (this.skipNextScroll_) {
+    this.skipNextScroll_ = false;
+    return;
+  }
+
   // No children or all children are non-focusable?
   if (!this.selectedChild_) {
     // Scroll to start.
-    this.setScrollElementPosition_(this.createCoordinate_(0));
+    this.scrollTo_(0);
 
     // Hide slits.
     this.startSlitElement_ && goog.dom.classes.remove(
@@ -627,8 +778,7 @@ tv.ui.Container.prototype.scroll_ = function() {
 
   // Policy requires to keep selected child at start of scrolling window.
   if (this.isStartScroll_()) {
-    this.setScrollElementPosition_(this.createCoordinate_(
-        -this.getOffsetCoordinate_(selectedChildElement)));
+    this.scrollTo_(-this.getOffsetCoordinate_(selectedChildElement));
 
     // TODO(maksym): Update slit visibility.
 
@@ -688,8 +838,7 @@ tv.ui.Container.prototype.scroll_ = function() {
       (allChildrenSize - firstVisibleChildCoordinate) > scrollWindowSize;
 
   // Scroll, finally!
-  this.setScrollElementPosition_(
-      this.createCoordinate_(-firstVisibleChildCoordinate));
+  this.scrollTo_(-firstVisibleChildCoordinate);
 
   // Show slits if necessary.
   if (this.startSlitElement_) {
@@ -721,16 +870,37 @@ tv.ui.Container.prototype.getChildElement_ = function(childIndex) {
 
 /**
  * Sets position of real and mock scroll elements.
- * @param {goog.math.Coordinate} scrollElementPosition Position to set.
+ * @param {number} scrollElementCoordinate Position to set.
  * @private
  */
-tv.ui.Container.prototype.setScrollElementPosition_ = function(
-    scrollElementPosition) {
-  goog.style.setPosition(this.scrollElement_, scrollElementPosition);
+tv.ui.Container.prototype.scrollTo_ = function(scrollElementCoordinate) {
+  // TODO(maksym): Implement bouncing in touch mode instead.
+  this.scrollElementCoordinate_ = Math.max(
+      Math.min(0, scrollElementCoordinate),
+      this.minScrollElementCoordinate_ || -Number.MAX_VALUE);
+
+  var scrollElementPosition =
+      this.createCoordinate_(this.scrollElementCoordinate_);
+  tv.ui.Container.setElementPosition_(
+      this.scrollElement_, scrollElementPosition);
   if (this.mockScrollElement_) {
-    goog.style.setPosition(this.mockScrollElement_, scrollElementPosition)
+    goog.style.setPosition(this.mockScrollElement_, scrollElementPosition);
   }
 };
+
+/**
+ * Moves element to given position.
+ * @param {Element} element Element to move.
+ * @param {goog.math.Coordinate} position Position to set.
+ */
+tv.ui.Container.setElementPosition_ =
+    goog.userAgent.product.IPHONE || goog.userAgent.product.IPAD ?
+        function(element, position) {
+          // 3D translation is powered by OpenGL on iOS.
+          element.style.webkitTransform =
+              'translate3d(' + position.x + 'px, ' +  position.y + 'px, 0)';
+        } :
+        goog.style.setPosition;
 
 /**
  * Moves highlight element at position of selected child.
@@ -834,11 +1004,10 @@ tv.ui.Container.prototype.onChildSelectabilityChange = function(child) {
     // Child became selectable, set it as selected if container has none.
     this.setSelectedChild(child);
   } else if (this.selectedChild_ == child &&
-      !child.getSelectedDescendantOrSelf() &&
-      !this.selectNextChild() &&
-      !this.selectPreviousChild()) {
-    // Child stopped being selectable, no other selectable children found.
-    this.setSelectedChild(null);
+      !child.getSelectedDescendantOrSelf()) {
+    // Child stopped being selectable, try to find other selectable children.
+    this.setSelectedChild(
+        this.findNextSelectableChild() || this.findPreviousSelectableChild());
   }
 };
 
@@ -858,8 +1027,8 @@ tv.ui.Container.prototype.onFocus = function(event) {
     if (this.hasSharedHighlight_()) {
       this.controllingSharedHighlight_ = true;
 
-      // Overkill, we only need to position highlight element. We might have done
-      // it by calling updateHighlight_() method. However we can trigger
+      // Overkill, we only need to position highlight element. We might have
+      // done it by calling updateHighlight_() method. However we can trigger
       // unnecessary repaint in browser, so it's better this way.
       this.scheduleRender();
     }
@@ -887,4 +1056,130 @@ tv.ui.Container.prototype.onBlur = function(event) {
 
     this.dispatchEvent(tv.ui.Container.EventType.UPDATE_HIGHLIGHT);
   }
+
+  if (this.hasTransientSelection()) {
+    this.selectFirstDescendant();
+  }
+};
+
+/**
+ * @inheritDoc
+ */
+tv.ui.Container.prototype.onTouchStart = function(event) {
+  goog.base(this, 'onTouchStart', event);
+
+  var touches = event.getBrowserEvent().changedTouches;
+  if (!this.scrollElement_ || this.touchIdentifier_ || touches.length != 1) {
+    return;
+  }
+
+  this.decelerationTimer_.stop();
+  this.touchIdentifier_ = touches[0].identifier;
+  this.touchMoves_ = [];
+  this.addTouchMove_(this.getTouch_(event));
+};
+
+/**
+ * @inheritDoc
+ */
+tv.ui.Container.prototype.onTouchMove = function(event) {
+  goog.base(this, 'onTouchMove', event);
+
+  var touch = this.getTouch_(event);
+  if (!this.scrollElement_ || !touch) {
+    return;
+  }
+
+  // TODO(maksym): Update slits in touch mode.
+  this.scrollTo_(
+      this.scrollElementCoordinate_ +
+      this.getPageCoordinate_(touch) -
+      this.getLastTouchMove_().coordinate);
+  this.addTouchMove_(touch);
+
+  // TODO(maksym): It would be nice to stop propagation here but it's hard
+  // to decide when do so. Figure it out eventually.
+};
+
+/**
+ * @inheritDoc
+ */
+tv.ui.Container.prototype.onTouchEnd = function(event) {
+  // Intentionally not calling base class implementation, as containers
+  // shouldn't try focus themselves in touch mode.
+  event.preventDefault();
+
+  if (!this.scrollElement_ || !this.touchIdentifier_ || this.getTouch_(event)) {
+    return;
+  }
+
+  if (this.touchMoves_.length >= 2) {
+    var endTime = goog.now();
+    var endCoordinate = this.getLastTouchMove_().coordinate;
+
+    var interval = 0;
+    var distance = 0;
+    for (var i = this.touchMoves_.length - 1; i >= 0; i--) {
+      var possibleInterval = endTime - this.touchMoves_[i].time;
+      if (possibleInterval >
+          tv.ui.Container.AVERAGE_VELOCITY_CALCULATION_INTERVAL) {
+        break;
+      }
+      interval = possibleInterval;
+      distance = endCoordinate - this.touchMoves_[i].coordinate;
+    }
+
+    if (interval > 0) {
+      // Initial deceleration velocity should be a velocity of swipe.
+      // Multiplying it by animation interval gets number of pixels to
+      // scroll during single animation frame.
+      this.decelerationVelocity_ = distance / interval *
+          tv.ui.Container.DECELERATION_ANIMATION_INTERVAL;
+      this.decelerationTimer_.start();
+    }
+  }
+
+  delete this.touchIdentifier_;
+  delete this.touchMoves_;
+};
+
+/**
+ * @param {goog.events.Event} event Touch event.
+ * @return {Touch} Touch which initiated swipe, null if event doesn't have it.
+ * @private
+ */
+tv.ui.Container.prototype.getTouch_ = function(event) {
+  return goog.array.find(event.getBrowserEvent().touches, function(touch) {
+    return touch.identifier == this.touchIdentifier_;
+  }, this);
+};
+
+/**
+ * Records touch move for calculation of average speed of swipe.
+ * @param {Touch} touch Touch move.
+ * @private
+ */
+tv.ui.Container.prototype.addTouchMove_ = function(touch) {
+  this.touchMoves_.push({
+    time: goog.now(),
+    coordinate: this.getPageCoordinate_(touch)
+  });
+};
+
+/**
+ * @return {{time: number, coordinate: number}} Last recorded touch move.
+ * @private
+ */
+tv.ui.Container.prototype.getLastTouchMove_ = function() {
+  return this.touchMoves_[this.touchMoves_.length - 1];
+};
+
+/**
+ * Abstracts page coordinate of event for horizontal and vertical container.
+ * @param {Touch} touch Touch move.
+ * @return {number} Page x or y, depending on container orientation.
+ * @private
+ */
+tv.ui.Container.prototype.getPageCoordinate_ = function(touch) {
+  return this.isHorizontal() ? touch.pageX : touch.pageY;
 };
