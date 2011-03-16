@@ -4,7 +4,6 @@ This directory contains isolated examples of various use-cases using this librar
 
 DIRECTORY STRUCTURE
 =============================
-/
 /examples/*
   /new-descriptive-name.html
   /new-descriptive-name/ <--[optional resource folder for images, js, css]
