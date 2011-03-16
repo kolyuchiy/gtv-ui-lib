@@ -1,1 +1,10 @@
-This directory contains isolated examples of various use-cases using this library.
+DESCRIPTION
+=============================
+This directory contains isolated examples of various use-cases using this library.  To add new examples, follow the directory structure below.
+
+DIRECTORY STRUCTURE
+=============================
+/
+/examples/*
+  /new-descriptive-name.html
+  /new-descriptive-name/ <--[optional resource folder for images, js, css]
