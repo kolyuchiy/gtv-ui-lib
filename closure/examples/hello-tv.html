@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <!-- Custom paths to Closure Library and GTV Closure UI Library files -->
+    <script src='../closure-library/closure/goog/base.js'></script>
+    <script src='../source/deps.js'></script>
+    <!-- End custom script includes -->
+    <script type='text/javascript'>
+      goog.require('tv.ui');
+      goog.require('tv.ui.Component');
+      goog.require('tv.ui.Container');
+      goog.require('tv.ui.Document');
+    </script>
+    <style type='text/css'>
+      .tv-component.tv-component-focused {
+        color: #fff;
+        background-color: #000;
+      }
+    </style>
+  </head>
+  <body>
+    <div class='tv-container-horizontal'>
+      <span class='tv-component' id='hello'>Hello</span>
+      <span class='tv-component' id='world'>World</span>
+    </div>
+    <script type='text/javascript'>
+      tv.ui.decorate(document.body);
+      var elementToFocus = goog.dom.getElement('hello');
+      var componentToFocus = tv.ui.getComponentByElement(elementToFocus);
+      tv.ui.Document.getInstance().setFocusedComponent(componentToFocus);
+    </script>
+  </body>
+</html>
