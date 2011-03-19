@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <title>Spotlight Using Closure Library</title>
+  <script src="../closure-library/closure/goog/base.js"></script>
+  <script src="../source/deps.js"></script>
+  <script type="text/javascript">
+    goog.require('tv.ui');
+    goog.require('tv.ui.Container');
+    goog.require('tv.ui.Document');
+    goog.require('tv.ui.Grid');
+    goog.require('tv.ui.Link');
+  </script>
+  <link rel="stylesheet" href="../source//ui/container.css">
+  <link rel="stylesheet" href="spotlight-prototype/spotlight-v1.css">
+</head>
+
+<body>
+
+<style type="text/css">
+.tv-link.tv-component-focused {
+  -webkit-box-shadow: #6391DE 0px 0px 30px, #F2F2F2 0px 0px 15px, white 0px 0px 5px;
+}
+
+.tv-container-start-scroll,
+.tv-container-middle-scroll {
+  -webkit-transition: top 500ms ease;
+}
+</style>
+
+
+<div id="header">
+  <div class="center">
+    <img alt="Google TV Spotlight Gallery" src="http://www.google.com/tv/static/images/spotlightgallery-logo.png">
+    <h2>Spotlight</h2>
+  </div>
+</div>
+  
+<ul id="colorstrip"> 
+  <li class="col1"></li> 
+  <li class="col2"></li> 
+  <li class="col3"></li> 
+  <li class="col4"></li>
+</ul>
+
+<div id="main-grid" class="center tv-grid tv-container-vertical">
+  <div class="tv-container-start-scroll">
+    <ul class="tv-container-horizontal">
+      <li>
+        <div class="tv-link first-focus" href="http://www.adultswim.com/leanback/"><img alt="Place Kitten" class="item-image" src=
+        "http://placekitten.com/g/240/135" width="240"></div>
+        <h3>Kitten Of The Day</h3>
+        <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam id.</span>
+      </li>
+      <li>
+        <div class="tv-link first-focus" href="http://www.adultswim.com/leanback/"><img alt="Place Kitten" class="item-image" src=
+        "http://placekitten.com/g/240/135" width="240"></div>
+        <h3>Kitten Of The Day</h3>
+        <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam id.</span>
+      </li>
+      <li>
+        <div class="tv-link first-focus" href="http://www.adultswim.com/leanback/"><img alt="Place Kitten" class="item-image" src=
+        "http://placekitten.com/g/240/135" width="240"></div>
+        <h3>Kitten Of The Day</h3>
+        <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam id.</span>
+      </li>
+      <li>
+        <div class="tv-link first-focus" href="http://www.adultswim.com/leanback/"><img alt="Place Kitten" class="item-image" src=
+        "http://placekitten.com/g/240/135" width="240"></div>
+        <h3>Kitten Of The Day</h3>
+        <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam id.</span>
+      </li>
+    </ul>
+    <ul class="tv-container-horizontal">
+      <li>
+        <div class="tv-link first-focus" href="http://www.adultswim.com/leanback/"><img alt="Place Kitten" class="item-image" src=
+        "http://placekitten.com/g/240/135" width="240"></div>
+        <h3>Kitten Of The Day</h3>
+        <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam id.</span>
+      </li>
+      <li>
+        <div class="tv-link first-focus" href="http://www.adultswim.com/leanback/"><img alt="Place Kitten" class="item-image" src=
+        "http://placekitten.com/g/240/135" width="240"></div>
+        <h3>Kitten Of The Day</h3>
+        <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam id.</span>
+      </li>
+      <li>
+        <div class="tv-link first-focus" href="http://www.adultswim.com/leanback/"><img alt="Place Kitten" class="item-image" src=
+        "http://placekitten.com/g/240/135" width="240"></div>
+        <h3>Kitten Of The Day</h3>
+        <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam id.</span>
+      </li>
+      <li>
+        <div class="tv-link first-focus" href="http://www.adultswim.com/leanback/"><img alt="Place Kitten" class="item-image" src=
+        "http://placekitten.com/g/240/135" width="240"></div>
+        <h3>Kitten Of The Day</h3>
+        <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam id.</span>
+      </li>
+    </ul>
+    <ul class="tv-container-horizontal">
+      <li>
+        <div class="tv-link first-focus" href="http://www.adultswim.com/leanback/"><img alt="Place Kitten" class="item-image" src=
+        "http://placekitten.com/g/240/135" width="240"></div>
+        <h3>Kitten Of The Day</h3>
+        <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam id.</span>
+      </li>
+      <li>
+        <div class="tv-link first-focus" href="http://www.adultswim.com/leanback/"><img alt="Place Kitten" class="item-image" src=
+        "http://placekitten.com/g/240/135" width="240"></div>
+        <h3>Kitten Of The Day</h3>
+        <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam id.</span>
+      </li>
+      <li>
+        <div class="tv-link first-focus" href="http://www.adultswim.com/leanback/"><img alt="Place Kitten" class="item-image" src=
+        "http://placekitten.com/g/240/135" width="240"></div>
+        <h3>Kitten Of The Day</h3>
+        <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam id.</span>
+      </li>
+      <li>
+        <div class="tv-link first-focus" href="http://www.adultswim.com/leanback/"><img alt="Place Kitten" class="item-image" src=
+        "http://placekitten.com/g/240/135" width="240"></div>
+        <h3>Kitten Of The Day</h3>
+        <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam id.</span>
+      </li>
+    </ul>
+    <ul class="tv-container-horizontal">
+      <li>
+        <div class="tv-link first-focus" href="http://www.adultswim.com/leanback/"><img alt="Place Kitten" class="item-image" src=
+        "http://placekitten.com/g/240/135" width="240"></div>
+        <h3>Kitten Of The Day</h3>
+        <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam id.</span>
+      </li>
+      <li>
+        <div class="tv-link first-focus" href="http://www.adultswim.com/leanback/"><img alt="Place Kitten" class="item-image" src=
+        "http://placekitten.com/g/240/135" width="240"></div>
+        <h3>Kitten Of The Day</h3>
+        <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam id.</span>
+      </li>
+      <li>
+        <div class="tv-link first-focus" href="http://www.adultswim.com/leanback/"><img alt="Place Kitten" class="item-image" src=
+        "http://placekitten.com/g/240/135" width="240"></div>
+        <h3>Kitten Of The Day</h3>
+        <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam id.</span>
+      </li>
+      <li>
+        <div class="tv-link first-focus" href="http://www.adultswim.com/leanback/"><img alt="Place Kitten" class="item-image" src=
+        "http://placekitten.com/g/240/135" width="240"></div>
+        <h3>Kitten Of The Day</h3>
+        <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam id.</span>
+      </li>
+    </ul>
+    <ul class="tv-container-horizontal">
+      <li>
+        <div class="tv-link first-focus" href="http://www.adultswim.com/leanback/"><img alt="Place Kitten" class="item-image" src=
+        "http://placekitten.com/g/240/135" width="240"></div>
+        <h3>Kitten Of The Day</h3>
+        <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam id.</span>
+      </li>
+      <li>
+        <div class="tv-link first-focus" href="http://www.adultswim.com/leanback/"><img alt="Place Kitten" class="item-image" src=
+        "http://placekitten.com/g/240/135" width="240"></div>
+        <h3>Kitten Of The Day</h3>
+        <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam id.</span>
+      </li>
+      <li>
+        <div class="tv-link first-focus" href="http://www.adultswim.com/leanback/"><img alt="Place Kitten" class="item-image" src=
+        "http://placekitten.com/g/240/135" width="240"></div>
+        <h3>Kitten Of The Day</h3>
+        <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam id.</span>
+      </li>
+      <li>
+        <div class="tv-link first-focus" href="http://www.adultswim.com/leanback/"><img alt="Place Kitten" class="item-image" src=
+        "http://placekitten.com/g/240/135" width="240"></div>
+        <h3>Kitten Of The Day</h3>
+        <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam id.</span>
+      </li>
+    </ul>
+    <ul style="height: 50px;" class="tv-container-horizontal"></ul>
+  </div>
+</div>
+
+
+<script type="text/javascript">
+tv.ui.decorate(document.body);
+var focusElement = goog.dom.getElementByClass('first-focus');
+var focusComponent = tv.ui.getComponentByElement(focusElement);
+tv.ui.Document.getInstance().setFocusedComponent(focusComponent);
+</script>
+
+</body>
+</html>
