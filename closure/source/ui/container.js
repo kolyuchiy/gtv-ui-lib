@@ -17,6 +17,7 @@
  */
 goog.provide('tv.ui.Container');
 
+goog.require('goog.Timer');
 goog.require('goog.dom');
 goog.require('goog.dom.classes');
 goog.require('goog.math.Coordinate');
@@ -357,7 +358,7 @@ tv.ui.Container.prototype.decorate = function(element) {
     this.getEventHandler().listen(
         this.decelerationTimer_, goog.Timer.TICK, function() {
           this.scrollTo_(
-              this.scrollElementCoordinate_ + this.decelerationVelocity_);
+              this.scrollElementCoordinate_ + this.decelerationVelocity_, true);
 
           this.decelerationVelocity_ *= 0.95;
           if (Math.abs(this.decelerationVelocity_) < 0.05) {
@@ -583,20 +584,20 @@ tv.ui.Container.prototype.selectFirstDescendant = function() {
  * If the key that was used to change selection matches the container's next/
  * previous key, we change the selection to the first/last child respectively.
  * Does nothing if container has no selectable descendants.
- * @param {number} keyCode Code of key that triggered selection change.
+ * @param {number} opt_keyCode Code of key that triggered selection change.
  * @return {boolean} Whether selectable descendant has been found.
  * @protected
  */
-tv.ui.Container.prototype.adjustSelectionFromKey = function(keyCode) {
+tv.ui.Container.prototype.adjustSelectionFromKey = function(opt_keyCode) {
   if (!this.isSelectable()) {
     return false;
   }
   var indexBegin, indexEnd;
-  if (keyCode === this.getNextKey_()) {
+  if (opt_keyCode === this.getNextKey_()) {
     // We entered the container by pressing 'right' or 'down'.
     indexBegin = 0;
     indexEnd = this.children_.length;
-  } else if (keyCode === this.getPreviousKey_()) {
+  } else if (opt_keyCode === this.getPreviousKey_()) {
     // We entered the container by pressing 'left' or 'up'.
     indexBegin = this.children_.length - 1;
     indexEnd = -1;
@@ -604,14 +605,14 @@ tv.ui.Container.prototype.adjustSelectionFromKey = function(keyCode) {
     // Don't change selection in this container.
     return this.selectedChild_ &&
            (this.selectedChild_.adjustSelectionFromKey &&
-            this.selectedChild_.adjustSelectionFromKey(keyCode) ||
+            this.selectedChild_.adjustSelectionFromKey(opt_keyCode) ||
             this.selectedChild_.isSelectable());
   }
   var delta = indexBegin < indexEnd ? 1 : -1;
   for (var i = indexBegin; i != indexEnd; i += delta) {
     var child = this.children_[i];
     if (child.adjustSelectionFromKey &&
-        child.adjustSelectionFromKey(keyCode) ||
+        child.adjustSelectionFromKey(opt_keyCode) ||
         child.isSelectable()) {
       this.setSelectedChild(child);
       return true;
@@ -749,6 +750,7 @@ tv.ui.Container.prototype.scroll_ = function() {
     return;
   }
 
+  // TODO(maksym): Minimum coordinate can contradict scrolling policy.
   this.minScrollElementCoordinate_ = Math.min(0,
       this.getOffsetSize_(this.element_) -
       this.getScrollSize_(this.mockScrollElement_ || this.scrollElement_));
@@ -871,13 +873,18 @@ tv.ui.Container.prototype.getChildElement_ = function(childIndex) {
 /**
  * Sets position of real and mock scroll elements.
  * @param {number} scrollElementCoordinate Position to set.
+ * @param {boolean=} opt_touchConstraints Whether to constrain scrolling as
+ *     expected during touch interaction.
  * @private
  */
-tv.ui.Container.prototype.scrollTo_ = function(scrollElementCoordinate) {
+tv.ui.Container.prototype.scrollTo_ = function(
+    scrollElementCoordinate, opt_touchConstraints) {
   // TODO(maksym): Implement bouncing in touch mode instead.
-  this.scrollElementCoordinate_ = Math.max(
-      Math.min(0, scrollElementCoordinate),
-      this.minScrollElementCoordinate_ || -Number.MAX_VALUE);
+  this.scrollElementCoordinate_ = opt_touchConstraints ?
+      Math.max(
+          Math.min(0, scrollElementCoordinate),
+          this.minScrollElementCoordinate_) :
+      scrollElementCoordinate;
 
   var scrollElementPosition =
       this.createCoordinate_(this.scrollElementCoordinate_);
@@ -1094,7 +1101,8 @@ tv.ui.Container.prototype.onTouchMove = function(event) {
   this.scrollTo_(
       this.scrollElementCoordinate_ +
       this.getPageCoordinate_(touch) -
-      this.getLastTouchMove_().coordinate);
+      this.getLastTouchMove_().coordinate,
+      true);
   this.addTouchMove_(touch);
 
   // TODO(maksym): It would be nice to stop propagation here but it's hard
@@ -1149,9 +1157,10 @@ tv.ui.Container.prototype.onTouchEnd = function(event) {
  * @private
  */
 tv.ui.Container.prototype.getTouch_ = function(event) {
-  return goog.array.find(event.getBrowserEvent().touches, function(touch) {
-    return touch.identifier == this.touchIdentifier_;
-  }, this);
+  return /** @type {Touch} */ (goog.array.find(event.getBrowserEvent().touches,
+      function(touch) {
+        return touch.identifier == this.touchIdentifier_;
+      }, this));
 };
 
 /**

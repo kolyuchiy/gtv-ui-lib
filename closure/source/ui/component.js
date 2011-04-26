@@ -278,7 +278,9 @@ tv.ui.Component.prototype.onBlur = function(event) {
  */
 tv.ui.Component.prototype.dispatchKey_ = function(event) {
   event.type = tv.ui.Component.EventType.KEY;
-  event.target = this;
+  // TODO(maksym): Remove this cast magic.
+  var thisAsObject = (/** @type {Object} */ this);
+  event.target = (/** @type {Node} */ thisAsObject);
   this.dispatchEvent(event);
 };
 
@@ -364,6 +366,9 @@ tv.ui.Component.prototype.isVisible = function() {
  * @param {boolean} visible Sets whether component is visible.
  */
 tv.ui.Component.prototype.setVisible = function(visible) {
+  if (visible == this.isVisible()) {
+    return;
+  }
   goog.dom.classes.enable(
       this.element_, tv.ui.Component.Class.HIDDEN, !visible);
 

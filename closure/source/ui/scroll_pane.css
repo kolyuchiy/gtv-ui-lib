@@ -1,0 +1,11 @@
+/* Required styles for tv.ui.ScrollPane in order to work correctly. */
+
+.tv-scroll-pane-viewport,
+.tv-scroll-pane-scrollbar {
+  position: relative;
+}
+
+.tv-scroll-pane-content,
+.tv-scroll-pane-scrollbar-thumb {
+  position: absolute;
+}

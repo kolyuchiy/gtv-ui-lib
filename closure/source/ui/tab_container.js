@@ -93,7 +93,7 @@ tv.ui.TabContainer.prototype.getContentContainer = function() {
  * @return {boolean} Whether tab content container is focus attractor.
  */
 tv.ui.TabContainer.prototype.hasFocusAttractor = function() {
-  return this.contentContainer_ && goog.dom.classes.has(
+  return !!this.contentContainer_ && goog.dom.classes.has(
       this.contentContainer_.getElement(),
       tv.ui.TabContainer.Class.FOCUS_ATTRACTOR);
 };
