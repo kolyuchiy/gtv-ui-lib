@@ -896,7 +896,7 @@ tv.ui.Container.prototype.scrollTo_ = function(
 };
 
 /**
- * Moves element to given position.
+ * Moves element to given position using webkit transforms.
  * @param {Element} element Element to move.
  * @param {goog.math.Coordinate} position Position to set.
  */
@@ -907,7 +907,11 @@ tv.ui.Container.setElementPosition_ =
           element.style.webkitTransform =
               'translate3d(' + position.x + 'px, ' +  position.y + 'px, 0)';
         } :
-        goog.style.setPosition;
+        function(element, position) {
+          // Use webkit transform for better performance
+          element.style.webkitTransform =
+              'translate(' + position.x + 'px, ' + position.y + 'px)';
+        };
 
 /**
  * Moves highlight element at position of selected child.
