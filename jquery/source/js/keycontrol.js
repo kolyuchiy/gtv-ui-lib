@@ -761,7 +761,7 @@ gtv.jq.KeyController.prototype.attachZone_ = function(zone) {
                if (!keyController.moving_) {
                  for (var layer = 0; layer < zone.layers.length; layer++) {
                    if (zone.layers[layer] == keyController.activeLayer_) {
-                     keyController.moveSelected_(null, $(this));
+                     keyController.moveSelected_(null, $(this), undefined, true);
                      break;
                    }
                  }
@@ -1511,11 +1511,14 @@ gtv.jq.KeyController.prototype.calcElementDistance_ = function(fromItem,
  * @param {SynchronizedCallback.acquireCallback} animFinishedCallback Reference
  *     counting callback function used to track when all scrollIntoView
  *     animations are completed.
+ * @param {boolean?} isOnMouseEnter is true when selection was triggered by
+ *     mouseenter event.
  * @private
  */
 gtv.jq.KeyController.prototype.moveSelected_ = function(newZone,
                                                         newSelected,
-                                                        animFinishedAction) {
+                                                        animFinishedAction,
+                                                        isOnMouseEnter) {
   var keyController = this;
   var zoneLayer = keyController.zoneLayers_[keyController.activeLayer_];
 
@@ -1606,7 +1609,8 @@ gtv.jq.KeyController.prototype.moveSelected_ = function(newZone,
 
     keyController.scrollIntoView_(newZone,
                                   newSelected,
-                                  syncCallback);
+                                  syncCallback,
+                                  isOnMouseEnter);
 
     if (newZone.params.navigableData &&
         newZone.params.selectionClasses.hasData &&
@@ -1652,11 +1656,13 @@ gtv.jq.KeyController.prototype.moveSelected_ = function(newZone,
  * @param {jQuery.Element} item Item the action should make sure is visible.
  * @param {SynchronizedCallback} syncCallback The synchronized callback object
  *     that will wait for the scroll animations to complete.
+ * @param {boolean?} isOnMouseEnter
  * @private
  */
 gtv.jq.KeyController.prototype.scrollIntoView_ = function(zone,
                                                          item,
-                                                         syncCallback) {
+                                                         syncCallback,
+                                                         isOnMouseEnter) {
   var keyController = this;
 
   var container = $(item).parents(zone.params.navSelectors.itemParent);
@@ -1664,7 +1670,8 @@ gtv.jq.KeyController.prototype.scrollIntoView_ = function(zone,
   if (zone.params.actions.scrollIntoView) {
     zone.params.actions.scrollIntoView(keyController.selectedItem_,
                                        item,
-                                       syncCallback.getCallback());
+                                       syncCallback.getCallback(),
+                                       isOnMouseEnter);
   }
 };
 
