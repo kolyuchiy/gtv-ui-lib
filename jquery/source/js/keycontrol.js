@@ -1263,7 +1263,7 @@ gtv.jq.KeyController.prototype.shiftZone_ = function(newZone, newSelected) {
     newSelected = newZone.params.actions.enterZone();
   } else if (newZone.lastSelected &&
              jQuery.contains($(newZone.params.containerSelector).get(0),
-                             newZone.lastSelected.get(0))) {
+                             newZone.lastSelected.get(0)) && newZone.lastSelected.is(':visible')) {
     // If the new zone has lastSelected set and the lastSelected item is
     // still in that zone's container, set it as selected.
     newSelected = newZone.lastSelected;
@@ -1274,7 +1274,7 @@ gtv.jq.KeyController.prototype.shiftZone_ = function(newZone, newSelected) {
   if (!newSelected || newSelected.length == 0) {
     newSelected =
         $(newZone.params.containerSelector + ' ' +
-          newZone.params.navSelectors.item).first();
+          newZone.params.navSelectors.item).filter(':visible').first();
   }
 
   return newSelected;
