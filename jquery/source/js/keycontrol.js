@@ -1261,7 +1261,12 @@ gtv.jq.KeyController.prototype.shiftZone_ = function(newZone, newSelected) {
   if (newZone.params.actions.enterZone) {
     // If the new zone has an enterZoneAction, call it to enter the zone
     newSelected = newZone.params.actions.enterZone();
-  } else if (newZone.lastSelected &&
+  } 
+
+  // enterZone может ничего не вернуть, тогда выбираем элемент, который мог бы
+  // быть выбран, если бы у зоны не было колбека enterZone
+
+  if (!newSelected && newZone.lastSelected &&
              jQuery.contains($(newZone.params.containerSelector).get(0),
                              newZone.lastSelected.get(0)) && newZone.lastSelected.is(':visible')) {
     // If the new zone has lastSelected set and the lastSelected item is
